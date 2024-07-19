@@ -14,6 +14,8 @@ public class TestAPIController {
     @Autowired
     private TestService testService;
 
+
+    // RestController에서는 그냥 반환하면 json 자동 변환으로 응답됨.
     @GetMapping("test-json")
     public TestVO getTestJSON(int no){
         return testService.getTestJSON(no);
