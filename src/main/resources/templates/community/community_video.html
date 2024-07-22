@@ -1,78 +1,27 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="UTF-8" />
+<head>
+    <meta charset="UTF-8"/>
     <meta
-      name="viewport"
-      content="width=device-width,initial-scale=1.0, minimum-scale=1.0,maximum-scale=1.0"
+            name="viewport"
+            content="width=device-width,initial-scale=1.0, minimum-scale=1.0,maximum-scale=1.0"
     />
     <title>Document</title>
-    <link rel="stylesheet" href="resources/css/community_video.css" />
-    <link rel="stylesheet" href="resources/css/index.css" />
-  </head>
-  <body>
-
-      <div class="community-all-wrapper">
-        <div class="community-search-wrapper">
-          <div>
-            <select>
-              <option>검색 선택</option>
-              <option>암장</option>
-              <option>닉네임</option>
-            </select>
-          </div>
-          <div><input type="text" /></div>
+    <link rel="stylesheet" href="/resources/css/community_video.css"/>
+</head>
+<body>
+<div class="community-contents-wrapper">
+    <div class="community-content" th:each="show : ${showoffLists}">
+        <div class="community-video" th:text="${show.b_video}"></div>
+        <div class="community-likecomments-wrapper">
+            <div class="community-like">♥</div>
+            <div class="community-like-count">74</div>
+            <div class="community-comments">댓글</div>
+            <div class="community-comments-count">12</div>
         </div>
-        <div class="community-category-wrapper">
-          <div>자랑</div>
-          <div>모집</div>
-        </div>
-        <div class="community-contents-wrapper">
-          <div class="community-content">
-            <div class="community-video">동영상</div>
-            <div class="community-likecomments-wrapper">
-              <div class="community-like">♥</div>
-              <div class="community-like-count">74</div>
-              <div class="community-comments">댓글</div>
-              <div class="community-comments-count">12</div>
-            </div>
-            <div class="community-climbing-name">#암장이름열글자테스...</div>
-            <div class="community-nickname">닉네임</div>
-          </div>
-          <div class="community-content">
-            <div class="community-video">동영상</div>
-            <div class="community-likecomments-wrapper">
-              <div class="community-like">♥</div>
-              <div class="community-like-count">74</div>
-              <div class="community-comments">댓글</div>
-              <div class="community-comments-count">12</div>
-            </div>
-            <div class="community-climbing-name">#암장이름열글자테스트</div>
-            <div class="community-nickname">닉네임</div>
-          </div>
-          <div class="community-content">
-            <div class="community-video">동영상</div>
-            <div class="community-likecomments-wrapper">
-              <div class="community-like">♥</div>
-              <div class="community-like-count">74</div>
-              <div class="community-comments">댓글</div>
-              <div class="community-comments-count">12</div>
-            </div>
-            <div class="community-climbing-name">#암장이름열글자테스트</div>
-            <div class="community-nickname">닉네임</div>
-          </div>
-          <div class="community-content">
-            <div class="community-video">동영상</div>
-            <div class="community-likecomments-wrapper">
-              <div class="community-like">♥</div>
-              <div class="community-like-count">74</div>
-              <div class="community-comments">댓글</div>
-              <div class="community-comments-count">12</div>
-            </div>
-            <div class="community-climbing-name">#암장이름열글자테스트</div>
-            <div class="community-nickname">닉네임</div>
-          </div>
-        </div>
-      </div>
-  </body>
+        <div class="community-climbing-name" th:text="${show.b_title}"></div>
+        <div class="community-nickname" th:text="${show.u_nickname}"></div>
+    </div>
+</div>
+</body>
 </html>

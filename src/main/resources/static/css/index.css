@@ -2,6 +2,11 @@
     cursor: url("../icon/brush.png"), auto;
 }
 
+body {
+    margin: 0;
+    padding: 0;
+}
+
 .menu {
     position: relative;
     display: flex;
