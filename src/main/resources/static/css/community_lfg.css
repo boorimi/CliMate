@@ -1,0 +1,34 @@
+.community-lfg-wrapper {
+  margin: 2vw;
+  padding: 2vw;
+  border-bottom: 0.2vw solid black;
+  border-top: 0.2vw solid black;
+  font-size: 3vw;
+}
+
+.community-lfg-above {
+  display: flex;
+  justify-content: space-between;
+}
+
+.community-lfg-category {
+  margin-right: 2vw;
+  padding: 1vw;
+  border: 0.2vw solid black;
+  border-radius: 4vw;
+}
+
+.community-lfg-nickname-wrapper {
+  flex: 1;
+  display: flex;
+  padding: 1vw;
+}
+
+.community-lfg-grade {
+  margin-left: 1vw;
+}
+
+.community-lfg-below {
+  font-size: 4.5vw;
+  padding: 2vw 0vw;
+}

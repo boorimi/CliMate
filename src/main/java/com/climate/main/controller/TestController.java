@@ -16,7 +16,7 @@ public class TestController {
     @GetMapping("/tests")
     public String tests(Model model) {
         model.addAttribute("tests", testService.getTests());
-        return "tests";
+        return "testing";
     }
 
 }
