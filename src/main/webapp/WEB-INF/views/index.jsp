@@ -41,6 +41,8 @@
         <img src="resources/icon/login.png" />
     </div>
 </div>
-<%--<jsp:include page="${content}"></jsp:include>--%>
+<div class="content">
+<%--<jsp:include page="${content }"></jsp:include>--%>
+</div>
 </body>
 </html>

@@ -13,6 +13,7 @@ public class HC {
 
     @GetMapping("/simulator")
     public  String simulator(){
+
         return "index";
     }
 
