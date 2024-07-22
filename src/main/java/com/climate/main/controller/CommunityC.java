@@ -15,14 +15,15 @@ public class CommunityC {
     @GetMapping("/community/video")
     public  String communityShowoff(Model model){
         model.addAttribute("showoffLists", communityDAO.selectCommunityShowoff());
-        model.addAttribute("content","/community/community_video");
-        return "/community/community_menu";
+        model.addAttribute("content","/community/community_menu");
+        model.addAttribute("community_content","/community/community_video");
+        return "index";
     }
 
     @GetMapping("/community/lfg")
     public  String communityLfg(Model model){
 
-        model.addAttribute("content","/community/community_lfg");
+        model.addAttribute("community_content","/community/community_lfg");
         return "/community/community_menu";
     }
 
