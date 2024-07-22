@@ -24,8 +24,8 @@
 </head>
 <body>
 <div class="menu-container">
-    <div class="menu-logo" onclick="location.href='HC'"><img src=""><p>CliMate</p></div>
-    <div class="menu-map" onclick="location.href=''">
+    <div class="menu-logo" onclick="location.href='/'"><img src=""><p>CliMate</p></div>
+    <div class="menu-map" onclick="location.href='map'">
         <div class="menu-map-img"><img src="resources/icon/search.png" /></div>
         <div>地図</div>
     </div>
@@ -33,11 +33,11 @@
         <div class="menu-simulator-img"><img src="resources/icon/hold.png" /></div>
         <div>シミュレーター</div>
     </div>
-    <div class="menu-community" onclick="location.href=''">
+    <div class="menu-community" onclick="location.href='community'">
         <div class="menu-community-img"><img src="resources/icon/community.png" /></div>
         <div>コミュニティ</div>
     </div>
-    <div class="menu-login" onclick="location.href=''">
+    <div class="menu-login" onclick="location.href='login'">
         <img src="resources/icon/login.png" />
     </div>
 </div>

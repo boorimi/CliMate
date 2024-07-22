@@ -42,7 +42,7 @@
             <div><img src="" /></div>
             <div>クライメイト</div>
         </div>
-        <div class="main-map" onclick="location.href=''">
+        <div class="main-map" onclick="location.href='map'">
             <div class="main-map-img"><img src="resources/icon/search.png" /></div>
             <div>地図</div>
         </div>
@@ -50,11 +50,11 @@
             <div class="main-simulator-img"><img src="resources/icon/hold.png" /></div>
             <div>シミュレーター</div>
         </div>
-        <div class="main-community" onclick="location.href=''">
+        <div class="main-community" onclick="location.href='community'">
             <div class="main-community-img"><img src="resources/icon/community.png" /></div>
             <div>コミュニティ</div>
         </div>
-        <div class="main-login" onclick="location.href=''">
+        <div class="main-login" onclick="location.href='login'">
             <img src="resources/icon/login.png" />
         </div>
     </div>
