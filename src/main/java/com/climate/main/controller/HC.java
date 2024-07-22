@@ -19,12 +19,6 @@ public class HC {
         return "index";
     }
 
-    @GetMapping("/community/video")
-    public  String community(Model model){
-        model.addAttribute("content","/community/community_video");
-        return "/community/community_menu";
-    }
-
     @GetMapping("/map")
     public  String map(){
         return "index";
