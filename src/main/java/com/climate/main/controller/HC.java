@@ -11,6 +11,7 @@ public class HC {
         return "main";
     }
 
+
     @GetMapping("/simulator")
     public  String simulator(){
 
@@ -30,6 +31,7 @@ public class HC {
     @GetMapping("/login")
     public  String login(){
         return "index";
+
     }
 
 

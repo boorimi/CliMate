@@ -1,0 +1,61 @@
+.community-all-wrapper {
+  background-color: rgb(253, 246, 237);
+  width: 100vw;
+  height: auto;
+}
+
+.community-search-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.community-category-wrapper {
+  display: flex;
+  justify-content: space-around;
+}
+
+.community-contents-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.community-content {
+  display: flex;
+  flex-direction: column;
+  margin: 3vw 5vw;
+  padding: 2vw;
+  width: 35vw;
+  aspect-ratio: 1 / 1.5;
+  border: 0.2vw solid black;
+  border-radius: 3vw;
+}
+
+.community-video {
+  flex: 1;
+  background-color: rgb(206, 206, 206);
+  text-align: center;
+}
+
+.community-likecomments-wrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+.community-like-count,
+.community-comments-count {
+  display: flex;
+  align-items: center;
+  font-size: 3vw;
+}
+
+.community-comments {
+  margin-left: 1vw;
+}
+
+.community-climbing-name {
+  font-size: 3.3vw;
+}
+
+.community-nickname {
+  font-size: 3.3vw;
+}
