@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class HC {
 
     @GetMapping("/")
-    public String home(){
+    public String home() {
         return "index";
     }
 
