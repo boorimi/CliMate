@@ -11,6 +11,11 @@ public class HC {
         return "main";
     }
 
+    @GetMapping("/community")
+    public String community(){
+        return "/community/community_video";
+    }
+
 
 
 }

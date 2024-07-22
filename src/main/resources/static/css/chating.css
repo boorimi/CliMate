@@ -1,0 +1,49 @@
+.chating-all-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 95vh;
+}
+.chating-match-wrapper {
+  display: flex;
+  justify-content: center;
+}
+.chating-match-grade {
+  margin-right: 2vw;
+}
+
+.chating-text-wrapper {
+  flex: 1;
+}
+.speech-bubble {
+  position: relative;
+  background: #f0e80a;
+  border-radius: 10em;
+}
+
+.speech-bubble:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 0;
+  height: 0;
+  border: 1.438em solid transparent;
+  border-right-color: #f0e80a;
+  border-left: 0;
+  border-top: 0;
+  margin-top: -0.719em;
+  margin-left: -1.437em;
+}
+
+.chating-input-wrapper {
+  background-color: aliceblue;
+  display: flex;
+  padding: 1vh 2vw;
+}
+.chating-input {
+  flex: 1;
+  display: flex;
+}
+.chating-input input {
+  width: 90%; /* 입력 요소가 부모의 너비를 모두 차지하도록 설정 */
+}
