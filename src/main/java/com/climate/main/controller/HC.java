@@ -1,6 +1,7 @@
 package com.climate.main.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
@@ -18,9 +19,10 @@ public class HC {
         return "index";
     }
 
-    @GetMapping("/community")
-    public  String community(){
-        return "index";
+    @GetMapping("/community/video")
+    public  String community(Model model){
+        model.addAttribute("content","/community/community_video");
+        return "/community/community_menu";
     }
 
     @GetMapping("/map")

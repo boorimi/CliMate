@@ -1,0 +1,24 @@
+.community-all-wrapper {
+  background-color: rgb(253, 246, 237);
+  width: 100vw;
+  height: auto;
+}
+
+.community-search-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.community-category-wrapper {
+  margin-top: 1.5vh;
+  display: flex;
+  justify-content: space-around;
+}
+
+.community-category-wrapper > div {
+  padding: 0.5vh 18vw;
+  border: 0.2vw solid black;
+  border-radius: 10vw;
+
+}
+
