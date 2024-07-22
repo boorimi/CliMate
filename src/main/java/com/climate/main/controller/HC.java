@@ -8,7 +8,7 @@ public class HC {
 
     @GetMapping("/")
     public String home(){
-        return "index";
+        return "main";
     }
 
 
