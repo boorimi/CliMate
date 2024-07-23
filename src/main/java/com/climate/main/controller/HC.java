@@ -12,13 +12,6 @@ public class HC {
         return "main";
     }
 
-
-    @GetMapping("/simulator")
-    public  String simulator(){
-
-        return "index";
-    }
-
     @GetMapping("/map")
     public  String map(){
         return "index";

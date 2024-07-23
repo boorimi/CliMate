@@ -1,6 +1,6 @@
 .community-all-wrapper {
   background-color: rgb(253, 246, 237);
-  width: 100vw;
+  width: 100%; /*bm*/
   height: auto;
 }
 
