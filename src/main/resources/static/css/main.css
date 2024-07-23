@@ -60,6 +60,49 @@ body {
         color: #302e23;
     }
 
+    .main-title {
+        width: 60%;
+        height: 15vh;
+        background-color: #b0b69a;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 0.65em;
+        font-size: 3em;
+    }
+
+    .main-map,
+    .main-simulator,
+    .main-community,
+    .main-login {
+        width: 50%;
+        height: 12vh;
+        background-color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 0.8em;
+        font-size: 2em;
+    }
+
+    .main-login {
+        width: 30%;
+        height: 10vh;
+        font-size: 1.5em;
+        border-radius: 1em;
+
+        .main-login-img{
+            width: 13%;
+        }
+    }
+
+    .main-map:hover,
+    .main-simulator:hover,
+    .main-community:hover,
+    .main-login:hover {
+        transform: scale(1.05);
+    }
+
     .main-map-img,
     .main-simulator-img,
     .main-community-img,
@@ -73,56 +116,12 @@ body {
             height: auto;
         }
     }
+
 }
 
-.main-title {
-    width: 60%;
-    height: 15vh;
-    background-color: #b0b69a;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 2em;
-    div {
-        font-family: "Rampart One", sans-serif;
-        font-weight: 400;
-        font-style: normal;
-        font-size: 2.5rem;
-        color: #302e23;
-    }
-}
 
-.main-map,
-.main-simulator,
-.main-community,
-.main-login {
-    width: 50%;
-    height: 12vh;
-    background-color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 0.8em;
-    font-size: 2em;
-}
 
-.main-map:hover,
-.main-simulator:hover,
-.main-community:hover,
-.main-login:hover {
-    transform: scale(1.05);
-}
 
-.main-login {
-    width: 30%;
-    height: 10vh;
-    font-size: 1.5em;
-    border-radius: 1em;
-    img {
-        width: 100%;
-        height: auto;
-    }
-}
 
 @media (max-width: 768px) {
     .main-title {
