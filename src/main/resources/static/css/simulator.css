@@ -10,7 +10,7 @@ body {
 }
 .webgl-content {
     width: 90%;
-    height: 100%;
+    height: 60vh;
     border: 1px solid red;
     display: flex;
     align-items: center;
