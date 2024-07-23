@@ -50,7 +50,8 @@ body {
     .main-title,
     .main-map,
     .main-simulator,
-    .main-community {
+    .main-community,
+    .main-login {
         margin-bottom: 3%;
         box-shadow: 1px 3px 8px rgba(0, 0, 0, 0.645);
         font-family: "Mochiy Pop P One", sans-serif;
@@ -61,12 +62,12 @@ body {
 
     .main-map-img,
     .main-simulator-img,
-    .main-community-img {
+    .main-community-img,
+    .main-login-img {
         width: 10%;
         height: auto;
         margin-right: 2vw;
         display: flex;
-
         img {
             width: 100%;
             height: auto;
@@ -81,7 +82,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 30px;
+    border-radius: 2em;
     div {
         font-family: "Rampart One", sans-serif;
         font-weight: 400;
@@ -93,14 +94,15 @@ body {
 
 .main-map,
 .main-simulator,
-.main-community {
+.main-community,
+.main-login {
     width: 50%;
     height: 12vh;
     background-color: white;
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 30px;
+    border-radius: 0.8em;
     font-size: 2em;
 }
 
@@ -112,9 +114,10 @@ body {
 }
 
 .main-login {
-    width: 15%;
-    height: auto;
-
+    width: 30%;
+    height: 10vh;
+    font-size: 1.5em;
+    border-radius: 1em;
     img {
         width: 100%;
         height: auto;

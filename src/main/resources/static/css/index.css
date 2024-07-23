@@ -76,6 +76,9 @@ body {
 
     li:last-child {
         border-bottom: none;
+        img{
+            width: 3.5vw;
+        }
     }
 }
 
@@ -100,6 +103,11 @@ body {
                 width: 7vw;
                 height: auto;
                 padding: 1em;
+            }
+        }
+        li:last-child {
+            img{
+                width: 6vw;
             }
         }
     }

@@ -156,7 +156,7 @@ class App {
     _setupModel() {
         rgbColor = rgbToHex(240, 240, 240);
         texture = textureLoader.load(
-            "img/texture01.png"
+            "../img/texture01.png"
         );
         // 첫 번째 큐브
         // 가로, 높이, 세로
