@@ -57,7 +57,7 @@ body {
         font-family: "Mochiy Pop P One", sans-serif;
         font-weight: 400;
         font-style: normal;
-        color: #302e23;
+        color: #23261c;
     }
 
     .main-title {
@@ -77,7 +77,7 @@ body {
     .main-login {
         width: 50%;
         height: 12vh;
-        background-color: white;
+        background-color: rgba(255, 255, 255, 0.6);
         display: flex;
         justify-content: center;
         align-items: center;
@@ -120,35 +120,44 @@ body {
 }
 
 @media (max-width: 768px) {
-    .main-title {
-        width: 80%;
-        height: 13vh;
-        div {
-            font-size: 2.5em;
+    .main-menu-container {
+        .main-title {
+            width: 80%;
+            height: 13vh;
+
+            div {
+                font-size: 10vw;
+            }
+        }
+
+        .main-map,
+        .main-simulator,
+        .main-community,
+        .main-login {
+            width: 70%;
+            height: 9vh;
+            .main-map-img,
+            .main-simulator-img,
+            .main-community-img,
+            .main-login-img{
+                width: 20%;
+            }
+
+            div {
+                font-size: 7vw;
+            }
+        }
+
+        .main-login {
+            width: 40%;
+            height: 8vh;
+           .main-login-img {
+                width: 25%;
+            }
+            div{
+                font-size: 5.5vw;
+            }
         }
     }
-
-    .main-map,
-    .main-simulator,
-    .main-community {
-        width: 70%;
-        height: 10vh;
-        .main-map-img,
-        .main-simulator-img,
-        .main-community-img {
-            width: 20%;
-        }
-        div {
-            font-size: 0.8em;
-        }
-    }
-
-    .main-login {
-        width: 30%;
-        img {
-            width: 100%;
-        }
-    }
-
 
 }
