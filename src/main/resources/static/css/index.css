@@ -12,6 +12,7 @@ body {
     justify-content: flex-end;
     align-items: center;
     padding: 1rem;
+    margin-bottom: 0.5rem;
     height: 5vh;
     background-color: whitesmoke;
     font-family: "Mochiy Pop P One", sans-serif;

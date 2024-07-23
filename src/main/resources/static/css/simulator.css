@@ -7,7 +7,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 0.6rem;
+/*    margin-top: 0.6rem;*/
 }
 .webgl-content {
     width: 100%;
