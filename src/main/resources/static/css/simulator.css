@@ -7,14 +7,17 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 0.6rem;
 }
 .webgl-content {
-    width: 90%;
-    height: 60vh;
-    border: 1px solid red;
+    width: 100%;
+    height: 80vh;
+    border: 0.1em solid lightgray;
+    border-radius: 1em;
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
 }
 
 #webgl-container {
@@ -23,4 +26,11 @@ body {
     left: 0; */
     width: 100%;
     height: 100%;
+}
+
+@media (max-width: 768px) {
+    .webgl-content {
+        width: 100%;
+        height: 60vh;
+    }
 }

@@ -155,9 +155,7 @@ class App {
 
     _setupModel() {
         rgbColor = rgbToHex(240, 240, 240);
-        texture = textureLoader.load(
-            "../img/texture01.png"
-        );
+        texture = textureLoader.load('/resources/img/texture01.png');
         // 첫 번째 큐브
         // 가로, 높이, 세로
         const geometry = new THREE.BoxGeometry(4, 3.3, 0.1);
