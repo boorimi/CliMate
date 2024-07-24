@@ -43,3 +43,15 @@
 .community-nickname {
   font-size: 3.3vw;
 }
+
+.community-video-insert{
+  display: flex;
+  position: fixed;
+  right: 7vw;
+  bottom: 7vw;
+  background-color: black;
+  color: white;
+  width: 15vw;
+  height: 15vw;
+  border-radius: 15vw;
+}

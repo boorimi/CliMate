@@ -5,8 +5,13 @@
 }
 
 .community-search-wrapper {
+  margin-top: 1.5vh;
   display: flex;
   justify-content: center;
+}
+
+.community-search-wrapper > div{
+  margin: 0vh 0.5vw;
 }
 
 .community-category-wrapper {
