@@ -1,16 +1,6 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 
-// OrbitControls이 필요로 하는 three.js 라이브러리의 참조 방식이 변경되어 코드를 다음처럼 수정해야 합니다.
-// 먼저 html 파일에 다음 코드를 <link> 태그 바로 밑에 추가 합니다.
-//     <script type="importmap">
-//         {
-//             "imports": {
-//                 "three": "../build/three.module.js"
-//             }
-//         }
-//     </script>
-
 // Renderer : 출력장치에 출력할 수 있는 장치
 // Camera : 시점 정의
 // Scene : Light와 3차원 모델인 Mexh로 구성됨
@@ -21,6 +11,56 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 // three js 예제에서 사용하던 0xff0000 형식은 16진수 형식의 색상코드.
 // rgb 컬러 세팅을 위한 function
 // 예제: RGB(0, 255, 0)을 16진수로 변환하여 색상 설정
+
+$(document).ready(function (){
+    const holdBtn = $('.hold-list-open-btn');
+    const webglContainer = $('#webgl-container');
+    let holdListMenuPC = $('#hold-list-container-pc');
+    let holdListMenuMobile = $('#hold-list-container-mobile');
+
+    function checkWidth() {
+        // 모바일
+        if ($(window).width() <= 768) {
+            holdBtn.click(function (){
+                if (holdListMenuMobile.hasClass('list-hidden-mobile')) {
+                    holdListMenuMobile.removeClass('list-hidden-mobile').addClass('list-visible-mobile').animate({ bottom: '0' }, 500);
+                    webglContainer.animate({height: '65%'}, 500);
+                } else {
+                    holdListMenuMobile.animate({ bottom: '-100%' }, 500, function() {
+                        holdListMenuMobile.removeClass('list-visible-mobile').addClass('list-hidden-mobile');
+                        webglContainer.animate({height: '100%'}, 500);
+                    });
+                }
+            });
+        }
+        // PC
+        else {
+            holdBtn.click(function (){
+                if (holdListMenuPC.hasClass('list-hidden-pc')) {
+                    holdListMenuPC.removeClass('list-hidden-pc').addClass('list-visible-pc').animate({ left: '0' }, 500);
+                    webglContainer.animate({width: '75%'}, 500);
+                } else {
+                    holdListMenuPC.animate({ left: '-100%' }, 500, function() {
+                        holdListMenuPC.removeClass('list-visible-pc').addClass('list-hidden-pc');
+                        webglContainer.animate({width: '100%'}, 500);
+                    });
+                }
+            });
+        }
+    }
+
+    // 페이지 로드 시 처음 확인
+    checkWidth();
+
+    // 창 크기 변경 시마다 확인
+    $(window).resize(checkWidth);
+
+
+
+
+
+})
+
 function rgbToHex(r, g, b) {
     return (r << 16) | (g << 8) | b;
 }
@@ -124,7 +164,7 @@ class App {
         const camera = new THREE.PerspectiveCamera(65, width / height, 0.1, 1000);
         // 카메라 거리
         // 디바이스 width 1000보다 작으면 10으로, 크면 7로
-        camera.position.z = width < 1000 ? 10 : 7;
+        camera.position.z = 7;
         this._camera = camera;
     }
 
@@ -221,7 +261,7 @@ class App {
 
         this._renderer.setSize(width, height);
 
-        this._camera.position.z = width < 1000 ? 10 : 7;
+        this._camera.position.z = 7;
     }
 
     // time : 렌더링이 처음 시작된 이후 경과된 시간값으로, 단위는 milli-second
