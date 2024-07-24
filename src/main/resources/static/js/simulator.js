@@ -15,19 +15,49 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 $(document).ready(function (){
     const holdBtn = $('.hold-list-open-btn');
     const webglContainer = $('#webgl-container');
-    let holdListMenu = $('#hold-list-container');
+    let holdListMenuPC = $('#hold-list-container-pc');
+    let holdListMenuMobile = $('#hold-list-container-mobile');
 
-    holdBtn.click(function (){
-        if (holdListMenu.hasClass('list-hidden')) {
-            holdListMenu.removeClass('list-hidden').addClass('list-visible').animate({ left: '0' }, 500);
-            webglContainer.animate({width: '75%'}, 500);
-        } else {
-            holdListMenu.animate({ left: '-100%' }, 500, function() {
-                holdListMenu.removeClass('list-visible').addClass('list-hidden');
-                webglContainer.animate({width: '100%'}, 500);
+    function checkWidth() {
+        // 모바일
+        if ($(window).width() <= 768) {
+            holdBtn.click(function (){
+                if (holdListMenuMobile.hasClass('list-hidden-mobile')) {
+                    holdListMenuMobile.removeClass('list-hidden-mobile').addClass('list-visible-mobile').animate({ bottom: '0' }, 500);
+                    webglContainer.animate({height: '65%'}, 500);
+                } else {
+                    holdListMenuMobile.animate({ bottom: '-100%' }, 500, function() {
+                        holdListMenuMobile.removeClass('list-visible-mobile').addClass('list-hidden-mobile');
+                        webglContainer.animate({height: '100%'}, 500);
+                    });
+                }
             });
         }
-    });
+        // PC
+        else {
+            holdBtn.click(function (){
+                if (holdListMenuPC.hasClass('list-hidden-pc')) {
+                    holdListMenuPC.removeClass('list-hidden-pc').addClass('list-visible-pc').animate({ left: '0' }, 500);
+                    webglContainer.animate({width: '75%'}, 500);
+                } else {
+                    holdListMenuPC.animate({ left: '-100%' }, 500, function() {
+                        holdListMenuPC.removeClass('list-visible-pc').addClass('list-hidden-pc');
+                        webglContainer.animate({width: '100%'}, 500);
+                    });
+                }
+            });
+        }
+    }
+
+    // 페이지 로드 시 처음 확인
+    checkWidth();
+
+    // 창 크기 변경 시마다 확인
+    $(window).resize(checkWidth);
+
+
+
+
 
 })
 
