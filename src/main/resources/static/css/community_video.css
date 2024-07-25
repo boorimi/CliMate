@@ -6,7 +6,7 @@
 .community-content {
   display: flex;
   flex-direction: column;
-  margin: 3vw 5vw;
+  margin: 3vw 4.4vw;  /*bm*/
   padding: 2vw;
   width: 35vw;
   aspect-ratio: 1 / 1.5;

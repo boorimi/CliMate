@@ -12,11 +12,15 @@
     />
     <title>Hamburger Title</title>
     <link rel="stylesheet" href="/resources/css/index.css">
-    <script src="/resources/js/index.js"></script>
+    <script>
+        function toggleMenu() {
+            document.querySelector('.hamburger-menu').classList.toggle('active');
+        }
+    </script>
 </head>
 <body>
 <nav class="menu">
-    <div class="logo" onclick="location.href='/'"><img src=""><p>CliMate</p></div>
+    <div class="logo" ><img src=""><a href='/'>CliMate</a></div>
     <div class="hamburger" onclick="toggleMenu()">
         <div class="hamburger-bar"></div>
         <div class="hamburger-bar"></div>
@@ -25,8 +29,8 @@
     <ul class="hamburger-menu">
         <li onclick="location.href='/map'"><img src="/resources/icon/search.png" />地図</li>
         <li onclick="location.href='/simulator'"><img src="/resources/icon/hold.png" />シミュレーター</li>
-        <li onclick="location.href='/community'"><img src="/resources/icon/community.png" />コミュニティ</li>
-        <li onclick="location.href='/login'"><img src="/resources/icon/bag.png" />login</li>
+        <li onclick="location.href='/community/video'"><img src="/resources/icon/community.png" />コミュニティ</li>
+        <li onclick="location.href='/login'"><img src="/resources/icon/google.png" />ログイン</li>
     </ul>
 </nav>
 <div th:include="${content}"></div>
