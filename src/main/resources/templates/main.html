@@ -47,10 +47,10 @@
             <div class="main-community-img"><img src="resources/icon/community.png" /></div>
             <div>コミュニティ</div>
         </div>
-        <div class="main-login" onclick="location.href='login'">
+        <a class="main-login" th:href="'https://accounts.google.com/o/oauth2/v2/auth?client_id=' + ${@environment.getProperty('google.client_id')} + '&redirect_uri=' + ${@environment.getProperty('google.redirect_url')} + '&response_type=code&scope=email profile'">
             <img class="main-login-img" src="resources/icon/google.png" />
             <div>login</div>
-        </div>
+        </a>
     </div>
 </div>
 </body>
