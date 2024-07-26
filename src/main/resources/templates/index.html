@@ -12,11 +12,12 @@
     />
     <title>Hamburger Title</title>
     <link rel="stylesheet" href="/resources/css/index.css">
-    <script>
-        function toggleMenu() {
-            document.querySelector('.hamburger-menu').classList.toggle('active');
-        }
-    </script>
+    <script
+            src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"
+    ></script>
+    <script src="resources/js/index.js" defer></script>
 </head>
 <body>
 <nav class="menu">
@@ -30,7 +31,7 @@
         <li onclick="location.href='/map'"><img src="/resources/icon/search.png" />地図</li>
         <li onclick="location.href='/simulator'"><img src="/resources/icon/hold.png" />シミュレーター</li>
         <li onclick="location.href='/community/video'"><img src="/resources/icon/community.png" />コミュニティ</li>
-        <li onclick="location.href='/login'"><img src="/resources/icon/google.png" />ログイン</li>
+<!--        <li onclick="location.href='/login'"><img src="/resources/icon/google.png" /><p id="menu-login"></p></li>-->
     </ul>
 </nav>
 <!--<div th:include="${content}"></div>-->

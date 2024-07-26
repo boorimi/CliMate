@@ -13,22 +13,27 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.net.http.HttpResponse;
+import java.io.IOException;
 
 @Controller
 public class LoginC {
     @Autowired
     private LoginDAO loginDAO;
 
+    //jwt 클래스
     private JwtUtil jwtUtil;
-
     @Autowired
     public LoginC(JwtUtil jwtUtil) {
         this.jwtUtil = jwtUtil;
     }
+    //구글 로그인 api 비밀값
+    @Value("${google.client_id}")
+    private String googleClientId;
+    @Value("${google.redirect_url}")
+    private String googleRedirectUrl;
 
     @GetMapping("/login/oauth2/code/google")
-    public String Login(@RequestParam String code, Model model, HttpServletResponse response) {
+    public String LoginAuth(@RequestParam("code") String code, Model model, HttpServletResponse response) {
 
         System.out.println("call");
         JsonObject access_token = loginDAO.getAccessToken(code); //구글 액세스 토큰
@@ -48,17 +53,26 @@ public class LoginC {
             if(user != null) {
                 //브라우저 쿠키에 jwt 추가
                 Cookie jwt = new Cookie("jwt", token);
-                jwt.setHttpOnly(true);
+                //jwt.setHttpOnly(true);
                 jwt.setMaxAge(86400);
                 jwt.setPath("/");
                 response.addCookie(jwt);
-
-                return "index";
+                return "main";
             } else {
                 return "sign/signup";
             }
         } else {
             return "main";
+        }
+    }
+
+    @GetMapping("/loginC")
+    public void Login(HttpServletResponse response) {
+        try {
+            String googleOAuthUrl = "https://accounts.google.com/o/oauth2/v2/auth?client_id="+googleClientId+"&redirect_uri="+googleRedirectUrl+"&response_type=code&scope=email profile";
+            response.sendRedirect(googleOAuthUrl);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 }

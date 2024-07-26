@@ -51,7 +51,8 @@ body {
     .main-map,
     .main-simulator,
     .main-community,
-    .main-login {
+    .main-login,
+    .main-logout {
         margin-bottom: 3%;
         box-shadow: 1px 3px 8px rgba(0, 0, 0, 0.645);
         font-family: "Mochiy Pop P One", sans-serif;
@@ -74,7 +75,8 @@ body {
     .main-map,
     .main-simulator,
     .main-community,
-    .main-login {
+    .main-login,
+    .main-logout {
         width: 50%;
         height: 12vh;
         background-color: rgba(255, 255, 255, 0.6);
@@ -85,7 +87,7 @@ body {
         font-size: 2em;
     }
 
-    .main-login {
+    .main-login, .main-logout {
         width: 30%;
         height: 10vh;
         font-size: 1.5em;
