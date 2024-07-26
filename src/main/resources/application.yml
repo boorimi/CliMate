@@ -1,7 +1,0 @@
-google:
-  client_id: 488561375875-5vbpvnis6ohc6bn4jvdd6ab76oe3jgdo.apps.googleusercontent.com
-  redirect_url: http://localhost:80/login/oauth2/code/google
-  client_secret: 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
-
-jwt:
-  secretKey: this_is_a_very_long_secret_key_that_is_256_bits_long_for_security_purposes_1234567890KimKongChoi802!!
