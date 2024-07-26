@@ -18,12 +18,12 @@ $(document).ready(function () {
         $(".main-login").remove();
         $(".main-menu-container").append("<div class=\"main-logout\"\n" +
             ">\n" +
-            "           <img class=\"main-login-img\" src=\"resources/icon/google.png\"/>\n" +
+            "           <img class=\"main-login-img\" src=\"/resources/icon/google.png\"/>\n" +
             "        ログアウト</div>");
     }
     $(".main-logout").click(function() {
         window.open("https://accounts.google.com/logout");
         location.href = '/';
-        document.cookie = "jwt=; expires=Thu, 01 Jan 1999 00:00:10 GMT;";
+        document.cookie = "jwt=; expires=Thu, 01 Jan 1970 00:00:10 UTC; path=/;";
     });
 });

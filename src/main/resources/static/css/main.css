@@ -101,7 +101,8 @@ body {
     .main-map:hover,
     .main-simulator:hover,
     .main-community:hover,
-    .main-login:hover {
+    .main-login:hover,
+    .main-logout:hover{
         transform: scale(1.05);
     }
 
@@ -135,7 +136,8 @@ body {
         .main-map,
         .main-simulator,
         .main-community,
-        .main-login {
+        .main-login,
+        .main-logout{
             width: 70%;
             height: 9vh;
             .main-map-img,
@@ -150,7 +152,8 @@ body {
             }
         }
 
-        .main-login {
+        .main-login,
+        .menu-logout{
             width: 40%;
             height: 8vh;
            .main-login-img {
