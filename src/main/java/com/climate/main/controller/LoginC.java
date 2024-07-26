@@ -32,9 +32,9 @@ public class LoginC {
     @Value("${google.redirect_url}")
     private String googleRedirectUrl;
 
+    //구글 로그인 과정에서 타는 auth 컨트롤러
     @GetMapping("/login/oauth2/code/google")
     public String LoginAuth(@RequestParam("code") String code, Model model, HttpServletResponse response) {
-        System.out.println("call");
         JsonObject access_token = loginDAO.getAccessToken(code); //구글 액세스 토큰
         JsonObject userinfo = loginDAO.getUserInfo(access_token.get("access_token").getAsString()); //구글 정보 가져오기
 
@@ -65,6 +65,7 @@ public class LoginC {
         }
     }
 
+    //로그인 버튼 클릭시 타는 컨트롤러
     @GetMapping("/loginC")
     public void Login(HttpServletResponse response) {
         try {
