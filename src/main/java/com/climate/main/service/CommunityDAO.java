@@ -40,22 +40,25 @@ public class CommunityDAO implements CommunityMapper {
     public int insertCommunityShowoff(CommunityDTO communityDTO) {
 
         String UPLOADED_FOLDER = "src/main/resources/static/upload/";
-        MultipartFile b_video = communityDTO.getB_FileName();
+        MultipartFile[] b_video = communityDTO.getB_FileName();
+
         String selectID2 = "";
+        String selectID3 = "";
 
         try {
-            UUID uuid = UUID.randomUUID();
-            String randomID = uuid.toString();
-            System.out.println(randomID);
-            String[] selectID = randomID.split("-");
-            selectID2 = selectID[0];
-            System.out.println(selectID2);
+            for ( MultipartFile v : b_video ) {
+                UUID uuid = UUID.randomUUID();
+                String randomID = uuid.toString();
+                String[] selectID = randomID.split("-");
+                selectID2 = selectID[0];
 
-            byte[] bytes = b_video.getBytes();
-            Path path = Paths.get(UPLOADED_FOLDER + selectID2 + ".mp4");
-            Files.write(path, bytes);
+                byte[] bytes = v.getBytes();
+                Path path = Paths.get(UPLOADED_FOLDER + selectID2 + ".mp4");
+                Files.write(path, bytes);
 
-            communityDTO.setB_video(selectID2 + ".mp4");
+                selectID3 += selectID2 + ".mp4" + "!";
+            }
+            communityDTO.setB_video(selectID3);
             if (communityMapper.insertCommunityShowoff(communityDTO) == 1) {
                 System.out.println("입력성공");
             }

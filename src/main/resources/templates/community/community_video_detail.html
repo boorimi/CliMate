@@ -1,18 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta
+            name="viewport"
+            content="width=device-width,initial-scale=1.0, minimum-scale=1.0,maximum-scale=1.0"
+    />
     <title>Title</title>
+    <link rel="stylesheet" href="/resources/css/community_video_detail.css"/>
 </head>
 <body>
-    디테일페이지
-    <div th:text="${showoffList.b_video}">
-    </div>
-        <video width="320" height="240" controls>
-            <source src="/resources/upload/7c87b1f2.mp4" type="video/mp4">
+    <div class="community-video-detail-all-wrapper">
+        <video id="community-showoff-video" controls th:each="video : ${showoffList.videoList}">
+            <source th:src="@{/resources/upload/{filename}(filename=${video})}" type="video/mp4">
             Your browser does not support the video tag.
         </video>
-<div th:text="${showoffList.b_title}">
+        <div class="community-video-detail-info">
+            <div class="community-video-detail-name">
+                <div class="community-video-detail-nickname" th:text="${showoffList.u_nickname}"></div>
+                <div class="community-video-detail-grade" th:text="${showoffList.u_grade}"></div>
+            </div>
+            <div class="community-video-detail-like">
+                <div class="community-video-detail-like-icon">♥</div>
+                <div class="community-video-detail-like-count">12</div>
+            </div>
+        </div>
+        <div class="community-video-detail-title" th:text="${showoffList.b_title}"></div>
+        <div class="community-video-detail-text" th:text="${showoffList.b_text}"></div>
 </div>
 </body>
 </html>

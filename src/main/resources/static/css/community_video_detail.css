@@ -1,0 +1,27 @@
+#community-showoff-video {
+    width: 100%;
+    height: 100%;
+}
+
+.community-video-detail-info {
+    display: flex;
+    justify-content: space-between;
+}
+
+.community-video-detail-name{
+    display: flex;
+    font-size: 1.5em;
+}
+
+.community-video-detail-like {
+    display: flex;
+    font-size: 2em;
+}
+
+.community-video-detail-title {
+    font-size: 2.5em;
+}
+
+.community-video-detail-text {
+    font-size: 1.5em;
+}
