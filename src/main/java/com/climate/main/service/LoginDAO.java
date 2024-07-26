@@ -5,6 +5,7 @@ import com.climate.main.mapper.UserMapper;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
@@ -19,6 +20,15 @@ public class LoginDAO implements UserMapper{
     @Autowired
     private UserMapper userMapper;
 
+    //구글 로그인 api 비밀값
+    @Value("${google.client_id}")
+    private String googleClientId;
+    @Value("${google.redirect_url}")
+    private String googleRedirectUrl;
+    @Value("${google.client_secret}")
+    private String googleClientSecret;
+
+
     //google login api(load login page, get login account info)
     public JsonObject getAccessToken(String authorizationCode) {
         // Google OAuth 2.0 Token Endpoint
@@ -27,9 +37,9 @@ public class LoginDAO implements UserMapper{
         // Prepare request parameters
         MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
         body.add("code", authorizationCode);
-        body.add("client_id", "488561375875-5vbpvnis6ohc6bn4jvdd6ab76oe3jgdo.apps.googleusercontent.com");
-        body.add("client_secret", "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");
-        body.add("redirect_uri", "http://localhost:80/login/oauth2/code/google");
+        body.add("client_id", googleClientId);
+        body.add("client_secret", googleClientSecret);
+        body.add("redirect_uri", googleRedirectUrl);
         body.add("grant_type", "authorization_code");
 
         // Prepare request headers
