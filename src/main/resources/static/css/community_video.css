@@ -68,6 +68,8 @@
 .community-video-insert{
   display: flex;
   position: fixed;
+  justify-content: center;
+  align-items: center;
   right: 7vw;
   bottom: 7vw;
   background-color: black;
@@ -75,4 +77,5 @@
   width: 15vw;
   height: 15vw;
   border-radius: 15vw;
+  font-size: 3.5em;
 }
