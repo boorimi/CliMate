@@ -1,27 +1,27 @@
 package com.climate.main.controller;
 
 import com.climate.main.dto.CommunityDTO;
+import com.climate.main.dto.LikeDTO;
 import com.climate.main.service.CommunityDAO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.UUID;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 public class CommunityC {
 
     @Autowired
     private CommunityDAO communityDAO;
+    private LikeDTO likeDTO;
 
 
 
@@ -55,9 +55,33 @@ public class CommunityC {
 
     @GetMapping("/community/video/detail")
     public String communityShowoffDetail(int b_pk, Model model) {
+        model.addAttribute("showoffLikeCount", communityDAO.selectLikeCount(b_pk));
+        model.addAttribute("showoffLikeCountThisUser", communityDAO.selectLikeCountThisUser(b_pk));
         model.addAttribute("showoffList", communityDAO.selectCommunityShowoff(b_pk));
         model.addAttribute("content", "/community/community_video_detail");
         return "index";
+    }
+
+    @PostMapping("/clickLike")
+    public ResponseEntity<Map<String, Integer>> clickLike(@RequestBody Map<String, Object> payload) {
+        int b_pk = (int) payload.get("b_pk");
+        String u_id = (String) payload.get("u_id"); // 필요에 따라 사용
+
+        int userLikes = communityDAO.selectLikeCountThisUser(b_pk);
+
+        if (userLikes == 0) {
+            communityDAO.insertCommunityLike(b_pk, u_id);
+        } else if (userLikes >= 1) {
+            communityDAO.deleteCommunityLike(b_pk, u_id);
+        }
+
+        int totalLikes = communityDAO.selectLikeCount(b_pk);
+
+        Map<String, Integer> response = new HashMap<>();
+        response.put("totalLikes", totalLikes);
+        response.put("userLikes", userLikes);
+
+        return ResponseEntity.ok(response);
     }
 
 }

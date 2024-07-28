@@ -6,11 +6,11 @@
 .community-content {
   display: flex;
   flex-direction: column;
-  margin: 3vw 4.4vw;  /*bm*/
+  margin: 3vw 2vh;  /*bm*/
   padding: 2vw;
   width: 35vw;
   aspect-ratio: 1 / 1.5;
-  border: 0.2vw solid black;
+  border: 0.2vw solid gray;
   border-radius: 3vw;
 }
 
