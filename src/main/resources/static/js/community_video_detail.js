@@ -46,3 +46,9 @@ $(document).ready(function () {
         });
     });
 });
+
+function deleteCheck(pk) {
+    if (confirm('정말 삭제하시겠습니까?')) {
+        location.href = '/community/video/delete?b_pk=' + pk;
+    }
+}

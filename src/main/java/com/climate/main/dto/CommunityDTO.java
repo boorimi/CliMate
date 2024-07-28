@@ -20,6 +20,7 @@ public class CommunityDTO {
     private Date b_datetime;
     private String u_nickname;
     private String u_grade;
+    private int l_count;
 
     public List<String> getVideoList() {
         return Arrays.asList(b_video.split("!"));

@@ -49,7 +49,7 @@
                     class="community-video-detail-nickname"
                     th:text="${showoffList.u_nickname}"
             ></div>
-            <div class="community-video-detail-grade" ><img src="/resources/grade_icon/hold_red.png"></div>
+            <div class="community-video-detail-grade" ><img th:src="@{'/resources/grade_icon/hold_' + ${showoffList.u_grade} + '.png'}"></div>
         </div>
 
         <div class="community-video-detail-like">
@@ -75,7 +75,7 @@
             </div>
             <div class="community-showoff-detail-comments-updel">
                 <div><img src="/resources/icon/update.png"/></div>
-                <div><img src="/resources/icon/delete.png"/></div>
+                <div th:onclick="'deleteCheck('+${showoffList.b_pk}+')'"><img src="/resources/icon/delete.png"/></div>
             </div>
         </div>
     </div>

@@ -7,16 +7,19 @@
 </head>
 <body>
 <div class="community-all-wrapper">
-    <div class="community-search-wrapper">
-        <div>
-            <select>
-                <option>검색 선택</option>
-                <option>암장</option>
-                <option>닉네임</option>
-            </select>
+    <form action="/community/search">
+        <div class="community-search-wrapper">
+            <div>
+                <select name="columnName">
+                    <option value="b_text">본문</option>
+                    <option value="b_title">암장</option>
+                    <option value="u_nickname">닉네임</option>
+                </select>
+            </div>
+            <div><input type="text" name="searchWord" /></div>
+            <button>검색</button>
         </div>
-        <div><input type="text"/></div>
-    </div>
+    </form>
     <div class="community-category-wrapper">
         <div onclick="location.href='/community/video'">자랑</div>
         <div onclick="location.href='/community/lfg'">모집</div>

@@ -71,6 +71,11 @@ public class CommunityDAO implements CommunityMapper {
     }
 
     @Override
+    public int deleteCommunityShowoff(int b_pk) {
+        return communityMapper.deleteCommunityShowoff(b_pk);
+    }
+
+    @Override
     public int insertCommunityLike(int b_pk, String u_id) {
         return communityMapper.insertCommunityLike(b_pk,u_id);
     }
@@ -88,6 +93,11 @@ public class CommunityDAO implements CommunityMapper {
     @Override
     public int selectLikeCountThisUser(int b_pk) {
         return communityMapper.selectLikeCountThisUser(b_pk);
+    }
+
+    @Override
+    public List<CommunityDTO> selectSearchCommunityShowoff(String columnName, String searchWord) {
+        return communityMapper.selectSearchCommunityShowoff(columnName, searchWord);
     }
 
 

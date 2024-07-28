@@ -53,6 +53,12 @@ public class CommunityC {
         return "redirect:/community/video";
     }
 
+    @GetMapping("/community/video/delete")
+    public String deleteCommunityShowoff(int b_pk) {
+        communityDAO.deleteCommunityShowoff(b_pk);
+        return "redirect:/community/video";
+    }
+
     @GetMapping("/community/video/detail")
     public String communityShowoffDetail(int b_pk, Model model) {
         model.addAttribute("showoffLikeCount", communityDAO.selectLikeCount(b_pk));
@@ -82,6 +88,14 @@ public class CommunityC {
         response.put("userLikes", userLikes);
 
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/community/search")
+    public String communitySearch(String searchWord, String columnName, Model model) {
+        model.addAttribute("showoffLists", communityDAO.selectSearchCommunityShowoff(columnName, searchWord));
+        model.addAttribute("content", "/community/community_menu");
+        model.addAttribute("community_content", "/community/community_video");
+        return "index";
     }
 
 }

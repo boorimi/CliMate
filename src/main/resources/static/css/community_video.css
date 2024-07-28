@@ -25,11 +25,22 @@
   flex-direction: row;
 }
 
+.community-like img,
+.community-comments img{
+  width: 3vw;
+  height: auto;
+}
+
+.community-like,
+.community-comments{
+  margin: 0.5vh 0vw;
+}
+
 .community-like-count,
 .community-comments-count {
   display: flex;
   align-items: center;
-  font-size: 3vw;
+  font-size: 1em;
 }
 
 .community-comments {
@@ -40,8 +51,18 @@
   font-size: 3.3vw;
 }
 
+.community-nickname-wrapper {
+  display: flex;
+}
+
 .community-nickname {
   font-size: 3.3vw;
+}
+
+.community-grade img {
+  margin-left: 1vw;
+  width: 3vw;
+  height: auto;
 }
 
 .community-video-insert{
