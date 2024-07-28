@@ -1,6 +1,7 @@
 package com.climate.main.service;
 
 import com.climate.main.dto.CommunityDTO;
+import com.climate.main.dto.LikeDTO;
 import com.climate.main.mapper.CommunityMapper;
 import com.climate.main.mapper.TestMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,5 +69,26 @@ public class CommunityDAO implements CommunityMapper {
 
         return 0;
     }
+
+    @Override
+    public int insertCommunityLike(int b_pk, String u_id) {
+        return communityMapper.insertCommunityLike(b_pk,u_id);
+    }
+
+    @Override
+    public int deleteCommunityLike(int b_pk, String u_id) {
+        return communityMapper.deleteCommunityLike(b_pk, u_id);
+    }
+
+    @Override
+    public int selectLikeCount(int b_pk) {
+        return communityMapper.selectLikeCount(b_pk);
+    }
+
+    @Override
+    public int selectLikeCountThisUser(int b_pk) {
+        return communityMapper.selectLikeCountThisUser(b_pk);
+    }
+
 
 }

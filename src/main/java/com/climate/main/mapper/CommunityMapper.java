@@ -1,6 +1,8 @@
 package com.climate.main.mapper;
 
 import com.climate.main.dto.CommunityDTO;
+import com.climate.main.dto.LikeDTO;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -21,4 +23,17 @@ public interface CommunityMapper {
 
     @Insert("insert into cli_board values (cli_board_seq.nextval, 'ds6951', '動画', #{b_video}, #{b_title}, #{b_text}, sysdate)")
     public int insertCommunityShowoff(CommunityDTO communityDTO);
+
+    @Insert("insert into cli_like values (#{u_id}, #{b_pk})")
+    public int insertCommunityLike(int b_pk, String u_id);
+
+    @Delete("delete from cli_like where l_u_id = #{u_id} and l_b_pk = #{b_pk}")
+    public int deleteCommunityLike(int b_pk, String u_id);
+
+    @Select("select count(*) from cli_like where l_b_pk = #{b_pk}")
+    public int selectLikeCount(int b_pk);
+
+    @Select("select count(*) from cli_like where l_b_pk = #{b_pk} and l_u_id = 'ds6951'")
+    public int selectLikeCountThisUser(int b_pk);
+
 }

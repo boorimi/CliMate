@@ -1,27 +1,95 @@
-#community-showoff-video {
-    width: 100%;
-    height: 100%;
+.community-showoff-video video {
+  width: 100%;
+  height: 100%;
+}
+
+.custom-arrows {
+  display: flex;
+  justify-content: space-between;
+  margin: 0vh 2vw;
+  width: 93%;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+}
+
+.slick-prev,
+.slick-next {
+  width: 5vh;
+  height: 5vh;
+  font-size: 1.5em;
+  background-color: rgba(255, 255, 255, 0.69);
+
+  border-radius: 5vw;
+  padding: 2vw;
+  cursor: pointer;
 }
 
 .community-video-detail-info {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
+  margin: 1vh 0vw;
 }
 
-.community-video-detail-name{
-    display: flex;
-    font-size: 1.5em;
+.community-video-detail-name {
+  display: flex;
+  font-size: 1.5em;
+  margin: 0vh 1vw;
+}
+
+.community-video-detail-name > div {
+  margin: 0vh 1vw;
+}
+
+.community-video-detail-grade img {
+  width: 7vw;
+  height: auto;
 }
 
 .community-video-detail-like {
-    display: flex;
-    font-size: 2em;
+  display: flex;
+  font-size: 2em;
+}
+
+.community-video-detail-like > div {
+  margin: 0vh 1vw;
+}
+
+.community-video-detail-like-icon img {
+  width: 8vw;
+  height: auto;
 }
 
 .community-video-detail-title {
-    font-size: 2.5em;
+  font-size: 2.5em;
 }
 
 .community-video-detail-text {
-    font-size: 1.5em;
+  margin: 3vh 0vw;
+  font-size: 1.5em;
+}
+
+
+.community-showoff-detail-comments-info {
+  display: flex;
+  justify-content: space-between;
+}
+
+.community-showoff-detail-comments-comments{
+  display: flex;
+}
+
+.community-showoff-detail-comments-updel {
+  display: flex;
+}
+
+.community-showoff-detail-comments-comments > div,
+.community-showoff-detail-comments-updel > div {
+  margin: 0vh 1vw;
+}
+
+.community-showoff-detail-comments-info img {
+  width: 5vw;
+  height: auto;
 }

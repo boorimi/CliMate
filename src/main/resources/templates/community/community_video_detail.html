@@ -1,32 +1,84 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"/>
     <meta
             name="viewport"
             content="width=device-width,initial-scale=1.0, minimum-scale=1.0,maximum-scale=1.0"
     />
     <title>Title</title>
+    <script
+            src="https://code.jquery.com/jquery-3.7.1.js"
+            integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+            crossorigin="anonymous"
+    ></script>
+    <link
+            rel="stylesheet"
+            type="text/css"
+            href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"
+    />
+    <script
+            type="text/javascript"
+            src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"
+    ></script>
     <link rel="stylesheet" href="/resources/css/community_video_detail.css"/>
+    <script src="/resources/js/community_video_detail.js">
+    </script>
 </head>
 <body>
-    <div class="community-video-detail-all-wrapper">
-        <video id="community-showoff-video" controls th:each="video : ${showoffList.videoList}">
-            <source th:src="@{/resources/upload/{filename}(filename=${video})}" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-        <div class="community-video-detail-info">
-            <div class="community-video-detail-name">
-                <div class="community-video-detail-nickname" th:text="${showoffList.u_nickname}"></div>
-                <div class="community-video-detail-grade" th:text="${showoffList.u_grade}"></div>
+<input id="l_b_pk" type="hidden" th:value="${showoffList.b_pk}">
+<div class="community-video-detail-all-wrapper">
+    <div class="custom-arrows">
+        <button class="slick-prev">&lt;</button>
+        <button class="slick-next">&gt;</button>
+    </div>
+    <div class="community-showoff-video">
+        <div th:each="video : ${showoffList.videoList}">
+            <video class="video" controls>
+                <source
+                        th:src="@{/resources/upload/{filename}(filename=${video})}"
+                        type="video/mp4"
+                />
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
+    <div class="community-video-detail-info">
+        <div class="community-video-detail-name">
+            <div
+                    class="community-video-detail-nickname"
+                    th:text="${showoffList.u_nickname}"
+            ></div>
+            <div class="community-video-detail-grade" ><img src="/resources/grade_icon/hold_red.png"></div>
+        </div>
+
+        <div class="community-video-detail-like">
+            <div class="community-video-detail-like-icon" th:data-b_pk="${showoffList.b_pk}" th:if="${showoffLikeCountThisUser == 0}"><img src="/resources/icon/love_blank.png"></div>
+            <div class="community-video-detail-like-icon" th:data-b_pk="${showoffList.b_pk}" th:if="${showoffLikeCountThisUser > 0}"><img src="/resources/icon/love.png"></div>
+            <div class="community-video-detail-like-count" th:text="${showoffLikeCount}"></div>
+        </div>
+    </div>
+    <div
+            class="community-video-detail-title"
+            th:text="${showoffList.b_title}"
+    ></div>
+    <div
+            class="community-video-detail-text"
+            th:text="${showoffList.b_text}"
+    ></div>
+    <div class="community-showoff-detail-comments-wrapper">
+        <div class="community-showoff-detail-comments-info">
+            <div class="community-showoff-detail-comments-comments">
+                <div><img src="/resources/icon/chat-bubble.png"/></div>
+                <div>댓글</div>
+                <div>12</div>
             </div>
-            <div class="community-video-detail-like">
-                <div class="community-video-detail-like-icon">♥</div>
-                <div class="community-video-detail-like-count">12</div>
+            <div class="community-showoff-detail-comments-updel">
+                <div><img src="/resources/icon/update.png"/></div>
+                <div><img src="/resources/icon/delete.png"/></div>
             </div>
         </div>
-        <div class="community-video-detail-title" th:text="${showoffList.b_title}"></div>
-        <div class="community-video-detail-text" th:text="${showoffList.b_text}"></div>
+    </div>
 </div>
 </body>
 </html>
