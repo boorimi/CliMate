@@ -93,3 +93,46 @@
   width: 5vw;
   height: auto;
 }
+
+.community-showoff-detail-comments-textarea {
+  margin: 3vh 0vw;
+}
+
+.community-showoff-detail-comments-textarea textarea {
+  width: 95vw;
+  height: 10vh;
+}
+
+.community-showoff-detail-comments-border {
+  margin: 2vh 0vw;
+  padding: 2vh 0vw;
+  border-bottom: 0.2vw solid gray;
+  border-top: 0.2vw solid gray;
+}
+
+.community-showoff-detail-comments-detail{
+  display: flex;
+  justify-content: space-between;
+}
+
+.community-showoff-detail-comments-nickgrade {
+  display: flex;
+}
+
+.community-showoff-detail-comments-text {
+  flex: 1;
+}
+
+.community-showoff-detail-comments-nickname {
+  font-size: 1.5em;
+}
+
+.community-showoff-detail-comments-grade img {
+  width: 6vw;
+  height: auto;
+}
+
+.community-showoff-detail-comments-text {
+  margin-top: 1vh;
+  font-size: 1.8em;
+}

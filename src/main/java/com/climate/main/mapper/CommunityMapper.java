@@ -1,7 +1,7 @@
 package com.climate.main.mapper;
 
+import com.climate.main.dto.CommentsDTO;
 import com.climate.main.dto.CommunityDTO;
-import com.climate.main.dto.LikeDTO;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -23,6 +23,10 @@ public interface CommunityMapper {
     // 자랑게시판 디테일 조회
     @Select("select bo.*, u_nickname, u_grade from cli_board bo, cli_user where u_id = b_u_id and b_pk = #{b_pk} ")
     public  CommunityDTO selectCommunityShowoff(int b_pk);
+
+    // 자랑게시판 댓글 조회
+    @Select("select co.*, u_nickname, u_grade from cli_comments co, cli_user where u_id = cm_u_id and cm_b_pk = #{b_pk} ")
+    public List<CommentsDTO> selectCommunityComments(int b_pk);
 
     // 자랑게시판 인서트
     @Insert("insert into cli_board values (cli_board_seq.nextval, 'ds6951', '動画', #{b_video}, #{b_title}, #{b_text}, sysdate)")

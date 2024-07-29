@@ -1,5 +1,6 @@
 package com.climate.main.service;
 
+import com.climate.main.dto.CommentsDTO;
 import com.climate.main.dto.CommunityDTO;
 import com.climate.main.dto.LikeDTO;
 import com.climate.main.mapper.CommunityMapper;
@@ -35,6 +36,11 @@ public class CommunityDAO implements CommunityMapper {
     @Override
     public CommunityDTO selectCommunityShowoff(int b_pk) {
         return communityMapper.selectCommunityShowoff(b_pk);
+    }
+
+    @Override
+    public List<CommentsDTO> selectCommunityComments(int b_pk) {
+        return communityMapper.selectCommunityComments(b_pk);
     }
 
     @Override
