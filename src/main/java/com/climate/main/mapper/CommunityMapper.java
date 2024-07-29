@@ -24,9 +24,6 @@ public interface CommunityMapper {
     @Select("select bo.*, u_nickname, u_grade from cli_board bo, cli_user where u_id = b_u_id and b_pk = #{b_pk} ")
     public  CommunityDTO selectCommunityShowoff(int b_pk);
 
-    // 자랑게시판 댓글 조회
-    @Select("select co.*, u_nickname, u_grade from cli_comments co, cli_user where u_id = cm_u_id and cm_b_pk = #{b_pk} order by cm_datetime desc ")
-    public List<CommentsDTO> selectCommunityComments(int b_pk);
 
     // 자랑게시판 인서트
     @Insert("insert into cli_board values (cli_board_seq.nextval, 'ds6951', '動画', #{b_video}, #{b_title}, #{b_text}, sysdate)")
@@ -64,8 +61,17 @@ public interface CommunityMapper {
             "</script>")
     public List<CommunityDTO> selectSearchCommunityShowoff(String columnName, String searchWord);
 
+    // 자랑게시판 댓글 조회
+    @Select("select co.*, u_nickname, u_grade from cli_comments co, cli_user where u_id = cm_u_id and cm_b_pk = #{b_pk} order by cm_datetime desc ")
+    public List<CommentsDTO> selectCommunityComments(int b_pk);
+
     // 댓글 인서트
     @Insert("insert into cli_comments values (cli_comments_seq.nextval, #{b_pk}, 'ds6951', #{cm_text}, sysdate)")
     public int insertCommunityComments(int b_pk, String cm_text);
+
+    // 댓글 삭제
+    @Delete("delete from cli_comments where cm_pk = #{cm_pk} ")
+    public int deleteCommunityComments(int cm_pk, int b_pk);
+
 
 }

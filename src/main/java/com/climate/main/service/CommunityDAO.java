@@ -111,5 +111,10 @@ public class CommunityDAO implements CommunityMapper {
         return communityMapper.insertCommunityComments(b_pk, cm_text);
     }
 
+    @Override
+    public int deleteCommunityComments(int cm_pk, int b_pk) {
+        return communityMapper.deleteCommunityComments(cm_pk, b_pk);
+    }
+
 
 }

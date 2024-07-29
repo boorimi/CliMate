@@ -105,4 +105,10 @@ public class CommunityC {
         return "redirect:/community/video/detail?b_pk=" + b_pk;
     }
 
+    @GetMapping("/community/video/deleteComments")
+    public String deleteComments(int cm_pk, int b_pk) {
+        communityDAO.deleteCommunityComments(cm_pk, b_pk);
+        return "redirect:/community/video/detail?b_pk=" + b_pk;
+    }
+
 }

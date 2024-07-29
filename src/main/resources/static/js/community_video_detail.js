@@ -45,6 +45,21 @@ $(document).ready(function () {
             }
         });
     });
+
+    $(document).on('click', '.community-showoff-detail-comments-nickname', function(event) {
+        $('.community-showoff-detail-comments-nicknameMenu').removeClass('activeNickname');
+        $(this).siblings('.community-showoff-detail-comments-nicknameMenu').toggleClass('activeNickname');
+        event.stopPropagation();
+    });
+
+    $(document).on('click', function() {
+        $('.community-showoff-detail-comments-nicknameMenu').removeClass('activeNickname');
+    });
+
+    $(document).on('click', '.community-showoff-detail-comments-nicknameMenu', function(event) {
+        event.stopPropagation();
+    });
+
 });
 
 function deleteCheck(pk) {
@@ -53,6 +68,9 @@ function deleteCheck(pk) {
     }
 }
 
-function toggleNickname() {
-    document.querySelector('.community-showoff-detail-comments-nickname').classList.toggle('activeNickname');
+function deleteCommentsCheck(cm_pk,b_pk) {
+    if (confirm('정말 삭제하시겠습니까?')) {
+        location.href = '/community/video/deleteComments?cm_pk=' + cm_pk + '&b_pk=' + b_pk;
+    }
 }
+

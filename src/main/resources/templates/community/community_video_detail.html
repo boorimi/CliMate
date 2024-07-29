@@ -92,18 +92,24 @@
                 <!-- 여기에 th걸기 -->
                 <div class="community-showoff-detail-comments-detail">
                     <div class="community-showoff-detail-comments-nickgrade">
-                        <div class="community-showoff-detail-comments-nickname" th:text="${co.u_nickname}" onclick="toggleNickname()"></div>
+                        <div class="community-showoff-detail-comments-nickname" th:text="${co.u_nickname}"></div>
                         <!-- 숨김메뉴 시작 -->
-
-
-
+                        <ul class="community-showoff-detail-comments-nicknameMenu">
+                            <li>プロフィール</li>
+                            <li>掲示文見る</li>
+                            <li>チャットする</li>
+                        </ul>
                         <!-- 숨김메뉴 끝 -->
-
                         <div class="community-showoff-detail-comments-grade"><img
                                 th:src="@{'/resources/grade_icon/hold_' + ${co.u_grade} + '.png'}"></div>
                     </div>
-                    <div class="community-showoff-detail-comments-date"
-                         th:text="${#dates.format(co.cm_datetime, 'yyyy.MM.dd.')}">
+                    <div style="display: flex">
+                        <div class="community-showoff-detail-comments-delete" th:onclick="'deleteCommentsCheck('+${co.cm_pk}+','+${showoffList.b_pk}+')'">
+                            <img src="/resources/icon/delete.png"/>
+                        </div>
+                        <div class="community-showoff-detail-comments-date"
+                             th:text="${#dates.format(co.cm_datetime, 'yyyy.MM.dd.')}">
+                        </div>
                     </div>
                 </div>
                 <div class="community-showoff-detail-comments-text" th:text="${co.cm_text}"></div>
