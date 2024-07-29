@@ -1,0 +1,76 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+select:focus {
+  outline: none;
+}
+
+input:focus {
+  outline: none;
+}
+
+@media (max-width: 768px) {
+  /* 회원가입 */
+  .signup-container {
+    width: 100%;
+    height: auto;
+  }
+
+  /* 프로필 사진 */
+  .signup-container > .profile-img {
+    width: 20vh;
+    height: 20vh;
+    object-fit: contain;
+    background-color: #b0b69a;
+    margin: 5% auto;
+    border-radius: 50%;
+    position: relative;
+  }
+  .profile-img-upload {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    top: 15vh;
+    right: 1vh;
+    border: 1px solid beige;
+    border-radius: 50%;
+    background-color: beige;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em;
+  }
+
+  /* 회원가입 input */
+  .signup-container > .signup-input {
+    width: 80%;
+    height: 5%;
+    font-size: 1em;
+    margin: 10% auto;
+  }
+
+  /* 회원가입 각 항목 */
+  .signup-input > .nickname-input,
+  .insta-input,
+  .grade-select,
+  .category-select,
+  .homeground,
+  .signup-select-box {
+    width: 100%;
+    height: 5vh;
+    font-size: 1em;
+  }
+
+  /* 회원가입 버튼 */
+  .signup-btn {
+    width: 40%;
+    height: 5%;
+    font-size: 2em;
+    margin: 0 30%;
+    background-color: #b0b69a;
+    color: #fff;
+    border: none;
+  }
+}

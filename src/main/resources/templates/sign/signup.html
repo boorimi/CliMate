@@ -1,10 +1,86 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Title</title>
-</head>
-<body>
-나는 사인업 페이지입니다~~~~~qq
-</body>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="stylesheet" href="/resources/css/signup.css" />
+  </head>
+  <body>
+    <form action="/signup" type="post" class="signup-container">
+      <div class="profile-img">
+        <img src="" alt="private" />
+        <div class="profile-img-upload">+</div>
+      </div>
+      <div class="signup-input">
+        <input
+          class="nickname-input"
+          placeholder="ニックネーム"
+          id="nickname"
+        />
+      </div>
+      <div class="signup-input">
+        <input
+          class="insta-input"
+          placeholder="インスタグラムのID"
+          id="insta"
+        />
+      </div>
+      <div class="signup-input">
+        <select class="grade-select" id="grade">
+          <option>Grade</option>
+          <option value="red" title="/resources/grade_icon/hold_red.png">
+            Red
+          </option>
+          <option value="Orange" title="/resources/grade_icon/hold_orange.png">
+            Orange
+          </option>
+          <option value="yellow" title="/resources/grade_icon/hold_yellow.png">
+            Yellow
+          </option>
+          <option value="green" title="/resources/grade_icon/hold_green.png">
+            Green
+          </option>
+          <option value="blue" title="/resources/grade_icon/hold_blue.png">
+            Blue
+          </option>
+          <option
+            value="deepBlue"
+            title="/resources/grade_icon/hold_deepBlue.png"
+          >
+            deepBlue
+          </option>
+          <option value="purple" title="/resources/grade_icon/hold_purple.png">
+            Purple
+          </option>
+        </select>
+      </div>
+      <div class="signup-input">
+        <select class="category-select">
+          <option class="category-value">利用者タイプ</option>
+          <option class="category-value" value="セッター">セッター</option>
+          <option class="category-value" value="一般的な利用者">
+            一般的な利用者
+          </option>
+        </select>
+      </div>
+      <div class="signup-input">
+        <input
+          readonly
+          class="homeground"
+          placeholder="ホームグラウンド"
+          id="homeground"
+        />
+      </div>
+      <div class="signup-input private">
+        <select class="signup-select-box">
+          <option class="select-value">プロフィール公開</option>
+          <option class="select-value" value="public">公開</option>
+          <option class="select-value" value="private">非公開</option>
+        </select>
+      </div>
+      <button class="signup-btn">会員加入</button>
+    </form>
+    <script src="/resources/js/signup.js" />
+  </body>
 </html>

@@ -58,7 +58,8 @@ public class LoginC {
                 response.addCookie(jwt);
                 return "main";
             } else {
-                return "sign/signup";
+                model.addAttribute("content", "/sign/signup");
+                return "index";
             }
         } else {
             return "main";
