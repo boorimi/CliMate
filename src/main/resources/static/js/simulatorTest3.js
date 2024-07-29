@@ -198,7 +198,7 @@ class App {
         // this._scene.add(light);
 
         const directionalLight = new THREE.DirectionalLight(rgbColor, intensity);
-        directionalLight.position.set(-3, 5, 4);
+        directionalLight.position.set(-3, 4.7, 4);
         this._scene.add(directionalLight);
 
         // Ambient Light 추가
@@ -217,7 +217,7 @@ class App {
         texture = textureLoader.load('/resources/img/texture01.png');
         // 첫 번째 큐브
         // 가로, 높이, 세로
-        const geometry = new THREE.BoxGeometry(4, 3.3, 0.1);
+        const geometry = new THREE.BoxGeometry(4, 4.7, 0.1);
         // MeshStandardMaterial을 사용하여 재질 생성, 텍스처 적용
         const fillMaterial = new THREE.MeshPhongMaterial({
             color: rgbColor,
@@ -229,7 +229,7 @@ class App {
         // group.add(line);
 
         // 두 번째 큐브
-        const geometry2 = new THREE.BoxGeometry(4, 3.3, 0.1);
+        const geometry2 = new THREE.BoxGeometry(4, 5, 0.1);
         const fillMaterial2 = new THREE.MeshPhongMaterial({
             color: rgbColor,
             map: texture,
@@ -248,8 +248,8 @@ class App {
 
         // 큐브 위치 조정
         // (+좌 -우, +위 -하, +앞 -뒤)
-        group.position.set(0, 0.4, 0); // 기본자리
-        group2.position.set(2.05, 0.4, 1.95);
+        group.position.set(0, 1.25, 0); // 기본자리
+        group2.position.set(2.05, 1.25, 1.95);
         group3.position.set(0, -1.1, 2);
 
         // 큐브 회전 설정
