@@ -1,8 +1,11 @@
 package com.climate.main.dto;
 
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 @Data
 public class CommunityDTO {
@@ -11,8 +14,14 @@ public class CommunityDTO {
     private String b_u_id;
     private String b_category;
     private String b_video;
+    private MultipartFile[] b_FileName;
     private String b_title;
     private String b_text;
     private Date b_datetime;
     private String u_nickname;
+    private String u_grade;
+
+    public List<String> getVideoList() {
+        return Arrays.asList(b_video.split("!"));
+    }
 }
