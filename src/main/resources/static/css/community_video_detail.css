@@ -140,8 +140,8 @@
   display: none;
   position: absolute;
   z-index: 900;
-  top: 4vh;
-  left: 0;
+  top: -4vh;
+  left: 25vw;
   background-color: #e4e4e4;
   box-shadow: 0em 0em 1em #d7d7d7;
   width: 120%;

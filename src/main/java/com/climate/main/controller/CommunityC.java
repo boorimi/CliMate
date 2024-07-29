@@ -111,4 +111,12 @@ public class CommunityC {
         return "redirect:/community/video/detail?b_pk=" + b_pk;
     }
 
+    @GetMapping("/community/hashtag")
+    public String hashtagSearch(String searchWord, Model model) {
+        model.addAttribute("showoffLists", communityDAO.selectHashtagSearchCommunityShowoff(searchWord));
+        model.addAttribute("content", "/community/community_menu");
+        model.addAttribute("community_content", "/community/community_video");
+        return "index";
+    }
+
 }

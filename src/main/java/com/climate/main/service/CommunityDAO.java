@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -78,6 +79,23 @@ public class CommunityDAO implements CommunityMapper {
 
     @Override
     public int deleteCommunityShowoff(int b_pk) {
+        CommunityDTO communityDTO = communityMapper.selectCommunityShowoff(b_pk);
+        String UPLOADED_FOLDER = "src/main/resources/static/upload/";
+
+        String b_video = communityDTO.getB_video();
+        if (b_video != null && !b_video.isEmpty()) {
+            String[] fileNames = b_video.split("!");
+
+            // 각 파일 삭제
+            for (String fileName : fileNames) {
+                File file = new File(UPLOADED_FOLDER + fileName);
+                if (file.exists()) {
+                    if (!file.delete()) {
+                        throw new RuntimeException("Failed to delete file: " + fileName);
+                    }
+                }
+            }
+        }
         return communityMapper.deleteCommunityShowoff(b_pk);
     }
 
@@ -104,6 +122,11 @@ public class CommunityDAO implements CommunityMapper {
     @Override
     public List<CommunityDTO> selectSearchCommunityShowoff(String columnName, String searchWord) {
         return communityMapper.selectSearchCommunityShowoff(columnName, searchWord);
+    }
+
+    @Override
+    public List<CommunityDTO> selectHashtagSearchCommunityShowoff(String searchWord) {
+        return communityMapper.selectHashtagSearchCommunityShowoff(searchWord);
     }
 
     @Override
