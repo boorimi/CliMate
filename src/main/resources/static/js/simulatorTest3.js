@@ -273,16 +273,17 @@ class App {
     }
 
 
-    // 홀드 로드 1~6
+    // pinch01
     _loadTestModel1() {
         const loader = new GLTFLoader();
 
         loader.load(
-            '/resources/holds/hold1/scene.gltf', // 여기에 3D 모델 파일의 경로를 지정
+            '/resources/holds/pinch/pinch01.glb', // 여기에 3D 모델 파일의 경로를 지정
             (gltf) => {
                 const model = gltf.scene;
                 this._gltfModel = model; // 로드된 GLTF 모델을 변수에 저장
                 model.position.set(1, 1, 2); // 모델의 위치 조정
+                model.rotation.x = Math.PI; // 180도 회전
                 this._scene.add(model);
                 console.log("부르기 성공");
                 },
@@ -294,23 +295,20 @@ class App {
         );
     }
 
+    // jug01
     _loadTestModel2() {
         const loader = new GLTFLoader();
         rgbColor = rgbToHex(0, 158, 255);
         loader.load(
-            '/resources/holds/hold2/scene.gltf', // 여기에 3D 모델 파일의 경로를 지정
+            '/resources/holds/jug/jug01.glb', // 여기에 3D 모델 파일의 경로를 지정
             (gltf) => {
                 const model = gltf.scene;
                 this._gltfModel = model; // 로드된 GLTF 모델을 변수에 저장
                 model.position.set(0, 1, 2); // 모델의 위치 조정
+                model.scale.set(0.001, 0.001, 0.001); // 크기 줄이기
+                model.rotation.x = Math.PI / 2; // 회전
                 this._scene.add(model);
                 console.log("부르기 성공");
-                // 색상 적용
-                model.traverse((child) => {
-                    if (child.isMesh) {
-                        child.material = new THREE.MeshStandardMaterial({ color: rgbColor }); // 빨간색으로 설정
-                    }
-                });
             },
 
             undefined,
@@ -319,16 +317,18 @@ class App {
             }
         );
     }
-
+    // volume01
     _loadTestModel3() {
         const loader = new GLTFLoader();
 
         loader.load(
-            '/resources/holds/scene.gltf', // 여기에 3D 모델 파일의 경로를 지정
+            '/resources/holds/volume/volume01.glb', // 여기에 3D 모델 파일의 경로를 지정
             (gltf) => {
                 const model = gltf.scene;
                 this._gltfModel = model; // 로드된 GLTF 모델을 변수에 저장
                 model.position.set(1, 1, 2); // 모델의 위치 조정
+                model.scale.set(0.001, 0.001, 0.001);
+                model.rotation.z = Math.PI;
                 this._scene.add(model);
                 console.log("부르기 성공");
             },
@@ -344,11 +344,12 @@ class App {
         const loader = new GLTFLoader();
 
         loader.load(
-            '/resources/holds/scene.gltf', // 여기에 3D 모델 파일의 경로를 지정
+            '/resources/holds/volume/volume02.glb', // 여기에 3D 모델 파일의 경로를 지정
             (gltf) => {
                 const model = gltf.scene;
                 this._gltfModel = model; // 로드된 GLTF 모델을 변수에 저장
                 model.position.set(1, 1, 2); // 모델의 위치 조정
+                model.scale.set(0.001, 0.001, 0.001);
                 this._scene.add(model);
                 console.log("부르기 성공");
             },
@@ -364,11 +365,13 @@ class App {
         const loader = new GLTFLoader();
 
         loader.load(
-            '/resources/holds/scene.gltf', // 여기에 3D 모델 파일의 경로를 지정
+            '/resources/holds/volume/volume03.glb', // 여기에 3D 모델 파일의 경로를 지정
             (gltf) => {
                 const model = gltf.scene;
                 this._gltfModel = model; // 로드된 GLTF 모델을 변수에 저장
                 model.position.set(1, 1, 2); // 모델의 위치 조정
+                model.scale.set(0.001, 0.001, 0.001);
+                model.rotation.z = Math.PI;
                 this._scene.add(model);
                 console.log("부르기 성공");
             },
