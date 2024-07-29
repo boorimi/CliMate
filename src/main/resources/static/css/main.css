@@ -51,7 +51,9 @@ body {
     .main-map,
     .main-simulator,
     .main-community,
-    .main-login {
+    .main-login,
+    .main-logout,
+    .main-mypage{
         margin-bottom: 3%;
         box-shadow: 1px 3px 8px rgba(0, 0, 0, 0.645);
         font-family: "Mochiy Pop P One", sans-serif;
@@ -74,7 +76,9 @@ body {
     .main-map,
     .main-simulator,
     .main-community,
-    .main-login {
+    .main-login,
+    .main-logout,
+    .main-mypage{
         width: 50%;
         height: 12vh;
         background-color: rgba(255, 255, 255, 0.6);
@@ -85,7 +89,7 @@ body {
         font-size: 2em;
     }
 
-    .main-login {
+    .main-login, .main-logout, .main-mypage {
         width: 30%;
         height: 10vh;
         font-size: 1.5em;
@@ -99,7 +103,9 @@ body {
     .main-map:hover,
     .main-simulator:hover,
     .main-community:hover,
-    .main-login:hover {
+    .main-login:hover,
+    .main-logout:hover,
+    .main-mypage:hover{
         transform: scale(1.05);
     }
 
@@ -133,7 +139,9 @@ body {
         .main-map,
         .main-simulator,
         .main-community,
-        .main-login {
+        .main-login,
+        .main-logout,
+        .main-mypage{
             width: 70%;
             height: 9vh;
             .main-map-img,
@@ -148,7 +156,8 @@ body {
             }
         }
 
-        .main-login {
+        .main-login,
+        .main-mypage{
             width: 40%;
             height: 8vh;
            .main-login-img {
