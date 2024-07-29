@@ -52,3 +52,7 @@ function deleteCheck(pk) {
         location.href = '/community/video/delete?b_pk=' + pk;
     }
 }
+
+function toggleNickname() {
+    document.querySelector('.community-showoff-detail-comments-nickname').classList.toggle('activeNickname');
+}

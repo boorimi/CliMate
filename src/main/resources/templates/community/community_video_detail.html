@@ -82,17 +82,28 @@
             </div>
         </div>
         <div class="community-showoff-detail-comments-contents">
-            <div class="community-showoff-detail-comments-textarea">
-                <textarea></textarea>
-                <button>등록</button>
-            </div>
-            <div class="community-showoff-detail-comments-border" th:each="co : ${showoffCommentsLists}"> <!-- 여기에 th걸기 -->
+            <form action="/community/video/comments/insert" method="post">
+                <div class="community-showoff-detail-comments-textarea">
+                    <textarea name="cm_text"></textarea>
+                    <button name="b_pk" th:value="${showoffList.b_pk}">등록</button>
+                </div>
+            </form>
+            <div class="community-showoff-detail-comments-border" th:each="co : ${showoffCommentsLists}">
+                <!-- 여기에 th걸기 -->
                 <div class="community-showoff-detail-comments-detail">
                     <div class="community-showoff-detail-comments-nickgrade">
-                        <div class="community-showoff-detail-comments-nickname" th:text="${co.u_nickname}"></div>
-                        <div class="community-showoff-detail-comments-grade"><img th:src="@{'/resources/grade_icon/hold_' + ${co.u_grade} + '.png'}"></div>
+                        <div class="community-showoff-detail-comments-nickname" th:text="${co.u_nickname}" onclick="toggleNickname()"></div>
+                        <!-- 숨김메뉴 시작 -->
+
+
+
+                        <!-- 숨김메뉴 끝 -->
+
+                        <div class="community-showoff-detail-comments-grade"><img
+                                th:src="@{'/resources/grade_icon/hold_' + ${co.u_grade} + '.png'}"></div>
                     </div>
-                    <div class="community-showoff-detail-comments-date" th:text="${#dates.format(co.cm_datetime, 'yyyy.MM.dd.')}">
+                    <div class="community-showoff-detail-comments-date"
+                         th:text="${#dates.format(co.cm_datetime, 'yyyy.MM.dd.')}">
                     </div>
                 </div>
                 <div class="community-showoff-detail-comments-text" th:text="${co.cm_text}"></div>

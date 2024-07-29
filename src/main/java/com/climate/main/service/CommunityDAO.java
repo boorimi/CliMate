@@ -106,5 +106,10 @@ public class CommunityDAO implements CommunityMapper {
         return communityMapper.selectSearchCommunityShowoff(columnName, searchWord);
     }
 
+    @Override
+    public int insertCommunityComments(int b_pk, String cm_text) {
+        return communityMapper.insertCommunityComments(b_pk, cm_text);
+    }
+
 
 }

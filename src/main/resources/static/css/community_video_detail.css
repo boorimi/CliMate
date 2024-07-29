@@ -99,6 +99,7 @@
 }
 
 .community-showoff-detail-comments-textarea textarea {
+  font-size: 1.5em;
   width: 95vw;
   height: 10vh;
 }
@@ -117,6 +118,10 @@
 
 .community-showoff-detail-comments-nickgrade {
   display: flex;
+}
+
+.community-showoff-detail-comments-nickname {
+  text-decoration: underline;
 }
 
 .community-showoff-detail-comments-text {

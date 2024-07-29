@@ -99,4 +99,10 @@ public class CommunityC {
         return "index";
     }
 
+    @PostMapping("/community/video/comments/insert")
+    public String commentsInsertCommunityShowoff(int b_pk, String cm_text) {
+        communityDAO.insertCommunityComments(b_pk, cm_text);
+        return "redirect:/community/video/detail?b_pk=" + b_pk;
+    }
+
 }
