@@ -10,6 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
     <link href="https://fonts.googleapis.com/css2?family=Mochiy+Pop+P+One&family=Rampart+One&display=swap"
           rel="stylesheet"/>
+
     <script
             src="https://code.jquery.com/jquery-3.6.0.min.js"
             integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
@@ -23,7 +24,7 @@
     }
         }
     </script>
-    <script type="module" src="resources/js/simulatorTest2.js" defer></script>
+    <script type="module" src="resources/js/simulatorTest3.js" defer></script>
 </head>
 <body>
 <div class="content-container">
@@ -47,16 +48,16 @@
         </div>
 
         <div id="hold-list-container-mobile"  class="list-hidden-mobile">
-            <div class="hold-select-mobile">
+            <div class="hold-select-mobile" >
                 <select id="hold-select-mobile">
                     <option>All</option>
-                    <option>Jug</option>
-                    <option>Pinch</option>
-                    <option>Crimp</option>
-                    <option>Sloper</option>
-                    <option>Pocket</option>
-                    <option>Volume</option>
+                    <option th:each="hold : ${holds}" th:text="${hold.h_category}"></option>
                 </select>
+            </div>
+            <div class="hold-list-mobile" >
+                <div class="hold-img" th:each="hold : ${holds}" th:id="${hold.h_pk}" th:data-hPk="${hold.h_pk}">
+                    <img th:src="@{/resources/holds/img/{h_img}(h_img=${hold.h_img})}">
+                </div>
             </div>
         </div>
     </div>

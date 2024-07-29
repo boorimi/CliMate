@@ -264,14 +264,14 @@ class App {
         this._cube3 = group3;
 
         // 모델 로드
-        this._loadModel();
+        this._loadTestModel();
     }
 
 
-    _loadModel() {
+    _loadTestModel() {
         const loader = new GLTFLoader();
         loader.load(
-            '/resources/3D_model/hold01/scene.gltf', // 여기에 3D 모델 파일의 경로를 지정
+            '/resources/holds/scene.gltf', // 여기에 3D 모델 파일의 경로를 지정
             (gltf) => {
                 const model = gltf.scene;
                 this._gltfModel = model; // 로드된 GLTF 모델을 변수에 저장
@@ -332,7 +332,6 @@ class App {
         }
     }
 }
-
 
 window.onload = function () {
     new App();
