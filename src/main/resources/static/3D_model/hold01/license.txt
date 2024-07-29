@@ -1,0 +1,11 @@
+Model Information:
+* title:	Climbing hold
+* source:	https://sketchfab.com/3d-models/climbing-hold-d6dd1f711d744c7384b1612e32853369
+* author:	matousekfoto (https://sketchfab.com/matousekfoto)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Climbing hold" (https://sketchfab.com/3d-models/climbing-hold-d6dd1f711d744c7384b1612e32853369) by matousekfoto (https://sketchfab.com/matousekfoto) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
