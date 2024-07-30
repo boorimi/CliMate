@@ -332,47 +332,78 @@ function loadTestModel(app, modelPath, groupName, position = { x: 1, y: 1, z: 2 
 function onMouseClick(app, event) {
     event.preventDefault();
 
-    app._mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-    app._mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-
-    app._raycaster.setFromCamera(app._mouse, app._camera);
-    const intersects = app._raycaster.intersectObjects(app._scene.children, true);
+    setMouseCoordinates(app, event);
+    const intersects = getIntersects(app);
 
     if (intersects.length > 0) {
-        let clickedObject = intersects[0].object;
-
-        while (clickedObject.parent && clickedObject.parent.type !== 'Scene') {
-            clickedObject = clickedObject.parent;
-        }
-
+        const clickedObject = getClickedObject(intersects);
         const parentGroupName = clickedObject.name;
-        const groupPosition = app._positionData;
 
-        if (parentGroupName.includes('modelGroup')) {
-            console.log('모델이름:', parentGroupName);
-            console.log('Model position:', groupPosition);
-            console.log(clickedObject);
-
-            clickedObject.traverse((child) => {
-                if (child.isMesh) {
-                    if (child.userData.isTransparent) {
-                        child.material.opacity = child.userData.originalOpacity;
-                        child.material.transparent = child.userData.originalTransparent;
-                        child.userData.isTransparent = false;
-                    } else {
-                        if (!child.userData.hasOwnProperty('originalOpacity')) {
-                            child.userData.originalOpacity = child.material.opacity;
-                            child.userData.originalTransparent = child.material.transparent;
-                        }
-                        child.material.opacity = 0.5;
-                        child.material.transparent = true;
-                        child.userData.isTransparent = true;
-                    }
-                }
-            });
+        if (isModelGroup(parentGroupName)) {
+            logModelInfo(parentGroupName, app._positionData, clickedObject);
+            toggleTransparency(clickedObject);
         }
     }
 }
+
+function setMouseCoordinates(app, event) {
+    app._mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+    app._mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+}
+
+function getIntersects(app) {
+    app._raycaster.setFromCamera(app._mouse, app._camera);
+    return app._raycaster.intersectObjects(app._scene.children, true);
+}
+
+function getClickedObject(intersects) {
+    let clickedObject = intersects[0].object;
+
+    while (clickedObject.parent && clickedObject.parent.type !== 'Scene') {
+        clickedObject = clickedObject.parent;
+    }
+
+    return clickedObject;
+}
+
+function isModelGroup(name) {
+    return name.includes('modelGroup');
+}
+
+function logModelInfo(name, positionData, object) {
+    console.log('모델이름:', name);
+    console.log('Model position:', positionData);
+    console.log(object);
+}
+
+function toggleTransparency(object) {
+    object.traverse((child) => {
+        if (child.isMesh) {
+            if (child.userData.isTransparent) {
+                setOpaque(child);
+            } else {
+                setTransparent(child);
+            }
+        }
+    });
+}
+
+function setOpaque(mesh) {
+    mesh.material.opacity = mesh.userData.originalOpacity;
+    mesh.material.transparent = mesh.userData.originalTransparent;
+    mesh.userData.isTransparent = false;
+}
+
+function setTransparent(mesh) {
+    if (!mesh.userData.hasOwnProperty('originalOpacity')) {
+        mesh.userData.originalOpacity = mesh.material.opacity;
+        mesh.userData.originalTransparent = mesh.material.transparent;
+    }
+    mesh.material.opacity = 0.5;
+    mesh.material.transparent = true;
+    mesh.userData.isTransparent = true;
+}
+
 
 window.onload = function () {
     app = new App();

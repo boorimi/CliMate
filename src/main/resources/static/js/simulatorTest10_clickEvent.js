@@ -117,23 +117,23 @@ class App {
     }
 
     loadTestModel1() {
-        loadTestModel1(this);
+        loadTestModel(this, '/resources/holds/pinch/pinch01.glb', 'modelGroup1', { x: 1, y: 1, z: 2 }, { x: 1, y: 1, z: 1 }, { x: Math.PI, y: 0, z: 0 });
     }
 
     loadTestModel2() {
-        loadTestModel2(this);
+        loadTestModel(this, '/resources/holds/jug/jug01.glb', 'modelGroup2', { x: 0, y: 1, z: 2 }, { x: 0.001, y: 0.001, z: 0.001 }, { x: Math.PI / 2, y: 0, z: 0 });
     }
 
     loadTestModel3() {
-        loadTestModel3(this);
+        loadTestModel(this, '/resources/holds/volume/volume01.glb', 'modelGroup3', { x: 1, y: 2, z: 2 }, { x: 0.001, y: 0.001, z: 0.001 }, { x: 0, y: 0, z: Math.PI });
     }
 
     loadTestModel4() {
-        loadTestModel4(this);
+        loadTestModel(this, '/resources/holds/volume/volume02.glb', 'modelGroup4', { x: 1, y: 1, z: 2 }, { x: 0.001, y: 0.001, z: 0.001 }, { x: 0, y: 0, z: 0 });
     }
 
     loadTestModel5() {
-        loadTestModel5(this);
+        loadTestModel(this, '/resources/holds/volume/volume03.glb', 'modelGroup5', { x: 1, y: 1, z: 2 }, { x: 0.001, y: 0.001, z: 0.001 }, { x: 0, y: 0, z: Math.PI });
     }
 }
 
@@ -290,25 +290,26 @@ function setupControls(app) {
     app._controls = controls;
 }
 
-// pinch01
-function loadTestModel1(app) {
+// hold
+function loadTestModel(app, modelPath, groupName, position = { x: 1, y: 1, z: 2 }, scale = { x: 0.001, y: 0.001, z: 0.001 }, rotation = { x: 0, y: 0, z: 0 }) {
     const loader = new GLTFLoader();
 
     loader.load(
-        '/resources/holds/pinch/pinch01.glb', // 여기에 3D 모델 파일의 경로를 지정
+        modelPath, // 3D 모델 파일의 경로
         (glb) => {
             const model = glb.scene;
             app._glbModel = model; // 로드된 GLTF 모델을 변수에 저장
-            model.position.set(1, 1, 2); // 모델의 위치 조정
-            model.rotation.x = Math.PI; // 180도 회전
+            model.position.set(position.x, position.y, position.z); // 모델의 위치 조정
+            model.scale.set(scale.x, scale.y, scale.z); // 모델의 스케일 조정
+            model.rotation.set(rotation.x, rotation.y, rotation.z); // 모델의 회전 조정
 
             // 모델 그룹핑
-            const modelGroup1 = new THREE.Group();
-            modelGroup1.name = 'modelGroup1'; // 그룹 이름 지정
-            modelGroup1.add(model);
+            const modelGroup = new THREE.Group();
+            modelGroup.name = groupName; // 그룹 이름 지정
+            modelGroup.add(model);
 
-            console.log(modelGroup1.name);
-            app._scene.add(modelGroup1);
+            console.log(modelGroup.name);
+            app._scene.add(modelGroup);
 
             // 포지션 정보를 JSON으로 저장
             app._positionData = {
@@ -317,7 +318,7 @@ function loadTestModel1(app) {
                 z: model.position.z
             };
             // JSON 문자열로 변환
-            positionDataJSON = JSON.stringify(app._positionData);
+            const positionDataJSON = JSON.stringify(app._positionData);
             console.log(positionDataJSON);
         },
 
@@ -328,205 +329,90 @@ function loadTestModel1(app) {
     );
 }
 
-// jug01
-function loadTestModel2(app) {
-    const loader = new GLTFLoader();
-    rgbColor = rgbToHex(0, 158, 255);
-    loader.load(
-        '/resources/holds/jug/jug01.glb', // 여기에 3D 모델 파일의 경로를 지정
-        (glb) => {
-            const model = glb.scene;
-            app._glbModel = model; // 로드된 GLTF 모델을 변수에 저장
-            model.position.set(0, 1, 2); // 모델의 위치 조정
-            model.scale.set(0.001, 0.001, 0.001); // 크기 줄이기
-            model.rotation.x = Math.PI / 2; // 회전
 
-            // 모델 그룹핑
-            const modelGroup2 = new THREE.Group();
-            modelGroup2.name = 'modelGroup2'; // 그룹 이름 지정
-            modelGroup2.add(model);
-
-            console.log(modelGroup2.name);
-            app._scene.add(modelGroup2);
-
-            // 포지션 정보를 JSON으로 저장
-            app._positionData = {
-                x: model.position.x,
-                y: model.position.y,
-                z: model.position.z
-            };
-            // JSON 문자열로 변환
-            positionDataJSON = JSON.stringify(app._positionData);
-            console.log(positionDataJSON);
-
-        },
-
-        undefined,
-        (error) => {
-            console.error(error);
-        }
-    );
-}
-// volume01
-function loadTestModel3(app) {
-    const loader = new GLTFLoader();
-
-    loader.load(
-        '/resources/holds/volume/volume01.glb', // 여기에 3D 모델 파일의 경로를 지정
-        (glb) => {
-            const model = glb.scene;
-            app._glbModel = model; // 로드된 GLTF 모델을 변수에 저장
-            model.position.set(1, 2, 2); // 모델의 위치 조정
-            model.scale.set(0.001, 0.001, 0.001);
-            model.rotation.z = Math.PI;
-            // 모델 그룹핑
-            const modelGroup3 = new THREE.Group();
-            modelGroup3.name = 'modelGroup3'; // 그룹 이름 지정
-            modelGroup3.add(model);
-
-            console.log(modelGroup3.name);
-            app._scene.add(modelGroup3);
-
-            // 포지션 정보를 JSON으로 저장
-            app._positionData = {
-                x: model.position.x,
-                y: model.position.y,
-                z: model.position.z
-            };
-            // JSON 문자열로 변환
-            positionDataJSON = JSON.stringify(app._positionData);
-            console.log(positionDataJSON);
-        },
-
-        undefined,
-        (error) => {
-            console.error(error);
-        }
-    );
-}
-
-function loadTestModel4(app) {
-    const loader = new GLTFLoader();
-
-    loader.load(
-        '/resources/holds/volume/volume02.glb', // 여기에 3D 모델 파일의 경로를 지정
-        (glb) => {
-            const model = glb.scene;
-            app._glbModel = model; // 로드된 GLTF 모델을 변수에 저장
-            model.position.set(1, 1, 2); // 모델의 위치 조정
-            model.scale.set(0.001, 0.001, 0.001);
-            // 모델 그룹핑
-            const modelGroup4 = new THREE.Group();
-            modelGroup4.name = 'modelGroup4'; // 그룹 이름 지정
-            modelGroup4.add(model);
-
-            console.log(modelGroup4.name);
-            app._scene.add(modelGroup4);
-
-            // 포지션 정보를 JSON으로 저장
-            app._positionData = {
-                x: model.position.x,
-                y: model.position.y,
-                z: model.position.z
-            };
-            // JSON 문자열로 변환
-            positionDataJSON = JSON.stringify(app._positionData);
-            console.log(positionDataJSON);
-        },
-
-        undefined,
-        (error) => {
-            console.error(error);
-        }
-    );
-}
-
-function loadTestModel5(app) {
-    const loader = new GLTFLoader();
-
-    loader.load(
-        '/resources/holds/volume/volume03.glb', // 여기에 3D 모델 파일의 경로를 지정
-        (glb) => {
-            const model = glb.scene;
-            app._glbModel = model;
-            model.position.set(1, 1, 2); // 모델의 위치 조정
-            model.scale.set(0.001, 0.001, 0.001);
-            model.rotation.z = Math.PI;
-            // 모델 그룹핑
-            const modelGroup5 = new THREE.Group();
-            modelGroup5.name = 'modelGroup5'; // 그룹 이름 지정
-            modelGroup5.add(model);
-
-            console.log(modelGroup5.name);
-
-            app._scene.add(modelGroup5);
-
-            // 포지션 정보를 JSON으로 저장
-            app._positionData = {
-                x: model.position.x,
-                y: model.position.y,
-                z: model.position.z
-            };
-            // JSON 문자열로 변환
-            positionDataJSON = JSON.stringify(app._positionData);
-            console.log(positionDataJSON);
-        },
-
-        undefined,
-        (error) => {
-            console.error(error);
-        }
-    );
-}
-
+// function setTransparent 까지
 function onMouseClick(app, event) {
     event.preventDefault();
 
-    app._mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-    app._mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-
-    app._raycaster.setFromCamera(app._mouse, app._camera);
-    const intersects = app._raycaster.intersectObjects(app._scene.children, true);
+    setMouseCoordinates(app, event);
+    const intersects = getIntersects(app);
 
     if (intersects.length > 0) {
-        let clickedObject = intersects[0].object;
-
-        while (clickedObject.parent && clickedObject.parent.type !== 'Scene') {
-            clickedObject = clickedObject.parent;
-        }
-
+        const clickedObject = getClickedObject(intersects[0].object);
         const parentGroupName = clickedObject.name;
-        const groupPosition = app._positionData;
 
-        if (parentGroupName.includes('modelGroup')) {
-            console.log('모델이름:', parentGroupName);
-            console.log('Model position:', groupPosition);
-            console.log(clickedObject);
-
-            clickedObject.traverse((child) => {
-                if (child.isMesh) {
-                    if (child.userData.isTransparent) {
-                        child.material.opacity = child.userData.originalOpacity;
-                        child.material.transparent = child.userData.originalTransparent;
-                        child.userData.isTransparent = false;
-                    } else {
-                        if (!child.userData.hasOwnProperty('originalOpacity')) {
-                            child.userData.originalOpacity = child.material.opacity;
-                            child.userData.originalTransparent = child.material.transparent;
-                        }
-                        child.material.opacity = 0.5;
-                        child.material.transparent = true;
-                        child.userData.isTransparent = true;
-                    }
-                }
-            });
+        if (isModelGroup(parentGroupName)) {
+            logModelInfo(parentGroupName, app._positionData, clickedObject);
+            toggleTransparency(clickedObject);
         }
     }
 }
 
+function setMouseCoordinates(app, event) {
+    app._mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+    app._mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+}
+
+function getIntersects(app) {
+    app._raycaster.setFromCamera(app._mouse, app._camera);
+    return app._raycaster.intersectObjects(app._scene.children, true);
+}
+
+function getClickedObject(object) {
+    // 최상위 부모 객체를 찾음
+    while (object.parent && object.parent.type !== 'Scene') {
+        object = object.parent;
+    }
+    return object;
+}
+
+function isModelGroup(name) {
+    return name.includes('modelGroup');
+}
+
+function logModelInfo(name, positionData, object) {
+    console.log('모델이름:', name);
+    console.log('Model position:', positionData);
+    console.log(object);
+}
+
+function toggleTransparency(object) {
+    // 전체 그룹에 투명도를 적용하도록 보장
+    const modelGroup = getClickedObject(object);
+
+    modelGroup.traverse((child) => {
+        if (child.isMesh) {
+            if (child.userData.isTransparent) {
+                setOpaque(child);
+            } else {
+                setTransparent(child);
+            }
+        }
+    });
+}
+
+function setOpaque(mesh) {
+    mesh.material.opacity = mesh.userData.originalOpacity;
+    mesh.material.transparent = mesh.userData.originalTransparent;
+    mesh.userData.isTransparent = false;
+}
+
+function setTransparent(mesh) {
+    if (!mesh.userData.hasOwnProperty('originalOpacity')) {
+        mesh.userData.originalOpacity = mesh.material.opacity;
+        mesh.userData.originalTransparent = mesh.material.transparent;
+    }
+    mesh.material.opacity = 0.5;
+    mesh.material.transparent = true;
+    mesh.userData.isTransparent = true;
+}
+
+
+
 window.onload = function () {
     app = new App();
     app.initialize();
+
 };
 
 
