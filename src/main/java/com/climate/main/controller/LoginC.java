@@ -29,13 +29,14 @@ public class LoginC {
     //구글 로그인 api 비밀값
     @Value("${google.client_id}")
     private String googleClientId;
-    @Value("${google.redirect_url}")
+    @Value("${google.redirect_uri}")
     private String googleRedirectUrl;
 
     //구글 로그인 과정에서 타는 auth 컨트롤러
     @GetMapping("/login/oauth2/code/google")
     public String LoginAuth(@RequestParam("code") String code, Model model, HttpServletResponse response) {
         JsonObject access_token = loginDAO.getAccessToken(code); //구글 액세스 토큰
+        System.out.println("check in-----------");
         JsonObject userinfo = loginDAO.getUserInfo(access_token.get("access_token").getAsString()); //구글 정보 가져오기
 
         System.out.println("check user info => "+userinfo);

@@ -27,7 +27,17 @@ input:focus {
     margin: 5% auto;
     border-radius: 50%;
     position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
+
+  .profile-img > img {
+    width: 80%;
+    height: 80%;
+    object-fit: contain;
+  }
+
   .profile-img-upload {
     position: absolute;
     width: 30px;
@@ -43,6 +53,10 @@ input:focus {
     font-size: 1.5em;
   }
 
+  #file-input {
+    display: none;
+  }
+
   /* 회원가입 input */
   .signup-container > .signup-input {
     width: 80%;
@@ -54,7 +68,6 @@ input:focus {
   /* 회원가입 각 항목 */
   .signup-input > .nickname-input,
   .insta-input,
-  .grade-select,
   .category-select,
   .homeground,
   .signup-select-box {
@@ -63,12 +76,34 @@ input:focus {
     font-size: 1em;
   }
 
+  .grade-box {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    height: 5%;
+    font-size: 1em;
+    margin: 0 10%;
+  }
+
+  .grade-select {
+    width: 70%;
+    height: 5vh;
+    font-size: 1em;
+  }
+  .grade-image {
+    object-fit: contain;
+    width: 60%;
+    height: 60%;
+    padding-left: 25%;
+  }
+
   /* 회원가입 버튼 */
   .signup-btn {
     width: 40%;
     height: 5%;
     font-size: 2em;
-    margin: 0 30%;
+    margin: 5% 30%;
     background-color: #b0b69a;
     color: #fff;
     border: none;
