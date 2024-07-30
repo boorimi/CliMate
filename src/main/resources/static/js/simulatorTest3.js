@@ -229,7 +229,7 @@ class App {
         // group.add(line);
 
         // 두 번째 큐브
-        const geometry2 = new THREE.BoxGeometry(4, 5, 0.1);
+        const geometry2 = new THREE.BoxGeometry(4, 4.7, 0.1);
         const fillMaterial2 = new THREE.MeshPhongMaterial({
             color: rgbColor,
             map: texture,
@@ -248,15 +248,11 @@ class App {
 
         // 큐브 위치 조정
         // (+좌 -우, +위 -하, +앞 -뒤)
-        group.position.set(0, 1.25, 0); // 기본자리
-        group2.position.set(2.05, 1.25, 1.95);
+        group.position.set(0, 1.1, 0); // 기본자리
+        group2.position.set(2.05, 1.1, 1.95);
         group3.position.set(0, -1.1, 2);
 
         // 큐브 회전 설정
-        //		group.rotation.x = Math.PI / 4; // 첫 번째 큐브를 x축 기준으로 45도 회전
-        //		group.rotation.y = Math.PI / 4; // 첫 번째 큐브를 y축 기준으로 45도 회전
-
-        //		group2.rotation.x = Math.PI / 6; // 두 번째 큐브를 x축 기준으로 30도 회전
         group2.rotation.y = Math.PI / 2; // 두 번째 큐브를 y축 기준으로 90도 회전
         group3.rotation.x = Math.PI / 2;
 
@@ -286,7 +282,7 @@ class App {
                 model.rotation.x = Math.PI; // 180도 회전
                 this._scene.add(model);
                 console.log("부르기 성공");
-                },
+            },
 
             undefined,
             (error) => {

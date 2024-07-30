@@ -24,7 +24,7 @@
     }
         }
     </script>
-    <script type="module" src="resources/js/simulator.js" defer></script>
+    <script type="module" src="resources/js/simulatorTest07_ClickEvent.js" defer></script>
 </head>
 <body>
 <div class="content-container">
@@ -45,14 +45,19 @@
                     <option>Volume</option>
                 </select>
             </div>
+            <div class="hold-list-pc" >
+                <div class="hold-img" th:each="hold : ${holds}" th:data-hPk="${hold.h_pk}">
+                    <img th:src="@{/resources/holds/img/{h_img}(h_img=${hold.h_img})}">
+                </div>
+            </div>
         </div>
 
         <div id="hold-list-container-mobile"  class="list-hidden-mobile">
             <div class="hold-select-mobile" >
                 <select id="hold-select-mobile">
-                    <option>All</option>
-                    <option>jug</option>
-                    <option>pinch</option>
+                    <option id="all">All</option>
+                    <option id="jug">jug</option>
+                    <option id="pinch">pinch</option>
                     <option>crimp</option>
                     <option>sloper</option>
                     <option>pocket</option>
@@ -60,7 +65,7 @@
                 </select>
             </div>
             <div class="hold-list-mobile" >
-                <div class="hold-img" th:each="hold : ${holds}" th:id="${hold.h_pk}" th:data-hPk="${hold.h_pk}">
+                <div class="hold-img" th:each="hold : ${holds}" th:data-hPk="${hold.h_pk}">
                     <img th:src="@{/resources/holds/img/{h_img}(h_img=${hold.h_img})}">
                 </div>
             </div>

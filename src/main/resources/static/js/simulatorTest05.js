@@ -3,6 +3,7 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 
 
+
 // Renderer : 출력장치에 출력할 수 있는 장치
 // Camera : 시점 정의
 // Scene : Light와 3차원 모델인 Mexh로 구성됨
@@ -13,51 +14,6 @@ import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 // three js 예제에서 사용하던 0xff0000 형식은 16진수 형식의 색상코드.
 // rgb 컬러 세팅을 위한 function
 // 예제: RGB(0, 255, 0)을 16진수로 변환하여 색상 설정
-
-$(document).ready(function (){
-    const holdBtn = $('.hold-list-open-btn');
-    const webglContainer = $('#webgl-container');
-    let holdListMenuPC = $('#hold-list-container-pc');
-    let holdListMenuMobile = $('#hold-list-container-mobile');
-
-    function checkWidth() {
-        // 모바일
-        if ($(window).width() <= 768) {
-            holdBtn.click(function (){
-                if (holdListMenuMobile.hasClass('list-hidden-mobile')) {
-                    holdListMenuMobile.removeClass('list-hidden-mobile').addClass('list-visible-mobile').animate({ bottom: '0' }, 500);
-                    webglContainer.animate({height: '65%'}, 500);
-                } else {
-                    holdListMenuMobile.animate({ bottom: '-100%' }, 500, function() {
-                        holdListMenuMobile.removeClass('list-visible-mobile').addClass('list-hidden-mobile');
-                        webglContainer.animate({height: '100%'}, 500);
-                    });
-                }
-            });
-        }
-        // PC
-        else {
-            holdBtn.click(function (){
-                if (holdListMenuPC.hasClass('list-hidden-pc')) {
-                    holdListMenuPC.removeClass('list-hidden-pc').addClass('list-visible-pc').animate({ left: '0' }, 500);
-                    webglContainer.animate({width: '75%'}, 500);
-                } else {
-                    holdListMenuPC.animate({ left: '-100%' }, 500, function() {
-                        holdListMenuPC.removeClass('list-visible-pc').addClass('list-hidden-pc');
-                        webglContainer.animate({width: '100%'}, 500);
-                    });
-                }
-            });
-        }
-    }
-
-    // 페이지 로드 시 처음 확인
-    checkWidth();
-
-    // 창 크기 변경 시마다 확인
-    $(window).resize(checkWidth);
-
-});
 
 
 // Three.js
@@ -281,7 +237,8 @@ class App {
                 model.position.set(1, 1, 2); // 모델의 위치 조정
                 model.rotation.x = Math.PI; // 180도 회전
                 this._scene.add(model);
-                console.log("부르기 성공");
+                model.name = 'model01';
+                console.log(model.name);
             },
 
             undefined,
@@ -304,7 +261,8 @@ class App {
                 model.scale.set(0.001, 0.001, 0.001); // 크기 줄이기
                 model.rotation.x = Math.PI / 2; // 회전
                 this._scene.add(model);
-                console.log("부르기 성공");
+                model.name = 'model02';
+                console.log(model.name);
             },
 
             undefined,
@@ -326,7 +284,8 @@ class App {
                 model.scale.set(0.001, 0.001, 0.001);
                 model.rotation.z = Math.PI;
                 this._scene.add(model);
-                console.log("부르기 성공");
+                model.name = 'model03'
+                console.log(model.name);
             },
 
             undefined,
@@ -347,7 +306,8 @@ class App {
                 model.position.set(1, 1, 2); // 모델의 위치 조정
                 model.scale.set(0.001, 0.001, 0.001);
                 this._scene.add(model);
-                console.log("부르기 성공");
+                model.name = 'model04';
+                console.log(model.name);
             },
 
             undefined,
@@ -369,7 +329,8 @@ class App {
                 model.scale.set(0.001, 0.001, 0.001);
                 model.rotation.z = Math.PI;
                 this._scene.add(model);
-                console.log("부르기 성공");
+                model.name = 'model05'
+                console.log(model.name);
             },
 
             undefined,
@@ -389,7 +350,8 @@ class App {
                 this._gltfModel = model; // 로드된 GLTF 모델을 변수에 저장
                 model.position.set(1, 1, 2); // 모델의 위치 조정
                 this._scene.add(model);
-                console.log("부르기 성공");
+                model.name = 'model06'
+                console.log(model.name);
             },
 
             undefined,
@@ -398,8 +360,6 @@ class App {
             }
         );
     }
-
-
 
     resize() {
         const width = this._divContainer.clientWidth;
@@ -421,11 +381,56 @@ class App {
         time *= 0.001;
     }
 
-
 }
-
-
 
 window.onload = function () {
     window.app = new App();
 };
+
+
+$(document).ready(function (){
+    const holdBtn = $('.hold-list-open-btn');
+    const webglContainer = $('#webgl-container');
+    let holdListMenuPC = $('#hold-list-container-pc');
+    let holdListMenuMobile = $('#hold-list-container-mobile');
+
+    function checkWidth() {
+        // 모바일
+        if ($(window).width() <= 768) {
+            holdBtn.click(function (){
+                if (holdListMenuMobile.hasClass('list-hidden-mobile')) {
+                    holdListMenuMobile.removeClass('list-hidden-mobile').addClass('list-visible-mobile').animate({ bottom: '0' }, 500);
+                    webglContainer.animate({height: '65%'}, 500);
+                } else {
+                    holdListMenuMobile.animate({ bottom: '-100%' }, 500, function() {
+                        holdListMenuMobile.removeClass('list-visible-mobile').addClass('list-hidden-mobile');
+                        webglContainer.animate({height: '100%'}, 500);
+                    });
+                }
+            });
+        }
+        // PC
+        else {
+            holdBtn.click(function (){
+                if (holdListMenuPC.hasClass('list-hidden-pc')) {
+                    holdListMenuPC.removeClass('list-hidden-pc').addClass('list-visible-pc').animate({ left: '0' }, 500);
+                    webglContainer.animate({width: '75%'}, 500);
+                } else {
+                    holdListMenuPC.animate({ left: '-100%' }, 500, function() {
+                        holdListMenuPC.removeClass('list-visible-pc').addClass('list-hidden-pc');
+                        webglContainer.animate({width: '100%'}, 500);
+                    });
+                }
+            });
+        }
+    }
+
+    // 페이지 로드 시 처음 확인
+    checkWidth();
+
+    // 창 크기 변경 시마다 확인
+    $(window).resize(checkWidth);
+
+
+
+});
