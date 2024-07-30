@@ -53,10 +53,17 @@ public class CommunityC {
         return "redirect:/community/video";
     }
 
+    @GetMapping("/community/video/delete")
+    public String deleteCommunityShowoff(int b_pk) {
+        communityDAO.deleteCommunityShowoff(b_pk);
+        return "redirect:/community/video";
+    }
+
     @GetMapping("/community/video/detail")
     public String communityShowoffDetail(int b_pk, Model model) {
-        model.addAttribute("showoffLikeCount", communityDAO.selectLikeCount(b_pk));
+//        model.addAttribute("showoffLikeCount", communityDAO.selectLikeCount(b_pk));
         model.addAttribute("showoffLikeCountThisUser", communityDAO.selectLikeCountThisUser(b_pk));
+        model.addAttribute("showoffCommentsLists", communityDAO.selectCommunityComments(b_pk));
         model.addAttribute("showoffList", communityDAO.selectCommunityShowoff(b_pk));
         model.addAttribute("content", "/community/community_video_detail");
         return "index";
@@ -82,6 +89,34 @@ public class CommunityC {
         response.put("userLikes", userLikes);
 
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/community/search")
+    public String communitySearch(String searchWord, String columnName, Model model) {
+        model.addAttribute("showoffLists", communityDAO.selectSearchCommunityShowoff(columnName, searchWord));
+        model.addAttribute("content", "/community/community_menu");
+        model.addAttribute("community_content", "/community/community_video");
+        return "index";
+    }
+
+    @PostMapping("/community/video/comments/insert")
+    public String commentsInsertCommunityShowoff(int b_pk, String cm_text) {
+        communityDAO.insertCommunityComments(b_pk, cm_text);
+        return "redirect:/community/video/detail?b_pk=" + b_pk;
+    }
+
+    @GetMapping("/community/video/deleteComments")
+    public String deleteComments(int cm_pk, int b_pk) {
+        communityDAO.deleteCommunityComments(cm_pk, b_pk);
+        return "redirect:/community/video/detail?b_pk=" + b_pk;
+    }
+
+    @GetMapping("/community/hashtag")
+    public String hashtagSearch(String searchWord, Model model) {
+        model.addAttribute("showoffLists", communityDAO.selectHashtagSearchCommunityShowoff(searchWord));
+        model.addAttribute("content", "/community/community_menu");
+        model.addAttribute("community_content", "/community/community_video");
+        return "index";
     }
 
 }
