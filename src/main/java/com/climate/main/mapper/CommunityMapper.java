@@ -13,17 +13,27 @@ import java.util.List;
 public interface CommunityMapper {
 
     // 자랑게시판 전체조회
-    @Select("SELECT bo.*, u_nickname, u_grade, (SELECT COUNT(*) FROM cli_like WHERE l_b_pk = bo.b_pk) AS l_count FROM cli_board bo JOIN cli_user ON u_id = b_u_id WHERE b_category = '動画' order by b_datetime desc")
+    @Select("SELECT bo.*, u_nickname, u_grade, " +
+            "(SELECT COUNT(*) FROM cli_like WHERE l_b_pk = bo.b_pk) AS l_count, " +
+            "(SELECT COUNT(*) FROM cli_comments WHERE cm_b_pk = bo.b_pk) AS c_count " +
+            "FROM cli_board bo JOIN cli_user ON u_id = b_u_id " +
+            "WHERE b_category = '動画' order by b_datetime desc")
     public List<CommunityDTO> selectAllCommunityShowoff();
 
     // 모집게시판 전체조회
-    @Select("select bo.*, u_nickname, u_grade from cli_board bo, cli_user where u_id = b_u_id and b_category in ('クルー募集','急遽') order by b_datetime desc")
+    @Select("select bo.*, u_nickname, u_grade " +
+            "from cli_board bo, cli_user " +
+            "where u_id = b_u_id and b_category in ('クルー募集','急遽') " +
+            "order by b_datetime desc")
     public  List<CommunityDTO> selectAllCommunityRecruitment();
 
     // 자랑게시판 디테일 조회
-    @Select("select bo.*, u_nickname, u_grade from cli_board bo, cli_user where u_id = b_u_id and b_pk = #{b_pk} ")
+    @Select("SELECT bo.*, u_nickname, u_grade, " +
+            "(SELECT COUNT(*) FROM cli_like WHERE l_b_pk = bo.b_pk) AS l_count, " +
+            "(SELECT COUNT(*) FROM cli_comments WHERE cm_b_pk = bo.b_pk) AS c_count " +
+            "from cli_board bo, cli_user " +
+            "where u_id = b_u_id and b_pk = #{b_pk} ")
     public  CommunityDTO selectCommunityShowoff(int b_pk);
-
 
     // 자랑게시판 인서트
     @Insert("insert into cli_board values (cli_board_seq.nextval, 'ds6951', '動画', #{b_video}, #{b_title}, #{b_text}, sysdate, #{b_thumbnail})")
@@ -48,6 +58,10 @@ public interface CommunityMapper {
     // 내 좋아요 판단 여부
     @Select("select count(*) from cli_like where l_b_pk = #{b_pk} and l_u_id = 'ds6951'")
     public int selectLikeCountThisUser(int b_pk);
+
+    // 댓글 총 갯수
+    @Select("select count(*) from cli_comments where cm_b_pk = #{cm_b_pk} ")
+    public int selectCommentsCount(int cm_b_pk);
 
     // 검색기능
     @Select("<script>" +

@@ -58,7 +58,7 @@
                  th:if="${showoffLikeCountThisUser == 0}"><img src="/resources/icon/love_blank.png"></div>
             <div class="community-video-detail-like-icon" th:data-b_pk="${showoffList.b_pk}"
                  th:if="${showoffLikeCountThisUser > 0}"><img src="/resources/icon/love.png"></div>
-            <div class="community-video-detail-like-count" th:text="${showoffLikeCount}"></div>
+            <div class="community-video-detail-like-count" th:text="${showoffList.l_count}"></div>
         </div>
     </div>
     <div
@@ -74,7 +74,7 @@
             <div class="community-showoff-detail-comments-comments">
                 <div><img src="/resources/icon/chat-bubble.png"/></div>
                 <div>댓글</div>
-                <div>12</div>
+                <div th:text="${showoffList.c_count}"></div>
             </div>
             <div class="community-showoff-detail-comments-updel">
                 <div><img src="/resources/icon/update.png"/></div>

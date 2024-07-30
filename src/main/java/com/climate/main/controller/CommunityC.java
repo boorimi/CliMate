@@ -61,7 +61,7 @@ public class CommunityC {
 
     @GetMapping("/community/video/detail")
     public String communityShowoffDetail(int b_pk, Model model) {
-        model.addAttribute("showoffLikeCount", communityDAO.selectLikeCount(b_pk));
+//        model.addAttribute("showoffLikeCount", communityDAO.selectLikeCount(b_pk));
         model.addAttribute("showoffLikeCountThisUser", communityDAO.selectLikeCountThisUser(b_pk));
         model.addAttribute("showoffCommentsLists", communityDAO.selectCommunityComments(b_pk));
         model.addAttribute("showoffList", communityDAO.selectCommunityShowoff(b_pk));

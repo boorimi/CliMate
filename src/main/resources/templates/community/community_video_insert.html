@@ -3,12 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="/resources/css/community_video_insert.css"/>
+    <script src="/resources/js/community_video_insert.js"></script>
 </head>
 <body>
-<form action="/community/video/insert" method="post" enctype="multipart/form-data">
-    video : <input type="file" multiple="multiple" name="b_FileName" /> <br>
-    제목 : <input type="text" name="b_title" placeholder="'#암장이름'형식으로입력" /> <br>
-    본문 : <input type="text" name="b_text"/> <br>
+<form id="uploadForm" action="/community/video/insert" method="post" onsubmit="return validateForm(event);" enctype="multipart/form-data">
+    video : <input id="uploadFile" type="file" multiple="multiple" name="b_FileName" /> <br>
+    thumbnail : <input id="uploadThumbnail" type="file" name="b_FileThumbnail" /> <br>
+    제목 : <input type="text" name="b_title" placeholder="'#암장이름'형식으로입력 / 2~40글자 입력" /> <br>
+    본문 : <input type="text" name="b_text"  placeholder="'2~200글자 입력 / #으로 해시태그 가능"/> <br>
     <button type="submit">등록</button>
 </form>
 </body>

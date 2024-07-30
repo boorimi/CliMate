@@ -10,8 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -58,24 +60,27 @@ public class CommunityDAO implements CommunityMapper {
 
             boolean thumbnailCreated = false;
             String thumbnail = "";
+            int videoCount = 0;
+            int totalFiles = b_video.length;
 
-            for ( MultipartFile v : b_video ) {
+            for (int i = 0; i < totalFiles; i++) {
                 UUID uuid = UUID.randomUUID();
                 String randomID = uuid.toString();
                 String[] selectID = randomID.split("-");
                 selectID2 = selectID[0];
 
-                byte[] bytes = v.getBytes();
-                Path path = Paths.get(UPLOADED_FOLDER + selectID2 + ".mp4");
-                Files.write(path, bytes);
+                String fileName = selectID2 + ".mp4";
+                Path path = Paths.get(UPLOADED_FOLDER + fileName);
 
-                if (!thumbnailCreated) {
-                    // 첫 번째 파일에서만 섬네일 생성
+                byte[] bytes = b_video[i].getBytes();
+                Files.write(path, bytes);
+                selectID3 += fileName + "!";
+
+                if (i == totalFiles - 1) {
+                    // 마지막 파일에서만 섬네일 생성
                     thumbnail = createThumbnail(path.toFile(), selectID2);
-                    thumbnailCreated = true;
                 }
 
-                selectID3 += selectID2 + ".mp4" + "!";
             }
             communityDTO.setB_video(selectID3);
             communityDTO.setB_thumbnail(thumbnail);
@@ -103,6 +108,21 @@ public class CommunityDAO implements CommunityMapper {
         processBuilder.redirectErrorStream(true);
         Process process = processBuilder.start();
 //        process.waitFor();
+        ///////////////////////////////////
+        // 프로세스의 출력 로그를 읽어서 확인
+//        try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
+//            String line;
+//            while ((line = reader.readLine()) != null) {
+//                System.out.println(line);
+//            }
+//        }
+
+//        // FFmpeg 명령어 실행 후 결과 코드 확인
+//        int exitCode = process.waitFor();
+//        if (exitCode != 0) {
+//            throw new IOException("FFmpeg process failed with exit code " + exitCode);
+//        }
+        /////////////////////////////////////////////
 
         return selectID2 + "_thumbnail.png";
         // 섬네일 파일을 원하는 위치로 이동
@@ -144,7 +164,7 @@ public class CommunityDAO implements CommunityMapper {
 
     @Override
     public int insertCommunityLike(int b_pk, String u_id) {
-        return communityMapper.insertCommunityLike(b_pk,u_id);
+        return communityMapper.insertCommunityLike(b_pk, u_id);
     }
 
     @Override
@@ -160,6 +180,11 @@ public class CommunityDAO implements CommunityMapper {
     @Override
     public int selectLikeCountThisUser(int b_pk) {
         return communityMapper.selectLikeCountThisUser(b_pk);
+    }
+
+    @Override
+    public int selectCommentsCount(int cm_b_pk) {
+        return communityMapper.selectCommentsCount(cm_b_pk);
     }
 
     @Override
