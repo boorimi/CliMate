@@ -451,23 +451,24 @@ class App {
         this._raycaster.setFromCamera(this._mouse, this._camera);
         const intersects = this._raycaster.intersectObjects(this._scene.children, true);
 
-
         if (intersects.length > 0) {
             let clickedObject = intersects[0].object;
 
             // 최상위 부모를 찾기 위한 루프
-            while (clickedObject.parent && !clickedObject.parent.isScene) {
+            while (clickedObject.parent && clickedObject.parent.type !== 'Scene') {
                 clickedObject = clickedObject.parent;
             }
 
             const parentGroupName = clickedObject.name;
-            const modelPosition = this._positionData;
+            const groupPosition = this._positionData;
 
             // parentGroupName에 'modelGroup'이 포함되어 있는지 확인
             if (parentGroupName.includes('modelGroup')) {
-                    // 클릭한 모델 정보
-                    console.log('모델이름:', parentGroupName);
-                    console.log('Model position:', modelPosition);
+                // 클릭한 모델 정보
+                console.log('모델이름:', parentGroupName);
+                console.log('Model position:', groupPosition);
+                console.log(clickedObject);
+
                 clickedObject.traverse((child) => {
                     if (child.isMesh) {
                         // 현재 투명도 상태를 확인
@@ -503,9 +504,9 @@ class App {
     }
 
     render(time) {
+        requestAnimationFrame(this.render.bind(this));
         this._renderer.render(this._scene, this._camera);
         this.update(time);
-        requestAnimationFrame(this.render.bind(this));
     }
 
     update(time) {
