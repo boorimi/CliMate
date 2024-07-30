@@ -1,5 +1,7 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+
 
 // Renderer : 출력장치에 출력할 수 있는 장치
 // Camera : 시점 정의
@@ -55,11 +57,13 @@ $(document).ready(function (){
     // 창 크기 변경 시마다 확인
     $(window).resize(checkWidth);
 
+});
 
 
+// Three.js
 
-
-})
+// Three.js를 사용하여 기존에 만든 방 모양 3D 씬에 새로운 3D 모델링 파일을 추가하려면,
+// Three.js의 GLTFLoader 또는 OBJLoader 등을 사용하여 3D 모델을 로드할 수 있습니다.
 
 function rgbToHex(r, g, b) {
     return (r << 16) | (g << 8) | b;
@@ -69,6 +73,21 @@ let rgbColor = rgbToHex();
 // 텍스쳐 사용
 const textureLoader = new THREE.TextureLoader();
 let texture = textureLoader.load();
+
+document.addEventListener('DOMContentLoaded', function () {
+    const holdImgs = document.querySelectorAll('.hold-img');
+    holdImgs.forEach(function (holdImg) {
+        holdImg.addEventListener('click', function () {
+            const hPk = this.getAttribute('data-hPk');
+            const methodName = `_loadTestModel${hPk}`;
+            if (typeof app[methodName] === 'function') {
+                app[methodName]();
+            } else {
+                console.error(`Method ${methodName} does not exist on app`);
+            }
+        });
+    });
+});
 
 class App {
     constructor() {
@@ -179,7 +198,7 @@ class App {
         // this._scene.add(light);
 
         const directionalLight = new THREE.DirectionalLight(rgbColor, intensity);
-        directionalLight.position.set(-3, 5, 4);
+        directionalLight.position.set(-3, 4.7, 4);
         this._scene.add(directionalLight);
 
         // Ambient Light 추가
@@ -198,7 +217,7 @@ class App {
         texture = textureLoader.load('/resources/img/texture01.png');
         // 첫 번째 큐브
         // 가로, 높이, 세로
-        const geometry = new THREE.BoxGeometry(4, 3.3, 0.1);
+        const geometry = new THREE.BoxGeometry(4, 4.7, 0.1);
         // MeshStandardMaterial을 사용하여 재질 생성, 텍스처 적용
         const fillMaterial = new THREE.MeshPhongMaterial({
             color: rgbColor,
@@ -210,7 +229,7 @@ class App {
         // group.add(line);
 
         // 두 번째 큐브
-        const geometry2 = new THREE.BoxGeometry(4, 3.3, 0.1);
+        const geometry2 = new THREE.BoxGeometry(4, 5, 0.1);
         const fillMaterial2 = new THREE.MeshPhongMaterial({
             color: rgbColor,
             map: texture,
@@ -229,8 +248,8 @@ class App {
 
         // 큐브 위치 조정
         // (+좌 -우, +위 -하, +앞 -뒤)
-        group.position.set(0, 0.4, 0); // 기본자리
-        group2.position.set(2.05, 0.4, 1.95);
+        group.position.set(0, 1.25, 0); // 기본자리
+        group2.position.set(2.05, 1.25, 1.95);
         group3.position.set(0, -1.1, 2);
 
         // 큐브 회전 설정
@@ -250,7 +269,141 @@ class App {
         this._cube1 = group;
         this._cube2 = group2;
         this._cube3 = group3;
+
     }
+
+
+    // pinch01
+    _loadTestModel1() {
+        const loader = new GLTFLoader();
+
+        loader.load(
+            '/resources/holds/pinch/pinch01.glb', // 여기에 3D 모델 파일의 경로를 지정
+            (gltf) => {
+                const model = gltf.scene;
+                this._gltfModel = model; // 로드된 GLTF 모델을 변수에 저장
+                model.position.set(1, 1, 2); // 모델의 위치 조정
+                model.rotation.x = Math.PI; // 180도 회전
+                this._scene.add(model);
+                console.log("부르기 성공");
+            },
+
+            undefined,
+            (error) => {
+                console.error(error);
+            }
+        );
+    }
+
+    // jug01
+    _loadTestModel2() {
+        const loader = new GLTFLoader();
+        rgbColor = rgbToHex(0, 158, 255);
+        loader.load(
+            '/resources/holds/jug/jug01.glb', // 여기에 3D 모델 파일의 경로를 지정
+            (gltf) => {
+                const model = gltf.scene;
+                this._gltfModel = model; // 로드된 GLTF 모델을 변수에 저장
+                model.position.set(0, 1, 2); // 모델의 위치 조정
+                model.scale.set(0.001, 0.001, 0.001); // 크기 줄이기
+                model.rotation.x = Math.PI / 2; // 회전
+                this._scene.add(model);
+                console.log("부르기 성공");
+            },
+
+            undefined,
+            (error) => {
+                console.error(error);
+            }
+        );
+    }
+    // volume01
+    _loadTestModel3() {
+        const loader = new GLTFLoader();
+
+        loader.load(
+            '/resources/holds/volume/volume01.glb', // 여기에 3D 모델 파일의 경로를 지정
+            (gltf) => {
+                const model = gltf.scene;
+                this._gltfModel = model; // 로드된 GLTF 모델을 변수에 저장
+                model.position.set(1, 1, 2); // 모델의 위치 조정
+                model.scale.set(0.001, 0.001, 0.001);
+                model.rotation.z = Math.PI;
+                this._scene.add(model);
+                console.log("부르기 성공");
+            },
+
+            undefined,
+            (error) => {
+                console.error(error);
+            }
+        );
+    }
+
+    _loadTestModel4() {
+        const loader = new GLTFLoader();
+
+        loader.load(
+            '/resources/holds/volume/volume02.glb', // 여기에 3D 모델 파일의 경로를 지정
+            (gltf) => {
+                const model = gltf.scene;
+                this._gltfModel = model; // 로드된 GLTF 모델을 변수에 저장
+                model.position.set(1, 1, 2); // 모델의 위치 조정
+                model.scale.set(0.001, 0.001, 0.001);
+                this._scene.add(model);
+                console.log("부르기 성공");
+            },
+
+            undefined,
+            (error) => {
+                console.error(error);
+            }
+        );
+    }
+
+    _loadTestModel5() {
+        const loader = new GLTFLoader();
+
+        loader.load(
+            '/resources/holds/volume/volume03.glb', // 여기에 3D 모델 파일의 경로를 지정
+            (gltf) => {
+                const model = gltf.scene;
+                this._gltfModel = model; // 로드된 GLTF 모델을 변수에 저장
+                model.position.set(1, 1, 2); // 모델의 위치 조정
+                model.scale.set(0.001, 0.001, 0.001);
+                model.rotation.z = Math.PI;
+                this._scene.add(model);
+                console.log("부르기 성공");
+            },
+
+            undefined,
+            (error) => {
+                console.error(error);
+            }
+        );
+    }
+
+    _loadTestModel6() {
+        const loader = new GLTFLoader();
+
+        loader.load(
+            '/resources/holds/scene.gltf', // 여기에 3D 모델 파일의 경로를 지정
+            (gltf) => {
+                const model = gltf.scene;
+                this._gltfModel = model; // 로드된 GLTF 모델을 변수에 저장
+                model.position.set(1, 1, 2); // 모델의 위치 조정
+                this._scene.add(model);
+                console.log("부르기 성공");
+            },
+
+            undefined,
+            (error) => {
+                console.error(error);
+            }
+        );
+    }
+
+
 
     resize() {
         const width = this._divContainer.clientWidth;
@@ -260,28 +413,23 @@ class App {
         this._camera.updateProjectionMatrix();
 
         this._renderer.setSize(width, height);
-
-        this._camera.position.z = 7;
     }
 
-    // time : 렌더링이 처음 시작된 이후 경과된 시간값으로, 단위는 milli-second
-    // time 인자를 scene의 애니메이션에 이용 가능
     render(time) {
-        // renderer가 scene을 카메라의 시점으로 렌더링하라는 코드
         this._renderer.render(this._scene, this._camera);
         this.update(time);
         requestAnimationFrame(this.render.bind(this));
     }
 
     update(time) {
-        time *= 0.001; // 밀리세컨드를 세컨드로 바꿔줌
-        // cube의 x, y축에 대한 회전 값에 time 값 지정
-        // 자동회전시키는 코드
-        // this._cube.rotation.x = time;
-        // this._cube.rotation.y = time;
+        time *= 0.001;
     }
+
+
 }
 
+
+
 window.onload = function () {
-    new App();
+    window.app = new App();
 };
