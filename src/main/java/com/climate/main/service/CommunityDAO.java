@@ -5,6 +5,7 @@ import com.climate.main.dto.CommunityDTO;
 import com.climate.main.dto.LikeDTO;
 import com.climate.main.mapper.CommunityMapper;
 import com.climate.main.mapper.TestMapper;
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -54,6 +55,10 @@ public class CommunityDAO implements CommunityMapper {
         String selectID3 = "";
 
         try {
+
+            boolean thumbnailCreated = false;
+            String thumbnail = "";
+
             for ( MultipartFile v : b_video ) {
                 UUID uuid = UUID.randomUUID();
                 String randomID = uuid.toString();
@@ -64,17 +69,46 @@ public class CommunityDAO implements CommunityMapper {
                 Path path = Paths.get(UPLOADED_FOLDER + selectID2 + ".mp4");
                 Files.write(path, bytes);
 
+                if (!thumbnailCreated) {
+                    // 첫 번째 파일에서만 섬네일 생성
+                    thumbnail = createThumbnail(path.toFile(), selectID2);
+                    thumbnailCreated = true;
+                }
+
                 selectID3 += selectID2 + ".mp4" + "!";
             }
             communityDTO.setB_video(selectID3);
+            communityDTO.setB_thumbnail(thumbnail);
             if (communityMapper.insertCommunityShowoff(communityDTO) == 1) {
                 System.out.println("입력성공");
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         return 0;
+    }
+
+    private String createThumbnail(File videoFile, String selectID2) throws IOException, InterruptedException {
+        String thumbnailPath = videoFile.getParent() + "/" + selectID2 + "_thumbnail.png";
+
+        // FFmpeg 명령어 실행
+        ProcessBuilder processBuilder = new ProcessBuilder(
+                "ffmpeg",
+                "-i", videoFile.getAbsolutePath(),
+                "-ss", "00:00:01.000",
+                "-vframes", "1",
+                thumbnailPath
+        );
+        processBuilder.redirectErrorStream(true);
+        Process process = processBuilder.start();
+//        process.waitFor();
+
+        return selectID2 + "_thumbnail.png";
+        // 섬네일 파일을 원하는 위치로 이동
+//        File thumbnailFile = new File(thumbnailPath);
+//        Path destinationPath = Paths.get(videoFile.getParentFile().getAbsolutePath(), selectID2 + "_thumbnail.png");
+//        Files.move(thumbnailFile.toPath(), destinationPath);
     }
 
     @Override
@@ -83,10 +117,19 @@ public class CommunityDAO implements CommunityMapper {
         String UPLOADED_FOLDER = "src/main/resources/static/upload/";
 
         String b_video = communityDTO.getB_video();
+        String b_thumbnail = communityDTO.getB_thumbnail();
         if (b_video != null && !b_video.isEmpty()) {
             String[] fileNames = b_video.split("!");
 
-            // 각 파일 삭제
+            // 섬네일 삭제
+            File fileThumbnail = new File(UPLOADED_FOLDER + b_thumbnail);
+            if (fileThumbnail.exists()) {
+                if (!fileThumbnail.delete()) {
+                    throw new RuntimeException("Failed to delete file: " + b_thumbnail);
+                }
+            }
+
+            // 각 동영상 삭제
             for (String fileName : fileNames) {
                 File file = new File(UPLOADED_FOLDER + fileName);
                 if (file.exists()) {

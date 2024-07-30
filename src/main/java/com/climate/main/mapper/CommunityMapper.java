@@ -26,7 +26,7 @@ public interface CommunityMapper {
 
 
     // 자랑게시판 인서트
-    @Insert("insert into cli_board values (cli_board_seq.nextval, 'ds6951', '動画', #{b_video}, #{b_title}, #{b_text}, sysdate)")
+    @Insert("insert into cli_board values (cli_board_seq.nextval, 'ds6951', '動画', #{b_video}, #{b_title}, #{b_text}, sysdate, #{b_thumbnail})")
     public int insertCommunityShowoff(CommunityDTO communityDTO);
 
     // 자랑게시판 삭제

@@ -15,7 +15,9 @@
         검색 결과가 없습니다.
     </div>
     <div class="community-content" th:each="show : ${showoffLists}" th:onclick="'location.href=\'/community/video/detail?b_pk=' + ${show.b_pk} + '\''">
-        <div class="community-video" th:text="${show.b_video}"></div>
+        <div class="community-video">
+            <img th:src="@{'/resources/upload/' + ${show.b_thumbnail}}"/>
+        </div>
         <div class="community-likecomments-wrapper">
             <div class="community-like"><img src="/resources/icon/love.png"/></div>
             <div class="community-like-count" th:text="${show.l_count}"></div>
