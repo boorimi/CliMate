@@ -6,6 +6,7 @@ $(function() {
             var reader = new FileReader();
             reader.onload = function(e) {
                 document.getElementById('profile').src = e.target.result;
+                $(this).attr("name","file_upload");
             };
             reader.readAsDataURL(file[0]);
         } else {
@@ -16,8 +17,6 @@ $(function() {
     })
 
     //등급 설정
-
-
     $("#grade-select").on("change", function(event) {
         console.log("check color value => "+event.target.value);
         const color = event.target.value;
@@ -45,5 +44,11 @@ $(function() {
             $("#grade-img").attr("src", "/resources/grade_icon/hold_purple.png");
         }
     })
+
+    //google map
+    $("#homeground").on('change', function(event) {
+        window.open("pop.html", "_blank","width=420,height=500,left=200,top=200");
+    })
 })
+
 

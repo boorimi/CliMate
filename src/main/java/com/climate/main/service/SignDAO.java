@@ -13,7 +13,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 @Service
-public class LoginDAO implements UserMapper{
+public class SignDAO implements UserMapper{
     @Autowired
     private RestTemplate restTemplate;
 
@@ -82,5 +82,10 @@ public class LoginDAO implements UserMapper{
     @Override
     public UserDTO getUserById(String u_id) {
         return userMapper.getUserById(u_id);
+    }
+
+    @Override
+    public int insertUser(UserDTO userDTO) {
+        return userMapper.insertUser(userDTO);
     }
 }

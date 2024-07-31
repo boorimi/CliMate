@@ -1,6 +1,7 @@
 package com.climate.main.controller;
 
 import com.climate.main.dto.UserDTO;
+import com.climate.main.service.SignDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -13,24 +14,34 @@ import java.io.File;
 
 @Controller
 public class SignUpC {
-    @PostMapping("/signup")
-    public String signUp(@ModelAttribute UserDTO userDTO) {
-        MultipartFile file = userDTO.getU_img();
-        String profileImage;
+    @Autowired
+    private SignDAO signDAO;
 
+    @PostMapping("/signup")
+    public String signUp(@ModelAttribute UserDTO userDTO, @RequestParam("file_upload") MultipartFile file) {
+
+        String profileImage;
         if (file == null || file.isEmpty()) {
             // 파일이 업로드되지 않은 경우 기본 이미지 사용
-            profileImage = userDTO.getU_profile();
+            profileImage = userDTO.getU_img();
         } else {
             // 파일이 업로드된 경우 파일 저장 로직
             profileImage = saveFile(file);
         }
 
         // userDTO에서 profile 이미지 설정
-        userDTO.setU_profile(profileImage);
+        userDTO.setU_img(profileImage);
+        userDTO.setU_homeground("home");
         System.out.println("check user dto => "+userDTO);
-
-        return "redirect:/";
+        System.out.println("check profile dto => "+profileImage);
+        int result = signDAO.insertUser(userDTO);
+        if(result == 1) {
+            System.out.println("유저 가입 성공");
+            return "redirect:/";
+        } else {
+            System.out.println("유저 가입 실패");
+            return "redirect:/signup";
+        }
     }
 
     private String saveFile(MultipartFile file) {
