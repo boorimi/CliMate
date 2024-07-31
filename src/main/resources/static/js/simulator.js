@@ -2,7 +2,6 @@ import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 
-
 $(document).ready(function (){
     const holdBtn = $('.hold-list-open-btn');
     const webglContainer = $('#webgl-container');
@@ -13,36 +12,35 @@ $(document).ready(function (){
     holdListMenuMobile.hide();
 
     function checkWidth() {
-        /*        holdListMenuPC.css('display', 'none');
-                holdListMenuMobile.css('display', 'none');*/
+        // 기존 클릭 이벤트 제거
+        holdBtn.off('click');
 
         // 모바일
         if ($(window).width() <= 768) {
-
-            holdBtn.click(function (){
+            holdBtn.on('click', function () {
                 if (holdListMenuMobile.hasClass('list-hidden-mobile')) {
                     holdListMenuMobile.css('display', 'flex'); // 애니메이션 시작 전에 표시
                     holdListMenuMobile.removeClass('list-hidden-mobile').addClass('list-visible-mobile').animate({ bottom: '0' }, 500, function() {
-                        webglContainer.animate({height: '65%'}, 500);
+                        webglContainer.animate({ height: '65%' }, 500);
                     });
                 } else {
                     holdListMenuMobile.animate({ bottom: '-100%' }, 500, function() {
                         holdListMenuMobile.removeClass('list-visible-mobile').addClass('list-hidden-mobile').css('display', 'none'); // 애니메이션 완료 후 숨기기
-                        webglContainer.animate({height: '100%'}, 500);
+                        webglContainer.animate({ height: '100%' }, 500);
                     });
                 }
             });
         }
         // PC
         else {
-            holdBtn.click(function (){
+            holdBtn.on('click', function () {
                 if (holdListMenuPC.hasClass('list-hidden-pc')) {
                     holdListMenuPC.css('display', 'flex'); // 애니메이션 시작 전에 표시
                     holdListMenuPC.removeClass('list-hidden-pc').addClass('list-visible-pc').animate({ left: '0' }, 500, function() {
-                        webglContainer.animate({width: '75%'}, 500);
+                        webglContainer.animate({ width: '75%' }, 500);
                     });
                 } else {
-                    webglContainer.animate({width: '100%'}, 500);
+                    webglContainer.animate({ width: '100%' }, 500);
                     holdListMenuPC.animate({ left: '-100%' }, 500, function() {
                         holdListMenuPC.removeClass('list-visible-pc').addClass('list-hidden-pc').css('display', 'none'); // 애니메이션 완료 후 숨기기
                     });
@@ -57,11 +55,11 @@ $(document).ready(function (){
     // 창 크기 변경 시마다 확인
     $(window).resize(checkWidth);
 
-
     $('.hold-img').on('click', function () {
         const hPk = $(this).data('hpk');
         const methodName = `loadTestModel${hPk}`;
         if (typeof app[methodName] === 'function') {
+            console.log(methodName);
             app[methodName]();
         } else {
             console.error(`Method ${methodName} 이런 메서드는 존재하지 않습니다.`);
@@ -69,13 +67,10 @@ $(document).ready(function (){
     });
 });
 
-
 function rgbToHex(r, g, b) {
     return (r << 16) | (g << 8) | b;
 }
-let rgbColor = rgbToHex();
 
-// 텍스쳐 사용
 const textureLoader = new THREE.TextureLoader();
 let texture = textureLoader.load();
 let positionData;
@@ -97,7 +92,6 @@ class App {
         this._cube1 = null;
         this._cube2 = null;
         this._cube3 = null;
-
     }
 
     initialize() {
@@ -129,7 +123,7 @@ class App {
     }
 
     loadTestModel4() {
-        loadTestModel(this, '/resources/holds/volume/volume02.glb', 'modelGroup4', { x: 1, y: 1, z: 2 }, { x: 0.001, y: 0.001, z: 0.001 }, { x: 0, y: 0, z: 0 });
+        loadTestModel(this, '/resources/holds/volume/volume02.glb', 'modelGroup4', { x: 0, y: 2, z: 1 }, { x: 0.001, y: 0.001, z: 0.001 }, { x: 0, y: 0, z: 0 });
     }
 
     loadTestModel5() {
@@ -150,22 +144,26 @@ function init(app) {
     setupModel(app);
     setupControls(app);
 
-    window.onresize = () => app.resize();
     app.resize();
 
+    window.onresize = () => app.resize();
     window.addEventListener('click', (event) => onMouseClick(app, event), false);
 
     requestAnimationFrame((time) => app.render(time));
+
+    console.log('width',window.innerWidth);
+    console.log('height', window.innerHeight);
+
 }
 
 function resize(app) {
-    const width = app._divContainer.clientWidth;
-    const height = app._divContainer.clientHeight;
+    const width = app._divContainer.firstElementChild.clientWidth;
+    const height = app._divContainer.firstElementChild.clientHeight;
+    // console.log('width',width);
+    // console.log('height',height);
+    app._camera.aspect = window.innerWidth / window.innerHeight;
 
-    app._camera.aspect = width / height;
-    app._camera.updateProjectionMatrix();
-
-    app._renderer.setSize(width, height);
+    app._renderer.setSize(window.innerWidth, window.innerHeight);
 }
 
 function render(app, time) {
@@ -179,9 +177,9 @@ function update(app, time) {
 }
 
 function setupCamera(app) {
-    const width = app._divContainer.clientWidth;
-    const height = app._divContainer.clientHeight;
-    const camera = new THREE.PerspectiveCamera(65, width / height, 0.1, 1000);
+    const width = app._divContainer.firstElementChild.clientWidth;
+    const height = app._divContainer.firstElementChild.clientHeight;
+    const camera = new THREE.PerspectiveCamera(65, window.innerWidth / window.innerHeight, 0.1, 1000);
     camera.position.z = 7;
     app._camera = camera;
 }
@@ -291,7 +289,7 @@ function setupControls(app) {
 }
 
 // hold
-function loadTestModel(app, modelPath, groupName, position = { x: 1, y: 1, z: 2 }, scale = { x: 0.001, y: 0.001, z: 0.001 }, rotation = { x: 0, y: 0, z: 0 }) {
+function loadTestModel(app, modelPath, groupName, position, scale, rotation) {
     const loader = new GLTFLoader();
 
     loader.load(
@@ -304,11 +302,12 @@ function loadTestModel(app, modelPath, groupName, position = { x: 1, y: 1, z: 2 
             model.rotation.set(rotation.x, rotation.y, rotation.z); // 모델의 회전 조정
 
             // 모델 그룹핑
-            const modelGroup = new THREE.Group();
+            // const modelGroup = new THREE.Group();
+            const modelGroup = model;
             modelGroup.name = groupName; // 그룹 이름 지정
-            modelGroup.add(model);
-
-            console.log(modelGroup.name);
+            // modelGroup.add(model);
+            // console.log(model.position);
+            // console.log('-----------------');
             app._scene.add(modelGroup);
 
             // 포지션 정보를 JSON으로 저장
@@ -318,8 +317,8 @@ function loadTestModel(app, modelPath, groupName, position = { x: 1, y: 1, z: 2 
                 z: model.position.z
             };
             // JSON 문자열로 변환
-            const positionDataJSON = JSON.stringify(app._positionData);
-            console.log(positionDataJSON);
+            // const positionDataJSON = JSON.stringify(app._positionData);
+            // console.log(positionDataJSON);
         },
 
         undefined,
@@ -329,19 +328,18 @@ function loadTestModel(app, modelPath, groupName, position = { x: 1, y: 1, z: 2 
     );
 }
 
-
 // function setTransparent 까지
 function onMouseClick(app, event) {
     event.preventDefault();
-
     setMouseCoordinates(app, event);
     const intersects = getIntersects(app);
 
     if (intersects.length > 0) {
-        const clickedObject = getClickedObject(intersects[0].object);
-        const parentGroupName = clickedObject.name;
+        const clickedObject = intersects[0].object;
+        const parentGroupName = getClickedObject(clickedObject).name;
 
         if (isModelGroup(parentGroupName)) {
+            console.log(app._positionData)
             logModelInfo(parentGroupName, app._positionData, clickedObject);
             toggleTransparency(clickedObject);
         }
@@ -349,8 +347,8 @@ function onMouseClick(app, event) {
 }
 
 function setMouseCoordinates(app, event) {
-    app._mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-    app._mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+    app._mouse.x = (event.clientX / app._divContainer.firstElementChild.clientWidth) * 2 - 1;
+    app._mouse.y = -(event.clientY / app._divContainer.firstElementChild.clientHeight) * 2 + 1;
 }
 
 function getIntersects(app) {
@@ -371,9 +369,9 @@ function isModelGroup(name) {
 }
 
 function logModelInfo(name, positionData, object) {
-    console.log('모델이름:', name);
-    console.log('Model position:', positionData);
-    console.log(object);
+    // console.log('모델이름:', name);
+    // console.log('Model position:', positionData);
+    // console.log(object);
 }
 
 function toggleTransparency(object) {
@@ -402,18 +400,12 @@ function setTransparent(mesh) {
         mesh.userData.originalOpacity = mesh.material.opacity;
         mesh.userData.originalTransparent = mesh.material.transparent;
     }
-    mesh.material.opacity = 0.5;
+    mesh.material.opacity = 0.3;
     mesh.material.transparent = true;
     mesh.userData.isTransparent = true;
 }
 
-
-
 window.onload = function () {
     app = new App();
     app.initialize();
-
 };
-
-
-
