@@ -37,3 +37,6 @@ out/
 .vscode/
 *.yml
 .yml
+
+### simulator js test folder ###
+sTest/
