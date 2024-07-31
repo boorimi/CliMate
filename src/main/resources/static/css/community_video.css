@@ -15,9 +15,16 @@
 }
 
 .community-video {
-  flex: 1;
+  /*flex: 1;*/
+  height: 36vw;
   background-color: rgb(206, 206, 206);
   text-align: center;
+}
+
+.community-video img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .community-likecomments-wrapper {
@@ -25,11 +32,22 @@
   flex-direction: row;
 }
 
+.community-like img,
+.community-comments img{
+  width: 3vw;
+  height: auto;
+}
+
+.community-like,
+.community-comments{
+  margin: 0.5vh 0vw;
+}
+
 .community-like-count,
 .community-comments-count {
   display: flex;
   align-items: center;
-  font-size: 3vw;
+  font-size: 1em;
 }
 
 .community-comments {
@@ -40,13 +58,25 @@
   font-size: 3.3vw;
 }
 
+.community-nickname-wrapper {
+  display: flex;
+}
+
 .community-nickname {
   font-size: 3.3vw;
+}
+
+.community-grade img {
+  margin-left: 1vw;
+  width: 3vw;
+  height: auto;
 }
 
 .community-video-insert{
   display: flex;
   position: fixed;
+  justify-content: center;
+  align-items: center;
   right: 7vw;
   bottom: 7vw;
   background-color: black;
@@ -54,4 +84,5 @@
   width: 15vw;
   height: 15vw;
   border-radius: 15vw;
+  font-size: 3.5em;
 }

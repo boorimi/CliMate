@@ -18,8 +18,11 @@ public class CommunityDTO {
     private String b_title;
     private String b_text;
     private Date b_datetime;
+    private String b_thumbnail;
     private String u_nickname;
     private String u_grade;
+    private int l_count;
+    private int c_count;
 
     public List<String> getVideoList() {
         return Arrays.asList(b_video.split("!"));
