@@ -1,3 +1,8 @@
+$(document).ready(function(){
+    // 슬릭 슬라이더 초기화
+
+});
+
 function validateForm(event) {
     let fileInput = document.getElementById('uploadFile');
     let files = fileInput.files;
@@ -9,14 +14,6 @@ function validateForm(event) {
         alert('最大4個までアップロードできます。');
         event.preventDefault(); // 폼 제출 방지
         return false;
-    }
-    for (var i = 0; i < files.length; i++) {
-        let file = files[i];
-        if (!file.name.endsWith('.mp4')) {
-            alert('.MP4ファイルのみアップロードできます。');
-            event.preventDefault(); // 폼 제출 방지
-            return false;
-        }
     }
 
     let titleInput = document.querySelector('input[name="b_title"]');
@@ -41,4 +38,58 @@ function validateForm(event) {
         return false;
     }
     return true;
+
+    // 파일 올리면 미리보기 생성하기
+
+}
+
+function setThumbnail(event) {
+    let files = event.target.files;
+    let imageContainer = document.querySelector(".community-showoff-video");
+    let customArrows = document.querySelector(".custom-arrows");
+    imageContainer.innerHTML = ""; // 기존 동영상 제거
+
+
+    for (var i = 0; i < files.length; i++) {
+        let file = files[i];
+        if (!file.name.endsWith('.mp4')) {
+            alert('.MP4ファイルのみアップロードできます。');
+            event.target.value = "";
+            return;
+        }
+    }
+
+    for (var i = 0; i < files.length; i++) {
+        let file = files[i];
+        let reader = new FileReader();
+            reader.onload = function (event) {
+                let video = document.createElement("video");
+                video.setAttribute("src", event.target.result);
+                video.setAttribute("controls", "controls"); // controls 속성 추가
+
+                // 비디오를 감싸는 <div> 생성
+                let slideDiv = document.createElement('div');
+                // slideDiv.className = 'slick-slide'; // 이 클래스는 실제로 필요 없지만 확인용으로 추가
+
+                slideDiv.appendChild(video);
+                imageContainer.appendChild(slideDiv);
+
+                // 슬릭 슬라이더가 비디오를 포함한 새로운 슬라이드 항목을 업데이트
+                if ($('.community-showoff-video').hasClass('slick-initialized')) {
+                    $('.community-showoff-video').slick('slickAdd', slideDiv);
+                }
+            };
+        reader.readAsDataURL(file);
+    }
+
+    $('.community-showoff-video').slick({
+        prevArrow: $('.slick-prev'),
+        nextArrow: $('.slick-next'),
+        centerMode: true, // 가운데 정렬 모드 활성화
+        centerPadding: '0', // 중앙 정렬 시 좌우 패딩 제거
+        variableWidth: true, // 슬라이드 너비 조절 가능
+        infinite: false
+    });
+    customArrows.style.display = 'flex';
+
 }

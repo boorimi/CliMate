@@ -3,17 +3,16 @@ $(document).ready(function () {
     $(".community-showoff-video").slick({
         prevArrow: $(".slick-prev"),
         nextArrow: $(".slick-next"),
-        infinite: false
     });
 
-    // $('.video').on('click', function () {
-    //     // $('.community-showoff-video').on('click','video', function() {
-    //     if (this.paused) {
-    //         this.play();
-    //     } else {
-    //         this.pause();
-    //     }
-    // });
+    $('.video').on('click', function () {
+        // $('.community-showoff-video').on('click','video', function() {
+        if (this.paused) {
+            this.play();
+        } else {
+            this.pause();
+        }
+    });
 
     $(document).on('click', '.community-video-detail-like-icon', function () {
         let b_pk = $(this).data('b_pk');
@@ -60,20 +59,6 @@ $(document).ready(function () {
     $(document).on('click', '.community-showoff-detail-comments-nicknameMenu', function (event) {
         event.stopPropagation();
     });
-
-    // 해쉬태그 만들기 코드 (제목과 본문)
-    let htmlContent = $('.community-video-detail-text').html();
-    let htmlContent2 = $('.community-video-detail-title').html();
-    function convertHashtagsToLinks(text) {
-        return text.replace(/(#[^\s#]+)/g, function(match) {
-            const encodedHashtag = encodeURIComponent(match);
-            return `<a href="/community/hashtag?searchWord=${encodedHashtag}" class="hashtag">${match}</a>`;
-        });
-    }
-    htmlContent = convertHashtagsToLinks(htmlContent);
-    htmlContent2 = convertHashtagsToLinks(htmlContent2);
-    $('.community-video-detail-text').html(htmlContent);
-    $('.community-video-detail-title').html(htmlContent2);
 
 });
 
