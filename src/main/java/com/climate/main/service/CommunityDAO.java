@@ -43,6 +43,11 @@ public class CommunityDAO implements CommunityMapper {
     }
 
     @Override
+    public CommunityDTO selectCommunityRecruitment(int b_pk) {
+        return communityMapper.selectCommunityRecruitment(b_pk);
+    }
+
+    @Override
     public List<CommentsDTO> selectCommunityComments(int b_pk) {
         return communityMapper.selectCommunityComments(b_pk);
     }
@@ -50,15 +55,16 @@ public class CommunityDAO implements CommunityMapper {
     @Override
     public int insertCommunityShowoff(CommunityDTO communityDTO) {
 
-        String UPLOADED_FOLDER = "src/main/resources/static/upload/";
+        String UPLOADED_FOLDER_VIDEO = "src/main/resources/static/upload/video/";
+        String UPLOADED_FOLDER_THUMBNAIL = "src/main/resources/static/upload/thumbnail/";
         MultipartFile[] b_video = communityDTO.getB_FileName();
+        MultipartFile b_thumbnail = communityDTO.getB_FileThumbnail();
 
         String selectID2 = "";
         String selectID3 = "";
 
         try {
 
-            boolean thumbnailCreated = false;
             String thumbnail = "";
             int videoCount = 0;
             int totalFiles = b_video.length;
@@ -70,17 +76,25 @@ public class CommunityDAO implements CommunityMapper {
                 selectID2 = selectID[0];
 
                 String fileName = selectID2 + ".mp4";
-                Path path = Paths.get(UPLOADED_FOLDER + fileName);
+                Path path = Paths.get(UPLOADED_FOLDER_VIDEO + fileName);
 
                 byte[] bytes = b_video[i].getBytes();
                 Files.write(path, bytes);
                 selectID3 += fileName + "!";
 
-                if (i == totalFiles - 1) {
-                    // 마지막 파일에서만 섬네일 생성
-                    thumbnail = createThumbnail(path.toFile(), selectID2);
+                if (i == totalFiles - 1 ) {
+                    if (b_thumbnail.isEmpty()) {
+                        // 섬네일 파일이 비어있을 경우 마지막 파일에서만 섬네일 생성
+                        thumbnail = createThumbnail(path.toFile(), selectID2);
+                    } else {
+                        // 섬네일 파일이 있을경우 이걸로 생성
+                        String thumbnailFileName = selectID2 + "_thumbnail.jpg";
+                        Path thumbnailPath = Paths.get(UPLOADED_FOLDER_THUMBNAIL + thumbnailFileName);
+                        byte[] bytes2 = b_thumbnail.getBytes();
+                        Files.write(thumbnailPath, bytes2);
+                        thumbnail = thumbnailFileName;
+                    }
                 }
-
             }
             communityDTO.setB_video(selectID3);
             communityDTO.setB_thumbnail(thumbnail);
@@ -94,9 +108,19 @@ public class CommunityDAO implements CommunityMapper {
         return 0;
     }
 
-    private String createThumbnail(File videoFile, String selectID2) throws IOException, InterruptedException {
-        String thumbnailPath = videoFile.getParent() + "/" + selectID2 + "_thumbnail.png";
+    @Override
+    public int insertCommunityLfg(CommunityDTO communityDTO) {
+        return communityMapper.insertCommunityLfg(communityDTO);
+    }
 
+    @Override
+    public int updateCommunityShowoff(CommunityDTO communityDTO) {
+        return communityMapper.updateCommunityShowoff(communityDTO);
+    }
+
+    private String createThumbnail(File videoFile, String selectID2) throws IOException, InterruptedException {
+        String thumbnailPath = "src/main/resources/static/upload/thumbnail/" + selectID2 + "_thumbnail.png";
+        System.out.println(videoFile.getParent());
         // FFmpeg 명령어 실행
         ProcessBuilder processBuilder = new ProcessBuilder(
                 "ffmpeg",
@@ -134,7 +158,8 @@ public class CommunityDAO implements CommunityMapper {
     @Override
     public int deleteCommunityShowoff(int b_pk) {
         CommunityDTO communityDTO = communityMapper.selectCommunityShowoff(b_pk);
-        String UPLOADED_FOLDER = "src/main/resources/static/upload/";
+        String UPLOADED_FOLDER_VIDEO = "src/main/resources/static/upload/video/";
+        String UPLOADED_FOLDER_THUMBNAIL = "src/main/resources/static/upload/thumbnail/";
 
         String b_video = communityDTO.getB_video();
         String b_thumbnail = communityDTO.getB_thumbnail();
@@ -142,7 +167,7 @@ public class CommunityDAO implements CommunityMapper {
             String[] fileNames = b_video.split("!");
 
             // 섬네일 삭제
-            File fileThumbnail = new File(UPLOADED_FOLDER + b_thumbnail);
+            File fileThumbnail = new File(UPLOADED_FOLDER_THUMBNAIL + b_thumbnail);
             if (fileThumbnail.exists()) {
                 if (!fileThumbnail.delete()) {
                     throw new RuntimeException("Failed to delete file: " + b_thumbnail);
@@ -151,7 +176,7 @@ public class CommunityDAO implements CommunityMapper {
 
             // 각 동영상 삭제
             for (String fileName : fileNames) {
-                File file = new File(UPLOADED_FOLDER + fileName);
+                File file = new File(UPLOADED_FOLDER_VIDEO + fileName);
                 if (file.exists()) {
                     if (!file.delete()) {
                         throw new RuntimeException("Failed to delete file: " + fileName);

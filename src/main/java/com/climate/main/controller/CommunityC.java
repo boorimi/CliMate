@@ -47,9 +47,34 @@ public class CommunityC {
         return "index";
     }
 
-    @PostMapping("community/video/insert")
+    @GetMapping("/community/lfg/insert")
+    public String moveInsertCommunityLfg(Model model) {
+        model.addAttribute("content", "/community/community_lfg_insert");
+        return "index";
+    }
+
+    @PostMapping("/community/lfg/insert")
+    public String InsertCommunityLfg(CommunityDTO communityDTO) {
+        communityDAO.insertCommunityLfg(communityDTO);
+        return "redirect:/community/lfg";
+    }
+
+    @PostMapping("/community/video/insert")
     public String insertCommunityShowoff(RedirectAttributes redirectAttributes, CommunityDTO communityDTO, Model model) {
         communityDAO.insertCommunityShowoff(communityDTO);
+        return "redirect:/community/video";
+    }
+
+    @GetMapping("/community/video/update")
+    public String moveUpdateCommunityShowoff(int b_pk, Model model) {
+        model.addAttribute("showoffList", communityDAO.selectCommunityShowoff(b_pk));
+        model.addAttribute("content", "/community/community_video_update");
+        return "index";
+    }
+
+    @PostMapping("/community/video/update")
+    public String updateCommunityShowoff(CommunityDTO communityDTO) {
+        communityDAO.updateCommunityShowoff(communityDTO);
         return "redirect:/community/video";
     }
 

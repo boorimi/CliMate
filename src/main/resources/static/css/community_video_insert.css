@@ -1,0 +1,28 @@
+
+.community-showoff-video video {
+    width: 70vw;
+    height: auto;
+    margin: 0vh 7vw;
+}
+.custom-arrows {
+    display: flex;
+    justify-content: space-between;
+    margin: 0vh 2vw;
+    width: 93%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+}
+
+.slick-prev,
+.slick-next {
+    width: 5vh;
+    height: 5vh;
+    font-size: 1.5em;
+    background-color: rgba(255, 255, 255, 0.69);
+
+    border-radius: 5vw;
+    padding: 2vw;
+    cursor: pointer;
+}

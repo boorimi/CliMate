@@ -36,7 +36,7 @@
         <div th:each="video : ${showoffList.videoList}">
             <video class="video" controls>
                 <source
-                        th:src="@{/resources/upload/{filename}(filename=${video})}"
+                        th:src="@{/resources/upload/video/{filename}(filename=${video})}"
                         type="video/mp4"
                 />
                 Your browser does not support the video tag.
@@ -77,7 +77,7 @@
                 <div th:text="${showoffList.c_count}"></div>
             </div>
             <div class="community-showoff-detail-comments-updel">
-                <div><img src="/resources/icon/update.png"/></div>
+                <div th:onclick="'location.href=\'/community/video/update?b_pk=' + ${showoffList.b_pk} + '\''"><img src="/resources/icon/update.png"/></div>
                 <div th:onclick="'deleteCheck('+${showoffList.b_pk}+')'"><img src="/resources/icon/delete.png"/></div>
             </div>
         </div>
