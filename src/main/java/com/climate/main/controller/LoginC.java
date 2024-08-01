@@ -29,7 +29,7 @@ public class LoginC {
     //구글 로그인 api 비밀값
     @Value("${google.client_id}")
     private String googleClientId;
-    @Value("${google.redirect_url}")
+    @Value("${google.redirect_uri}")
     private String googleRedirectUrl;
 
     //구글 로그인 과정에서 타는 auth 컨트롤러
