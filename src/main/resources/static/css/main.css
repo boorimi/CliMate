@@ -9,6 +9,7 @@
 body {
     padding: 0;
     margin: 0;
+
 }
 
 .main-container {
@@ -40,6 +41,7 @@ body {
 
 .main-background-img img.active {
     opacity: 0.6;
+    /*filter: brightness(50%) contrast(120%); !* 필터 추가 *!*/
 }
 
 .main-menu-container {
@@ -113,9 +115,9 @@ body {
             justify-content: center;
             align-items: center;
             height: 25%;
-            color: #e1e1e1;
+            /*color: #e1e1e1;*/
             border-radius: 0.8em;
-            background-color: #252525;
+            background-color: #eaeaea;
             box-shadow: 1px 3px 8px rgba(0, 0, 0, 0.645);
             margin-bottom: 0.5em;
         }
