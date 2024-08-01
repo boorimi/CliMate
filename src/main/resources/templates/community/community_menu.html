@@ -5,25 +5,42 @@
     <title>Title</title>
     <link rel="stylesheet" href="/resources/css/community_menu.css"/>
 </head>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+        crossorigin="anonymous"></script>
+<script defer>
+    $(document).ready(function () {
+        // 검색 인풋 오픈
+        $(".community-search-icon").click(function (){
+            $(".community-search-wrapper").slideToggle();
+            $(".community-search-wrapper").css("display", "flex");
+            // $(".community-search-wrapper").css("max-height", "flex");
+            });
+    });
+
+</script>
 <body>
 <div class="community-all-wrapper">
+    <div class="community-category-wrapper">
+        <div onclick="location.href='/community/video'">動画</div>
+        <div onclick="location.href='/community/lfg'">募集</div>
+        <div class="community-search-icon"><img src="/resources/icon/search.png"></div>
+    </div>
     <form action="/community/search">
-        <div class="community-search-wrapper">
-            <div>
+        <div class="community-search-wrapper hidden">
+<!--            <div>-->
                 <select name="columnName">
                     <option value="b_text">본문</option>
                     <option value="b_title">암장</option>
                     <option value="u_nickname">닉네임</option>
                 </select>
-            </div>
-            <div><input type="text" name="searchWord" /></div>
-            <button>검색</button>
+<!--            </div>-->
+<!--            <div>-->
+                <input type="text" name="searchWord"/>
+<!--            </div>-->
+            <button>検索</button>
         </div>
     </form>
-    <div class="community-category-wrapper">
-        <div onclick="location.href='/community/video'">자랑</div>
-        <div onclick="location.href='/community/lfg'">모집</div>
-    </div>
     <div th:include="${community_content}"></div>
 </div>
 </body>

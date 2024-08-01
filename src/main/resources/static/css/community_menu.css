@@ -1,29 +1,87 @@
+@font-face {
+  font-family: "jpFont";
+  src: url("font/jp_font.ttf") format("truetype");
+}
+
 .community-all-wrapper {
-  background-color: rgb(253, 246, 237);
-  width: 100%; /*bm*/
+  /*background-color: rgb(253, 246, 237);*/
+  width: 100%;
   height: auto;
-}
-
-.community-search-wrapper {
-  margin-top: 1.5vh;
-  display: flex;
-  justify-content: center;
-}
-
-.community-search-wrapper > div{
-  margin: 0vh 0.5vw;
+  font-family: "jpFont";
 }
 
 .community-category-wrapper {
   margin-top: 1.5vh;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+  align-items: center;
+  height: 13vw;
+  font-size: 8vw;
+
+  div {
+    /*border: 0.5vw solid #448546;*/
+    background-color: #e9e6ce85;
+    border-radius: 4vw;
+    width: 40%;
+    height: 100%;
+    /* 수직 및 수평 중앙 정렬 */
+    display: grid;
+    place-items: center;
+  }
+
+  .community-search-icon{
+    width: 13vw;
+    img{
+      width: 100%;
+    }
+  }
 }
 
-.community-category-wrapper > div {
-  padding: 0.5vh 18vw;
-  border: 0.2vw solid black;
-  border-radius: 10vw;
+.hidden{
+  display: none;
+}
+
+.community-search-wrapper {
+  width: 100%;
+  margin-top: 1.5vh;
+  display: none;
+  justify-content: space-between;
+  align-items: center;
+  height: 12vw;
+  font-family: "jpFont";
+
+  select,
+  input,
+  button{
+    border-radius: 4vw;
+    border: 0.2em solid #81b383;
+    /*background-color: #e9e6ce85;*/
+  }
+  select{
+    height: 11vw;
+    width: 20%;
+  }
+  input{
+    height: 9.5vw;
+    width: 60%;
+  }
+
+  button{
+    height: 11vw;
+    width: 15%;
+    background-color: white;
+    font-size: 7vw;
+  }
+}
+.community-search-wrapper.show {
+  flex-direction: row;
+  height: 10vw;
+}
+
+.community-search-wrapper > div{
 
 }
+
+
+
 

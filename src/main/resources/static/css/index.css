@@ -93,12 +93,16 @@ body {
 }
 
 @media (max-width: 768px) {
+    .menu {
 
-    .logo {
-        height: 100%;
-        top: 0.3vh;
-        img {
-            height: 90%;
+        .logo {
+            height: 100%;
+            top: 0.3vh;
+
+            img {
+                height: 90%;
+
+            }
         }
     }
 

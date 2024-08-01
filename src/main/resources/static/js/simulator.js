@@ -12,47 +12,36 @@ $(document).ready(function (){
     holdListMenuMobile.hide();
 
     function checkWidth() {
-        // 기존 클릭 이벤트 제거
         holdBtn.off('click');
 
-        // 모바일
         if ($(window).width() <= 768) {
             holdBtn.on('click', function () {
                 if (holdListMenuMobile.hasClass('list-hidden-mobile')) {
-                    holdListMenuMobile.css('display', 'flex'); // 애니메이션 시작 전에 표시
+                    holdListMenuMobile.css('display', 'flex');
                     holdListMenuMobile.removeClass('list-hidden-mobile').addClass('list-visible-mobile').animate({ bottom: '0' }, 500, function() {
-                        webglContainer.animate({ height: '65%' }, 500);
                     });
                 } else {
                     holdListMenuMobile.animate({ bottom: '-100%' }, 500, function() {
-                        holdListMenuMobile.removeClass('list-visible-mobile').addClass('list-hidden-mobile').css('display', 'none'); // 애니메이션 완료 후 숨기기
-                        webglContainer.animate({ height: '100%' }, 500);
+                        holdListMenuMobile.removeClass('list-visible-mobile').addClass('list-hidden-mobile').css('display', 'none');
                     });
                 }
             });
-        }
-        // PC
-        else {
+        } else {
             holdBtn.on('click', function () {
                 if (holdListMenuPC.hasClass('list-hidden-pc')) {
-                    holdListMenuPC.css('display', 'flex'); // 애니메이션 시작 전에 표시
+                    holdListMenuPC.css('display', 'flex');
                     holdListMenuPC.removeClass('list-hidden-pc').addClass('list-visible-pc').animate({ left: '0' }, 500, function() {
-                        webglContainer.animate({ width: '75%' }, 500);
                     });
                 } else {
-                    webglContainer.animate({ width: '100%' }, 500);
                     holdListMenuPC.animate({ left: '-100%' }, 500, function() {
-                        holdListMenuPC.removeClass('list-visible-pc').addClass('list-hidden-pc').css('display', 'none'); // 애니메이션 완료 후 숨기기
+                        holdListMenuPC.removeClass('list-visible-pc').addClass('list-hidden-pc').css('display', 'none');
                     });
                 }
             });
         }
     }
 
-    // 페이지 로드 시 처음 확인
     checkWidth();
-
-    // 창 크기 변경 시마다 확인
     $(window).resize(checkWidth);
 
     $('.hold-img').on('click', function () {
@@ -62,7 +51,7 @@ $(document).ready(function (){
             console.log(methodName);
             app[methodName]();
         } else {
-            console.error(`Method ${methodName} 이런 메서드는 존재하지 않습니다.`);
+            console.error(`Method ${methodName} 존재하지 않는 메서드.`);
         }
     });
 });
@@ -71,16 +60,8 @@ function rgbToHex(r, g, b) {
     return (r << 16) | (g << 8) | b;
 }
 
-const textureLoader = new THREE.TextureLoader();
-let texture = textureLoader.load();
-let positionData;
-let positionDataJSON;
-let app;
-
 class App {
     constructor() {
-        this._selectedObject = null;
-        this._isMoving = false;
         this._divContainer = document.querySelector("#webgl-container");
         this._renderer = new THREE.WebGLRenderer({ antialias: true });
         this._scene = new THREE.Scene();
@@ -89,6 +70,7 @@ class App {
         this._camera = new THREE.PerspectiveCamera();
         this._controls = null;
         this._positionData = null;
+        this._positionDataJSON = null;
         this._cube1 = null;
         this._cube2 = null;
         this._cube3 = null;
@@ -157,13 +139,14 @@ function init(app) {
 }
 
 function resize(app) {
-    const width = app._divContainer.firstElementChild.clientWidth;
-    const height = app._divContainer.firstElementChild.clientHeight;
-    // console.log('width',width);
-    // console.log('height',height);
-    app._camera.aspect = window.innerWidth / window.innerHeight;
+    const width = app._divContainer.clientWidth;
+    const height = app._divContainer.clientHeight;
+    console.log('자식 width',width);
+    console.log('자식 height',height);
+    app._camera.aspect = width / height;
+    app._camera.updateProjectionMatrix();
 
-    app._renderer.setSize(window.innerWidth, window.innerHeight);
+    app._renderer.setSize(width, height);
 }
 
 function render(app, time) {
@@ -177,9 +160,9 @@ function update(app, time) {
 }
 
 function setupCamera(app) {
-    const width = app._divContainer.firstElementChild.clientWidth;
-    const height = app._divContainer.firstElementChild.clientHeight;
-    const camera = new THREE.PerspectiveCamera(65, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const width = app._divContainer.clientWidth;
+    const height = app._divContainer.clientHeight;
+    const camera = new THREE.PerspectiveCamera(65, width / height, 0.1, 1000);
     camera.position.z = 7;
     app._camera = camera;
 }
@@ -288,37 +271,27 @@ function setupControls(app) {
     app._controls = controls;
 }
 
-// hold
 function loadTestModel(app, modelPath, groupName, position, scale, rotation) {
     const loader = new GLTFLoader();
 
     loader.load(
-        modelPath, // 3D 모델 파일의 경로
+        modelPath,
         (glb) => {
             const model = glb.scene;
-            app._glbModel = model; // 로드된 GLTF 모델을 변수에 저장
-            model.position.set(position.x, position.y, position.z); // 모델의 위치 조정
-            model.scale.set(scale.x, scale.y, scale.z); // 모델의 스케일 조정
-            model.rotation.set(rotation.x, rotation.y, rotation.z); // 모델의 회전 조정
+            app._glbModel = model;
+            model.position.set(position.x, position.y, position.z);
+            model.scale.set(scale.x, scale.y, scale.z);
+            model.rotation.set(rotation.x, rotation.y, rotation.z);
 
-            // 모델 그룹핑
-            // const modelGroup = new THREE.Group();
             const modelGroup = model;
-            modelGroup.name = groupName; // 그룹 이름 지정
-            // modelGroup.add(model);
-            // console.log(model.position);
-            // console.log('-----------------');
+            modelGroup.name = groupName;
             app._scene.add(modelGroup);
 
-            // 포지션 정보를 JSON으로 저장
             app._positionData = {
                 x: model.position.x,
                 y: model.position.y,
                 z: model.position.z
             };
-            // JSON 문자열로 변환
-            // const positionDataJSON = JSON.stringify(app._positionData);
-            // console.log(positionDataJSON);
         },
 
         undefined,
@@ -328,7 +301,6 @@ function loadTestModel(app, modelPath, groupName, position, scale, rotation) {
     );
 }
 
-// function setTransparent 까지
 function onMouseClick(app, event) {
     event.preventDefault();
     setMouseCoordinates(app, event);
@@ -347,8 +319,9 @@ function onMouseClick(app, event) {
 }
 
 function setMouseCoordinates(app, event) {
-    app._mouse.x = (event.clientX / app._divContainer.firstElementChild.clientWidth) * 2 - 1;
-    app._mouse.y = -(event.clientY / app._divContainer.firstElementChild.clientHeight) * 2 + 1;
+    const rect = app._divContainer.getBoundingClientRect();
+    app._mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+    app._mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
 }
 
 function getIntersects(app) {
@@ -357,7 +330,6 @@ function getIntersects(app) {
 }
 
 function getClickedObject(object) {
-    // 최상위 부모 객체를 찾음
     while (object.parent && object.parent.type !== 'Scene') {
         object = object.parent;
     }
@@ -369,13 +341,9 @@ function isModelGroup(name) {
 }
 
 function logModelInfo(name, positionData, object) {
-    // console.log('모델이름:', name);
-    // console.log('Model position:', positionData);
-    // console.log(object);
 }
 
 function toggleTransparency(object) {
-    // 전체 그룹에 투명도를 적용하도록 보장
     const modelGroup = getClickedObject(object);
 
     modelGroup.traverse((child) => {
@@ -405,6 +373,7 @@ function setTransparent(mesh) {
     mesh.userData.isTransparent = true;
 }
 
+let app;
 window.onload = function () {
     app = new App();
     app.initialize();

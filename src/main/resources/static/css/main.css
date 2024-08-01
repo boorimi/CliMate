@@ -62,17 +62,6 @@ body {
         top: -28vh;
         z-index: 900;
 
-        #animatedDiv{
-            opacity: 0;
-            /*animation: fadeIn 2s ease-in-out 2s forwards, blink 1s steps(2, start) 4s 2;*/
-            animation: fadeIn 2s ease-in-out 2s forwards;
-        }
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-            }
-        }
-
         #main-title-carabiner {
             position: absolute;
             top: -4vh;
@@ -113,18 +102,18 @@ body {
             justify-content: center;
             align-items: center;
             height: 25%;
-            color: #e1e1e1;
+            color: #2a2a2a;
             border-radius: 0.8em;
-            background-color: #252525;
-            box-shadow: 1px 3px 8px rgba(0, 0, 0, 0.645);
+            background-color: rgba(236, 236, 236, 0.75);
+            /*box-shadow: 1px 3px 8px rgba(0, 0, 0, 0.645);*/
             margin-bottom: 0.5em;
+
+
         }
         .main-login,
         .main-logout,
         .main-mypage{
             width: 75%;
-            background-color: #eaeaea;
-            color: #000000c9;
         }
         .main-map:hover{
             background-color: #caea79;
