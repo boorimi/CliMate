@@ -2,8 +2,12 @@
     cursor: url("../icon/brush.png"), auto;
 }
 
-body {
+@font-face {
+    font-family: "jpFont";
+    src: url("font/jp_font.ttf") format("truetype");
+}
 
+body {
     padding: 0;
 }
 
@@ -12,29 +16,24 @@ body {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    padding: 1rem;
     margin-bottom: 0.5rem;
-    height: 5vh;
-    background-color: whitesmoke;
-    font-family: "Mochiy Pop P One", sans-serif;
-    font-weight: 400;
-    font-style: normal;
+    height: 10vh;
     color: #302e23;
-    border-radius: 1rem;
-    box-shadow: 0em 0em 0.4em gray;
-}
+    font-family: "jpFont";
 
-.logo {
-    flex: 1;
-    display: flex;
-    justify-content: center;
+    .logo {
+        height: 110%;
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translate(-50%);
 
-    a {
-        font-size: 2em;
-        text-decoration: none;
-        color: #302e23;
+        img {
+            height: 100%;
+        }
     }
 }
+
 
 .hamburger {
     cursor: pointer;
@@ -43,9 +42,9 @@ body {
 
     .hamburger-bar {
         display: block;
-        width: 1.5em;
+        width: 2em;
         height: 0.2em;
-        margin: 0.3em auto;
+        margin: 0.5em auto;
         background-color: #333;
         transition: 0.3s;
     }
@@ -71,6 +70,7 @@ body {
         align-items: center;
         height: 6vw;
         font-size: 2.2vw;
+
         img {
             width: 4vw;
             height: auto;
@@ -80,7 +80,8 @@ body {
 
     li:last-child {
         border-bottom: none;
-        img{
+
+        img {
             width: 3.5vw;
         }
     }
@@ -92,6 +93,15 @@ body {
 }
 
 @media (max-width: 768px) {
+
+    .logo {
+        height: 100%;
+        top: 0.3vh;
+        img {
+            height: 90%;
+        }
+    }
+
     .hamburger-menu {
         top: 5rem;
         width: 45%;
@@ -109,8 +119,9 @@ body {
                 padding: 1em;
             }
         }
+
         li:last-child {
-            img{
+            img {
                 width: 6vw;
             }
         }

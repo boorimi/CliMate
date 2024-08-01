@@ -3,16 +3,17 @@ $(document).ready(function () {
     $(".community-showoff-video").slick({
         prevArrow: $(".slick-prev"),
         nextArrow: $(".slick-next"),
+        infinite: false
     });
 
-    $('.video').on('click', function () {
-        // $('.community-showoff-video').on('click','video', function() {
-        if (this.paused) {
-            this.play();
-        } else {
-            this.pause();
-        }
-    });
+    // $('.video').on('click', function () {
+    //     // $('.community-showoff-video').on('click','video', function() {
+    //     if (this.paused) {
+    //         this.play();
+    //     } else {
+    //         this.pause();
+    //     }
+    // });
 
     $(document).on('click', '.community-video-detail-like-icon', function () {
         let b_pk = $(this).data('b_pk');

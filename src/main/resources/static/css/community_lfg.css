@@ -28,7 +28,27 @@
   margin-left: 1vw;
 }
 
+.community-lfg-grade img {
+  width: 4vw;
+  height: auto;
+}
+
 .community-lfg-below {
   font-size: 4.5vw;
   padding: 2vw 0vw;
+}
+
+.community-lfg-insert {
+  display: flex;
+  position: fixed;
+  justify-content: center;
+  align-items: center;
+  right: 7vw;
+  bottom: 7vw;
+  background-color: black;
+  color: white;
+  width: 15vw;
+  height: 15vw;
+  border-radius: 15vw;
+  font-size: 3.5em;
 }

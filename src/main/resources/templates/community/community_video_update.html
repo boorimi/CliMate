@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta
+            name="viewport"
+            content="width=device-width,initial-scale=1.0, minimum-scale=1.0,maximum-scale=1.0"
+    />
+    <title>Title</title>
+    <script
+            src="https://code.jquery.com/jquery-3.7.1.js"
+            integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+            crossorigin="anonymous"
+    ></script>
+    <link
+            rel="stylesheet"
+            type="text/css"
+            href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"
+    />
+    <script
+            type="text/javascript"
+            src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"
+    ></script>
+    <link rel="stylesheet" href="/resources/css/community_video_detail.css"/>
+    <script src="/resources/js/community_video_update.js">
+    </script>
+</head>
+<body>
+<div class="community-video-detail-all-wrapper">
+    <div class="custom-arrows">
+        <button class="slick-prev">&lt;</button>
+        <button class="slick-next">&gt;</button>
+    </div>
+    <div class="community-showoff-video">
+        <div th:each="video : ${showoffList.videoList}">
+            <video class="video" controls>
+                <source
+                        th:src="@{/resources/upload/video/{filename}(filename=${video})}"
+                        type="video/mp4"
+                />
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
+    <div class="community-video-detail-info">
+        <div class="community-video-detail-name">
+            <div
+                    class="community-video-detail-nickname"
+                    th:text="${showoffList.u_nickname}"
+            ></div>
+            <div class="community-video-detail-grade"><img
+                    th:src="@{'/resources/grade_icon/hold_' + ${showoffList.u_grade} + '.png'}"></div>
+        </div>
+    </div>
+    <form action="/community/video/update" method="post">
+        <input name="b_pk" type="hidden" th:value="${showoffList.b_pk}">
+        <div class="community-video-detail-title">
+            <input type="text" name="b_title" th:value="${showoffList.b_title}"/>
+        </div>
+        <div class="community-video-detail-text">
+            <input type="text" name="b_text" th:value="${showoffList.b_text}"/>
+        </div>
+        <button type="submit">수정</button>
+    </form>
+</div>
+</body>
+</html>
