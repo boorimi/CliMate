@@ -13,6 +13,7 @@ public class HC {
 
     @GetMapping("/map")
     public  String map(){
+
         return "index";
     }
 

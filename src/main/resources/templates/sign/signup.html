@@ -1,10 +1,94 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Title</title>
-</head>
-<body>
-나는 사인업 페이지입니다~~~~~qq
-</body>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="stylesheet" href="/resources/css/signup.css" />
+  </head>
+  <body>
+    <form action="/signup" method="post" class="signup-container" enctype="multipart/form-data">
+      <div class="profile-img">
+        <img id="profile" th:src="${profile}" alt="private" />
+        <input th:value="${profile}" name="u_img" style="display:none"/>
+        <label for="file-input" class="profile-img-upload">+</label>
+        <input type="file" id="file-input" name="file_upload"/>
+      </div>
+      <div class="signup-input">
+        <input th:value="${email}" class="id-input" name="u_id" readonly></input>
+      </div>
+        <div class="signup-input">
+        <input
+          class="nickname-input"
+          placeholder="ニックネーム"
+          name="u_nickname"
+        />
+      </div>
+      <div class="signup-input">
+        <input
+          class="insta-input"
+          placeholder="インスタグラムのID"
+          name="u_insta"
+        />
+      </div>
+      <div class="grade-box">
+        <select class="grade-select" name="u_grade" id="grade-select">
+          <option value="red" data-icon="/resources/grade_icon/hold_red.png">
+            Red
+          </option>
+          <option value="orange" data-icon="/resources/grade_icon/hold_orange.png">
+            Orange
+          </option>
+          <option value="yellow" data-icon="/resources/grade_icon/hold_yellow.png">
+            Yellow
+          </option>
+          <option value="green" title="/resources/grade_icon/hold_green.png">
+            Green
+          </option>
+          <option value="blue" title="/resources/grade_icon/hold_blue.png">
+            Blue
+          </option>
+          <option
+            value="deepBlue"
+            title="/resources/grade_icon/hold_deepBlue.png"
+          >
+            deepBlue
+          </option>
+          <option value="purple" title="/resources/grade_icon/hold_purple.png">
+            Purple
+          </option>
+        </select>
+        <div id="grade-preview">
+          <img class="grade-image" id="grade-img" src="/resources/grade_icon/hold_red.png"/>
+        </div>
+      </div>
+      <div class="signup-input">
+        <select class="category-select" name="u_category">
+          <option class="category-value">利用者タイプ</option>
+          <option class="category-value" value="セッター">セッター</option>
+          <option class="category-value" value="一般的な利用者">
+            一般的な利用者
+          </option>
+        </select>
+      </div>
+      <div class="signup-input">
+        <input
+          readonly
+          class="homeground"
+          id="homeground"
+          placeholder="ホームグラウンド"
+          name="u_homeground"
+        />
+      </div>
+      <div class="signup-input private">
+        <select class="signup-select-box" name="u_profile">
+          <option class="select-value">プロフィール公開</option>
+          <option class="select-value" value="yes">公開</option>
+          <option class="select-value" value="no">非公開</option>
+        </select>
+      </div>
+      <button class="signup-btn">会員加入</button>
+    </form>
+    <script src="/resources/js/signup.js" />
+  </body>
 </html>

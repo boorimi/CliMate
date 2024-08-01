@@ -1,58 +1,74 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <!--    미디어쿼리 쓸 때에 추가해주기-->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/resources/css/main.css"/>
-    <!-- menu font -->
-    <link rel="preconnect" href="https://fonts.googleapis.com"/>
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- 애니메이션 cdn -->
     <link
-            href="https://fonts.googleapis.com/css2?family=Mochiy+Pop+P+One&family=Rampart+One&display=swap"
-            rel="stylesheet"
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
     />
 
+    <link rel="stylesheet" href="/resources/css/main.css" />
     <script
-            src="https://code.jquery.com/jquery-3.6.0.min.js"
-            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-            crossorigin="anonymous"
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
     ></script>
     <script src="/resources/js/main.js" defer></script>
-</head>
-<body>
-<div class="main-container">
-    <div class="main-background-img">
-        <img src="/resources/img/main1.jpg"/>
-        <img src="/resources/img/main2.jpg"/>
-        <img src="/resources/img/main3.jpg"/>
-        <img src="/resources/img/main4.jpg"/>
-        <img src="/resources/img/main5.jpg"/>
-    </div>
-    <div class="main-menu-container">
+  </head>
+  <body>
+    <div class="main-container">
+      <div class="main-background-img">
+        <img src="/resources/img/main1.jpg" />
+        <img src="/resources/img/main2.jpg" />
+        <img src="/resources/img/main3.jpg" />
+        <img src="/resources/img/main4.jpg" />
+        <img src="/resources/img/main5.jpg" />
+      </div>
+      <div class="main-menu-container">
         <div class="main-title">
-            <div><img src=""/></div>
-            <div>CliMate</div>
+          <div id="animatedDiv">
+            <img
+              src="/resources/img/logoCarabiner.png"
+              id="main-title-carabiner"
+            />
+          </div>
+          <div class="animate__animated animate__tada animate__delay-1s">
+            <img src="/resources/img/logoText.png" id="main-title-text" />
+          </div>
         </div>
-        <div class="main-map" onclick="location.href='map'">
-            <div class="main-map-img"><img src="/resources/icon/search.png"/></div>
+        <div class="main-menu-list">
+          <div class="main-map" onclick="location.href='/map'">
+            <div class="main-map-img">
+              <img src="/resources/icon/search.png" />
+            </div>
             <div>地図</div>
-        </div>
-        <div class="main-simulator" onclick="location.href='/simulator'">
-            <div class="main-simulator-img"><img src="/resources/icon/hold.png"/></div>
+          </div>
+          <div class="main-simulator" onclick="location.href='/simulator'">
+            <div class="main-simulator-img">
+              <img src="/resources/icon/hold.png" />
+            </div>
             <div>シミュレーター</div>
-        </div>
-        <div class="main-community" onclick="location.href='/community/video'">
-            <div class="main-community-img"><img src="/resources/icon/community.png"/></div>
+          </div>
+          <div
+            class="main-community"
+            onclick="location.href='/community/video'"
+          >
+            <div class="main-community-img">
+              <img src="/resources/icon/community.png" />
+            </div>
             <div>コミュニティ</div>
+          </div>
+          <div class="main-login" onclick="location.href='/loginC'">
+            <div class="main-login-img">
+              <img src="/resources/icon/google.png" />
+            </div>
+            <div>ログイン</div>
+          </div>
         </div>
-        <div class="main-login"
-             onclick="location.href='/loginC'">
-            <img class="main-login-img" src="/resources/icon/google.png"/>
-            ログイン
-        </div>
+      </div>
     </div>
-</div>
-</div>
-</body>
+  </body>
 </html>
