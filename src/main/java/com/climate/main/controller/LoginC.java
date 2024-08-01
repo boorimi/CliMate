@@ -1,7 +1,7 @@
 package com.climate.main.controller;
 
 import com.climate.main.dto.UserDTO;
-import com.climate.main.service.LoginDAO;
+import com.climate.main.service.SignDAO;
 import com.climate.main.util.JwtUtil;
 import com.google.gson.JsonObject;
 import jakarta.servlet.http.Cookie;
@@ -13,12 +13,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.io.IOException;
-
 @Controller
 public class LoginC {
     @Autowired
-    private LoginDAO loginDAO;
+    private SignDAO signDAO;
 
     //jwt 클래스
     private JwtUtil jwtUtil;
@@ -35,8 +33,9 @@ public class LoginC {
     //구글 로그인 과정에서 타는 auth 컨트롤러
     @GetMapping("/login/oauth2/code/google")
     public String LoginAuth(@RequestParam("code") String code, Model model, HttpServletResponse response) {
-        JsonObject access_token = loginDAO.getAccessToken(code); //구글 액세스 토큰
-        JsonObject userinfo = loginDAO.getUserInfo(access_token.get("access_token").getAsString()); //구글 정보 가져오기
+        JsonObject access_token = signDAO.getAccessToken(code); //구글 액세스 토큰
+        System.out.println("check in-----------");
+        JsonObject userinfo = signDAO.getUserInfo(access_token.get("access_token").getAsString()); //구글 정보 가져오기
 
         System.out.println("check user info => "+userinfo);
         model.addAttribute("name", userinfo.get("name").getAsString());
@@ -46,8 +45,8 @@ public class LoginC {
         UserDTO user = null;
         if(userinfo.get("email").getAsString() != null) {
             String u_id = userinfo.get("email").getAsString();
-            user = loginDAO.getUserById("ds6951");
-            String token = jwtUtil.generateToken("ds6951"); //구글 아이디 이용해서 jwt 토큰 생성
+            user = signDAO.getUserById(u_id);
+            String token = jwtUtil.generateToken(u_id); //구글 아이디 이용해서 jwt 토큰 생성
 
             if(user != null) {
                 //브라우저 쿠키에 jwt 추가
@@ -58,7 +57,8 @@ public class LoginC {
                 response.addCookie(jwt);
                 return "main";
             } else {
-                return "sign/signup";
+                model.addAttribute("content", "/sign/signup");
+                return "index";
             }
         } else {
             return "main";

@@ -13,7 +13,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 @Service
-public class LoginDAO implements UserMapper{
+public class SignDAO implements UserMapper{
     @Autowired
     private RestTemplate restTemplate;
 
@@ -28,7 +28,6 @@ public class LoginDAO implements UserMapper{
     @Value("${google.client_secret}")
     private String googleClientSecret;
 
-
     //google login api(load login page, get login account info)
     public JsonObject getAccessToken(String authorizationCode) {
         // Google OAuth 2.0 Token Endpoint
@@ -41,6 +40,8 @@ public class LoginDAO implements UserMapper{
         body.add("client_secret", googleClientSecret);
         body.add("redirect_uri", googleRedirectUrl);
         body.add("grant_type", "authorization_code");
+
+        System.out.println("check body => "+body);
 
         // Prepare request headers
         HttpHeaders headers = new HttpHeaders();
@@ -81,5 +82,10 @@ public class LoginDAO implements UserMapper{
     @Override
     public UserDTO getUserById(String u_id) {
         return userMapper.getUserById(u_id);
+    }
+
+    @Override
+    public int insertUser(UserDTO userDTO) {
+        return userMapper.insertUser(userDTO);
     }
 }
