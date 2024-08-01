@@ -1,6 +1,7 @@
 .community-showoff-video video {
-  width: 100%;
-  height: 100%;
+  width: 70vw;
+  height: auto;
+  margin: 0vh 7vw;
 }
 
 .custom-arrows {
@@ -27,12 +28,14 @@
 }
 
 .community-video-detail-info {
+  position: relative;
   display: flex;
   justify-content: space-between;
   margin: 1vh 0vw;
 }
 
 .community-video-detail-name {
+  flex: 1;
   display: flex;
   font-size: 1.5em;
   margin: 0vh 1vw;
@@ -47,7 +50,16 @@
   height: auto;
 }
 
+.community-video-detail-more-wrapper {
+
+}
+
+.community-video-detail-more img {
+  width: 10vw;
+}
+
 .community-video-detail-like {
+  margin-right: 2vw;
   display: flex;
   font-size: 2em;
 }
@@ -169,7 +181,47 @@
   }
 }
 
+.community-video-detail-updelMenu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: none;
+  position: absolute;
+  z-index: 900;
+  top: 5vh;
+  right: 0vw;
+  background-color: #ffffff;
+  box-shadow: 0em 0em 1em #d7d7d7;
+  width: 30%;
+  border-radius: 1em;
+
+  li {
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    height: 5vh;
+    font-size: 1em;
+    img {
+      width: 4vw;
+      height: auto;
+      padding: 1em;
+    }
+  }
+
+  li:last-child {
+    border-bottom: none;
+    img{
+      width: 3.5vw;
+    }
+  }
+}
+
 .community-showoff-detail-comments-nicknameMenu.activeNickname {
+  display: flex;
+  flex-direction: column;
+}
+
+.community-video-detail-updelMenu.active {
   display: flex;
   flex-direction: column;
 }

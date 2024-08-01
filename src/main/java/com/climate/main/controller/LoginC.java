@@ -46,8 +46,8 @@ public class LoginC {
         UserDTO user = null;
         if(userinfo.get("email").getAsString() != null) {
             String u_id = userinfo.get("email").getAsString();
-            user = loginDAO.getUserById("ds6951");
-            String token = jwtUtil.generateToken("ds6951"); //구글 아이디 이용해서 jwt 토큰 생성
+            user = loginDAO.getUserById(u_id);
+            String token = jwtUtil.generateToken(u_id); //구글 아이디 이용해서 jwt 토큰 생성
 
             if(user != null) {
                 //브라우저 쿠키에 jwt 추가
