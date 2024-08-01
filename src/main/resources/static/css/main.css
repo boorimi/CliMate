@@ -2,8 +2,8 @@
     cursor: url("../icon/brush.png"), auto;
 }
 @font-face {
-    font-family: "jpFont";
-    src: url("font/jp_font.ttf") format("truetype");
+    font-family: "jpFont01";
+    src: url("font/jp_font01.ttf") format("truetype");
 }
 
 body {
@@ -19,7 +19,7 @@ body {
     justify-content: center;
     align-items: center;
     box-sizing: border-box;
-    font-family: jpFont;
+    font-family: jpFont01;
     color: #23261c;
 }
 

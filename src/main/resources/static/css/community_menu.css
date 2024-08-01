@@ -1,13 +1,14 @@
 @font-face {
-  font-family: "jpFont";
-  src: url("font/jp_font.ttf") format("truetype");
+  font-family: "jpFont02";
+  src: url("font/jp_font02.ttf") format("truetype");
 }
 
 .community-all-wrapper {
   /*background-color: rgb(253, 246, 237);*/
   width: 100%;
   height: auto;
-  font-family: "jpFont";
+  font-family: "jpFont02";
+  margin: 2vw 0;
 }
 
 .community-category-wrapper {
@@ -15,14 +16,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 13vw;
-  font-size: 8vw;
+  height: 11vw;
+  font-size: 7.5vw;
 
   div {
     /*border: 0.5vw solid #448546;*/
     background-color: #e9e6ce85;
-    border-radius: 4vw;
-    width: 40%;
+    border-radius: 3vw;
+    width: 43%;
     height: 100%;
     /* 수직 및 수평 중앙 정렬 */
     display: grid;
@@ -30,7 +31,7 @@
   }
 
   .community-search-icon{
-    width: 13vw;
+    width: 11vw;
     img{
       width: 100%;
     }
@@ -48,13 +49,13 @@
   justify-content: space-between;
   align-items: center;
   height: 12vw;
-  font-family: "jpFont";
 
   select,
   input,
   button{
     border-radius: 4vw;
-    border: 0.2em solid #81b383;
+    border: 0.2rem solid #8f8e8e;
+    font-family: "jpFont02";
     /*background-color: #e9e6ce85;*/
   }
   select{
@@ -62,7 +63,7 @@
     width: 20%;
   }
   input{
-    height: 9.5vw;
+    height: 9vw;
     width: 60%;
   }
 
@@ -70,8 +71,10 @@
     height: 11vw;
     width: 15%;
     background-color: white;
-    font-size: 7vw;
+    font-size: 4vw;
   }
+
+
 }
 .community-search-wrapper.show {
   flex-direction: row;

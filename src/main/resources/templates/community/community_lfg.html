@@ -12,16 +12,20 @@
 
 <body>
 <div class="community-lfg-all-wrapper">
-    <div class="community-lfg-wrapper"  th:each="re : ${recruitment}" th:onclick="'location.href=\'/community/lfg/detail?b_pk=' + ${re.b_pk} + '\''">
-        <div class="community-lfg-above">
-            <div class="community-lfg-category" th:text="${re.b_category}"></div>
-            <div class="community-lfg-nickname-wrapper">
-                <div class="community-lfg-nickname" th:text="${re.u_nickname}"></div>
-                <div class="community-lfg-grade"><img th:src="@{'/resources/grade_icon/hold_' + ${re.u_grade} + '.png'}" /></div>
+    <div class="community-lfg-container">
+        <div class="community-lfg-wrapper" th:each="re : ${recruitment}"
+             th:onclick="'location.href=\'/community/lfg/detail?b_pk=' + ${re.b_pk} + '\''">
+            <div class="community-lfg-above">
+                <div class="community-lfg-category" th:text="${re.b_category}"></div>
+                <div class="community-lfg-nickname-wrapper">
+                    <div class="community-lfg-nickname" th:text="${re.u_nickname}"></div>
+                    <div class="community-lfg-grade"><img
+                            th:src="@{'/resources/grade_icon/hold_' + ${re.u_grade} + '.png'}"/></div>
+                </div>
+                <div class="community-lfg-date" th:text="${#dates.format(re.b_datetime, 'yyyy.MM.dd.')}"></div>
             </div>
-            <div class="community-lfg-date" th:text="${#dates.format(re.b_datetime, 'yyyy.MM.dd.')}"></div>
-        </div>
-        <div class="community-lfg-below" th:text="${re.b_title}">
+            <div class="community-lfg-below" th:text="${re.b_title}">
+            </div>
         </div>
     </div>
 </div>
