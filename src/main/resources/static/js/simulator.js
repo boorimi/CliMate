@@ -104,15 +104,15 @@ class App {
     }
 
     loadTestModel3() {
-        loadTestModel(this, '/resources/holds/volume/volume01.glb', 'modelGroup3', { x: 1, y: 2, z: 2 }, { x: 0.001, y: 0.001, z: 0.001 }, { x: 0, y: 0, z: Math.PI });
+        loadTestModel(this, '/resources/holds/volume/volume01.glb', 'modelGroup3', { x: 0, y: 1.5, z: 0.05 }, { x: 0.001, y: 0.001, z: 0.001 }, { x: 0, y: 0, z: Math.PI });
     }
 
     loadTestModel4() {
-        loadTestModel(this, '/resources/holds/volume/volume02.glb', 'modelGroup4', { x: 0, y: 2, z: 1 }, { x: 0.001, y: 0.001, z: 0.001 }, { x: 0, y: 0, z: 0 });
+        loadTestModel(this, '/resources/holds/volume/volume02.glb', 'modelGroup4', { x: 0, y: 1.5, z: 0.05 }, { x: 0.001, y: 0.001, z: 0.001 }, { x: 0, y: 0, z: 0 });
     }
 
     loadTestModel5() {
-        loadTestModel(this, '/resources/holds/volume/volume03.glb', 'modelGroup5', { x: 1, y: 1, z: 2 }, { x: 0.001, y: 0.001, z: 0.001 }, { x: 0, y: 0, z: Math.PI });
+        loadTestModel(this, '/resources/holds/volume/volume03.glb', 'modelGroup5', { x: 0, y: 1.5, z: 0.05 }, { x: 0.001, y: 0.001, z: 0.001 }, { x: 0, y: 0, z: Math.PI });
     }
 }
 
@@ -144,8 +144,8 @@ function init(app) {
 function resize(app) {
     const width = app._divContainer.clientWidth;
     const height = app._divContainer.clientHeight;
-    console.log('자식 width',width);
-    console.log('자식 height',height);
+    // console.log('자식 width',width);
+    // console.log('자식 height',height);
     app._camera.aspect = width / height;
     app._camera.updateProjectionMatrix();
 
@@ -235,13 +235,17 @@ function setupModel(app) {
     app._cube3 = group3;
 }
 
+// OrbitControls를 설정하여 카메라 조작
+// 카메라의 팬(pan) 범위를 제한하는 로직 추가
 function setupControls(app) {
     const controls = new OrbitControls(app._camera, app._divContainer);
+
+    // 패닝 한계 설정
     controls.minPolarAngle = -Math.PI / 2;
     controls.maxPolarAngle = Math.PI / 2;
     controls.minAzimuthAngle = -Math.PI / 2;
     controls.maxAzimuthAngle = Math.PI / 4;
-    controls.screenSpacePanning = false;
+    controls.screenSpacePanning = true;
     const maxPan = 2;
     const minPan = -2;
 
@@ -274,6 +278,7 @@ function setupControls(app) {
     app._controls = controls;
 }
 
+// 홀드 로드
 function loadTestModel(app, modelPath, groupName, position, scale, rotation) {
     const loader = new GLTFLoader();
 
@@ -308,6 +313,7 @@ function loadTestModel(app, modelPath, groupName, position, scale, rotation) {
     );
 }
 
+// 클릭된 객체의 투명도 토글
 function onMouseClick(app, event) {
     event.preventDefault();
     setMouseCoordinates(app, event);
@@ -322,20 +328,28 @@ function onMouseClick(app, event) {
             logModelInfo(parentGroupName, app._positionData, clickedObject);
             toggleTransparency(clickedObject);
         }
+
+        // 클릭한 위치의 x, y 값을 로그로 출력
+        // const intersectPoint = intersects[0].point;
+        // console.log(`클릭한 위치 - X: ${intersectPoint.x}, Y: ${intersectPoint.y}, Z: ${intersectPoint.z}`);
+        // x: -2 ~ 1.8, y: 0.8 ~ 3.4, z: 0 ~ 3.8
     }
 }
 
+// 클릭 이벤트의 마우스 좌표를 Three.js 좌표계로 변환
 function setMouseCoordinates(app, event) {
     const rect = app._divContainer.getBoundingClientRect();
     app._mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
     app._mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
 }
 
+// Raycaster를 사용하여 씬에서 마우스 클릭과 교차하는 객체 목록을 반환
 function getIntersects(app) {
     app._raycaster.setFromCamera(app._mouse, app._camera);
     return app._raycaster.intersectObjects(app._scene.children, true);
 }
 
+// 클릭된 객체의 최상위 부모 객체를 반환
 function getClickedObject(object) {
     while (object.parent && object.parent.type !== 'Scene') {
         object = object.parent;
@@ -343,13 +357,19 @@ function getClickedObject(object) {
     return object;
 }
 
+// 객체 이름에 modelGroup이 포함되어있는지 확인
 function isModelGroup(name) {
     return name.includes('modelGroup');
 }
 
+// 모델 정보
 function logModelInfo(name, positionData, object) {
+    // console.log(`Model Name: ${name}`);
+    console.log(`Position - X: ${positionData.x}, Y: ${positionData.y}, Z: ${positionData.z}`);
+
 }
 
+// 투명도 토글
 function toggleTransparency(object) {
     const modelGroup = getClickedObject(object);
 
@@ -364,12 +384,14 @@ function toggleTransparency(object) {
     });
 }
 
+// 불투명
 function setOpaque(mesh) {
     mesh.material.opacity = mesh.userData.originalOpacity;
     mesh.material.transparent = mesh.userData.originalTransparent;
     mesh.userData.isTransparent = false;
 }
 
+// 투명
 function setTransparent(mesh) {
     if (!mesh.userData.hasOwnProperty('originalOpacity')) {
         mesh.userData.originalOpacity = mesh.material.opacity;
@@ -380,18 +402,49 @@ function setTransparent(mesh) {
     mesh.userData.isTransparent = true;
 }
 
+// 드래그 이벤트
 function setupDragControls(app) {
     if (app._dragControls) {
         app._dragControls.dispose();
     }
 
     app._dragControls = new DragControls(app._draggableObjects, app._camera, app._renderer.domElement);
+
     app._dragControls.addEventListener('dragstart', function (event) {
         app._controls.enabled = false;
     });
 
+    app._dragControls.addEventListener('drag', function (event) {
+        const object = event.object;
+
+        // // 객체 이동 범위 제한
+        const minX = -1700;
+        const maxX = 1700;
+        const minZ = - 1600;
+        const maxZ = 2400;
+
+        // x, y 축 범위 내에서만 이동 가능하도록 설정
+        object.position.x = Math.max(minX, Math.min(maxX, object.position.x));
+        object.position.z = Math.max(minZ, Math.min(maxZ, object.position.z));
+
+        // z 축 이동 제한
+        // object.position.z = 0; // z 축 위치를 0으로 고정
+        object.position.y = 0; // z 축 위치를 0으로 고정
+    });
+
     app._dragControls.addEventListener('dragend', function (event) {
         app._controls.enabled = true;
+
+        // 새로운 위치로 positionData를 업데이트
+        const object = event.object;
+        app._positionData = {
+            x: object.position.x,
+            y: object.position.y,
+            z: object.position.z
+        };
+
+        // 업데이트된 위치 데이터를 로그로 출력
+        logModelInfo(object.name, app._positionData, object);
     });
 }
 
