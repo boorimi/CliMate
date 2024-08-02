@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import { DragControls } from "three/addons/controls/DragControls.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 
 $(document).ready(function (){
@@ -74,6 +75,8 @@ class App {
         this._cube1 = null;
         this._cube2 = null;
         this._cube3 = null;
+        this._draggableObjects = [];
+        this._dragControls = null;
     }
 
     initialize() {
@@ -287,11 +290,15 @@ function loadTestModel(app, modelPath, groupName, position, scale, rotation) {
             modelGroup.name = groupName;
             app._scene.add(modelGroup);
 
+            app._draggableObjects.push(modelGroup);
+
             app._positionData = {
                 x: model.position.x,
                 y: model.position.y,
                 z: model.position.z
             };
+
+            setupDragControls(app);
         },
 
         undefined,
@@ -311,7 +318,7 @@ function onMouseClick(app, event) {
         const parentGroupName = getClickedObject(clickedObject).name;
 
         if (isModelGroup(parentGroupName)) {
-            console.log(app._positionData)
+            console.log(app._positionData);
             logModelInfo(parentGroupName, app._positionData, clickedObject);
             toggleTransparency(clickedObject);
         }
@@ -371,6 +378,21 @@ function setTransparent(mesh) {
     mesh.material.opacity = 0.3;
     mesh.material.transparent = true;
     mesh.userData.isTransparent = true;
+}
+
+function setupDragControls(app) {
+    if (app._dragControls) {
+        app._dragControls.dispose();
+    }
+
+    app._dragControls = new DragControls(app._draggableObjects, app._camera, app._renderer.domElement);
+    app._dragControls.addEventListener('dragstart', function (event) {
+        app._controls.enabled = false;
+    });
+
+    app._dragControls.addEventListener('dragend', function (event) {
+        app._controls.enabled = true;
+    });
 }
 
 let app;
