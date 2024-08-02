@@ -46,8 +46,8 @@ $(function() {
     })
 
     //google map
-    $("#homeground").on('change', function(event) {
-        window.open("pop.html", "_blank","width=420,height=500,left=200,top=200");
+    $("#homeground").on('click', function(event) {
+        window.open("/miniMapC", "_blank","width=420,height=500,left=200,top=200");
     })
 })
 
