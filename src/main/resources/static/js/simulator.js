@@ -132,7 +132,6 @@ function init(app) {
     app.resize();
 
     window.onresize = () => app.resize();
-    window.addEventListener('click', (event) => onMouseClick(app, event), false);
 
     requestAnimationFrame((time) => app.render(time));
 
@@ -313,93 +312,10 @@ function loadTestModel(app, modelPath, groupName, position, scale, rotation) {
     );
 }
 
-// 클릭된 객체의 투명도 토글
-function onMouseClick(app, event) {
-    event.preventDefault();
-    setMouseCoordinates(app, event);
-    const intersects = getIntersects(app);
-
-    if (intersects.length > 0) {
-        const clickedObject = intersects[0].object;
-        const parentGroupName = getClickedObject(clickedObject).name;
-
-        if (isModelGroup(parentGroupName)) {
-            console.log(app._positionData);
-            logModelInfo(parentGroupName, app._positionData, clickedObject);
-            toggleTransparency(clickedObject);
-        }
-
-        // 클릭한 위치의 x, y 값을 로그로 출력
-        // const intersectPoint = intersects[0].point;
-        // console.log(`클릭한 위치 - X: ${intersectPoint.x}, Y: ${intersectPoint.y}, Z: ${intersectPoint.z}`);
-        // x: -2 ~ 1.8, y: 0.8 ~ 3.4, z: 0 ~ 3.8
-    }
-}
-
-// 클릭 이벤트의 마우스 좌표를 Three.js 좌표계로 변환
-function setMouseCoordinates(app, event) {
-    const rect = app._divContainer.getBoundingClientRect();
-    app._mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
-    app._mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
-}
-
-// Raycaster를 사용하여 씬에서 마우스 클릭과 교차하는 객체 목록을 반환
-function getIntersects(app) {
-    app._raycaster.setFromCamera(app._mouse, app._camera);
-    return app._raycaster.intersectObjects(app._scene.children, true);
-}
-
-// 클릭된 객체의 최상위 부모 객체를 반환
-function getClickedObject(object) {
-    while (object.parent && object.parent.type !== 'Scene') {
-        object = object.parent;
-    }
-    return object;
-}
-
-// 객체 이름에 modelGroup이 포함되어있는지 확인
-function isModelGroup(name) {
-    return name.includes('modelGroup');
-}
-
 // 모델 정보
 function logModelInfo(name, positionData, object) {
     // console.log(`Model Name: ${name}`);
     console.log(`Position - X: ${positionData.x}, Y: ${positionData.y}, Z: ${positionData.z}`);
-
-}
-
-// 투명도 토글
-function toggleTransparency(object) {
-    const modelGroup = getClickedObject(object);
-
-    modelGroup.traverse((child) => {
-        if (child.isMesh) {
-            if (child.userData.isTransparent) {
-                setOpaque(child);
-            } else {
-                setTransparent(child);
-            }
-        }
-    });
-}
-
-// 불투명
-function setOpaque(mesh) {
-    mesh.material.opacity = mesh.userData.originalOpacity;
-    mesh.material.transparent = mesh.userData.originalTransparent;
-    mesh.userData.isTransparent = false;
-}
-
-// 투명
-function setTransparent(mesh) {
-    if (!mesh.userData.hasOwnProperty('originalOpacity')) {
-        mesh.userData.originalOpacity = mesh.material.opacity;
-        mesh.userData.originalTransparent = mesh.material.transparent;
-    }
-    mesh.material.opacity = 0.3;
-    mesh.material.transparent = true;
-    mesh.userData.isTransparent = true;
 }
 
 // 드래그 이벤트
@@ -412,31 +328,38 @@ function setupDragControls(app) {
 
     app._dragControls.addEventListener('dragstart', function (event) {
         app._controls.enabled = false;
+
+        // 드래그 시작 시 객체를 투명하게 설정
+        const object = event.object;
+        object.traverse((child) => {
+            if (child.isMesh) {
+                if (!child.userData.hasOwnProperty('originalOpacity')) {
+                    child.userData.originalOpacity = child.material.opacity;
+                    child.userData.originalTransparent = child.material.transparent;
+                }
+                child.material.opacity = 0.3;
+                child.material.transparent = true;
+            }
+        });
     });
 
     app._dragControls.addEventListener('drag', function (event) {
-        const object = event.object;
-
-        // // 객체 이동 범위 제한
-        const minX = -1700;
-        const maxX = 1700;
-        const minZ = - 1600;
-        const maxZ = 2400;
-
-        // x, y 축 범위 내에서만 이동 가능하도록 설정
-        object.position.x = Math.max(minX, Math.min(maxX, object.position.x));
-        object.position.z = Math.max(minZ, Math.min(maxZ, object.position.z));
-
-        // z 축 이동 제한
-        // object.position.z = 0; // z 축 위치를 0으로 고정
-        object.position.y = 0; // z 축 위치를 0으로 고정
+        handleDrag(event.object);
     });
 
     app._dragControls.addEventListener('dragend', function (event) {
         app._controls.enabled = true;
 
-        // 새로운 위치로 positionData를 업데이트
+        // 드래그 종료 시 객체를 불투명하게 설정
         const object = event.object;
+        object.traverse((child) => {
+            if (child.isMesh) {
+                child.material.opacity = child.userData.originalOpacity;
+                child.material.transparent = child.userData.originalTransparent;
+            }
+        });
+
+        // 새로운 위치로 positionData를 업데이트
         app._positionData = {
             x: object.position.x,
             y: object.position.y,
@@ -446,6 +369,34 @@ function setupDragControls(app) {
         // 업데이트된 위치 데이터를 로그로 출력
         logModelInfo(object.name, app._positionData, object);
     });
+}
+
+function handleDrag(object) {
+    // 객체의 위치 제한 (지정된 범위 내에서만 이동 가능)
+    const minX = -1700;
+    const maxX = 1700;
+    const minZ = -1600;
+    const maxZ = 2400;
+
+    // x, z 축 범위 내에서만 이동 가능하도록 설정
+    object.position.x = Math.max(minX, Math.min(maxX, object.position.x));
+    object.position.z = Math.max(minZ, Math.min(maxZ, object.position.z));
+
+    // y 축 이동 제한
+    object.position.y = 0; // y 축 위치를 0으로 고정
+
+    // x축 끝에 닿으면 회전 함수 호출
+    if (object.position.x >= maxX) {
+        rotateObject(object);
+    }
+}
+
+// handleDrag 함수에서 모델의 위치가 maxX 범위에 도달했을 때 rotateObject 함수를 호출하여 회전시키도록
+function rotateObject(object) {
+    // 왼쪽으로 90도 (Math.PI / 2) 회전
+    object.rotation.z += Math.PI / 2;
+    if (object.position.x = 1700) {
+    }
 }
 
 let app;
