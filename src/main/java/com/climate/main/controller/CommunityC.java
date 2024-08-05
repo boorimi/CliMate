@@ -3,18 +3,21 @@ package com.climate.main.controller;
 import com.climate.main.dto.CommunityDTO;
 import com.climate.main.dto.LikeDTO;
 import com.climate.main.service.CommunityDAO;
+import jakarta.servlet.ServletContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 @Controller
 public class CommunityC {
@@ -23,7 +26,7 @@ public class CommunityC {
     private CommunityDAO communityDAO;
     private LikeDTO likeDTO;
 
-
+    private String uploadFileName;
 
     @GetMapping("/community/video")
     public String communityShowoff(Model model) {
@@ -55,6 +58,8 @@ public class CommunityC {
 
     @PostMapping("/community/lfg/insert")
     public String InsertCommunityLfg(CommunityDTO communityDTO) {
+        communityDAO.changeFileName(communityDTO);
+        System.out.println(communityDTO);
         communityDAO.insertCommunityLfg(communityDTO);
         return "redirect:/community/lfg";
     }
@@ -84,6 +89,12 @@ public class CommunityC {
         return "redirect:/community/video";
     }
 
+    @GetMapping("/community/lfg/delete")
+    public String deleteCommunityLfg(int b_pk) {
+        communityDAO.deleteCommunityShowoff(b_pk);
+        return "redirect:/community/lfg";
+    }
+
     @GetMapping("/community/video/detail")
     public String communityShowoffDetail(int b_pk, Model model) {
 //        model.addAttribute("showoffLikeCount", communityDAO.selectLikeCount(b_pk));
@@ -91,6 +102,16 @@ public class CommunityC {
         model.addAttribute("showoffCommentsLists", communityDAO.selectCommunityComments(b_pk));
         model.addAttribute("showoffList", communityDAO.selectCommunityShowoff(b_pk));
         model.addAttribute("content", "/community/community_video_detail");
+        return "index";
+    }
+
+    @GetMapping("/community/lfg/detail")
+    public String communityLfgDetail(int b_pk, Model model) {
+//        model.addAttribute("showoffLikeCount", communityDAO.selectLikeCount(b_pk));
+        model.addAttribute("showoffLikeCountThisUser", communityDAO.selectLikeCountThisUser(b_pk));
+        model.addAttribute("showoffCommentsLists", communityDAO.selectCommunityComments(b_pk));
+        model.addAttribute("lfgList", communityDAO.selectCommunityRecruitment(b_pk));
+        model.addAttribute("content", "/community/community_lfg_detail");
         return "index";
     }
 
@@ -130,10 +151,22 @@ public class CommunityC {
         return "redirect:/community/video/detail?b_pk=" + b_pk;
     }
 
+    @PostMapping("/community/lfg/comments/insert")
+    public String commentsInsertCommunityLfg(int b_pk, String cm_text) {
+        communityDAO.insertCommunityComments(b_pk, cm_text);
+        return "redirect:/community/lfg/detail?b_pk=" + b_pk;
+    }
+
     @GetMapping("/community/video/deleteComments")
-    public String deleteComments(int cm_pk, int b_pk) {
+    public String deleteCommentsVideo(int cm_pk, int b_pk) {
         communityDAO.deleteCommunityComments(cm_pk, b_pk);
         return "redirect:/community/video/detail?b_pk=" + b_pk;
+    }
+
+    @GetMapping("/community/lfg/deleteComments")
+    public String deleteCommentsLfg(int cm_pk, int b_pk) {
+        communityDAO.deleteCommunityComments(cm_pk, b_pk);
+        return "redirect:/community/lfg/detail?b_pk=" + b_pk;
     }
 
     @GetMapping("/community/hashtag")
@@ -142,6 +175,30 @@ public class CommunityC {
         model.addAttribute("content", "/community/community_menu");
         model.addAttribute("community_content", "/community/community_video");
         return "index";
+    }
+
+    @PostMapping("/community/lfg/insert/uploadImg")
+    @ResponseBody
+    public ResponseEntity<?> uploadFile(@RequestParam("upload") MultipartFile file) {
+//        UUID uuid = UUID.randomUUID();
+//        String randomID = uuid.toString();
+//        String[] selectID = randomID.split("-");
+//        String selectID2 = selectID[0];
+
+        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+        String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/upload/lfgimg";
+        File uploadDirFile = new File(uploadDir);
+        File dest = new File(uploadDirFile, fileName);
+
+        try {
+            file.transferTo(dest);
+            // 이미지가 성공적으로 업로드된 후 반환되는 URL을 설정합니다.
+            String fileUrl = "/resources/upload/lfgimg/" + fileName;
+            return ResponseEntity.ok().body("{ \"url\": \"" + fileUrl + "\" }");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload file");
+        }
     }
 
 }
