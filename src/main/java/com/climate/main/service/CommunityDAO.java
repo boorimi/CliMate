@@ -2,21 +2,21 @@ package com.climate.main.service;
 
 import com.climate.main.dto.CommentsDTO;
 import com.climate.main.dto.CommunityDTO;
-import com.climate.main.dto.LikeDTO;
 import com.climate.main.mapper.CommunityMapper;
-import com.climate.main.mapper.TestMapper;
-import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.UUID;
 
@@ -232,5 +232,73 @@ public class CommunityDAO implements CommunityMapper {
         return communityMapper.deleteCommunityComments(cm_pk, b_pk);
     }
 
+
+    public void changeFileName(CommunityDTO communityDTO) {
+        String input = communityDTO.getB_text();
+
+        String startDelimiter = "/resources/upload/lfgimg/";
+        String endDelimiter = "\"";
+
+        String filename = "";
+
+        int startIndex = input.indexOf(startDelimiter);
+        if (startIndex != -1) {
+            startIndex += startDelimiter.length();
+            int endIndex = input.indexOf(endDelimiter, startIndex);
+            if (endIndex != -1) {
+                filename = input.substring(startIndex, endIndex);
+            }
+        }
+
+        UUID uuid = UUID.randomUUID();
+        String randomID = uuid.toString();
+        String[] selectID = randomID.split("-");
+        String selectID2 = selectID[0];
+
+//        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+//        String fileName = "test.jpg";
+        String originFileName = filename;
+        String newFileName = selectID2 + getFileExtension(originFileName);
+
+        String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/upload/lfgimg";
+        File uploadDirFile = new File(uploadDir);
+        File dest = new File(uploadDirFile, newFileName);
+
+        System.out.println(originFileName);
+        System.out.println(input);
+
+        if (input != null && input.contains(originFileName)) {
+            communityDTO.setB_text(input.replace(originFileName, newFileName));
+        }
+
+        String sourceFilePath = uploadDir + "/" + originFileName;
+        String targetFilePath = uploadDir + "/" + newFileName;
+
+        Path source = Paths.get(sourceFilePath);
+        Path target = Paths.get(targetFilePath);
+
+        try {
+            // 파일 복사
+            Files.copy(source, target, StandardCopyOption.REPLACE_EXISTING);
+            System.out.println("File copied successfully.");
+
+            // 원본 파일 삭제
+            Files.delete(source);
+            System.out.println("Original file deleted successfully.");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("File operation failed.");
+        }
+
+
+    }
+
+    public static String getFileExtension(String fileName) {
+        if (fileName != null && fileName.contains(".")) {
+            return fileName.substring(fileName.lastIndexOf("."));
+        }
+        return "";
+    }
 
 }
