@@ -19,6 +19,8 @@ function initMap() {
 
     service = new google.maps.places.PlacesService(map);
     infowindow = new google.maps.InfoWindow();
+
+    searchClimbingGyms(defaultLocation.center, 5000); // 기본 위치와 반경 5km
 }
 
 function searchClimbingGyms(location, radius) {
@@ -66,26 +68,49 @@ function createMarker(place) {
 
 function searchLocation() {
     const mapInput = document.getElementById("map-input").value;
-    const geocoder = new google.maps.Geocoder();
 
-    geocoder.geocode({ address: mapInput }, (results, status) => {
+    // 클라이밍장 이름으로 검색하기
+    const request = {
+        query: mapInput,
+        fields: ["name", "geometry"]
+    };
+
+    service.findPlaceFromQuery(request, (results, status) => {
+        if (status === google.maps.places.PlacesServiceStatus.OK && results.length > 0) {
+            const location = results[0].geometry.location;
+
+            map.setCenter(location);
+
+            // 검색된 장소가 클라이밍장인 경우
+            if (isClimbingGym(results[0])) {
+                clearMarkers();
+                createMarker(results[0]); // 검색된 클라이밍장만 표시
+            } else {
+                // 일반 장소인 경우 해당 장소 주변의 클라이밍장 검색
+                searchClimbingGyms(location, 5000); // 검색한 장소와 반경 5km
+            }
+        } else {
+            // 장소 이름으로 검색이 실패한 경우 지오코딩으로 주소 검색
+            geocodeAddress(mapInput);
+        }
+    });
+}
+
+function isClimbingGym(place) {
+    // 클라이밍장인지 판단하는 로직 (예: 클라이밍장 이름이 포함된 경우)
+    return place.name.toLowerCase().includes("climbing");
+}
+
+function geocodeAddress(address) {
+    const geocoder = new google.maps.Geocoder();
+    geocoder.geocode({ address: address }, (results, status) => {
         if (status === google.maps.GeocoderStatus.OK) {
             const location = results[0].geometry.location;
 
             map.setCenter(location);
 
-            if(userMarker) {
-                userMarker.setMap(null);
-            }
-            // 검색된 위치에 마커를 추가합니다.
-            // userMarker = new google.maps.Marker({
-            //     position: location,
-            //     map: map,
-            //     title: mapInput
-            // });
-
-            // 검색한 장소 주변의 클라이밍장 검색
-            searchClimbingGyms(location, '5000'); // 검색한 장소와 반경 5km
+            // 검색된 위치 주변의 클라이밍장 검색
+            searchClimbingGyms(location, 5000); // 검색한 장소와 반경 5km
         } else {
             alert("Geocode was not successful for the following reason: " + status);
         }
