@@ -1,9 +1,9 @@
 import * as THREE from "three";
-import { OrbitControls } from "three/addons/controls/OrbitControls.js";
-import { DragControls } from "three/addons/controls/DragControls.js";
-import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import {OrbitControls} from "three/addons/controls/OrbitControls.js";
+import {DragControls} from "three/addons/controls/DragControls.js";
+import {GLTFLoader} from "three/addons/loaders/GLTFLoader.js";
 
-$(document).ready(function (){
+$(document).ready(function () {
     const holdBtn = $('.hold-list-open-btn');
     const webglContainer = $('#webgl-container');
     let holdListMenuPC = $('#hold-list-container-pc');
@@ -19,10 +19,10 @@ $(document).ready(function (){
             holdBtn.on('click', function () {
                 if (holdListMenuMobile.hasClass('list-hidden-mobile')) {
                     holdListMenuMobile.css('display', 'flex');
-                    holdListMenuMobile.removeClass('list-hidden-mobile').addClass('list-visible-mobile').animate({ bottom: '0' }, 500, function() {
+                    holdListMenuMobile.removeClass('list-hidden-mobile').addClass('list-visible-mobile').animate({bottom: '0'}, 500, function () {
                     });
                 } else {
-                    holdListMenuMobile.animate({ bottom: '-100%' }, 500, function() {
+                    holdListMenuMobile.animate({bottom: '-100%'}, 500, function () {
                         holdListMenuMobile.removeClass('list-visible-mobile').addClass('list-hidden-mobile').css('display', 'none');
                     });
                 }
@@ -31,10 +31,10 @@ $(document).ready(function (){
             holdBtn.on('click', function () {
                 if (holdListMenuPC.hasClass('list-hidden-pc')) {
                     holdListMenuPC.css('display', 'flex');
-                    holdListMenuPC.removeClass('list-hidden-pc').addClass('list-visible-pc').animate({ left: '0' }, 500, function() {
+                    holdListMenuPC.removeClass('list-hidden-pc').addClass('list-visible-pc').animate({left: '0'}, 500, function () {
                     });
                 } else {
-                    holdListMenuPC.animate({ left: '-100%' }, 500, function() {
+                    holdListMenuPC.animate({left: '-100%'}, 500, function () {
                         holdListMenuPC.removeClass('list-visible-pc').addClass('list-hidden-pc').css('display', 'none');
                     });
                 }
@@ -64,13 +64,14 @@ function rgbToHex(r, g, b) {
 class App {
     constructor() {
         this._divContainer = document.querySelector("#webgl-container");
-        this._renderer = new THREE.WebGLRenderer({ antialias: true });
+        this._renderer = new THREE.WebGLRenderer({antialias: true});
         this._scene = new THREE.Scene();
         this._raycaster = new THREE.Raycaster();
         this._mouse = new THREE.Vector2();
         this._camera = new THREE.PerspectiveCamera();
         this._controls = null;
         this._positionData = null;
+        this._rotationData = null;
         this._positionDataJSON = null;
         this._cube1 = null;
         this._cube2 = null;
@@ -96,24 +97,34 @@ class App {
     }
 
     loadTestModel1() {
-        loadTestModel(this, '/resources/holds/pinch/pinch01.glb', 'modelGroup1', { x: 1, y: 1, z: 2 }, { x: 1, y: 1, z: 1 }, { x: Math.PI, y: 0, z: 0 });
+        // loadTestModel(this, '/resources/holds/volume/volume01.glb', 'modelGroup3', { x: 0, y: 1.5, z: 0.05 }, { x: 0.001, y: 0.001, z: 0.001 }, { x: 0, y: 0, z: Math.PI });
+        // loadTestModel(this, '/resources/holds/volume/volume01.glb', 'modelGroup3', { x: 0, y: 1, z: 0.05 }, { x: 0.001, y: 0.001, z: 0.001 }, { x: 0, y: 0, z: Math.PI });
+        loadTestModel(this, '/resources/holds/hold01.glb', 'modelGroup3', {x: 0, y: 1, z: 0.07}, {
+            x: 0.001,
+            y: 0.001,
+            z: 0.001
+        }, {x: 0, y: 0, z: 0});
     }
 
     loadTestModel2() {
-        loadTestModel(this, '/resources/holds/jug/jug01.glb', 'modelGroup2', { x: 0, y: 1, z: 2 }, { x: 0.001, y: 0.001, z: 0.001 }, { x: Math.PI / 2, y: 0, z: 0 });
+        loadTestModel(this, '/resources/holds/hold02.glb', 'modelGroup4', {x: 0, y: 1.5, z: 0.07}, {
+            x: 0.001,
+            y: 0.001,
+            z: 0.001
+        }, {x: 0, y: 0, z: 0});
     }
 
     loadTestModel3() {
-        loadTestModel(this, '/resources/holds/volume/volume01.glb', 'modelGroup3', { x: 0, y: 1.5, z: 0.05 }, { x: 0.001, y: 0.001, z: 0.001 }, { x: 0, y: 0, z: Math.PI });
+        // loadTestModel(this, '/resources/holds/volume/volume03.glb', 'modelGroup5', { x: 0, y: 1.2, z: 0.05 }, { x: 0.001, y: 0.001, z: 0.001 }, { x: 0, y: 0, z: Math.PI });
+        loadTestModel(this, '/resources/holds/hold03.glb', 'modelGroup5', {x: 0, y: 1.2, z: 0.07}, {
+            x: 0.001,
+            y: 0.001,
+            z: 0.001
+        }, {x: 0, y: 0, z: 0});
+        // loadTestModel(this, '/resources/holds/volume/volume03.glb', 'modelGroup5', { x: 2, y: 1, z: 0 }, { x: 0.001, y: 0.001, z: 0.001 }, { x: 0, y: 0, z: 0 });
     }
 
-    loadTestModel4() {
-        loadTestModel(this, '/resources/holds/volume/volume02.glb', 'modelGroup4', { x: 0, y: 1.5, z: 0.05 }, { x: 0.001, y: 0.001, z: 0.001 }, { x: 0, y: 0, z: 0 });
-    }
 
-    loadTestModel5() {
-        loadTestModel(this, '/resources/holds/volume/volume03.glb', 'modelGroup5', { x: 0, y: 1.5, z: 0.05 }, { x: 0.001, y: 0.001, z: 0.001 }, { x: 0, y: 0, z: Math.PI });
-    }
 }
 
 function init(app) {
@@ -135,7 +146,7 @@ function init(app) {
 
     requestAnimationFrame((time) => app.render(time));
 
-    console.log('width',window.innerWidth);
+    console.log('width', window.innerWidth);
     console.log('height', window.innerHeight);
 
 }
@@ -143,8 +154,6 @@ function init(app) {
 function resize(app) {
     const width = app._divContainer.clientWidth;
     const height = app._divContainer.clientHeight;
-    // console.log('자식 width',width);
-    // console.log('자식 height',height);
     app._camera.aspect = width / height;
     app._camera.updateProjectionMatrix();
 
@@ -209,7 +218,7 @@ function setupModel(app) {
 
     rgbColor = rgbToHex(170, 170, 170);
     const geometry3 = new THREE.BoxGeometry(4, 3.9, 0.3);
-    const fillMaterial3 = new THREE.MeshPhongMaterial({ color: rgbColor });
+    const fillMaterial3 = new THREE.MeshPhongMaterial({color: rgbColor});
     const cube3 = new THREE.Mesh(geometry3, fillMaterial3);
     const group3 = new THREE.Group();
     group3.add(cube3);
@@ -302,6 +311,12 @@ function loadTestModel(app, modelPath, groupName, position, scale, rotation) {
                 z: model.position.z
             };
 
+            app._rotationData = {
+                x: model.rotation.x,
+                y: model.rotation.y,
+                z: model.rotation.z
+            }
+
             setupDragControls(app);
         },
 
@@ -310,12 +325,6 @@ function loadTestModel(app, modelPath, groupName, position, scale, rotation) {
             console.error(error);
         }
     );
-}
-
-// 모델 정보
-function logModelInfo(name, positionData, object) {
-    // console.log(`Model Name: ${name}`);
-    console.log(`Position - X: ${positionData.x}, Y: ${positionData.y}, Z: ${positionData.z}`);
 }
 
 // 드래그 이벤트
@@ -366,38 +375,65 @@ function setupDragControls(app) {
             z: object.position.z
         };
 
+        app._rotationData = {
+            x: object.rotation.x,
+            y: object.rotation.y,
+            z: object.rotation.z
+        }
+
         // 업데이트된 위치 데이터를 로그로 출력
-        logModelInfo(object.name, app._positionData, object);
+        logModelInfo(object.name, app._positionData, app._rotationData, object);
+
     });
+}
+
+// 모델 정보
+function logModelInfo(name, positionData, rotationData, object) {
+    // console.log(`Model Name: ${name}`);
+    console.log(`Position - X: ${positionData.x}, Y: ${positionData.y}, Z: ${positionData.z}`);
+    console.log(`로테이션 - Z: ${rotationData.z}`);
 }
 
 function handleDrag(object) {
     // 객체의 위치 제한 (지정된 범위 내에서만 이동 가능)
     const minX = -1700;
-    const maxX = 1700;
+    const maxX = 2000;
     const minZ = -1600;
     const maxZ = 2400;
+    const minY = -3500;
+    const maxY = -200;
 
-    // x, z 축 범위 내에서만 이동 가능하도록 설정
-    object.position.x = Math.max(minX, Math.min(maxX, object.position.x));
-    object.position.z = Math.max(minZ, Math.min(maxZ, object.position.z));
+    // object.rotation.z 값에 따라 다른 이동 제한 조건 적용
+    if (object.rotation.z === 0) {
+        // x, z 축 범위 내에서만 이동 가능하도록 설정
+        object.position.x = Math.max(minX, Math.min(maxX, object.position.x));
+        object.position.z = Math.max(minZ, Math.min(maxZ, object.position.z));
 
-    // y 축 이동 제한
-    object.position.y = 0; // y 축 위치를 0으로 고정
+        // y 축 이동 제한 (사실 z축인 셈)
+        object.position.y = 0; // y 축 위치를 0으로 고정
 
-    // x축 끝에 닿으면 회전 함수 호출
-    if (object.position.x >= maxX) {
-        rotateObject(object);
+        if (object.position.x >= maxX) {
+            console.log("닿았다");
+            object.rotation.z = -1.6;
+        }
+
+    } else if (object.rotation.z === -1.6) {
+        // y 축 범위 내에서만 이동 가능하도록 설정
+        object.position.y = Math.max(minY, Math.min(maxY, object.position.y));
+        object.position.z = Math.max(minZ, Math.min(maxZ, object.position.z));
+
+        // x 축 고정값 설정
+        object.position.x = 2000;
+
+        // cube2 왼쪽 끝에 닿으면 다시 회전
+        if (object.position.y >= -200){
+            console.log("다시 닿았다")
+            object.rotation.z = 0;
+        }
     }
 }
 
 // handleDrag 함수에서 모델의 위치가 maxX 범위에 도달했을 때 rotateObject 함수를 호출하여 회전시키도록
-function rotateObject(object) {
-    // 왼쪽으로 90도 (Math.PI / 2) 회전
-    object.rotation.z += Math.PI / 2;
-    if (object.position.x = 1700) {
-    }
-}
 
 let app;
 window.onload = function () {
