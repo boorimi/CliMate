@@ -108,43 +108,42 @@ body {
             /*box-shadow: 1px 3px 8px rgba(0, 0, 0, 0.645);*/
             margin-bottom: 0.5em;
 
-
         }
         .main-login,
         .main-logout,
         .main-mypage{
             width: 75%;
         }
+
+        .main-map:hover,
+        .main-simulator:hover,
+        .main-community:hover,
+        .main-login:hover,
+        .main-logout:hover,
+        .main-mypage:hover {
+            transform: scale(1.05);
+        }
+
         .main-map:hover{
-            background-color: #caea79;
+            background-color: rgba(202, 234, 121, 0.71);
             color: #000000c9;
         }
         .main-simulator:hover{
-            background-color: #ff6262;
+            background-color: rgba(255, 98, 98, 0.7);
             color: #000000c9;
         }
         .main-community:hover{
-            background-color: #feec68;
+            background-color: rgba(254, 236, 104, 0.66);
             color: #000000c9;
         }
         .main-login:hover,
         .main-logout:hover,
         .main-mypage:hover {
-            background-color: #93c5f6;
+            background-color: rgba(147, 197, 246, 0.68);
             color: #e1e1e1;
         }
     }
 
-    /*.main-login,*/
-    /*.main-logout,*/
-    /*.main-mypage {*/
-    /*    width: 30%;*/
-    /*    height: 25%;*/
-    /*    font-size: 1.5em;*/
-    /*    border-radius: 1em;*/
-    /*    background-color: #a9c9ad61;*/
-    /*    box-shadow: 1px 3px 8px rgba(0, 0, 0, 0.645);*/
-    /*}*/
     .main-map-img,
     .main-simulator-img,
     .main-community-img,
@@ -160,34 +159,25 @@ body {
     }
 }
 
-.main-map:hover,
-.main-simulator:hover,
-.main-community:hover,
-.main-login:hover,
-.main-logout:hover,
-.main-mypage:hover {
-    transform: scale(1.05);
-}
+
 
 @media (max-width: 768px) {
     .main-menu-container {
         .main-title {
-            top: -28vh;
-
             #main-title-carabiner {
                 top: -4vh;
-                width: 22vw;
+                width: 13vh;
             }
             #main-title-text {
                 top: 3vh;
-                width: 84vw;
+                width: 50vh;
             }
         }
 
         .main-menu-list {
-            width: 80vw;
-            height: 52vh;
-            font-size: 8vw;
+            width: 40vh;
+            height: 50vh;
+            font-size: 4vh;
         }
 
     }
