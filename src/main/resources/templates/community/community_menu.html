@@ -20,13 +20,15 @@
     </div>
     <form action="/community/search">
         <div class="community-search-wrapper hidden">
-                <select name="columnName">
-                    <option value="b_text">본문</option>
-                    <option value="b_title">암장</option>
-                    <option value="u_nickname">닉네임</option>
-                </select>
+            <select name="columnName">
+                <option value="b_text">본문</option>
+                <option value="b_title">암장</option>
+                <option value="u_nickname">닉네임</option>
+            </select>
+            <div class="search-input">
                 <input type="text" name="searchWord"/>
-            <button><img src="/resources/icon/search.png"></button>
+                <button><img src="/resources/icon/search.png"></button>
+            </div>
         </div>
     </form>
     <div th:include="${community_content}"></div>

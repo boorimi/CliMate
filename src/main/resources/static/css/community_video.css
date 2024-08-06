@@ -11,10 +11,10 @@
   flex-direction: column;
   margin: 2vw 1vh;  /*bm*/
   padding: 2vw;
-  width: 38.7vw;
+  width: 40vw;
   aspect-ratio: 1 / 1.5;
-  border: 0.2vw solid #79976a;
-  border-radius: 3vw;
+  border: 0.07em solid #79976a;
+  border-radius: 0.8em;
 }
 
 .community-video {
