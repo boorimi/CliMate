@@ -20,20 +20,21 @@
   font-size: 6vw;
 
   div {
-    /*border: 0.5vw solid #448546;*/
-    background-color: #e9e6ce85;
-    border-radius: 3vw;
+    background-color: #79976a;
+    border-radius: 0.3em;
     width: 43%;
     height: 100%;
     /* 수직 및 수평 중앙 정렬 */
     display: grid;
     place-items: center;
+    color: white;
   }
 
   .community-search-icon{
     width: 11vw;
     img{
       width: 100%;
+      filter: invert(100%);
     }
   }
 }
@@ -53,29 +54,29 @@
   select,
   input,
   button{
-    border-radius: 4vw;
-    border: 0.2rem solid #8f8e8e;
+    border-radius: 1em;
+    border: 0.1rem solid #79976a;
     font-family: "jpFont02";
     /*background-color: #e9e6ce85;*/
   }
   select{
-    height: 11vw;
+    height: 10vw;
     width: 20%;
   }
   input{
     height: 9vw;
-    width: 63%;
+    width: 77%;
+    position: relative;
   }
 
   button{
-    height: 11vw;
+    height: 9vw;
     width: 12%;
-    background-color: white;
-    font-size: 4vw;
+    background-color: #ffffff00;
     overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    position: absolute;
+    right: 0.7em;
+    border: none;
     img{
       width: 100%;
       height: auto;

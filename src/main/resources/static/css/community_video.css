@@ -3,6 +3,7 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   margin-top: 1vh;
+  min-height: 80vh;
 }
 
 .community-content {
@@ -12,7 +13,7 @@
   padding: 2vw;
   width: 38.7vw;
   aspect-ratio: 1 / 1.5;
-  border: 0.2vw solid gray;
+  border: 0.2vw solid #79976a;
   border-radius: 3vw;
 }
 
@@ -81,10 +82,11 @@
   align-items: center;
   right: 7vw;
   bottom: 7vw;
-  background-color: black;
+  background-color: #79976a;
   color: white;
   width: 15vw;
   height: 15vw;
   border-radius: 15vw;
   font-size: 3.5em;
+  border: 0.01em solid white;
 }
