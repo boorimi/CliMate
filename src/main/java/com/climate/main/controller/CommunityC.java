@@ -3,21 +3,18 @@ package com.climate.main.controller;
 import com.climate.main.dto.CommunityDTO;
 import com.climate.main.dto.LikeDTO;
 import com.climate.main.service.CommunityDAO;
-import jakarta.servlet.ServletContext;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.*;
 
 @Controller
 public class CommunityC {
@@ -26,7 +23,9 @@ public class CommunityC {
     private CommunityDAO communityDAO;
     private LikeDTO likeDTO;
 
-    private String uploadFileName;
+    private Map<String, String> fileMap = new HashMap<>();
+    private List<Map<String, String>> fileMapList = new ArrayList<>();
+
 
     @GetMapping("/community/video")
     public String communityShowoff(Model model) {
@@ -58,8 +57,8 @@ public class CommunityC {
 
     @PostMapping("/community/lfg/insert")
     public String InsertCommunityLfg(CommunityDTO communityDTO) {
-        communityDAO.changeFileName(communityDTO);
-        System.out.println(communityDTO);
+        communityDAO.changeFileName(communityDTO, fileMapList);
+//        System.out.println(communityDTO);
         communityDAO.insertCommunityLfg(communityDTO);
         return "redirect:/community/lfg";
     }
@@ -178,27 +177,72 @@ public class CommunityC {
     }
 
     @PostMapping("/community/lfg/insert/uploadImg")
-    @ResponseBody
-    public ResponseEntity<?> uploadFile(@RequestParam("upload") MultipartFile file) {
-//        UUID uuid = UUID.randomUUID();
-//        String randomID = uuid.toString();
-//        String[] selectID = randomID.split("-");
-//        String selectID2 = selectID[0];
-
-        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-        String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/upload/lfgimg";
-        File uploadDirFile = new File(uploadDir);
-        File dest = new File(uploadDirFile, fileName);
-
+    public void uploadFile(@RequestParam("file") MultipartFile file, Model model) {
         try {
-            file.transferTo(dest);
-            // 이미지가 성공적으로 업로드된 후 반환되는 URL을 설정합니다.
-            String fileUrl = "/resources/upload/lfgimg/" + fileName;
-            return ResponseEntity.ok().body("{ \"url\": \"" + fileUrl + "\" }");
+
+            String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/upload/lfgimg/";
+
+            UUID uuid = UUID.randomUUID();
+            String randomID = uuid.toString();
+            String[] selectID = randomID.split("-");
+            String selectID2 = selectID[0];
+
+            byte[] bytes = file.getBytes();
+            Path path = Paths.get(uploadDir + selectID2 + ".png");
+            Files.write(path, bytes);
+
+            // MIME 타입 결정
+            String mimeType = file.getContentType();
+            if (mimeType == null) {
+                mimeType = "application/octet-stream"; // 기본 MIME 타입
+            }
+
+            // Base64 인코딩 및 MIME 타입 정보 추가
+            String base64String = Base64.getEncoder().encodeToString(file.getBytes());
+            String base64DataURL = "data:" + mimeType + ";base64," + base64String;
+
+            // UUID와 Base64 문자열을 Map에 저장
+            fileMap.put(base64DataURL, selectID2);
+
+            // List에 Map 추가
+            fileMapList.add(fileMap);
+
+            System.out.println("===================");
+            System.out.println(fileMapList);
+            System.out.println("===================");
+
+//            model.addAttribute("fileNames", fileNames);
+
+//            return new ResponseEntity<>("/resources/upload/lfgimg/" + file.getOriginalFilename(), HttpStatus.OK);
+
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload file");
+//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
+
+//    @PostMapping("/community/lfg/insert/uploadImg")
+//    @ResponseBody
+//    public ResponseEntity<?> uploadFile(@RequestParam("upload") MultipartFile file) {
+////        UUID uuid = UUID.randomUUID();
+////        String randomID = uuid.toString();
+////        String[] selectID = randomID.split("-");
+////        String selectID2 = selectID[0];
+//
+//        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+//        String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/upload/lfgimg/";
+//        File uploadDirFile = new File(uploadDir);
+//        File dest = new File(uploadDirFile, fileName);
+//
+//        try {
+//            file.transferTo(dest);
+//            // 이미지가 성공적으로 업로드된 후 반환되는 URL을 설정합니다.
+//            String fileUrl = "/resources/upload/lfgimg/" + fileName;
+//            return ResponseEntity.ok().body("{ \"url\": \"" + fileUrl + "\" }");
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload file");
+//        }
+//    }
 
 }
