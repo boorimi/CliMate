@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,8 +18,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class CommunityDAO implements CommunityMapper {
@@ -233,64 +233,96 @@ public class CommunityDAO implements CommunityMapper {
     }
 
 
-    public void changeFileName(CommunityDTO communityDTO) {
-        String input = communityDTO.getB_text();
+    public void changeFileName(CommunityDTO communityDTO, List<Map<String, String>> fileMapList) {
+        // UUID와 Base64코드를 매핑시켜 리스트로 가져왔음
+        System.out.println("=====2===============");
+        System.out.println(fileMapList);
+        System.out.println("====2================");
 
-        String startDelimiter = "/resources/upload/lfgimg/";
+        // 일단 Base64문자열을 UUID로 바꿔주고싶음.
+        // 어디서? DTO안에 있는 b_text를 불러오고 불러온다음 교체를해야함
+        // 일단 b_text를 get 해옴
+        String b_text = communityDTO.getB_text();
+        // key값(Base64값)은 문자열에서 분리하여 따오기
+        // 찾을 문자열의 시작과 끝 설정
+        String startDelimiter = "<img src=\"";
         String endDelimiter = "\"";
 
-        String filename = "";
+        List<String> filenames = new ArrayList<>();
 
-        int startIndex = input.indexOf(startDelimiter);
-        if (startIndex != -1) {
+        int startIndex = 0;
+        while ((startIndex = b_text.indexOf(startDelimiter, startIndex)) != -1) {
             startIndex += startDelimiter.length();
-            int endIndex = input.indexOf(endDelimiter, startIndex);
+            int endIndex = b_text.indexOf(endDelimiter, startIndex);
             if (endIndex != -1) {
-                filename = input.substring(startIndex, endIndex);
+                String filename = b_text.substring(startIndex, endIndex);
+                filenames.add(filename);
+                startIndex = endIndex + endDelimiter.length();
+            } else {
+                break;
             }
         }
 
-        UUID uuid = UUID.randomUUID();
-        String randomID = uuid.toString();
-        String[] selectID = randomID.split("-");
-        String selectID2 = selectID[0];
-
-//        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-//        String fileName = "test.jpg";
-        String originFileName = filename;
-        String newFileName = selectID2 + getFileExtension(originFileName);
-
-        String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/upload/lfgimg";
-        File uploadDirFile = new File(uploadDir);
-        File dest = new File(uploadDirFile, newFileName);
-
-        System.out.println(originFileName);
-        System.out.println(input);
-
-        if (input != null && input.contains(originFileName)) {
-            communityDTO.setB_text(input.replace(originFileName, newFileName));
+        // 배열로 변환
+        String[] filenameArray = filenames.toArray(new String[0]);
+        for ( int i = 0; i < filenameArray.length; i++ ) {
+            b_text = communityDTO.getB_text();
+            String originBase64Key = filenameArray[i];
+            // value를 분리하여 변수에 저장
+            Map<String, String> fileMap = fileMapList.get(i);
+            String newUUIDName = fileMap.get(originBase64Key);
+            // b_text 내부 내욜을 replace한다
+            if (b_text != null && b_text.contains(originBase64Key)) {
+                communityDTO.setB_text(b_text.replace(originBase64Key, "/resources/upload/lfgimg/" + newUUIDName + ".png"));
+            }
         }
 
-        String sourceFilePath = uploadDir + "/" + originFileName;
-        String targetFilePath = uploadDir + "/" + newFileName;
-
-        Path source = Paths.get(sourceFilePath);
-        Path target = Paths.get(targetFilePath);
-
-        try {
-            // 파일 복사
-            Files.copy(source, target, StandardCopyOption.REPLACE_EXISTING);
-            System.out.println("File copied successfully.");
-
-            // 원본 파일 삭제
-            Files.delete(source);
-            System.out.println("Original file deleted successfully.");
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("File operation failed.");
-        }
-
+//        for (String filename : filenameArray) {
+//
+//            UUID uuid = UUID.randomUUID();
+//            String randomID = uuid.toString();
+//            String[] selectID = randomID.split("-");
+//            String selectID2 = selectID[0];
+//
+//            String originFileName = filename;
+//            String newFileName = selectID2 + getFileExtension(originFileName);
+//
+//            String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/upload/lfgimg";
+////            File uploadDirFile = new File(uploadDir);
+////            File dest = new File(uploadDirFile, newFileName);
+//
+//            System.out.println("=========================");
+//            System.out.println(originFileName);
+//            System.out.println(newFileName);
+//            System.out.println(input);
+//
+//            if (input != null && input.contains(originFileName)) {
+//                communityDTO.setB_text(input.replace(originFileName, newFileName));
+//            }
+//
+//            System.out.println(communityDTO.getB_text());
+//
+//            String sourceFilePath = uploadDir + "/" + originFileName;
+//            String targetFilePath = uploadDir + "/" + newFileName;
+//
+//            Path source = Paths.get(sourceFilePath);
+//            Path target = Paths.get(targetFilePath);
+//
+//            try {
+//                // 파일 복사
+//                Files.copy(source, target, StandardCopyOption.REPLACE_EXISTING);
+//                System.out.println("File copied successfully.");
+//
+//                // 원본 파일 삭제
+//                Files.delete(source);
+//                System.out.println("Original file deleted successfully.");
+//
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//                System.out.println("File operation failed.");
+//            }
+//
+//        }
 
     }
 

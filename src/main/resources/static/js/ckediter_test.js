@@ -49,9 +49,39 @@ import {
 import translations from 'ckeditor5/translations/ko.js';
 
 document.addEventListener('DOMContentLoaded', () => {
+    class MyCustomUploadAdapter {
+        constructor(loader) {
+            this.loader = loader;
+        }
+
+        upload() {
+            return this.loader.file
+                .then(file => new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.onload = () => {
+                        const base64Data = reader.result;
+
+                        // Base64 데이터로 미리보기 표시
+                        resolve({ default: base64Data });
+                    };
+                    reader.onerror = error => reject(error);
+                    reader.readAsDataURL(file);
+                }));
+        }
+
+        abort() {
+            // Handle abort if needed
+        }
+    }
+
+    function MyCustomUploadAdapterPlugin(editor) {
+        editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
+            return new MyCustomUploadAdapter(loader);
+        };
+    }
 
     const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
-    const csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
+    // const csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
 
     const editorConfig = {
         toolbar: {
@@ -179,13 +209,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 'jpeg', 'png', 'gif', 'bmp'
             ]
         },
-        simpleUpload: {
-            uploadUrl: '/community/lfg/insert/uploadImg',
-            headers: {
-                'X-CSRF-TOKEN' : csrfToken
-            }
-        },
-        initialData: '<h2>Congratulations on setting up CKEditor 5! 🎉</h2>',
+        extraPlugins: [MyCustomUploadAdapterPlugin],
+        initialData: '',
         language: 'ko',
         link: {
             addTargetToExternalLinks: true,
@@ -214,6 +239,8 @@ document.addEventListener('DOMContentLoaded', () => {
         translations: [translations]
     };
 
-    ClassicEditor.create(document.querySelector('#editor'), editorConfig);
-
+    ClassicEditor.create(document.querySelector('#editor'), editorConfig)
+        .catch(error => {
+            console.error(error);
+        });
 });
