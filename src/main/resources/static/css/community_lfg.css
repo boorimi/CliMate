@@ -1,8 +1,9 @@
+.community-lfg-container{
+  margin: 2vw 0;
+}
 .community-lfg-wrapper {
-  margin: 2vw;
   padding: 2vw;
   border-bottom: 0.2vw solid black;
-  border-top: 0.2vw solid black;
   font-size: 3vw;
 }
 

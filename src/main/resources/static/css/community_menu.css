@@ -1,29 +1,90 @@
+@font-face {
+  font-family: "jpFont02";
+  src: url("font/jp_font02.ttf") format("truetype");
+}
+
 .community-all-wrapper {
-  background-color: rgb(253, 246, 237);
-  width: 100%; /*bm*/
+  /*background-color: rgb(253, 246, 237);*/
+  width: 100%;
   height: auto;
-}
-
-.community-search-wrapper {
-  margin-top: 1.5vh;
-  display: flex;
-  justify-content: center;
-}
-
-.community-search-wrapper > div{
-  margin: 0vh 0.5vw;
+  font-family: "jpFont02";
+  margin: 2vw 0;
 }
 
 .community-category-wrapper {
   margin-top: 1.5vh;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+  align-items: center;
+  height: 11vw;
+  font-size: 7.5vw;
+
+  div {
+    /*border: 0.5vw solid #448546;*/
+    background-color: #e9e6ce85;
+    border-radius: 3vw;
+    width: 43%;
+    height: 100%;
+    /* 수직 및 수평 중앙 정렬 */
+    display: grid;
+    place-items: center;
+  }
+
+  .community-search-icon{
+    width: 11vw;
+    img{
+      width: 100%;
+    }
+  }
 }
 
-.community-category-wrapper > div {
-  padding: 0.5vh 18vw;
-  border: 0.2vw solid black;
-  border-radius: 10vw;
+.hidden{
+  display: none;
+}
+
+.community-search-wrapper {
+  width: 100%;
+  margin-top: 1.5vh;
+  display: none;
+  justify-content: space-between;
+  align-items: center;
+  height: 12vw;
+
+  select,
+  input,
+  button{
+    border-radius: 4vw;
+    border: 0.2rem solid #8f8e8e;
+    font-family: "jpFont02";
+    /*background-color: #e9e6ce85;*/
+  }
+  select{
+    height: 11vw;
+    width: 20%;
+  }
+  input{
+    height: 9vw;
+    width: 60%;
+  }
+
+  button{
+    height: 11vw;
+    width: 15%;
+    background-color: white;
+    font-size: 4vw;
+  }
+
 
 }
+.community-search-wrapper.show {
+  flex-direction: row;
+  height: 10vw;
+}
+
+.community-search-wrapper > div{
+
+}
+
+
+
 
