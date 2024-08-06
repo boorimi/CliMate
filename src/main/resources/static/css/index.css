@@ -7,10 +7,6 @@
     src: url("font/jp_font01.ttf") format("truetype");
 }
 
-body {
-    padding: 0;
-}
-
 .menu {
     position: relative;
     display: flex;
@@ -91,6 +87,31 @@ body {
     display: flex;
     flex-direction: column;
 }
+
+footer {
+    height: 10vh;
+    background-color: #79976a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    a {
+        text-align: center;
+        text-decoration:none;
+
+        img {
+            width: 2em;
+        }
+
+        p {
+            margin: 0;
+            font-size: 0.7em;
+            color: white;
+        }
+    }
+}
+
 
 @media (max-width: 768px) {
     .menu {

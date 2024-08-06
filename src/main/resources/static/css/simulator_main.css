@@ -1,12 +1,12 @@
 .simulator-main-container {
     display: flex;
-    justify-content: center;
     flex-direction: column;
     width: 90%;
     height: 100%;
     margin: 0 5%;
     color: #79976a;
     font-weight: 900;
+    min-height: 90vh;
 
     a {
         color: inherit; /* 부모 요소의 글자색을 상속 */
