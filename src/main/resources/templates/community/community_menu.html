@@ -14,8 +14,8 @@
 <body>
 <div class="community-all-wrapper">
     <div class="community-category-wrapper">
-        <div onclick="location.href='/community/video'">動画</div>
-        <div onclick="location.href='/community/lfg'">募集</div>
+        <div onclick="location.href='/community/video'">video post</div>
+        <div onclick="location.href='/community/lfg'">모집</div>
         <div class="community-search-icon"></div>
     </div>
     <form action="/community/search">
@@ -26,7 +26,7 @@
                     <option value="u_nickname">닉네임</option>
                 </select>
                 <input type="text" name="searchWord"/>
-            <button>検索</button>
+            <button><img src="/resources/icon/search.png"></button>
         </div>
     </form>
     <div th:include="${community_content}"></div>
