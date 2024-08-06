@@ -52,13 +52,24 @@
             <div class="community-video-detail-grade"><img
                     th:src="@{'/resources/grade_icon/hold_' + ${showoffList.u_grade} + '.png'}"></div>
         </div>
-
         <div class="community-video-detail-like">
             <div class="community-video-detail-like-icon" th:data-b_pk="${showoffList.b_pk}"
                  th:if="${showoffLikeCountThisUser == 0}"><img src="/resources/icon/love_blank.png"></div>
             <div class="community-video-detail-like-icon" th:data-b_pk="${showoffList.b_pk}"
                  th:if="${showoffLikeCountThisUser > 0}"><img src="/resources/icon/love.png"></div>
             <div class="community-video-detail-like-count" th:text="${showoffList.l_count}"></div>
+        </div>
+        <div class="community-video-detail-more-wrapper">
+            <div class="community-video-detail-more">
+                <img src="/resources/icon/more.png">
+            </div>
+            <ul class="community-video-detail-updelMenu">
+                <li th:onclick="'location.href=\'/community/video/update?b_pk=' + ${showoffList.b_pk} + '\''"><img
+                        src="/resources/icon/update.png"/>update
+                </li>
+                <li th:onclick="'deleteCheck('+${showoffList.b_pk}+')'"><img src="/resources/icon/delete.png"/>delete
+                </li>
+            </ul>
         </div>
     </div>
     <div
@@ -69,6 +80,7 @@
             class="community-video-detail-text"
             th:text="${showoffList.b_text}"
     ></div>
+    <!--    댓글영역시작  -->
     <div class="community-showoff-detail-comments-wrapper">
         <div class="community-showoff-detail-comments-info">
             <div class="community-showoff-detail-comments-comments">
@@ -77,8 +89,7 @@
                 <div th:text="${showoffList.c_count}"></div>
             </div>
             <div class="community-showoff-detail-comments-updel">
-                <div th:onclick="'location.href=\'/community/video/update?b_pk=' + ${showoffList.b_pk} + '\''"><img src="/resources/icon/update.png"/></div>
-                <div th:onclick="'deleteCheck('+${showoffList.b_pk}+')'"><img src="/resources/icon/delete.png"/></div>
+
             </div>
         </div>
         <div class="community-showoff-detail-comments-contents">
@@ -104,7 +115,8 @@
                                 th:src="@{'/resources/grade_icon/hold_' + ${co.u_grade} + '.png'}"></div>
                     </div>
                     <div style="display: flex">
-                        <div class="community-showoff-detail-comments-delete" th:onclick="'deleteCommentsCheck('+${co.cm_pk}+','+${showoffList.b_pk}+')'">
+                        <div class="community-showoff-detail-comments-delete"
+                             th:onclick="'deleteCommentsCheck('+${co.cm_pk}+','+${showoffList.b_pk}+')'">
                             <img src="/resources/icon/delete.png"/>
                         </div>
                         <div class="community-showoff-detail-comments-date"

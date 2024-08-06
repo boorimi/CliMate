@@ -1,8 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta
+            name="viewport"
+            content="width=device-width,initial-scale=1.0, minimum-scale=1.0,maximum-scale=1.0"
+    />
+    <meta name="_csrf" content="${_csrf.token}"/>
+    <meta name="_csrf_header" content="${_csrf.headerName}"/>
     <title>Title</title>
+    <script
+            src="https://code.jquery.com/jquery-3.7.1.js"
+            integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+            crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="/resources/css/community_lfg_insert.css">
+    <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/42.0.2/ckeditor5.css">
 </head>
 <body>
 <form action="/community/lfg/insert" method="post">
@@ -11,9 +24,25 @@
         <option value="急遽">急遽</option>
         <option value="クルー募集">クルー募集</option>
     </select> <br>
-    title : <input type="text" name="b_title"> <br>
-    text : <textarea name="b_text"></textarea> <br>
-    <button>submit</button>
+    <div class="community-lfg-title-input"><input type="text" name="b_title" placeholder="TITLE"></div>
+    <div>
+        <div class="main-container">
+            <div class="editor-container editor-container_classic-editor" id="editor-container">
+                <div class="editor-container__editor"><textarea id="editor" name="b_text"></textarea></div>
+            </div>
+        </div>
+    </div>
+    <div class="community-lfg-insert-button"><button>submit</button></div>
 </form>
+
 </body>
+<script type="importmap">
+    {
+        "imports": {
+            "ckeditor5": "https://cdn.ckeditor.com/ckeditor5/42.0.2/ckeditor5.js",
+            "ckeditor5/": "https://cdn.ckeditor.com/ckeditor5/42.0.2/"
+        }
+    }
+</script>
+<script type="module" src="/resources/js/ckediter_test.js"></script>
 </html>
