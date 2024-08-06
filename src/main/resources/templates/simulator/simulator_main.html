@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="resources/css/simulator_main.css"/>
+    <script
+            src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"
+    ></script>
+    <script src="resources/js/simulator_main.js" defer></script>
+    <title>Title</title>
+</head>
+<body>
+<div class="simulator-main-container">
+    <div class="simulator-loading">
+        <img src="/resources/img/s_loading.gif">
+        <p>Please wait for a moment</p>
+    </div>
+    <div class="simulator-create-project">
+        <p class="title-text">Create new project</p>
+        <div class="create-project" onclick="location.href='/simulator'">+</div>
+    </div>
+    <hr />
+    <div class="simulator-my-project">
+        <p class="title-text">My project</p>
+        <div class="my-project-list" id="myProjectList">
+            <!-- 비어있으면 아래 p태그 어펜드 -->
+<!--             <p>Empty</p>-->
+            <!-- 생기면 my-project 디브 어펜드 -->
+            <div class="my-project"></div>
+            <div class="my-project"></div>
+            <div class="my-project"></div>
+            <!-- 4개 이상인 경우 어펜드 -->
+            <div class="my-project more" onclick="location.href='/simulator_my_project'"><p>3+</p></div>
+        </div>
+    </div>
+    <hr />
+    <div class="simulator-others">
+        <p class="title-text">Others</p>
+        <div class="others" onclick="location.href='/simulator_gallery'">Project Gallery</div>
+    </div>
+</div>
+</body>
+</html>

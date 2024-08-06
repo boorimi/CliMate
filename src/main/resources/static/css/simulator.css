@@ -19,6 +19,8 @@ body {
 .webgl-content {
     width: 100%;
     height: 85vh;
+    display: flex;
+    justify-content: center;
 
     #webgl-container {
         width: 100%;
@@ -69,29 +71,12 @@ body {
         padding-top: 1em;
         align-items: center;
 
-
         .list-hidden-pc {
             left: -100%;
         }
 
         .list-visible-pc {
             left: 0;
-        }
-        .hold-select-pc {
-            -webkit-appearance: none; /* 기본 웹킷 브라우저 스타일 제거 */
-            -moz-appearance: none; /* 기본 모질라 브라우저 스타일 제거 */
-            appearance: none; /* 기본 브라우저 스타일 제거 */
-            width: 20vw;
-            height: 8%;
-            top: 1.5em;
-            left: 10vw;
-            font-family: "Mochiy Pop P One", sans-serif;
-
-            #hold-select-pc {
-                width: 100%;
-                height: 100%;
-                border-radius: 100vw;
-            }
         }
 
         .hold-list-pc {
@@ -101,8 +86,9 @@ body {
             gap: 0.5em;
             margin: 0.5em;
             overflow-y: auto;
-            padding-top: 1em;
-            .hold-img{
+            padding-top: 4em;
+
+            .hold-img {
                 height: 10vw;
                 width: 10vw;
                 background-color: #b0b69a;
@@ -112,7 +98,7 @@ body {
                 justify-content: center;
                 align-items: center;
 
-                img{
+                img {
                     width: 100%;
 
                 }
@@ -122,12 +108,11 @@ body {
     }
 
 
-
 }
 
 @media (max-width: 768px) {
     .webgl-content {
-        height: 88vh;
+        height: 87vh;
 
         #webgl-container {
             width: 100%;
@@ -139,9 +124,10 @@ body {
             height: 7vh;
 
         }
+
         #hold-list-container-mobile {
             width: 100%;
-            height: 75vw;
+            height: 60vw;
             display: none;
             background-color: whitesmoke;
             position: absolute;
@@ -149,59 +135,40 @@ body {
             border-radius: 1em;
             box-shadow: 0em 0em 0.4em gray;
             flex-direction: column;
+        }
 
-            .hold-select-mobile {
-                -webkit-appearance: none; /* 기본 웹킷 브라우저 스타일 제거 */
-                -moz-appearance: none; /* 기본 모질라 브라우저 스타일 제거 */
-                appearance: none; /* 기본 브라우저 스타일 제거 */
-                width: 100%;
-                height: 10vh;
+        .list-visible-mobile {
+            bottom: 0;
+        }
+
+        .list-hidden-mobile {
+            bottom: -100%;
+        }
+
+        .hold-list-mobile {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5em;
+            margin: 0.5em;
+            overflow-y: auto;
+
+            .hold-img {
+                height: 29vw;
+                width: 29vw;
+                background-color: #b0b69a;
+                border-radius: 100em;
                 display: flex;
+                overflow: hidden;
                 justify-content: center;
                 align-items: center;
-                border-bottom: 0.05em solid black;
 
-                #hold-select-mobile {
-                    width: 80%;
-                    height: 70%;
-                    border-radius: 100vw;
-                    font-family: "Mochiy Pop P One", sans-serif;
+                img {
+                    width: 100%;
 
-                }
-            }
-
-            .list-visible-mobile {
-                bottom: 0;
-            }
-
-            .list-hidden-mobile {
-                bottom: -100%;
-            }
-
-            .hold-list-mobile {
-                display: grid;
-                grid-template-columns: repeat(3, 1fr);
-                gap: 0.5em;
-                margin: 0.5em;
-                overflow-y: auto;
-                .hold-img{
-                    height: 29vw;
-                    width: 29vw;
-                    background-color: #b0b69a;
-                    border-radius: 100em;
-                    display: flex;
-                    overflow: hidden;
-                    justify-content: center;
-                    align-items: center;
-
-                    img{
-                        width: 100%;
-
-                    }
                 }
             }
         }
-
-
     }
+
+
 }

@@ -1,131 +1,151 @@
 * {
-    cursor: url("../icon/brush.png"), auto;
+  cursor: url("../icon/brush.png"), auto;
 }
 
 @font-face {
-    font-family: "jpFont";
-    src: url("font/jp_font.ttf") format("truetype");
-}
-
-body {
-    padding: 0;
+  font-family: "jpFont01";
+  src: url("font/jp_font01.ttf") format("truetype");
 }
 
 .menu {
-    position: relative;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    margin-bottom: 0.5rem;
-    height: 10vh;
-    color: #302e23;
-    font-family: "jpFont";
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  height: 10vh;
+  color: #302e23;
+  font-family: "jpFont01";
 
-    .logo {
-        height: 110%;
-        position: absolute;
-        top: 0;
-        left: 50%;
-        transform: translate(-50%);
+  .logo {
+    height: 110%;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%);
 
-        img {
-            height: 100%;
-        }
+    img {
+      height: 100%;
     }
+  }
 }
 
-
 .hamburger {
-    cursor: pointer;
-    display: inline-block;
-    padding: 1rem;
+  cursor: pointer;
+  display: inline-block;
+  padding: 1rem;
 
-    .hamburger-bar {
-        display: block;
-        width: 2em;
-        height: 0.2em;
-        margin: 0.5em auto;
-        background-color: #333;
-        transition: 0.3s;
-    }
+  .hamburger-bar {
+    display: block;
+    width: 2em;
+    height: 0.2em;
+    margin: 0.5em auto;
+    background-color: #333;
+    transition: 0.3s;
+  }
 }
 
 .hamburger-menu {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: none;
-    position: absolute;
-    z-index: 900;
-    top: 5rem;
-    right: 0;
-    background-color: #fff;
-    box-shadow: 0em 0em 1em #d7d7d7;
-    width: 30%;
-    border-radius: 1em;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: none;
+  position: absolute;
+  z-index: 900;
+  top: 5rem;
+  right: 0;
+  background-color: #fff;
+  box-shadow: 0em 0em 1em #d7d7d7;
+  width: 30%;
+  border-radius: 1em;
 
-    li {
-        border-bottom: 1px solid #ddd;
-        display: flex;
-        align-items: center;
-        height: 6vw;
-        font-size: 2.2vw;
+  li {
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    height: 6vw;
+    font-size: 2.2vw;
 
-        img {
-            width: 4vw;
-            height: auto;
-            padding: 1em;
-        }
+    img {
+      width: 4vw;
+      height: auto;
+      padding: 1em;
     }
+  }
 
-    li:last-child {
-        border-bottom: none;
+  li:last-child {
+    border-bottom: none;
 
-        img {
-            width: 3.5vw;
-        }
+    img {
+      width: 3.5vw;
     }
+  }
 }
 
 .hamburger-menu.active {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
+
+footer {
+    height: 10vh;
+    background-color: #79976a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    a {
+        text-align: center;
+        text-decoration:none;
+
+        img {
+            width: 2em;
+        }
+
+        p {
+            margin: 0;
+            font-size: 0.7em;
+            color: white;
+        }
+    }
+}
+
 
 @media (max-width: 768px) {
-
+  .menu {
     .logo {
-        height: 100%;
-        top: 0.3vh;
-        img {
-            height: 90%;
-        }
+      height: 100%;
+      top: 0.3vh;
+
+      img {
+        height: 90%;
+      }
+    }
+  }
+
+  .hamburger-menu {
+    top: 5rem;
+    width: 45%;
+
+    li {
+      border-bottom: 1px solid #ddd;
+      display: flex;
+      align-items: center;
+      height: 10vw;
+      font-size: 3.5vw;
+
+      img {
+        width: 7vw;
+        height: auto;
+        padding: 1em;
+      }
     }
 
-    .hamburger-menu {
-        top: 5rem;
-        width: 45%;
-
-        li {
-            border-bottom: 1px solid #ddd;
-            display: flex;
-            align-items: center;
-            height: 10vw;
-            font-size: 3.5vw;
-
-            img {
-                width: 7vw;
-                height: auto;
-                padding: 1em;
-            }
-        }
-
-        li:last-child {
-            img {
-                width: 6vw;
-            }
-        }
+    li:last-child {
+      img {
+        width: 6vw;
+      }
     }
-
+  }
 }
-

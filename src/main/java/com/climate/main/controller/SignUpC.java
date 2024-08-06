@@ -31,7 +31,6 @@ public class SignUpC {
 
         // userDTO에서 profile 이미지 설정
         userDTO.setU_img(profileImage);
-        userDTO.setU_homeground("home");
         System.out.println("check user dto => "+userDTO);
         System.out.println("check profile dto => "+profileImage);
         int result = signDAO.insertUser(userDTO);
