@@ -93,6 +93,7 @@ body {
 }
 
 @media (max-width: 768px) {
+.menu{
 
     .logo {
         height: 100%;
@@ -101,6 +102,7 @@ body {
             height: 90%;
         }
     }
+}
 
     .hamburger-menu {
         top: 5rem;

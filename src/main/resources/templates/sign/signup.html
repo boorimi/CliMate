@@ -5,6 +5,7 @@
     <title>Title</title>
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <link rel="stylesheet" href="/resources/css/signup.css" />
+    <script th:src="'https://maps.googleapis.com/maps/api/js?key=' + ${mapKey} + '&libraries=places'" defer></script>
   </head>
   <body>
     <form action="/signup" method="post" class="signup-container" enctype="multipart/form-data">
@@ -88,6 +89,15 @@
         </select>
       </div>
       <button class="signup-btn">会員加入</button>
+      <div class="map-box" id="map-box">
+        <div class="map-input-box">
+          <input id="map-input" class="map-input" placeholder="Search"/>
+          <p>X</p>
+        </div>
+        <div id="map">
+        </div>
+
+      </div>
     </form>
     <script src="/resources/js/signup.js" />
   </body>

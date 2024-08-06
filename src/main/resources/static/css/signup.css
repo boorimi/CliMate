@@ -110,3 +110,39 @@ input:focus {
     border: none;
   }
 }
+
+.map-box {
+  display: none;
+  height: 60%;
+  width: 430px;
+  position: absolute;
+  top: 0;
+  transform: translateY(0);
+  transition: transform 0.5s ease, top 0.5s ease;
+}
+
+.map-box > #map {
+  width: 100%;
+  height: 100%;
+}
+
+.map-box > .map-input-box {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  width: 100vw;
+  height: 5vh;
+  z-index: 2;
+  top: 5vh;
+}
+
+.map-input-box > #map-input {
+  width: 60%;
+  margin: 1vh 5vw 0 0;
+}
+
+.map-input-box > p {
+  font-size: 2.5rem;
+  margin: 1vh;
+  font-weight: bold;
+}
