@@ -1,14 +1,16 @@
 .community-contents-wrapper {
-  display: flex;
-  flex-wrap: wrap;
+  /*bm*/
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  margin-top: 1vh;
 }
 
 .community-content {
   display: flex;
   flex-direction: column;
-  margin: 3vw 2vh;  /*bm*/
+  margin: 2vw 1vh;  /*bm*/
   padding: 2vw;
-  width: 35vw;
+  width: 38.7vw;
   aspect-ratio: 1 / 1.5;
   border: 0.2vw solid gray;
   border-radius: 3vw;
