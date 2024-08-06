@@ -1,4 +1,13 @@
 #map {
-    height: 100%;
-    width: 100%;
+    height: 800px;
+    width: 800px;
+    position: relative;
+}
+
+.map-input {
+    position: absolute;
+    top: 2vw;
+    left: 20vw;
+    height: 4vw;
+    width: 50vw;
 }

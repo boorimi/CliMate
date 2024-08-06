@@ -19,7 +19,11 @@ input:focus {
   }
 
   /* 프로필 사진 */
-  .signup-container > .profile-img {
+  .profile-img-box {
+    overflow: hidden;
+  }
+
+  .profile-img {
     width: 20vh;
     height: 20vh;
     object-fit: contain;
@@ -33,9 +37,9 @@ input:focus {
   }
 
   .profile-img > img {
-    width: 80%;
-    height: 80%;
-    object-fit: contain;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
   .profile-img-upload {
@@ -109,4 +113,40 @@ input:focus {
     color: #fff;
     border: none;
   }
+}
+
+.map-box {
+  display: none;
+  height: 60%;
+  width: 430px;
+  position: absolute;
+  top: 0;
+  transform: translateY(0);
+  transition: transform 0.5s ease, top 0.5s ease;
+}
+
+.map-box > #map {
+  width: 100%;
+  height: 430px;
+}
+
+.map-box > .map-input-box {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  width: 100vw;
+  height: 5vh;
+  z-index: 2;
+  top: 5vh;
+}
+
+.map-input-box > #map-input {
+  width: 60%;
+  margin: 1vh 5vw 0 0;
+}
+
+.map-input-box > p {
+  font-size: 2.5rem;
+  margin: 1vh;
+  font-weight: bold;
 }

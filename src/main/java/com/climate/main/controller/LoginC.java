@@ -13,6 +13,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.io.IOException;
+
 @Controller
 public class LoginC {
     @Autowired
@@ -29,6 +31,8 @@ public class LoginC {
     private String googleClientId;
     @Value("${google.redirect_uri}")
     private String googleRedirectUrl;
+    @Value("${google.map_key}")
+    private String mapKey;
 
     //구글 로그인 과정에서 타는 auth 컨트롤러
     @GetMapping("/login/oauth2/code/google")
@@ -58,6 +62,7 @@ public class LoginC {
                 return "main";
             } else {
                 model.addAttribute("content", "/sign/signup");
+                model.addAttribute("mapKey", mapKey);
                 return "index";
             }
         } else {
