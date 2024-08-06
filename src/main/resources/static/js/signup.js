@@ -51,14 +51,24 @@ $(function() {
     })
 
     //google map
-    $("#homeground").on('click', function(event) {
-        console.log("ccc")
+    $("#homeground").on("click", function(event) {
+        event.preventDefault();
+        let map_height = $("#map-box").offset.top;
+        let header_height = $("#menu").offset.top;
         $("#map-box").css("display","block");
         $("#map-box").css("transform", "translateY(0)");
         $("#map-box").css("top", "12%");
-
+        $("body").css("overflow","hidden");
+        window.scrollTo({top:map_height-header_height, behavior:'smooth'});
         //window.open("/miniMapC", "_blank","width=820,height=820,left=1,top=200, right:10");
     })
+
+    $(".map-cancel").on("click", function(event) {
+        $("#map-box").css("display","none");
+        $("#map-box").css("transform", "translateY(0)");
+        $("#map-box").css("top", "0");
+        $("body").css("overflow","scroll");
+    });
 })
 
 /* google map */
@@ -67,7 +77,6 @@ function initMap() {
         center: { lat: 37.5665, lng: 126.9780 }, //서울
         zoom: 15,
         mapTypeControl: false,
-        zoomControl: false,        // 확대/축소 컨트롤 제거
         fullscreenControl: false,  // 전체화면 컨트롤 제거
         streetViewControl: false,  // 스트리트 뷰 컨트롤 제거
     }
@@ -83,7 +92,13 @@ function searchClimbingGyms(location, radius) {
     const request = {
         location: location,
         radius: radius,
-        query: 'climbing gym'
+        query: 'climbing gym',
+        locationBias: { // 검색을 한정하는 지역 설정
+                north: 45.551483,
+                south: 24.396308,
+                east: 153.986672,
+                west: 122.93457
+        }
     };
 
     service.textSearch(request, callback);
@@ -115,11 +130,25 @@ function createMarker(place) {
     });
 
     google.maps.event.addListener(marker, "click", () => {
-        infowindow.setContent(place.name || "");
+        console.log("check place => "+JSON.stringify(place));
+        const content = `<div　style="{width:5vw;}">
+<p onclick="handlePlaceClick('${place.name}')">${place.name}</p>
+<p onclick="handlePlaceClick('${place.name}')">${place.formatted_address}</p>
+</div>`;
+        infowindow.setContent(content);
         infowindow.open(map, marker);
     });
 
     markers.push(marker); // 마커 배열에 추가
+}
+
+function handlePlaceClick(placeName) {
+    //마커 클릭시
+    $("#homeground").val(placeName);
+    $("#map-box").css("display","none");
+    $("#map-box").css("transform", "translateY(0)");
+    $("#map-box").css("top", "0");
+    $("body").css("overflow","scroll");
 }
 
 function searchLocation() {
@@ -128,7 +157,13 @@ function searchLocation() {
     // 클라이밍장 이름으로 검색하기
     const request = {
         query: mapInput,
-        fields: ["name", "geometry"]
+        fields: ["name", "geometry"],
+        locationBias: { // 검색을 한정하는 지역 설정
+                north: 45.551483,
+                south: 24.396308,
+                east: 153.986672,
+                west: 122.93457
+        }
     };
 
     service.findPlaceFromQuery(request, (results, status) => {
@@ -177,6 +212,7 @@ window.searchLocation = searchLocation;
 
 $("#map-input").keydown(function (e) {
     if(e.keyCode == 13) {
+        e.preventDefault();
         // enter key(13) 눌렀을 때 이벤트
         searchLocation();
     }
