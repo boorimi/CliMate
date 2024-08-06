@@ -1,0 +1,55 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+@media print {
+    body {
+        margin: 0 !important;
+    }
+}
+
+.main-container {
+    padding: 1vh 0vw;
+    margin: 1vh 0vw;
+    font-family: 'Lato';
+    width: 95vw;
+    margin-left: auto;
+    margin-right: auto;
+    border-bottom: 0.2vw solid gray;
+    border-top: 0.2vw solid gray;
+
+}
+
+.ck-content {
+    font-family: 'Lato';
+    font-size: 1.2em;
+    line-height: 1.6;
+    word-break: break-word;
+}
+
+.ck-dropdown__panel, .ck-button {
+    font-size: 0.95em !important;
+}
+
+
+.community-lfg-title-input {
+    border-bottom: 0.2vw solid gray;
+    border-top: 0.2vw solid gray;
+    display: flex;
+}
+
+.community-lfg-title-input input {
+    flex: 1; /* 입력 요소가 부모의 너비를 채우도록 설정 */
+    height: 100%; /* 입력 요소의 높이를 부모의 높이로 설정 */
+    border: none; /* 입력 요소의 테두리를 제거 (선택 사항) */
+    box-sizing: border-box; /* 패딩 및 테두리를 입력 요소의 너비에 포함 */
+    font-size: 1.5em;
+}
+
+.community-lfg-title-input input:focus {
+    outline: none;
+}
+
+.community-lfg-insert-button {
+    display: flex;
+    justify-content: center;
+}
+

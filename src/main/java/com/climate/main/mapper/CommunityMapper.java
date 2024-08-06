@@ -33,7 +33,9 @@ public interface CommunityMapper {
     public  CommunityDTO selectCommunityShowoff(int b_pk);
 
     // 모집게시판 디테일조회
-    @Select("select bo.*, u_nickname, u_grade " +
+    @Select("select bo.*, u_nickname, u_grade, " +
+            "(SELECT COUNT(*) FROM cli_like WHERE l_b_pk = bo.b_pk) AS l_count, " +
+            "(SELECT COUNT(*) FROM cli_comments WHERE cm_b_pk = bo.b_pk) AS c_count " +
             "from cli_board bo, cli_user " +
             "where u_id = b_u_id and b_pk = #{b_pk}")
     public CommunityDTO selectCommunityRecruitment(int b_pk);

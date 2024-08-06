@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta
+            name="viewport"
+            content="width=device-width,initial-scale=1.0, minimum-scale=1.0,maximum-scale=1.0"
+    />
+    <script
+            src="https://code.jquery.com/jquery-3.7.1.js"
+            integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+            crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="/resources/css/community_lfg_detail.css"/>
+    <link rel="stylesheet" href="/resources/css/community_video_detail.css"/>
+    <script src="/resources/js/community_lfg_detail.js">
+    </script>
+    <title>Title</title>
+</head>
+<body>
+<div class="community-lfg-detail-all-wrapper">
+    <div class="community-lfg-detail-title1st" th:text="'[' + ${lfgList.b_category} + '] ' + ${lfgList.b_title}"></div>
+    <div class="community-lfg-detail-title2nd">
+        <div class="community-lfg-detail-title3rd">
+            <div class="community-lfg-detail-title-user">
+                <div class="community-lfg-detail-title-nickname" th:text="${lfgList.u_nickname}"></div>
+                <div class="community-lfg-detail-title-grade"><img
+                        th:src="@{'/resources/grade_icon/hold_' + ${lfgList.u_grade} + '.png'}"></div>
+                <ul class="community-lfg-detail-board-nicknameMenu">
+                    <li>プロフィール</li>
+                    <li>掲示文見る</li>
+                    <li>チャットする</li>
+                </ul>
+            </div>
+            <div class="community-lfg-detail-title-date"
+                 th:text="${#dates.format(lfgList.b_datetime, 'yyyy.MM.dd.')}"></div>
+        </div>
+        <div class="community-lfg-detail-more-wrapper">
+            <div class="community-lfg-detail-title-more"><img src="/resources/icon/more.png"></div>
+            <ul class="community-lfg-detail-updelMenu">
+                <li th:onclick="'location.href=\'/community/video/update?b_pk=' + ${lfgList.b_pk} + '\''"><img
+                        src="/resources/icon/update.png"/>update
+                </li>
+                <li th:onclick="'deleteCheck('+${lfgList.b_pk}+')'"><img src="/resources/icon/delete.png"/>delete
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="community-lfg-detail-text" th:utext="${lfgList.b_text}"></div>
+    <div class="community-showoff-detail-comments-wrapper">
+        <div class="community-showoff-detail-comments-info">
+            <div class="community-showoff-detail-comments-comments">
+                <div><img src="/resources/icon/chat-bubble.png"/></div>
+                <div>댓글</div>
+                <div th:text="${lfgList.c_count}"></div>
+            </div>
+            <div class="community-showoff-detail-comments-updel">
+
+            </div>
+        </div>
+        <div class="community-showoff-detail-comments-contents">
+            <form action="/community/lfg/comments/insert" method="post">
+                <div class="community-showoff-detail-comments-textarea">
+                    <textarea name="cm_text"></textarea>
+                    <button name="b_pk" th:value="${lfgList.b_pk}">등록</button>
+                </div>
+            </form>
+            <div class="community-showoff-detail-comments-border" th:each="co : ${showoffCommentsLists}">
+                <!-- 여기에 th걸기 -->
+                <div class="community-showoff-detail-comments-detail">
+                    <div class="community-showoff-detail-comments-nickgrade">
+                        <div class="community-showoff-detail-comments-nickname" th:text="${co.u_nickname}"></div>
+                        <!-- 숨김메뉴 시작 -->
+                        <ul class="community-showoff-detail-comments-nicknameMenu">
+                            <li>プロフィール</li>
+                            <li>掲示文見る</li>
+                            <li>チャットする</li>
+                        </ul>
+                        <!-- 숨김메뉴 끝 -->
+                        <div class="community-showoff-detail-comments-grade"><img
+                                th:src="@{'/resources/grade_icon/hold_' + ${co.u_grade} + '.png'}"></div>
+                    </div>
+                    <div style="display: flex">
+                        <div class="community-showoff-detail-comments-delete"
+                             th:onclick="'deleteCommentsCheck('+${co.cm_pk}+','+${lfgList.b_pk}+')'">
+                            <img src="/resources/icon/delete.png"/>
+                        </div>
+                        <div class="community-showoff-detail-comments-date"
+                             th:text="${#dates.format(co.cm_datetime, 'yyyy.MM.dd.')}">
+                        </div>
+                    </div>
+                </div>
+                <div class="community-showoff-detail-comments-text" th:text="${co.cm_text}"></div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+</body>
+</html>
