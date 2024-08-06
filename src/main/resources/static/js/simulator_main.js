@@ -27,4 +27,11 @@ $(document).ready(function () {
         let walk = (x - startX) * 2; // 스크롤 속도 조절
         $(this).scrollLeft(scrollLeft - walk);
     });
+
+    // 페이지 이동 시 로딩 화면 표시
+    $(".create-project").on("click", function(event) {
+        $(".simulator-loading").show();
+        $(".simulator-loading").css("display", "flex");
+    });
+
 });
