@@ -1,25 +1,36 @@
 .community-contents-wrapper {
-  /*bm*/
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
   margin-top: 1vh;
-  min-height: 80vh;
+  min-height: 65vh;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 0 2vw;
 }
 
 .community-content {
   display: flex;
   flex-direction: column;
-  margin: 2vw 1vh;  /*bm*/
-  padding: 2vw;
-  width: 40vw;
+  margin: 2vw 2vh;
+  padding: 1em;
   aspect-ratio: 1 / 1.5;
   border: 0.07em solid #79976a;
   border-radius: 0.8em;
+  height: 30vh;
+  flex: 0 0 auto;
+}
+@media (max-width: 768px){
+  .community-content {
+    margin: 2vw 0;
+  }
+}
+.community-contents-wrapper::after {
+  content: "";
+  flex: auto;
 }
 
 .community-video {
-  /*flex: 1;*/
-  height: 36vw;
+  width: 20vh;
+  height: 18vh;
   background-color: rgb(206, 206, 206);
   text-align: center;
 }
@@ -33,17 +44,20 @@
 .community-likecomments-wrapper {
   display: flex;
   flex-direction: row;
+  height: 3.2vh;
+  margin-top: 0.5em;
+  align-items: center;
 }
 
 .community-like img,
 .community-comments img{
-  width: 3vw;
+  width: 3.5vh;
   height: auto;
 }
 
 .community-like,
 .community-comments{
-  margin: 0.5vh 0vw;
+  margin: 0.5vh 0;
 }
 
 .community-like-count,
@@ -54,11 +68,14 @@
 }
 
 .community-comments {
-  margin-left: 1vw;
+  margin-left: 1em;
 }
 
 .community-climbing-name {
-  font-size: 3.3vw;
+  font-size: 3vh;
+  margin: 0.5vh 0;
+  width: 110%;
+  font-weight: 900;
 }
 
 .community-nickname-wrapper {
@@ -66,12 +83,12 @@
 }
 
 .community-nickname {
-  font-size: 3.3vw;
+  font-size: 2.7vh;
 }
 
 .community-grade img {
-  margin-left: 1vw;
-  width: 3vw;
+  margin-left: 0.5em;
+  width: 2.7vh;
   height: auto;
 }
 
