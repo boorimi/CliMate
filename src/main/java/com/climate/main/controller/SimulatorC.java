@@ -12,10 +12,16 @@ public class SimulatorC {
     @Autowired
     private HoldDAO holdDAO;
 
+    @GetMapping("/simulator_main")
+    public String simulatorMain(Model model){
+        model.addAttribute("content", "/simulator/simulator_main");
+        return "index";
+    }
+
     @GetMapping("/simulator")
     public  String simulator(Model model){
         model.addAttribute("holds", holdDAO.getAllHolds());
-        System.out.println(holdDAO.getAllHolds());
+//        System.out.println(holdDAO.getAllHolds());
         model.addAttribute("content", "/simulator/simulator");
         return "index";
     }
