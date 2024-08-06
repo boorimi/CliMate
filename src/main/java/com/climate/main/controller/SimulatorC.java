@@ -19,10 +19,22 @@ public class SimulatorC {
     }
 
     @GetMapping("/simulator")
-    public  String simulator(Model model){
+    public String simulator(Model model){
         model.addAttribute("holds", holdDAO.getAllHolds());
 //        System.out.println(holdDAO.getAllHolds());
         model.addAttribute("content", "/simulator/simulator");
+        return "index";
+    }
+
+    @GetMapping("/simulator_my_project")
+    public String myProject(Model model){
+        model.addAttribute("content", "/simulator/simulator_my_project");
+        return "index";
+    }
+
+    @GetMapping("/simulator_gallery")
+    public String simulatorGallery(Model model){
+        model.addAttribute("content", "/simulator/simulator_gallery");
         return "index";
     }
 
