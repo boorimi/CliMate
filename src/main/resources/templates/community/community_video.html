@@ -8,6 +8,22 @@
     />
     <title>Document</title>
     <link rel="stylesheet" href="/resources/css/community_video.css"/>
+    <script
+            src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"
+    ></script>
+    <script defer>
+        $(document).ready(function() {
+            $('.community-climbing-name').each(function() {
+                let text = $(this).text();
+                if (text.length > 6) {
+                    let moreText = text.substring(0, 6) + '...';
+                    $(this).text(moreText);
+                }
+            });
+        });
+    </script>
 </head>
 <body>
 <div class="community-contents-wrapper">
