@@ -10,6 +10,7 @@
             integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
             crossorigin="anonymous"
     ></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/exporters/GLTFExporter.js"></script>
     <script type="importmap">
         {
            "imports": {
@@ -18,28 +19,34 @@
             }
         }
     </script>
-<!--    Test JS ignore 추가되어있음. 로드에 문제 없을 경우 simulator.js로 이동-->
-<!--    <script type="module" src="resources/js/sTest/simulatorTest17_moveEvent_opacity.js" defer></script>-->
-<!--    <script type="module" src="resources/js/sTest/simulatorTest16_moveEvent.js" defer></script>-->
-    <script type="module" src="resources/js/simulator.js" defer></script>
-<!--</head>-->
+    <!--    Test JS ignore 추가되어있음. 로드에 문제 없을 경우 simulator.js로 이동-->
+    <script type="module" src="resources/js/sTest/simulatorTest19_edit_light" defer></script>
+    <!--    <script type="module" src="resources/js/sTest/simulatorTest16_moveEvent.js" defer></script>-->
+    <!--    <script type="module" src="resources/js/simulator.js" defer></script>-->
+    <!--</head>-->
 <body>
 <div class="content-container">
     <div class="webgl-content">
         <div id="webgl-container"></div>
-        <div class="hold-list-open-btn">
-            <img src="/resources/icon/hold.png">
+        <div class="btn-container">
+            <div class="hold-list-open-btn">
+                <img src="/resources/icon/hold.png">
+            </div>
+            <div class="save-btn" id="save-btn">
+                <img src="/resources/icon/save.png">
+            </div>
         </div>
+
         <div id="hold-list-container-pc" class="list-hidden-pc">
-            <div class="hold-list-pc" >
+            <div class="hold-list-pc">
                 <div class="hold-img" th:each="hold : ${holds}" th:data-hPk="${hold.h_pk}">
                     <img th:src="@{/resources/holds/img/{h_img}(h_img=${hold.h_img})}">
                 </div>
             </div>
         </div>
 
-        <div id="hold-list-container-mobile"  class="list-hidden-mobile">
-            <div class="hold-list-mobile" >
+        <div id="hold-list-container-mobile" class="list-hidden-mobile">
+            <div class="hold-list-mobile">
                 <div class="hold-img" th:each="hold : ${holds}" th:data-hPk="${hold.h_pk}">
                     <img th:src="@{/resources/holds/img/{h_img}(h_img=${hold.h_img})}">
                 </div>

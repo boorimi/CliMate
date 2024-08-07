@@ -2,6 +2,8 @@ import * as THREE from "three";
 import {OrbitControls} from "three/addons/controls/OrbitControls.js";
 import {DragControls} from "three/addons/controls/DragControls.js";
 import {GLTFLoader} from "three/addons/loaders/GLTFLoader.js";
+import { GLTFExporter } from 'https://cdn.jsdelivr.net/npm/three@0.132.2/examples/jsm/exporters/GLTFExporter.js';
+
 
 $(document).ready(function () {
     const holdBtn = $('.hold-list-open-btn');
@@ -78,6 +80,8 @@ class App {
         this._cube3 = null;
         this._draggableObjects = [];
         this._dragControls = null;
+        this._exportButton = document.querySelector("#save-btn");
+        this._exportButton.addEventListener("click", () => this.exportScene());
     }
 
     initialize() {
@@ -124,6 +128,26 @@ class App {
         // loadTestModel(this, '/resources/holds/volume/volume03.glb', 'modelGroup5', { x: 2, y: 1, z: 0 }, { x: 0.001, y: 0.001, z: 0.001 }, { x: 0, y: 0, z: 0 });
     }
 
+    // 3D 저장
+    exportScene() {
+        const exporter = new GLTFExporter();
+        exporter.parse(
+            this._scene,
+            (result) => {
+                const output = JSON.stringify(result, null, 2);
+                this.saveString(output, 'scene.gltf');
+            },
+            { binary: false }
+        );
+    }
+
+    saveString(text, filename) {
+        const blob = new Blob([text], { type: 'application/octet-stream' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = filename;
+        link.click();
+    }
 
 }
 
@@ -432,8 +456,6 @@ function handleDrag(object) {
         }
     }
 }
-
-// handleDrag 함수에서 모델의 위치가 maxX 범위에 도달했을 때 rotateObject 함수를 호출하여 회전시키도록
 
 let app;
 window.onload = function () {
