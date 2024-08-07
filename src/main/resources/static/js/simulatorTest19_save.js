@@ -2,7 +2,7 @@ import * as THREE from "three";
 import {OrbitControls} from "three/addons/controls/OrbitControls.js";
 import {DragControls} from "three/addons/controls/DragControls.js";
 import {GLTFLoader} from "three/addons/loaders/GLTFLoader.js";
-import { GLTFExporter } from 'https://cdn.jsdelivr.net/npm/three@0.132.2/examples/jsm/exporters/GLTFExporter.js';
+import { GLTFExporter } from "https://cdn.jsdelivr.net/npm/three@0.132.2/examples/jsm/exporters/GLTFExporter.js";
 
 
 $(document).ready(function () {
@@ -100,6 +100,33 @@ class App {
         update(this, time);
     }
 
+    // 3D 저장
+    exportScene() {
+        const exporter = new GLTFExporter();
+
+        // 씬 > gltf 변환
+        exporter.parse(
+            this._scene,
+            (result) => {
+                // 변환 결과를 JSON 문자열로 변환
+                const output = JSON.stringify(result, null, 2);
+
+                // JSON 문자열을 파일로 저장
+                this.saveString(output, 'scene.gltf');
+            },
+            { binary: ture } // flase면 gltf, ture면 glb파일
+        );
+    }
+
+    // 파일로 저장
+    saveString(text, filename) {
+        const blob = new Blob([text], { type: 'application/octet-stream' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = filename;
+        link.click();
+    }
+
     loadTestModel1() {
         // loadTestModel(this, '/resources/holds/volume/volume01.glb', 'modelGroup3', { x: 0, y: 1.5, z: 0.05 }, { x: 0.001, y: 0.001, z: 0.001 }, { x: 0, y: 0, z: Math.PI });
         // loadTestModel(this, '/resources/holds/volume/volume01.glb', 'modelGroup3', { x: 0, y: 1, z: 0.05 }, { x: 0.001, y: 0.001, z: 0.001 }, { x: 0, y: 0, z: Math.PI });
@@ -128,26 +155,7 @@ class App {
         // loadTestModel(this, '/resources/holds/volume/volume03.glb', 'modelGroup5', { x: 2, y: 1, z: 0 }, { x: 0.001, y: 0.001, z: 0.001 }, { x: 0, y: 0, z: 0 });
     }
 
-    // 3D 저장
-    exportScene() {
-        const exporter = new GLTFExporter();
-        exporter.parse(
-            this._scene,
-            (result) => {
-                const output = JSON.stringify(result, null, 2);
-                this.saveString(output, 'scene.gltf');
-            },
-            { binary: false }
-        );
-    }
 
-    saveString(text, filename) {
-        const blob = new Blob([text], { type: 'application/octet-stream' });
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(blob);
-        link.download = filename;
-        link.click();
-    }
 
 }
 
