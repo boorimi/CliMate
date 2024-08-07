@@ -1,42 +1,53 @@
+.community-lfg-all-wrapper{
+  min-height: 65vh;
+}
 .community-lfg-container{
   margin: 2vw 0;
 }
 .community-lfg-wrapper {
-  padding: 2vw;
-  border-bottom: 0.2vw solid black;
-  font-size: 3vw;
+  padding: 1em 0.5em;
+  border-bottom: 0.1em solid #79976a;
 }
 
 .community-lfg-above {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  height: 2vh;
+  margin-top: 0.5em;
+  font-size: 1.5em;
 }
 
 .community-lfg-category {
-  margin-right: 2vw;
-  padding: 1vw;
-  border: 0.2vw solid black;
-  border-radius: 4vw;
+  margin-right: 1vh;
+  padding: 0.1vh;
+  border: 0.1em solid #79976a;
+  border-radius: 0.5em;
+  width: 10vh;
+  text-align: center;
+  color: #79976a;
 }
 
 .community-lfg-nickname-wrapper {
   flex: 1;
   display: flex;
+  align-items: center;
   padding: 1vw;
 }
 
 .community-lfg-grade {
+  display: flex;
   margin-left: 1vw;
 }
 
 .community-lfg-grade img {
-  width: 4vw;
+  width: 2.5vh;
   height: auto;
 }
 
 .community-lfg-below {
-  font-size: 4.5vw;
-  padding: 2vw 0vw;
+  font-size: 1.8em;
+  padding-top: 2vh
 }
 
 .community-lfg-insert {
@@ -46,10 +57,20 @@
   align-items: center;
   right: 7vw;
   bottom: 7vw;
-  background-color: black;
+  background-color: #79976a;
   color: white;
   width: 15vw;
   height: 15vw;
   border-radius: 15vw;
   font-size: 3.5em;
+  border: 0.01em solid white;
+}
+
+@media (max-width: 768px){
+  .community-lfg-above {
+    font-size: 1em;
+  }
+  .community-lfg-below {
+    font-size: 1.2em;
+  }
 }

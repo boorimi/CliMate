@@ -34,4 +34,8 @@ $(document).ready(function () {
         $(".simulator-loading").css("display", "flex");
     });
 
+
+
+
+
 });

@@ -13,6 +13,6 @@ public class MapC {
     @GetMapping("/mapC")
     public String mapC(Model model) {
         model.addAttribute("mapKey", mapKey);
-        return "index";
+        return "map/map";
     }
 }

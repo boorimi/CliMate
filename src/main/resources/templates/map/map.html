@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Map</title>
     <script
             src="https://code.jquery.com/jquery-3.6.0.min.js"
@@ -10,10 +11,12 @@
     ></script>
     <script th:src="'https://maps.googleapis.com/maps/api/js?key=' + ${mapKey} + '&libraries=places'" defer></script>
     <script th:src="@{/resources/js/map.js}" defer></script>
-<!--    <link rel="stylesheet" href="/resources/css/map.css">-->
+    <link rel="stylesheet" th:href="@{/resources/css/map.css}">
 </head>
 <body>
+<div class="map-box">
     <div id="map"></div>
     <input id="map-input" class="map-input"/>
+</div>
 </body>
 </html>

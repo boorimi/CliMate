@@ -132,22 +132,26 @@ body {
         }
 
         .main-map::before{
-            background: rgba(202, 234, 121, 0.71);;
+            background: rgba(202, 234, 121, 0.53);;
         }
 
         .main-simulator::before{
-            background-color: rgba(255, 98, 98, 0.7);
+            background-color: rgba(255, 98, 98, 0.53);
         }
 
         .main-community::before{
-        background-color: rgba(254, 236, 104, 0.66);
+        background-color: rgba(254, 236, 104, 0.53);
         }
 
         .main-login::before,
-        .main-logout::before,
         .main-mypage::before{
-            background-color: rgba(147, 197, 246, 0.68);
+            background-color: rgba(147, 197, 246, 0.53);
         }
+
+        .main-logout::before{
+            background-color: rgba(0, 0, 0, 0.53);
+        }
+
 
         .main-map:hover::before,
         .main-simulator:hover::before,
@@ -167,6 +171,13 @@ body {
             transform: scale(1.05);
         }
 
+        .main-logout:hover{
+            color: white;
+            img{
+                filter: invert(100%);
+            }
+        }
+
     }
 
 
@@ -183,16 +194,6 @@ body {
             height: auto;
         }
     }
-    .main-community:hover {
-      background-color: rgba(254, 236, 104, 0.66);
-      color: #000000c9;
-    }
-    .main-login:hover,
-    .main-logout:hover,
-    .main-mypage:hover {
-      background-color: rgba(147, 197, 246, 0.68);
-      color: #e1e1e1;
-    }
   }
 
   .main-map-img,
@@ -208,23 +209,23 @@ body {
       height: auto;
     }
   }
-}
+
 
 @media (max-width: 768px) {
   .main-menu-container {
     .main-title {
       #main-title-carabiner {
         top: -4vh;
-        width: 13vh;
+        width: 11vh;
       }
       #main-title-text {
         top: 3vh;
-        width: 50vh;
+        width: 45vh;
       }
     }
 
     .main-menu-list {
-      width: 40vh;
+      width: 35vh;
       height: 50vh;
       font-size: 4vh;
     }

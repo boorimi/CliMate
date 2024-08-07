@@ -13,8 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.io.IOException;
-
 @Controller
 public class LoginC {
     @Autowired
@@ -51,6 +49,8 @@ public class LoginC {
             String u_id = userinfo.get("email").getAsString();
             user = signDAO.getUserById(u_id);
             String token = jwtUtil.generateToken(u_id); //구글 아이디 이용해서 jwt 토큰 생성
+            String[] u_id_substring = u_id.split("@");
+            System.out.println("check u_id => "+u_id_substring[0]);
 
             if(user != null) {
                 //브라우저 쿠키에 jwt 추가
@@ -63,6 +63,7 @@ public class LoginC {
             } else {
                 model.addAttribute("content", "/sign/signup");
                 model.addAttribute("mapKey", mapKey);
+                model.addAttribute("user_id", u_id_substring[0]);
                 return "index";
             }
         } else {

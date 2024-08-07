@@ -19,27 +19,27 @@ input:focus {
   }
 
   /* 프로필 사진 */
-  .profile-img-box {
-    overflow: hidden;
-  }
-
   .profile-img {
     width: 20vh;
     height: 20vh;
     object-fit: contain;
-    background-color: #b0b69a;
     margin: 5% auto;
-    border-radius: 50%;
     position: relative;
+  }
+  .profile-img-box {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
-  }
+    border-radius: 100%;
 
-  .profile-img > img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
   }
 
   .profile-img-upload {
@@ -62,11 +62,18 @@ input:focus {
   }
 
   /* 회원가입 input */
-  .signup-container > .signup-input {
+  .signup-container > .signup-input, .grade-container {
     width: 80%;
     height: 5%;
     font-size: 1em;
     margin: 10% auto;
+
+    .u_label, p {
+      font-size: 1.3em;
+      font-weight: bold;
+      color: #79976a;
+      margin: 0;
+    }
   }
 
   /* 회원가입 각 항목 */
@@ -79,6 +86,13 @@ input:focus {
     width: 100%;
     height: 5vh;
     font-size: 1em;
+    border: 1px solid #79976a;
+  }
+
+  .grade-container {
+    p {
+      color: #79976a;
+    }
   }
 
   .grade-box {
@@ -88,17 +102,21 @@ input:focus {
     width: 80%;
     height: 5%;
     font-size: 1em;
-    margin: 0 10%;
+
+    #grade-preview {
+      height: 100%;
+    }
   }
 
   .grade-select {
     width: 70%;
     height: 5vh;
     font-size: 1em;
+    border: 1px solid #79976a;
   }
   .grade-image {
     object-fit: contain;
-    width: 60%;
+    width: 40%;
     height: 60%;
     padding-left: 25%;
   }
@@ -109,7 +127,7 @@ input:focus {
     height: 5%;
     font-size: 2em;
     margin: 5% 30%;
-    background-color: #b0b69a;
+    background-color: #79976a;
     color: #fff;
     border: none;
   }
