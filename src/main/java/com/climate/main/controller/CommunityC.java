@@ -3,6 +3,7 @@ package com.climate.main.controller;
 import com.climate.main.dto.CommunityDTO;
 import com.climate.main.dto.LikeDTO;
 import com.climate.main.service.CommunityDAO;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -30,7 +31,10 @@ public class CommunityC {
 
 
     @GetMapping("/community/video")
-    public String communityShowoff(Model model) {
+    public String communityShowoff(HttpSession session, Model model) {
+        String userId = (String) session.getAttribute("user_id");
+        model.addAttribute("user_id", userId);
+
         model.addAttribute("showoffLists", communityDAO.selectAllCommunityShowoff());
         model.addAttribute("actionURL", "/community/search");
         model.addAttribute("content", "/community/community_menu");
