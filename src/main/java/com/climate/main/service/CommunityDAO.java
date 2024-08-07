@@ -4,12 +4,7 @@ import com.climate.main.dto.CommentsDTO;
 import com.climate.main.dto.CommunityDTO;
 import com.climate.main.mapper.CommunityMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -82,7 +77,7 @@ public class CommunityDAO implements CommunityMapper {
                 Files.write(path, bytes);
                 selectID3 += fileName + "!";
 
-                if (i == totalFiles - 1 ) {
+                if (i == totalFiles - 1) {
                     if (b_thumbnail.isEmpty()) {
                         // 섬네일 파일이 비어있을 경우 마지막 파일에서만 섬네일 생성
                         thumbnail = createThumbnail(path.toFile(), selectID2);
@@ -108,9 +103,28 @@ public class CommunityDAO implements CommunityMapper {
         return 0;
     }
 
+
     @Override
     public int insertCommunityLfg(CommunityDTO communityDTO) {
         return communityMapper.insertCommunityLfg(communityDTO);
+    }
+
+    public void moveFile(ArrayList<String> fileLists) {
+        String sourceDir = "src/main/resources/static/upload/lfgimg/temp/";
+        String targetDir = "src/main/resources/static/upload/lfgimg/";
+
+        for (String fileName : fileLists) {
+            try {
+                Path sourcePath = Paths.get(sourceDir).resolve(fileName);
+                Path targetPath = Paths.get(targetDir).resolve(fileName);
+
+                // 파일 이동
+                Files.move(sourcePath, targetPath, StandardCopyOption.REPLACE_EXISTING);
+                System.out.println("Moved: " + fileName);
+            } catch (IOException e) {
+                System.err.println("Failed to move: " + fileName + " - " + e.getMessage());
+            }
+        }
     }
 
     @Override
@@ -118,46 +132,31 @@ public class CommunityDAO implements CommunityMapper {
         return communityMapper.updateCommunityShowoff(communityDTO);
     }
 
+    @Override
+    public int updateCommunityLfg(CommunityDTO communityDTO) {
+        return communityMapper.updateCommunityLfg(communityDTO);
+    }
+
     private String createThumbnail(File videoFile, String selectID2) throws IOException, InterruptedException {
-        String thumbnailPath = "src/main/resources/static/upload/thumbnail/" + selectID2 + "_thumbnail.png";
-        System.out.println(videoFile.getParent());
-        // FFmpeg 명령어 실행
-        ProcessBuilder processBuilder = new ProcessBuilder(
-                "ffmpeg",
-                "-i", videoFile.getAbsolutePath(),
+            String thumbnailPath = "src/main/resources/static/upload/thumbnail/" + selectID2 + "_thumbnail.png";
+            System.out.println(videoFile.getParent());
+            // FFmpeg 명령어 실행
+            ProcessBuilder processBuilder = new ProcessBuilder(
+                    "ffmpeg",
+                    "-i", videoFile.getAbsolutePath(),
                 "-ss", "00:00:01.000",
                 "-vframes", "1",
                 thumbnailPath
         );
         processBuilder.redirectErrorStream(true);
         Process process = processBuilder.start();
-//        process.waitFor();
-        ///////////////////////////////////
-        // 프로세스의 출력 로그를 읽어서 확인
-//        try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
-//            String line;
-//            while ((line = reader.readLine()) != null) {
-//                System.out.println(line);
-//            }
-//        }
-
-//        // FFmpeg 명령어 실행 후 결과 코드 확인
-//        int exitCode = process.waitFor();
-//        if (exitCode != 0) {
-//            throw new IOException("FFmpeg process failed with exit code " + exitCode);
-//        }
-        /////////////////////////////////////////////
-
         return selectID2 + "_thumbnail.png";
-        // 섬네일 파일을 원하는 위치로 이동
-//        File thumbnailFile = new File(thumbnailPath);
-//        Path destinationPath = Paths.get(videoFile.getParentFile().getAbsolutePath(), selectID2 + "_thumbnail.png");
-//        Files.move(thumbnailFile.toPath(), destinationPath);
     }
 
     @Override
     public int deleteCommunityShowoff(int b_pk) {
         CommunityDTO communityDTO = communityMapper.selectCommunityShowoff(b_pk);
+
         String UPLOADED_FOLDER_VIDEO = "src/main/resources/static/upload/video/";
         String UPLOADED_FOLDER_THUMBNAIL = "src/main/resources/static/upload/thumbnail/";
 
@@ -184,6 +183,45 @@ public class CommunityDAO implements CommunityMapper {
                 }
             }
         }
+        return communityMapper.deleteCommunityShowoff(b_pk);
+    }
+
+    public int deleteCommunityLfg(int b_pk) {
+
+        String UPLOADED_FOLDER_VIDEO = "src/main/resources/static/upload/lfgimg/";
+
+        CommunityDTO communityDTO = communityMapper.selectCommunityRecruitment(b_pk);
+        String b_text = communityDTO.getB_text();
+        String startDelimiter = "/resources/upload/lfgimg/";
+        String endDelimiter = "\"";
+
+        List<String> filenames = new ArrayList<>();
+
+        int startIndex = 0;
+        while ((startIndex = b_text.indexOf(startDelimiter, startIndex)) != -1) {
+            startIndex += startDelimiter.length();
+            int endIndex = b_text.indexOf(endDelimiter, startIndex);
+            if (endIndex != -1) {
+                String filename = b_text.substring(startIndex, endIndex);
+                filenames.add(filename);
+                startIndex = endIndex + endDelimiter.length();
+            } else {
+                break;
+            }
+        }
+
+        // 배열로 변환
+        String[] filenameArray = filenames.toArray(new String[0]);
+
+            // 각 사진들 삭제
+            for (String fileName : filenameArray) {
+                File file = new File(UPLOADED_FOLDER_VIDEO + fileName);
+                if (file.exists()) {
+                    if (!file.delete()) {
+                        throw new RuntimeException("Failed to delete file: " + fileName);
+                    }
+                }
+            }
         return communityMapper.deleteCommunityShowoff(b_pk);
     }
 
@@ -235,9 +273,6 @@ public class CommunityDAO implements CommunityMapper {
 
     public void changeFileName(CommunityDTO communityDTO, List<Map<String, String>> fileMapList) {
         // UUID와 Base64코드를 매핑시켜 리스트로 가져왔음
-        System.out.println("=====2===============");
-        System.out.println(fileMapList);
-        System.out.println("====2================");
 
         // 일단 Base64문자열을 UUID로 바꿔주고싶음.
         // 어디서? DTO안에 있는 b_text를 불러오고 불러온다음 교체를해야함
@@ -265,7 +300,7 @@ public class CommunityDAO implements CommunityMapper {
 
         // 배열로 변환
         String[] filenameArray = filenames.toArray(new String[0]);
-        for ( int i = 0; i < filenameArray.length; i++ ) {
+        for (int i = 0; i < filenameArray.length; i++) {
             b_text = communityDTO.getB_text();
             String originBase64Key = filenameArray[i];
             // value를 분리하여 변수에 저장
@@ -277,60 +312,6 @@ public class CommunityDAO implements CommunityMapper {
             }
         }
 
-//        for (String filename : filenameArray) {
-//
-//            UUID uuid = UUID.randomUUID();
-//            String randomID = uuid.toString();
-//            String[] selectID = randomID.split("-");
-//            String selectID2 = selectID[0];
-//
-//            String originFileName = filename;
-//            String newFileName = selectID2 + getFileExtension(originFileName);
-//
-//            String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/upload/lfgimg";
-////            File uploadDirFile = new File(uploadDir);
-////            File dest = new File(uploadDirFile, newFileName);
-//
-//            System.out.println("=========================");
-//            System.out.println(originFileName);
-//            System.out.println(newFileName);
-//            System.out.println(input);
-//
-//            if (input != null && input.contains(originFileName)) {
-//                communityDTO.setB_text(input.replace(originFileName, newFileName));
-//            }
-//
-//            System.out.println(communityDTO.getB_text());
-//
-//            String sourceFilePath = uploadDir + "/" + originFileName;
-//            String targetFilePath = uploadDir + "/" + newFileName;
-//
-//            Path source = Paths.get(sourceFilePath);
-//            Path target = Paths.get(targetFilePath);
-//
-//            try {
-//                // 파일 복사
-//                Files.copy(source, target, StandardCopyOption.REPLACE_EXISTING);
-//                System.out.println("File copied successfully.");
-//
-//                // 원본 파일 삭제
-//                Files.delete(source);
-//                System.out.println("Original file deleted successfully.");
-//
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//                System.out.println("File operation failed.");
-//            }
-//
-//        }
-
-    }
-
-    public static String getFileExtension(String fileName) {
-        if (fileName != null && fileName.contains(".")) {
-            return fileName.substring(fileName.lastIndexOf("."));
-        }
-        return "";
     }
 
 }

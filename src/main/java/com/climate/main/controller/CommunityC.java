@@ -26,6 +26,8 @@ public class CommunityC {
     private Map<String, String> fileMap = new HashMap<>();
     private List<Map<String, String>> fileMapList = new ArrayList<>();
 
+    private ArrayList<String> fileLists = new ArrayList<>();
+
 
     @GetMapping("/community/video")
     public String communityShowoff(Model model) {
@@ -58,6 +60,7 @@ public class CommunityC {
     @PostMapping("/community/lfg/insert")
     public String InsertCommunityLfg(CommunityDTO communityDTO) {
         communityDAO.changeFileName(communityDTO, fileMapList);
+        communityDAO.moveFile(fileLists);
 //        System.out.println(communityDTO);
         communityDAO.insertCommunityLfg(communityDTO);
         return "redirect:/community/lfg";
@@ -76,10 +79,23 @@ public class CommunityC {
         return "index";
     }
 
+    @GetMapping("/community/lfg/update")
+    public String moveUpdateCommunityLfg(int b_pk, Model model) {
+        model.addAttribute("lfgList", communityDAO.selectCommunityRecruitment(b_pk));
+        model.addAttribute("content", "/community/community_lfg_update");
+        return "index";
+    }
+
     @PostMapping("/community/video/update")
     public String updateCommunityShowoff(CommunityDTO communityDTO) {
         communityDAO.updateCommunityShowoff(communityDTO);
         return "redirect:/community/video";
+    }
+
+    @PostMapping("/community/lfg/update")
+    public String updateCommunityLfg(CommunityDTO communityDTO) {
+        communityDAO.updateCommunityLfg(communityDTO);
+        return "redirect:/community/lfg";
     }
 
     @GetMapping("/community/video/delete")
@@ -90,7 +106,7 @@ public class CommunityC {
 
     @GetMapping("/community/lfg/delete")
     public String deleteCommunityLfg(int b_pk) {
-        communityDAO.deleteCommunityShowoff(b_pk);
+        communityDAO.deleteCommunityLfg(b_pk);
         return "redirect:/community/lfg";
     }
 
@@ -180,7 +196,7 @@ public class CommunityC {
     public void uploadFile(@RequestParam("file") MultipartFile file, Model model) {
         try {
 
-            String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/upload/lfgimg/";
+            String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/upload/lfgimg/temp/";
 
             UUID uuid = UUID.randomUUID();
             String randomID = uuid.toString();
@@ -206,12 +222,7 @@ public class CommunityC {
 
             // List에 Map 추가
             fileMapList.add(fileMap);
-
-            System.out.println("===================");
-            System.out.println(fileMapList);
-            System.out.println("===================");
-
-//            model.addAttribute("fileNames", fileNames);
+            fileLists.add(selectID2+".png");
 
 //            return new ResponseEntity<>("/resources/upload/lfgimg/" + file.getOriginalFilename(), HttpStatus.OK);
 
@@ -220,29 +231,5 @@ public class CommunityC {
 //            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
-
-//    @PostMapping("/community/lfg/insert/uploadImg")
-//    @ResponseBody
-//    public ResponseEntity<?> uploadFile(@RequestParam("upload") MultipartFile file) {
-////        UUID uuid = UUID.randomUUID();
-////        String randomID = uuid.toString();
-////        String[] selectID = randomID.split("-");
-////        String selectID2 = selectID[0];
-//
-//        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-//        String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/upload/lfgimg/";
-//        File uploadDirFile = new File(uploadDir);
-//        File dest = new File(uploadDirFile, fileName);
-//
-//        try {
-//            file.transferTo(dest);
-//            // 이미지가 성공적으로 업로드된 후 반환되는 URL을 설정합니다.
-//            String fileUrl = "/resources/upload/lfgimg/" + fileName;
-//            return ResponseEntity.ok().body("{ \"url\": \"" + fileUrl + "\" }");
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload file");
-//        }
-//    }
 
 }
