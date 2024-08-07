@@ -256,8 +256,18 @@ public class CommunityDAO implements CommunityMapper {
     }
 
     @Override
+    public List<CommunityDTO> selectSearchCommunityLfg(String columnName, String searchWord) {
+        return communityMapper.selectSearchCommunityLfg(columnName, searchWord);
+    }
+
+    @Override
     public List<CommunityDTO> selectHashtagSearchCommunityShowoff(String searchWord) {
         return communityMapper.selectHashtagSearchCommunityShowoff(searchWord);
+    }
+
+    @Override
+    public List<CommunityDTO> selectHashtagSearchCommunityLfg(String searchWord) {
+        return communityMapper.selectHashtagSearchCommunityLfg(searchWord);
     }
 
     @Override

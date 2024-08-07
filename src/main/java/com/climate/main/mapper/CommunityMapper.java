@@ -81,7 +81,7 @@ public interface CommunityMapper {
     @Select("select count(*) from cli_comments where cm_b_pk = #{cm_b_pk} ")
     public int selectCommentsCount(int cm_b_pk);
 
-    // 검색기능
+    // 검색기능 (자랑게시판)
     @Select("<script>" +
             "SELECT bo.*, u_nickname, u_grade, " +
             "(SELECT COUNT(*) FROM cli_like WHERE l_b_pk = bo.b_pk) AS l_count " +
@@ -93,12 +93,33 @@ public interface CommunityMapper {
             "</script>")
     public List<CommunityDTO> selectSearchCommunityShowoff(String columnName, String searchWord);
 
+    // 검색기능 (모집게시판)
+    @Select("<script>" +
+            "SELECT bo.*, u_nickname, u_grade, " +
+            "(SELECT COUNT(*) FROM cli_like WHERE l_b_pk = bo.b_pk) AS l_count " +
+            "FROM cli_board bo JOIN cli_user ON u_id = b_u_id " +
+            "WHERE b_category in ('クルー募集','急遽') " +
+            "<if test='columnName != null and searchWord != null'>" +
+            "AND ${columnName} LIKE '%' || #{searchWord} || '%' " +
+            "</if>" +
+            "</script>")
+    public List<CommunityDTO> selectSearchCommunityLfg(String columnName, String searchWord);
+
+    // 해시태그 검색기능 (자랑게시판)
     @Select("SELECT bo.*, u_nickname, u_grade, " +
             "(SELECT COUNT(*) FROM cli_like WHERE l_b_pk = bo.b_pk) AS l_count " +
             "FROM cli_board bo JOIN cli_user ON u_id = b_u_id " +
             "WHERE b_category = '動画' " +
             "AND (b_title like '%'||#{searchWord}||'%' or b_text like '%'||#{searchWord}||'%') ")
     public List<CommunityDTO> selectHashtagSearchCommunityShowoff(String searchWord);
+
+    // 해시태그 검색기능 (모집게시판)
+    @Select("SELECT bo.*, u_nickname, u_grade, " +
+            "(SELECT COUNT(*) FROM cli_like WHERE l_b_pk = bo.b_pk) AS l_count " +
+            "FROM cli_board bo JOIN cli_user ON u_id = b_u_id " +
+            "WHERE b_category in ('クルー募集','急遽') " +
+            "AND (b_title like '%'||#{searchWord}||'%' or b_text like '%'||#{searchWord}||'%') ")
+    public List<CommunityDTO> selectHashtagSearchCommunityLfg(String searchWord);
 
     // 자랑게시판 댓글 조회
     @Select("select co.*, u_nickname, u_grade from cli_comments co, cli_user where u_id = cm_u_id and cm_b_pk = #{b_pk} order by cm_datetime desc ")

@@ -32,6 +32,7 @@ public class CommunityC {
     @GetMapping("/community/video")
     public String communityShowoff(Model model) {
         model.addAttribute("showoffLists", communityDAO.selectAllCommunityShowoff());
+        model.addAttribute("actionURL", "/community/search");
         model.addAttribute("content", "/community/community_menu");
         model.addAttribute("community_content", "/community/community_video");
         return "index";
@@ -40,6 +41,7 @@ public class CommunityC {
     @GetMapping("/community/lfg")
     public String communityLfg(Model model) {
         model.addAttribute("recruitment", communityDAO.selectAllCommunityRecruitment());
+        model.addAttribute("actionURL", "/community/searchLfg");
         model.addAttribute("content", "/community/community_menu");
         model.addAttribute("community_content", "/community/community_lfg");
         return "index";
@@ -160,6 +162,14 @@ public class CommunityC {
         return "index";
     }
 
+    @GetMapping("/community/searchLfg")
+    public String communitySearchLfg(String searchWord, String columnName, Model model) {
+        model.addAttribute("recruitment", communityDAO.selectSearchCommunityLfg(columnName, searchWord));
+        model.addAttribute("content", "/community/community_menu");
+        model.addAttribute("community_content", "/community/community_lfg");
+        return "index";
+    }
+
     @PostMapping("/community/video/comments/insert")
     public String commentsInsertCommunityShowoff(int b_pk, String cm_text) {
         communityDAO.insertCommunityComments(b_pk, cm_text);
@@ -189,6 +199,14 @@ public class CommunityC {
         model.addAttribute("showoffLists", communityDAO.selectHashtagSearchCommunityShowoff(searchWord));
         model.addAttribute("content", "/community/community_menu");
         model.addAttribute("community_content", "/community/community_video");
+        return "index";
+    }
+
+    @GetMapping("/community/hashtagLfg")
+    public String hashtagSearchLfg(String searchWord, Model model) {
+        model.addAttribute("recruitment", communityDAO.selectHashtagSearchCommunityLfg(searchWord));
+        model.addAttribute("content", "/community/community_menu");
+        model.addAttribute("community_content", "/community/community_lfg");
         return "index";
     }
 
