@@ -1,13 +1,22 @@
-#map {
-    height: 800px;
-    width: 800px;
-    position: relative;
+body {
+    margin: 0;
 }
 
-.map-input {
-    position: absolute;
-    top: 2vw;
-    left: 20vw;
-    height: 4vw;
-    width: 50vw;
+.map-box {
+    width: 430px;
+    height: 80%;
+
+    #map {
+        height: 80vh;
+        width: 100%;
+        position: relative;
+    }
+
+    .map-input {
+        position: absolute;
+        top: 2vw;
+        left: 20vw;
+        height: 4vw;
+        width: 50vw;
+    }
 }

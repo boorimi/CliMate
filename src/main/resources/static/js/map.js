@@ -13,7 +13,9 @@ function initMap() {
     let defaultLocation = {
         center: { lat: 37.5665, lng: 126.9780 }, //서울
         zoom: 15,
-        mapTypeControl: false
+        mapTypeControl: false,
+        fullscreenControl: false,  // 전체화면 컨트롤 제거
+        streetViewControl: false,  // 스트리트 뷰 컨트롤 제거
     }
     map = new google.maps.Map(document.getElementById("map"), defaultLocation);
 
@@ -27,7 +29,13 @@ function searchClimbingGyms(location, radius) {
     const request = {
         location: location,
         radius: radius,
-        query: 'climbing gym'
+        query: 'climbing gym',
+        locationBias: { // 검색을 한정하는 지역 설정
+            north: 45.551483,
+            south: 24.396308,
+            east: 153.986672,
+            west: 122.93457
+        }
     };
 
     service.textSearch(request, callback);
@@ -59,11 +67,25 @@ function createMarker(place) {
     });
 
     google.maps.event.addListener(marker, "click", () => {
-        infowindow.setContent(place.name || "");
+        console.log("check place => "+JSON.stringify(place));
+        const content = `<div　style="{width:5vw;}">
+<p onclick="handlePlaceClick('${place.name}')">${place.name}</p>
+<p onclick="handlePlaceClick('${place.name}')">${place.formatted_address}</p>
+</div>`;
+        infowindow.setContent(content);
         infowindow.open(map, marker);
     });
 
     markers.push(marker); // 마커 배열에 추가
+}
+
+function handlePlaceClick(placeName) {
+    //마커 클릭시
+    $("#homeground").val(placeName);
+    $("#map-box").css("display","none");
+    $("#map-box").css("transform", "translateY(0)");
+    $("#map-box").css("top", "0");
+    $("body").css("overflow","scroll");
 }
 
 function searchLocation() {
@@ -72,7 +94,13 @@ function searchLocation() {
     // 클라이밍장 이름으로 검색하기
     const request = {
         query: mapInput,
-        fields: ["name", "geometry"]
+        fields: ["name", "geometry"],
+        locationBias: { // 검색을 한정하는 지역 설정
+            north: 45.551483,
+            south: 24.396308,
+            east: 153.986672,
+            west: 122.93457
+        }
     };
 
     service.findPlaceFromQuery(request, (results, status) => {
