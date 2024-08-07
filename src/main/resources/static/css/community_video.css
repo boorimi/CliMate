@@ -18,11 +18,7 @@
   height: 30vh;
   flex: 0 0 auto;
 }
-@media (max-width: 768px){
-  .community-content {
-    margin: 2vw 0;
-  }
-}
+
 .community-contents-wrapper::after {
   content: "";
   flex: auto;
@@ -57,7 +53,7 @@
 
 .community-like,
 .community-comments{
-  margin: 0.5vh 0;
+  margin: 0 0.5vh 0 0;
 }
 
 .community-like-count,
@@ -106,4 +102,10 @@
   border-radius: 15vw;
   font-size: 3.5em;
   border: 0.01em solid white;
+}
+
+@media (max-width: 768px){
+  .community-content {
+    margin: 2vw 0;
+  }
 }

@@ -7,7 +7,6 @@
 .community-lfg-wrapper {
   padding: 1em 0.5em;
   border-bottom: 0.1em solid #79976a;
-  font-size: 1em;
 }
 
 .community-lfg-above {
@@ -65,4 +64,13 @@
   border-radius: 15vw;
   font-size: 3.5em;
   border: 0.01em solid white;
+}
+
+@media (max-width: 768px){
+  .community-lfg-above {
+    font-size: 1.3em;
+  }
+  .community-lfg-below {
+    font-size: 1.4em;
+  }
 }
