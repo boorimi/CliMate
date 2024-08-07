@@ -1,6 +1,6 @@
 $(document).ready(function () {
-    checkJwtCookie();
 
+    checkJwtCookie();
 
     // 쿠키에서 특정 이름의 값을 가져오는 함수
     function getCookie(name) {
@@ -19,19 +19,25 @@ $(document).ready(function () {
     function checkJwtCookie() {
         var jwt = getCookie('jwt'); // 쿠키 이름이 'jwt'라고 가정
         if (jwt) {
-            // console.log('JWT 쿠키가 존재합니다:', jwt);
-            $('.simulator-create-project').append(`<div class="create-project" onclick="location.href='/simulator'">+</div>`);
+            console.log('JWT 쿠키가 존재합니다:', jwt);
+            $('.simulator-create-project').append(`<div class="create-project" onclick="location.href='/simulator/create_project'">+</div>`);
         } else {
-            // console.log('JWT 쿠키가 존재하지 않습니다.');
+            console.log('JWT 쿠키가 존재하지 않습니다.');
             $('.simulator-create-project').append(`<div class="project-login">
             <p>Available after login</p>
             <a href="/loginC">Google Login</a>
         </div>`);
-
-
-
         }
     }
+
+    $(".simulator-loading").css("display", "none");
+
+    // 페이지 이동 시 로딩 화면 표시
+    $(".create-project").on("click", function(event) {
+        $(".simulator-loading").show();
+        $(".simulator-loading").css("display", "flex");
+    });
+
 
 
     // 좌우 드래그 스크롤
@@ -64,11 +70,6 @@ $(document).ready(function () {
         $(this).scrollLeft(scrollLeft - walk);
     });
 
-    // 페이지 이동 시 로딩 화면 표시
-    $(".create-project").on("click", function(event) {
-        $(".simulator-loading").show();
-        $(".simulator-loading").css("display", "flex");
-    });
 
 
 
