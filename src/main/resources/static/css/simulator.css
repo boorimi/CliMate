@@ -14,6 +14,7 @@ body {
     border-radius: 1em;
     background-color: rgb(226, 240, 215);
     font-family: "Mochiy Pop P One", sans-serif;
+    margin-bottom: 1em;
 }
 
 .webgl-content {
