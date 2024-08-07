@@ -11,6 +11,7 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import java.util.Base64;
 import java.util.Date;
+import java.util.function.Function;
 
 @Component
 public class JwtUtil {
@@ -37,16 +38,30 @@ public class JwtUtil {
     }
 
     // 토큰 검증 함수
-    public Claims extractClaims(String token) {
-        return Jwts.parserBuilder()
+    private Claims extractAllClaims(String token) {
+        return Jwts.parser()
                 .setSigningKey(secretKey)
-                .build()
                 .parseClaimsJws(token)
                 .getBody();
     }
 
     //토큰 만료 확인 함수
     public boolean isTokenExpired(String token) {
-        return extractClaims(token).getExpiration().before(new Date());
+        return extractClaim(token, Claims::getExpiration).before(new Date());
+    }
+
+    //토큰 유효 확인 함수
+    public boolean validateToken(String token) {
+        return !isTokenExpired(token);
+    }
+
+    public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
+        final Claims claims = extractAllClaims(token);
+        return claimsResolver.apply(claims);
+    }
+
+    //토큰에서 아이디 가져오는 함수
+    public String extractUserId(String token) {
+        return extractClaim(token, Claims::getSubject);
     }
 }

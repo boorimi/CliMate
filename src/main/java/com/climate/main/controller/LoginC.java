@@ -5,7 +5,9 @@ import com.climate.main.service.SignDAO;
 import com.climate.main.util.JwtUtil;
 import com.google.gson.JsonObject;
 import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -34,7 +36,7 @@ public class LoginC {
 
     //구글 로그인 과정에서 타는 auth 컨트롤러
     @GetMapping("/login/oauth2/code/google")
-    public String LoginAuth(@RequestParam("code") String code, Model model, HttpServletResponse response) {
+    public String LoginAuth(@RequestParam("code") String code, Model model, HttpServletRequest request) {
         JsonObject access_token = signDAO.getAccessToken(code); //구글 액세스 토큰
         System.out.println("check in-----------");
         JsonObject userinfo = signDAO.getUserInfo(access_token.get("access_token").getAsString()); //구글 정보 가져오기
@@ -49,21 +51,17 @@ public class LoginC {
             String u_id = userinfo.get("email").getAsString();
             user = signDAO.getUserById(u_id);
             String token = jwtUtil.generateToken(u_id); //구글 아이디 이용해서 jwt 토큰 생성
-            String[] u_id_substring = u_id.split("@");
-            System.out.println("check u_id => "+u_id_substring[0]);
 
             if(user != null) {
-                //브라우저 쿠키에 jwt 추가
-                Cookie jwt = new Cookie("jwt", token);
-                //jwt.setHttpOnly(true);
-                jwt.setMaxAge(86400);
-                jwt.setPath("/");
-                response.addCookie(jwt);
+                // 세션에 JWT 저장
+                HttpSession session = request.getSession();
+                session.setAttribute("jwt", token);
+                session.setAttribute("user_id", u_id);
+                System.out.println("check login success u_id => "+u_id);
                 return "main";
             } else {
                 model.addAttribute("content", "/sign/signup");
                 model.addAttribute("mapKey", mapKey);
-                model.addAttribute("user_id", u_id_substring[0]);
                 return "index";
             }
         } else {
