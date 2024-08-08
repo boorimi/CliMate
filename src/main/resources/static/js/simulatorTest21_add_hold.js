@@ -49,7 +49,7 @@ $(document).ready(function () {
 
     $('.hold-img').on('click', function () {
         const hPk = $(this).data('hpk');
-        const methodName = `loadTestModel${hPk}`;
+        const methodName = `loadModel${hPk}`;
         if (typeof app[methodName] === 'function') {
             console.log(methodName);
             app[methodName]();
@@ -82,6 +82,7 @@ class App {
         this._dragControls = null;
         this._exportButton = document.querySelector("#save-btn");
         this._exportButton.addEventListener("click", () => this.exportScene());
+        this.userData = null;
     }
 
     initialize() {
@@ -121,7 +122,7 @@ class App {
                 // gltf와 img 업로드
                 this.uploadGLTF(output, gltfFile, imgFile);
             },
-            { binary: false }
+            {binary: false}
         );
     }
 
@@ -152,42 +153,61 @@ class App {
             })
                 .then(response => response.json())
                 .then(data => {
-                    console.log('Success:'+ data.status);
+                    console.log('Success:' + data.status);
                 })
                 .catch((error) => {
-                    console.error('에러:'+ error);
+                    console.error('에러:' + error);
                 });
         }, 'image/png');
     }
 
 
-
-    loadTestModel1() {
-        // loadTestModel(this, '/resources/holds/volume/volume01.glb', 'modelGroup3', { x: 0, y: 1.5, z: 0.05 }, { x: 0.001, y: 0.001, z: 0.001 }, { x: 0, y: 0, z: Math.PI });
-        // loadTestModel(this, '/resources/holds/volume/volume01.glb', 'modelGroup3', { x: 0, y: 1, z: 0.05 }, { x: 0.001, y: 0.001, z: 0.001 }, { x: 0, y: 0, z: Math.PI });
-        loadTestModel(this, '/resources/holds/hold01.glb', 'modelGroup3', {x: 0, y: 1, z: 0.07}, {
+    loadModel1() {
+        loadModel(this, '/resources/holds/hold01.glb', 'modelGroup1', {x: 0, y: 1, z: 0.07}, {
             x: 0.001,
             y: 0.001,
             z: 0.001
         }, {x: 0, y: 0, z: 0});
     }
 
-    loadTestModel2() {
-        loadTestModel(this, '/resources/holds/hold02.glb', 'modelGroup4', {x: 0, y: 1.5, z: 0.07}, {
+    loadModel2() {
+        loadModel(this, '/resources/holds/hold02.glb', 'modelGroup2', {x: 0, y: 1.5, z: 0.07}, {
             x: 0.001,
             y: 0.001,
             z: 0.001
         }, {x: 0, y: 0, z: 0});
     }
 
-    loadTestModel3() {
-        // loadTestModel(this, '/resources/holds/volume/volume03.glb', 'modelGroup5', { x: 0, y: 1.2, z: 0.05 }, { x: 0.001, y: 0.001, z: 0.001 }, { x: 0, y: 0, z: Math.PI });
-        loadTestModel(this, '/resources/holds/hold03.glb', 'modelGroup5', {x: 0, y: 1.2, z: 0.07}, {
+    loadModel3() {
+        loadModel(this, '/resources/holds/hold03.glb', 'modelGroup3', {x: 0, y: 1.2, z: 0.07}, {
             x: 0.001,
             y: 0.001,
             z: 0.001
         }, {x: 0, y: 0, z: 0});
-        // loadTestModel(this, '/resources/holds/volume/volume03.glb', 'modelGroup5', { x: 2, y: 1, z: 0 }, { x: 0.001, y: 0.001, z: 0.001 }, { x: 0, y: 0, z: 0 });
+    }
+
+    loadModel4() {
+        loadModel(this, '/resources/holds/hold04.glb', 'modelGroup4', {x: 0, y: 1.2, z: 0.07}, {
+            x: 0.001,
+            y: 0.001,
+            z: 0.001
+        }, {x: 0, y: 0, z: 0});
+    }
+
+    loadModel5() {
+        loadModel(this, '/resources/holds/hold05.glb', 'modelGroup5', {x: 0, y: 1.2, z: 0.03}, {
+            x: 0.001,
+            y: 0.001,
+            z: 0.001
+        }, {x: 1.6, y: 0, z: 0});
+    }
+
+    loadModel6() {
+        loadModel(this, '/resources/holds/hold06.glb', 'modelGroup6', {x: 0, y: 1.2, z: 0}, {
+            x: 0.001,
+            y: 0.001,
+            z: 0.001
+        }, {x: 1.6, y: 0, z: 0});
     }
 
 }
@@ -352,7 +372,7 @@ function setupControls(app) {
 }
 
 // 홀드 로드
-function loadTestModel(app, modelPath, groupName, position, scale, rotation) {
+function loadModel(app, modelPath, groupName, position, scale, rotation) {
     const loader = new GLTFLoader();
 
     loader.load(
@@ -366,8 +386,12 @@ function loadTestModel(app, modelPath, groupName, position, scale, rotation) {
 
             const modelGroup = model;
             modelGroup.name = groupName;
-            app._scene.add(modelGroup);
 
+            console.log(groupName);
+
+            app._currentGroupName = groupName;
+
+            app._scene.add(modelGroup);
             app._draggableObjects.push(modelGroup);
 
             app._positionData = {
@@ -446,20 +470,22 @@ function setupDragControls(app) {
             z: object.rotation.z
         }
 
+        let groupName = app._currentGroupName;
+        // console.log("나오나?"+groupName);
         // 업데이트된 위치 데이터를 로그로 출력
-        logModelInfo(object.name, app._positionData, app._rotationData, object);
-
+        logModelInfo(groupName, app._positionData, app._rotationData, object);
     });
 }
 
 // 모델 정보
-function logModelInfo(name, positionData, rotationData, object) {
-    // console.log(`Model Name: ${name}`);
+function logModelInfo(groupName, positionData, rotationData, object) {
+    // console.log("Model Name: " + groupName);
     console.log(`Position - X: ${positionData.x}, Y: ${positionData.y}, Z: ${positionData.z}`);
     console.log(`로테이션 - Z: ${rotationData.z}`);
+    console.log(`로테이션 - X: ${rotationData.x}`);
 }
 
-function handleDrag(object) {
+function handleDrag(object, groupName) {
     // 객체의 위치 제한 (지정된 범위 내에서만 이동 가능)
     const minX = -1700;
     const maxX = 2000;
@@ -468,28 +494,49 @@ function handleDrag(object) {
     const minY = -3500;
     const maxY = -200;
 
-    // object.rotation.z 값에 따라 다른 이동 제한 조건 적용
+    groupName = app._currentGroupName;
+    // console.log(groupName);
+
     if (object.rotation.z === 0) {
         // x, z 축 범위 내에서만 이동 가능하도록 설정
         object.position.x = Math.max(minX, Math.min(maxX, object.position.x));
         object.position.z = Math.max(minZ, Math.min(maxZ, object.position.z));
-
         // y 축 이동 제한 (사실 z축인 셈)
         object.position.y = 0; // y 축 위치를 0으로 고정
 
-        if (object.position.x >= maxX) {
-            console.log("닿았다");
-            object.rotation.z = -1.6;
-        }
+        // 모델 5,6인 경우
+        if (groupName.includes('5')||groupName.includes('6')){
+            // console.log("얘는 5나 6이야")
+            if (object.position.z <= minZ){
+                // console.log("닿았다");
+                object.rotation.x = -1.6;
+            }
+            if(object.rotation.x === -1.6){
+                console.log("5나 6 조건 ok");
+                // object.position.y = Math.max(minY, Math.min(maxY, object.position.y));
+                // object.position.x = Math.max(minX, Math.min(maxX, object.position.x));
+                // object.position.z = -2000;
 
-    } else if (object.rotation.z === -1.6) {
-        // y 축 범위 내에서만 이동 가능하도록 설정
+                if (object.position.z >= maxZ) {
+                    console.log("다시 닿았다")
+                    object.rotation.x = 0;
+                }
+            }
+        }
+        // 모델 1,2,3,4인 경우
+        else {
+            if (object.position.x >= maxX) {
+                console.log("닿았다");
+                object.rotation.z = -1.6;
+            }
+        }
+    }
+    else if (object.rotation.z === -1.6) {
         object.position.y = Math.max(minY, Math.min(maxY, object.position.y));
         object.position.z = Math.max(minZ, Math.min(maxZ, object.position.z));
-
-        // x 축 고정값 설정
         object.position.x = 2000;
-
+        
+        console.log("나 지금 로테이션 -1.6이야");
         // cube2 왼쪽 끝에 닿으면 다시 회전
         if (object.position.y >= -200) {
             console.log("다시 닿았다")
