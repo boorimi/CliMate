@@ -1,5 +1,6 @@
 package com.climate.main.controller;
 
+import com.climate.main.dto.CommentsDTO;
 import com.climate.main.dto.CommunityDTO;
 import com.climate.main.dto.LikeDTO;
 import com.climate.main.service.CommunityDAO;
@@ -34,7 +35,6 @@ public class CommunityC {
     public String communityShowoff(HttpSession session, Model model) {
         String userId = (String) session.getAttribute("user_id");
         model.addAttribute("user_id", userId);
-
         model.addAttribute("showoffLists", communityDAO.selectAllCommunityShowoff());
         model.addAttribute("actionURL", "/community/search");
         model.addAttribute("content", "/community/community_menu");
@@ -67,7 +67,6 @@ public class CommunityC {
     public String InsertCommunityLfg(CommunityDTO communityDTO) {
         communityDAO.changeFileName(communityDTO, fileMapList);
         communityDAO.moveFile(fileLists);
-//        System.out.println(communityDTO);
         communityDAO.insertCommunityLfg(communityDTO);
         return "redirect:/community/lfg";
     }
@@ -100,6 +99,8 @@ public class CommunityC {
 
     @PostMapping("/community/lfg/update")
     public String updateCommunityLfg(CommunityDTO communityDTO) {
+        communityDAO.changeFileName(communityDTO, fileMapList);
+        communityDAO.moveFile(fileLists);
         communityDAO.updateCommunityLfg(communityDTO);
         return "redirect:/community/lfg";
     }
@@ -129,7 +130,6 @@ public class CommunityC {
     @GetMapping("/community/lfg/detail")
     public String communityLfgDetail(int b_pk, Model model, CommunityDTO communityDTO) {
 //        model.addAttribute("showoffLikeCount", communityDAO.selectLikeCount(b_pk));
-        model.addAttribute("showoffLikeCountThisUser", communityDAO.selectLikeCountThisUser(communityDTO));
         model.addAttribute("showoffCommentsLists", communityDAO.selectCommunityComments(b_pk));
         model.addAttribute("lfgList", communityDAO.selectCommunityRecruitment(b_pk));
         model.addAttribute("content", "/community/community_lfg_detail");
@@ -153,15 +153,15 @@ public class CommunityC {
     }
 
     @PostMapping("/community/video/comments/insert")
-    public String commentsInsertCommunityShowoff(int b_pk, String cm_text) {
-        communityDAO.insertCommunityComments(b_pk, cm_text);
-        return "redirect:/community/video/detail?b_pk=" + b_pk;
+    public String commentsInsertCommunityShowoff(int cm_b_pk, CommentsDTO commentsDTO) {
+        communityDAO.insertCommunityComments(commentsDTO);
+        return "redirect:/community/video/detail?b_pk=" + cm_b_pk;
     }
 
     @PostMapping("/community/lfg/comments/insert")
-    public String commentsInsertCommunityLfg(int b_pk, String cm_text) {
-        communityDAO.insertCommunityComments(b_pk, cm_text);
-        return "redirect:/community/lfg/detail?b_pk=" + b_pk;
+    public String commentsInsertCommunityLfg(int cm_b_pk, CommentsDTO commentsDTO) {
+        communityDAO.insertCommunityComments(commentsDTO);
+        return "redirect:/community/lfg/detail?b_pk=" + cm_b_pk;
     }
 
     @GetMapping("/community/video/deleteComments")
@@ -223,6 +223,9 @@ public class CommunityC {
             // List에 Map 추가
             fileMapList.add(fileMap);
             fileLists.add(selectID2+".png");
+
+            System.out.println(fileMapList);
+            System.out.println(fileLists);
 
 //            return new ResponseEntity<>("/resources/upload/lfgimg/" + file.getOriginalFilename(), HttpStatus.OK);
 

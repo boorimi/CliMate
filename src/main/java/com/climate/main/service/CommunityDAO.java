@@ -271,8 +271,8 @@ public class CommunityDAO implements CommunityMapper {
     }
 
     @Override
-    public int insertCommunityComments(int b_pk, String cm_text) {
-        return communityMapper.insertCommunityComments(b_pk, cm_text);
+    public int insertCommunityComments(CommentsDTO commentsDTO) {
+        return communityMapper.insertCommunityComments(commentsDTO);
     }
 
     @Override
@@ -301,7 +301,9 @@ public class CommunityDAO implements CommunityMapper {
             int endIndex = b_text.indexOf(endDelimiter, startIndex);
             if (endIndex != -1) {
                 String filename = b_text.substring(startIndex, endIndex);
-                filenames.add(filename);
+                if (filename.length() >= 200) {
+                    filenames.add(filename);
+                }
                 startIndex = endIndex + endDelimiter.length();
             } else {
                 break;
@@ -313,6 +315,7 @@ public class CommunityDAO implements CommunityMapper {
         for (int i = 0; i < filenameArray.length; i++) {
             b_text = communityDTO.getB_text();
             String originBase64Key = filenameArray[i];
+//            System.out.println(originBase64Key);
             // value를 분리하여 변수에 저장
             Map<String, String> fileMap = fileMapList.get(i);
             String newUUIDName = fileMap.get(originBase64Key);

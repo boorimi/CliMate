@@ -29,15 +29,15 @@
 <form action="/community/lfg/insert" method="post">
     category :
     <select name="b_category">
-        <option value="急遽">急遽</option>
-        <option value="クルー募集">クルー募集</option>
+        <option value="Impromptu">Impromptu</option>
+        <option value="Crew Recruitment">Crew Recruitment</option>
     </select> <br>
     <div class="community-lfg-title-input"><input type="text" name="b_title" placeholder="TITLE"></div>
     <div>
         <textarea id="summernote" name="b_text"></textarea>
     </div>
     <div class="community-lfg-insert-button">
-        <button>submit</button>
+        <button name="b_u_id" th:value="${session.user_id}">submit</button>
     </div>
 </form>
 
