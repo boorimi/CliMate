@@ -7,9 +7,11 @@ import org.apache.ibatis.annotations.Select;
 import java.util.List;
 
 @Mapper
-public interface HoldMapper {
+public interface SimulatorMapper {
 
     @Select("select * from cli_hold")
     public List<HoldDTO> getAllHolds();
+
+
 
 }

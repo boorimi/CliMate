@@ -1,22 +1,7 @@
 $(document).ready(function () {
 
-    loginCheck();
     loading();
     drag(); // 마이프로로젝트 좌우 드래그 스크롤
-
-    function loginCheck() {
-        let userId = $('#userId').text().trim();
-        // console.log('로그인체크');
-        // console.log(userId);
-        if (userId) {
-            $('.simulator-create-project').append(`<div class="create-project" onclick="location.href='/simulator/create_project'">+</div>`);
-        } else {
-            $('.simulator-create-project').append(`<div class="project-login">
-                    <p>Available after login</p>
-                    <a href="/loginC">Google Login</a>
-                </div>`);
-        }
-    }
 
     function loading() {
         $(".simulator-loading").css("display", "none");

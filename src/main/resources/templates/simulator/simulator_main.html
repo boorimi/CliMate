@@ -14,21 +14,23 @@
 </head>
 <body>
 <div class="simulator-main-container">
-    <span th:text="${user_id}" id="userId" style="display: none"></span>
     <div class="simulator-loading">
         <img src="/resources/img/s_loading.gif">
         <p>Please wait for a moment</p>
     </div>
     <div class="simulator-create-project">
         <p class="title-text">Create new project</p>
-        <!--        $('.simulator-create-project').append(`<div class="create-project" onclick="location.href='/simulator/create_project'">+</div>`);-->
+        <div class="create-project" th:if="${user_id != null}" onclick="location.href='/simulator/create'">+</div>
+        <div class="project-login" th:if="${user_id == null}">
+            <p>Available after login</p>
+            <a href="/loginC">Google Login</a>
+        </div>
     </div>
     <hr/>
     <div class="simulator-my-project">
         <p class="title-text">My project</p>
         <div class="my-project-list" id="myProjectList">
-            <!-- 로그인 토근 없거나 만든 문제 없으면 아래 p태그 어펜드 -->
-            <p>Empty</p>
+<!--            <p>Empty</p>-->
             <!-- 생기면 my-project 디브 어펜드 -->
             <!--            <div class="my-project"></div>-->
             <!-- 4개 이상인 경우 어펜드 -->

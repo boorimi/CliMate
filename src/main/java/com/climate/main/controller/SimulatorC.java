@@ -1,7 +1,6 @@
 package com.climate.main.controller;
 
-import com.climate.main.service.HoldDAO;
-import com.google.gson.JsonObject;
+import com.climate.main.service.SimulatorDAO;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,21 +20,16 @@ import java.util.Map;
 public class SimulatorC {
 
     @Autowired
-    private HoldDAO holdDAO;
+    private SimulatorDAO holdDAO;
 
     @GetMapping("/main")
     public String simulatorMain(HttpSession session, Model model) {
         String userId = (String) session.getAttribute("user_id");
-        if (userId != null) {
             model.addAttribute("user_id", userId);
-//        System.out.println(userId);
-            model.addAttribute("content", "/simulator/simulator_main");
-            return "index";
-        } else {
             System.out.println(userId);
             model.addAttribute("content", "/simulator/simulator_main");
             return "index";
-        }
+
     }
 
     @GetMapping("/create")
