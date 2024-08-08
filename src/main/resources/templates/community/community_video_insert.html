@@ -24,7 +24,7 @@
 <div th:text="${user_id}"></div>
 <form id="uploadForm" action="/community/video/insert" method="post" onsubmit="return validateForm(event);"
       enctype="multipart/form-data">
-    <!--    video : <input id="uploadFile" type="file" multiple="multiple" name="b_FileName" onchange="calltest(this)" /> <br>-->
+    <input type="hidden" name="b_u_id" th:value="${session.user_id}" />
     video : <input id="uploadFile" type="file" multiple="multiple" name="b_FileName" onchange="setThumbnail(event);">
     <div class="custom-arrows" style="display: none">
         <button type="button" class="slick-prev">&lt;</button>

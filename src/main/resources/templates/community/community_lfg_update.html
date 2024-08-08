@@ -30,8 +30,8 @@
     <input id="b_pk_value" name="b_pk" type="hidden" th:value="${lfgList.b_pk}" />
     category :
     <select name="b_category">
-        <option value="急遽">急遽</option>
-        <option value="クルー募集">クルー募集</option>
+        <option value="急遽" th:selected="${lfgList.b_category == '急遽'}">急遽</option>
+        <option value="クルー募集" th:selected="${lfgList.b_category == 'クルー募集'}">クルー募集</option>
     </select> <br>
     <div class="community-lfg-title-input"><input type="text" name="b_title" placeholder="TITLE" th:value="${lfgList.b_title}"></div>
     <div>
@@ -45,6 +45,7 @@
 </body>
 <script>
     $(document).ready(function () {
+
         let bPk = $('#b_pk_value').val();
 
         // 서버에서 HTML 코드를 가져옴

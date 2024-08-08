@@ -18,7 +18,7 @@
         <div onclick="location.href='/community/lfg'">together</div>
         <div class="community-search-icon"></div>
     </div>
-    <form action="/community/search">
+    <form th:action="@{${actionURL}}">
         <div class="community-search-wrapper hidden">
             <select name="columnName">
                 <option value="b_text">본문</option>

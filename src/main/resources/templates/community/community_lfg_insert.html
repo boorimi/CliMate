@@ -44,46 +44,28 @@
 </body>
 <script>
     $(document).ready(function () {
-        var bPk = $('#b_pk_value').val();
-
-        // 서버에서 HTML 코드를 가져옴
-        $.ajax({
-            url: '/community/lfg/getHTML', // HTML 코드를 반환하는 서버의 엔드포인트
-            method: 'GET',
-            data: {b_pk: bPk},
-            success: function (response) {
-                console.log(response.b_text);
-                // Summernote 초기화
-                $('#summernote').summernote({
-                    height: 350,
-                    toolbar: [
-                        ['style', ['style']],
-                        ['font', ['bold', 'underline', 'clear']],
-                        ['fontname', ['fontname']],
-                        ['color', ['color']],
-                        ['para', ['ul', 'ol', 'paragraph']],
-                        ['insert', ['picture']],
-                        ['view', ['fullscreen', 'codeview']],
-                    ],
-                    callbacks: {
-                        onImageUpload: function (files) {
-                            for (let i = 0; i < files.length; i++) {
-                                let reader = new FileReader();
-                                reader.onload = function (e) {
-                                    $('#summernote').summernote('insertImage', e.target.result);
-                                };
-                                reader.readAsDataURL(files[i]);
-                                uploadImage(files[i]);
-                            }
-                        }
+        $('#summernote').summernote({
+            height: 350,
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'underline', 'clear']],
+                ['fontname', ['fontname']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['insert', ['picture']],
+                ['view', ['fullscreen', 'codeview']],
+            ],
+            callbacks: {
+                onImageUpload: function (files) {
+                    for (let i = 0; i < files.length; i++) {
+                        let reader = new FileReader();
+                        reader.onload = function (e) {
+                            $('#summernote').summernote('insertImage', e.target.result);
+                        };
+                        reader.readAsDataURL(files[i]);
+                        uploadImage(files[i]);
                     }
-                });
-
-                // 서버에서 가져온 HTML 코드를 에디터에 삽입
-                $('#summernote').summernote('code', response.b_text);
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.error(textStatus + " " + errorThrown);
+                }
             }
         });
 

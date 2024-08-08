@@ -20,28 +20,28 @@ $(document).ready(function () {
 
     $(document).on('click', '.community-video-detail-like-icon', function () {
         let b_pk = $(this).data('b_pk');
+        let u_id = $(this).data('u_id');
 
         $.ajax({
             url: '/clickLike', // 요청을 보낼 서버 URL
             type: 'POST', // HTTP 요청 방법 (GET, POST 등)
             contentType: 'application/json', // 요청 본문 타입
-            data: JSON.stringify({u_id: 'ds6951', b_pk: b_pk}), // 서버에 보낼 데이터
+            data: JSON.stringify({u_id: u_id, b_pk: b_pk}), // 서버에 보낼 데이터
             success: function (response) {
+                console.log('Total Likes: ' + response.totalLikes);
+                console.log('User Likes: ' + response.userLikes);
                 // 요청이 성공했을 때 호출되는 함수
                 let html;
-                console.log(b_pk);
                 if (response.userLikes >= 1) {
-                    html = `<div class="community-video-detail-like-icon" data-b_pk="${b_pk}"><img src="/resources/icon/love_blank.png"></div>`
+                    html = `<div class="community-video-detail-like-icon" data-b_pk="${b_pk}" data-u_id="${response.u_id}"><img src="/resources/icon/love.png"></div>`
                 } else if (response.userLikes == 0) {
-                    html = `<div class="community-video-detail-like-icon" data-b_pk="${b_pk}"><img src="/resources/icon/love.png"></div>`
+                    html = `<div class="community-video-detail-like-icon" data-b_pk="${b_pk}" data-u_id="${response.u_id}"><img src="/resources/icon/love_blank.png"></div>`
                 }
                 let html2 = `<div class="community-video-detail-like-count">${response.totalLikes}</div>`
 
                 $('.community-video-detail-like').empty().append(html);
                 $('.community-video-detail-like').append(html2);
 
-                console.log('Total Likes:', response.totalLikes);
-                console.log('User Likes:', response.userLikes);
             },
             error: function (xhr, status, error) {
                 // 요청이 실패했을 때 호출되는 함수
