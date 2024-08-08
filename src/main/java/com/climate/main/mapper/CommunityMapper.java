@@ -26,12 +26,12 @@ public interface CommunityMapper {
     public  List<CommunityDTO> selectAllCommunityRecruitment();
 
     // 자랑게시판 디테일 조회
-    @Select("SELECT bo.*, u_nickname, u_grade, " +
+    @Select("SELECT bo.*, u_nickname, u_grade, u_id, " +
             "(SELECT COUNT(*) FROM cli_like WHERE l_b_pk = bo.b_pk) AS l_count, " +
             "(SELECT COUNT(*) FROM cli_comments WHERE cm_b_pk = bo.b_pk) AS c_count " +
             "from cli_board bo, cli_user " +
             "where u_id = b_u_id and b_pk = #{b_pk} ")
-    public  CommunityDTO selectCommunityShowoff(int b_pk);
+    public  CommunityDTO selectCommunityShowoff(CommunityDTO communityDTO);
 
     // 모집게시판 디테일조회
     @Select("select bo.*, u_nickname, u_grade, " +
@@ -42,7 +42,7 @@ public interface CommunityMapper {
     public CommunityDTO selectCommunityRecruitment(int b_pk);
 
     // 자랑게시판 인서트
-    @Insert("insert into cli_board values (cli_board_seq.nextval, 'ds6951', '動画', #{b_video}, #{b_title}, #{b_text}, sysdate, #{b_thumbnail})")
+    @Insert("insert into cli_board values (cli_board_seq.nextval, #{b_u_id}, '動画', #{b_video}, #{b_title}, #{b_text}, sysdate, #{b_thumbnail})")
     public int insertCommunityShowoff(CommunityDTO communityDTO);
 
     // 모집게시판 인서트
@@ -59,23 +59,23 @@ public interface CommunityMapper {
 
     // 자랑게시판 삭제
     @Delete("delete from cli_board where b_pk = #{b_pk} ")
-    public int deleteCommunityShowoff(int b_pk);
+    public int deleteCommunityShowoff(CommunityDTO communityDTO);
 
     // 좋아요 인서트
     @Insert("insert into cli_like values (#{u_id}, #{b_pk})")
-    public int insertCommunityLike(int b_pk, String u_id);
+    public int insertCommunityLike(CommunityDTO communityDTO);
 
     // 좋아요 삭제
     @Delete("delete from cli_like where l_u_id = #{u_id} and l_b_pk = #{b_pk}")
-    public int deleteCommunityLike(int b_pk, String u_id);
+    public int deleteCommunityLike(CommunityDTO communityDTO);
 
     // 게시글 전체 좋아요 갯수
     @Select("select count(*) from cli_like where l_b_pk = #{b_pk}")
     public int selectLikeCount(int b_pk);
 
     // 내 좋아요 판단 여부
-    @Select("select count(*) from cli_like where l_b_pk = #{b_pk} and l_u_id = 'ds6951'")
-    public int selectLikeCountThisUser(int b_pk);
+    @Select("select count(*) from cli_like where l_b_pk = #{b_pk} and l_u_id = #{u_id}")
+    public int selectLikeCountThisUser(CommunityDTO communityDTO);
 
     // 댓글 총 갯수
     @Select("select count(*) from cli_comments where cm_b_pk = #{cm_b_pk} ")

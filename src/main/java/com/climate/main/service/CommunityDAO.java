@@ -33,8 +33,8 @@ public class CommunityDAO implements CommunityMapper {
     }
 
     @Override
-    public CommunityDTO selectCommunityShowoff(int b_pk) {
-        return communityMapper.selectCommunityShowoff(b_pk);
+    public CommunityDTO selectCommunityShowoff(CommunityDTO communityDTO) {
+        return communityMapper.selectCommunityShowoff(communityDTO);
     }
 
     @Override
@@ -154,14 +154,14 @@ public class CommunityDAO implements CommunityMapper {
     }
 
     @Override
-    public int deleteCommunityShowoff(int b_pk) {
-        CommunityDTO communityDTO = communityMapper.selectCommunityShowoff(b_pk);
+    public int deleteCommunityShowoff(CommunityDTO communityDTO) {
+        CommunityDTO c = communityMapper.selectCommunityShowoff(communityDTO);
 
         String UPLOADED_FOLDER_VIDEO = "src/main/resources/static/upload/video/";
         String UPLOADED_FOLDER_THUMBNAIL = "src/main/resources/static/upload/thumbnail/";
 
-        String b_video = communityDTO.getB_video();
-        String b_thumbnail = communityDTO.getB_thumbnail();
+        String b_video = c.getB_video();
+        String b_thumbnail = c.getB_thumbnail();
         if (b_video != null && !b_video.isEmpty()) {
             String[] fileNames = b_video.split("!");
 
@@ -183,7 +183,7 @@ public class CommunityDAO implements CommunityMapper {
                 }
             }
         }
-        return communityMapper.deleteCommunityShowoff(b_pk);
+        return communityMapper.deleteCommunityShowoff(communityDTO);
     }
 
     public int deleteCommunityLfg(int b_pk) {
@@ -222,17 +222,17 @@ public class CommunityDAO implements CommunityMapper {
                     }
                 }
             }
-        return communityMapper.deleteCommunityShowoff(b_pk);
+        return communityMapper.deleteCommunityShowoff(communityDTO);
     }
 
     @Override
-    public int insertCommunityLike(int b_pk, String u_id) {
-        return communityMapper.insertCommunityLike(b_pk, u_id);
+    public int insertCommunityLike(CommunityDTO communityDTO) {
+        return communityMapper.insertCommunityLike(communityDTO);
     }
 
     @Override
-    public int deleteCommunityLike(int b_pk, String u_id) {
-        return communityMapper.deleteCommunityLike(b_pk, u_id);
+    public int deleteCommunityLike(CommunityDTO communityDTO) {
+        return communityMapper.deleteCommunityLike(communityDTO);
     }
 
     @Override
@@ -241,8 +241,8 @@ public class CommunityDAO implements CommunityMapper {
     }
 
     @Override
-    public int selectLikeCountThisUser(int b_pk) {
-        return communityMapper.selectLikeCountThisUser(b_pk);
+    public int selectLikeCountThisUser(CommunityDTO communityDTO) {
+        return communityMapper.selectLikeCountThisUser(communityDTO);
     }
 
     @Override
