@@ -36,7 +36,7 @@
                  th:text="${#dates.format(lfgList.b_datetime, 'yyyy.MM.dd.')}"></div>
         </div>
         <div class="community-lfg-detail-more-wrapper">
-            <div class="community-lfg-detail-title-more"><img src="/resources/icon/more.png"></div>
+            <div class="community-lfg-detail-title-more" th:if="${session.user_id == lfgList.u_id}"><img src="/resources/icon/more.png"></div>
             <ul class="community-lfg-detail-updelMenu">
                 <li th:onclick="'location.href=\'/community/lfg/update?b_pk=' + ${lfgList.b_pk} + '\''"><img
                         src="/resources/icon/update.png"/>update
@@ -62,7 +62,8 @@
             <form action="/community/lfg/comments/insert" method="post">
                 <div class="community-showoff-detail-comments-textarea">
                     <textarea name="cm_text"></textarea>
-                    <button name="b_pk" th:value="${lfgList.b_pk}">등록</button>
+                    <input type="hidden" name="cm_u_id" th:value="${session.user_id}" />
+                    <button name="cm_b_pk" th:value="${lfgList.b_pk}">등록</button>
                 </div>
             </form>
             <div class="community-showoff-detail-comments-border" th:each="co : ${showoffCommentsLists}">
@@ -82,7 +83,8 @@
                     </div>
                     <div style="display: flex">
                         <div class="community-showoff-detail-comments-delete"
-                             th:onclick="'deleteCommentsCheck('+${co.cm_pk}+','+${lfgList.b_pk}+')'">
+                             th:onclick="'deleteCommentsCheck('+${co.cm_pk}+','+${lfgList.b_pk}+')'"
+                             th:if="${session.user_id == co.cm_u_id}">
                             <img src="/resources/icon/delete.png"/>
                         </div>
                         <div class="community-showoff-detail-comments-date"

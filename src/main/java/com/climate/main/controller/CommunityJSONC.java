@@ -47,4 +47,6 @@ public class CommunityJSONC {
         return ResponseEntity.ok(response); // 응답으로 반환
     }
 
+
+
 }
