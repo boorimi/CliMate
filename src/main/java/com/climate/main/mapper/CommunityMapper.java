@@ -4,6 +4,7 @@ import com.climate.main.dto.CommentsDTO;
 import com.climate.main.dto.CommunityDTO;
 import org.apache.ibatis.annotations.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Mapper
@@ -51,6 +52,10 @@ public interface CommunityMapper {
     // 자랑게시판 업데이트
     @Update("update cli_board set b_title = #{b_title}, b_text = #{b_text} where b_pk = #{b_pk}")
     public int updateCommunityShowoff(CommunityDTO communityDTO);
+
+    // 모집게시판 업데이트
+    @Update("update cli_board set b_category = #{b_category}, b_title = #{b_title}, b_text = #{b_text} where b_pk = #{b_pk}")
+    public int updateCommunityLfg(CommunityDTO communityDTO);
 
     // 자랑게시판 삭제
     @Delete("delete from cli_board where b_pk = #{b_pk} ")
