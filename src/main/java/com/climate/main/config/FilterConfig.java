@@ -11,7 +11,7 @@ public class FilterConfig {
     public FilterRegistrationBean<JwtSessionFilter> jwtSessionFilter(JwtSessionFilter jwtSessionFilter) {
         FilterRegistrationBean<JwtSessionFilter> registrationBean = new FilterRegistrationBean<>();
         registrationBean.setFilter(jwtSessionFilter);
-        registrationBean.addUrlPatterns("/community/*", "/simulator/*"); // 필터를 적용할 URL 패턴들
+        registrationBean.addUrlPatterns("/community/*"); // 필터를 적용할 URL 패턴들
         registrationBean.setOrder(1); // 필터 순서 설정
         return registrationBean;
     }
