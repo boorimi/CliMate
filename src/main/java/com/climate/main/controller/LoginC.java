@@ -4,7 +4,6 @@ import com.climate.main.dto.UserDTO;
 import com.climate.main.service.SignDAO;
 import com.climate.main.util.JwtUtil;
 import com.google.gson.JsonObject;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -56,8 +55,11 @@ public class LoginC {
                 // 세션에 JWT 저장
                 HttpSession session = request.getSession();
                 session.setAttribute("jwt", token);
-                session.setAttribute("user_id", u_id);
-                System.out.println("check login success u_id => "+u_id);
+                // JWT 이용해서 아이디값 가져오기 & 세션, 모델에 값 담기
+                String jwt_u_id = jwtUtil.extractUserId(token);
+                session.setAttribute("user_id", jwt_u_id);
+                String user_id = (String) session.getAttribute("user_id");
+                model.addAttribute("user_id", user_id);
                 return "main";
             } else {
                 model.addAttribute("content", "/sign/signup");
@@ -75,6 +77,23 @@ public class LoginC {
         try {
             String googleOAuthUrl = "https://accounts.google.com/o/oauth2/v2/auth?client_id="+googleClientId+"&redirect_uri="+googleRedirectUrl+"&response_type=code&scope=email profile";
             response.sendRedirect(googleOAuthUrl);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    //로그아웃 버튼 클릭시 타는 컨트롤러
+    @GetMapping("/logoutC")
+    public String logout(HttpServletRequest request) {
+        try {
+            HttpSession session = request.getSession(false);
+            if (session != null) {
+                // 세션 무효화
+                session.invalidate();
+            }
+
+            // 로그인 페이지로 리다이렉트
+            return "redirect:/";
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

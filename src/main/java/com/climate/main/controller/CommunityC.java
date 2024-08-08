@@ -36,6 +36,7 @@ public class CommunityC {
         model.addAttribute("user_id", userId);
 
         model.addAttribute("showoffLists", communityDAO.selectAllCommunityShowoff());
+        model.addAttribute("actionURL", "/community/search");
         model.addAttribute("content", "/community/community_menu");
         model.addAttribute("community_content", "/community/community_video");
         return "index";
@@ -44,6 +45,7 @@ public class CommunityC {
     @GetMapping("/community/lfg")
     public String communityLfg(Model model) {
         model.addAttribute("recruitment", communityDAO.selectAllCommunityRecruitment());
+        model.addAttribute("actionURL", "/community/searchLfg");
         model.addAttribute("content", "/community/community_menu");
         model.addAttribute("community_content", "/community/community_lfg");
         return "index";
@@ -77,8 +79,8 @@ public class CommunityC {
     }
 
     @GetMapping("/community/video/update")
-    public String moveUpdateCommunityShowoff(int b_pk, Model model) {
-        model.addAttribute("showoffList", communityDAO.selectCommunityShowoff(b_pk));
+    public String moveUpdateCommunityShowoff(CommunityDTO communityDTO, Model model) {
+        model.addAttribute("showoffList", communityDAO.selectCommunityShowoff(communityDTO));
         model.addAttribute("content", "/community/community_video_update");
         return "index";
     }
@@ -103,8 +105,8 @@ public class CommunityC {
     }
 
     @GetMapping("/community/video/delete")
-    public String deleteCommunityShowoff(int b_pk) {
-        communityDAO.deleteCommunityShowoff(b_pk);
+    public String deleteCommunityShowoff(CommunityDTO communityDTO) {
+        communityDAO.deleteCommunityShowoff(communityDTO);
         return "redirect:/community/video";
     }
 
@@ -115,45 +117,23 @@ public class CommunityC {
     }
 
     @GetMapping("/community/video/detail")
-    public String communityShowoffDetail(int b_pk, Model model) {
-//        model.addAttribute("showoffLikeCount", communityDAO.selectLikeCount(b_pk));
-        model.addAttribute("showoffLikeCountThisUser", communityDAO.selectLikeCountThisUser(b_pk));
+    public String communityShowoffDetail(HttpSession session, int b_pk, CommunityDTO communityDTO, Model model) {
+        communityDTO.setU_id((String) session.getAttribute("user_id"));
+        model.addAttribute("showoffList", communityDAO.selectCommunityShowoff(communityDTO));
         model.addAttribute("showoffCommentsLists", communityDAO.selectCommunityComments(b_pk));
-        model.addAttribute("showoffList", communityDAO.selectCommunityShowoff(b_pk));
+        model.addAttribute("showoffLikeCountThisUser", communityDAO.selectLikeCountThisUser(communityDTO));
         model.addAttribute("content", "/community/community_video_detail");
         return "index";
     }
 
     @GetMapping("/community/lfg/detail")
-    public String communityLfgDetail(int b_pk, Model model) {
+    public String communityLfgDetail(int b_pk, Model model, CommunityDTO communityDTO) {
 //        model.addAttribute("showoffLikeCount", communityDAO.selectLikeCount(b_pk));
-        model.addAttribute("showoffLikeCountThisUser", communityDAO.selectLikeCountThisUser(b_pk));
+        model.addAttribute("showoffLikeCountThisUser", communityDAO.selectLikeCountThisUser(communityDTO));
         model.addAttribute("showoffCommentsLists", communityDAO.selectCommunityComments(b_pk));
         model.addAttribute("lfgList", communityDAO.selectCommunityRecruitment(b_pk));
         model.addAttribute("content", "/community/community_lfg_detail");
         return "index";
-    }
-
-    @PostMapping("/clickLike")
-    public ResponseEntity<Map<String, Integer>> clickLike(@RequestBody Map<String, Object> payload) {
-        int b_pk = (int) payload.get("b_pk");
-        String u_id = (String) payload.get("u_id"); // 필요에 따라 사용
-
-        int userLikes = communityDAO.selectLikeCountThisUser(b_pk);
-
-        if (userLikes == 0) {
-            communityDAO.insertCommunityLike(b_pk, u_id);
-        } else if (userLikes >= 1) {
-            communityDAO.deleteCommunityLike(b_pk, u_id);
-        }
-
-        int totalLikes = communityDAO.selectLikeCount(b_pk);
-
-        Map<String, Integer> response = new HashMap<>();
-        response.put("totalLikes", totalLikes);
-        response.put("userLikes", userLikes);
-
-        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/community/search")
@@ -161,6 +141,14 @@ public class CommunityC {
         model.addAttribute("showoffLists", communityDAO.selectSearchCommunityShowoff(columnName, searchWord));
         model.addAttribute("content", "/community/community_menu");
         model.addAttribute("community_content", "/community/community_video");
+        return "index";
+    }
+
+    @GetMapping("/community/searchLfg")
+    public String communitySearchLfg(String searchWord, String columnName, Model model) {
+        model.addAttribute("recruitment", communityDAO.selectSearchCommunityLfg(columnName, searchWord));
+        model.addAttribute("content", "/community/community_menu");
+        model.addAttribute("community_content", "/community/community_lfg");
         return "index";
     }
 
@@ -193,6 +181,14 @@ public class CommunityC {
         model.addAttribute("showoffLists", communityDAO.selectHashtagSearchCommunityShowoff(searchWord));
         model.addAttribute("content", "/community/community_menu");
         model.addAttribute("community_content", "/community/community_video");
+        return "index";
+    }
+
+    @GetMapping("/community/hashtagLfg")
+    public String hashtagSearchLfg(String searchWord, Model model) {
+        model.addAttribute("recruitment", communityDAO.selectHashtagSearchCommunityLfg(searchWord));
+        model.addAttribute("content", "/community/community_menu");
+        model.addAttribute("community_content", "/community/community_lfg");
         return "index";
     }
 
