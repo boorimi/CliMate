@@ -15,13 +15,13 @@ public interface CommunityMapper {
             "(SELECT COUNT(*) FROM cli_like WHERE l_b_pk = bo.b_pk) AS l_count, " +
             "(SELECT COUNT(*) FROM cli_comments WHERE cm_b_pk = bo.b_pk) AS c_count " +
             "FROM cli_board bo JOIN cli_user ON u_id = b_u_id " +
-            "WHERE b_category = '動画' order by b_datetime desc")
+            "WHERE b_category = 'video' order by b_datetime desc")
     public List<CommunityDTO> selectAllCommunityShowoff();
 
     // 모집게시판 전체조회
     @Select("select bo.*, u_nickname, u_grade " +
             "from cli_board bo, cli_user " +
-            "where u_id = b_u_id and b_category in ('クルー募集','急遽') " +
+            "where u_id = b_u_id and b_category in ('Impromptu','Crew Recruitment') " +
             "order by b_datetime desc")
     public  List<CommunityDTO> selectAllCommunityRecruitment();
 
@@ -34,7 +34,7 @@ public interface CommunityMapper {
     public  CommunityDTO selectCommunityShowoff(CommunityDTO communityDTO);
 
     // 모집게시판 디테일조회
-    @Select("select bo.*, u_nickname, u_grade, " +
+    @Select("select bo.*, u_nickname, u_grade, u_id, " +
             "(SELECT COUNT(*) FROM cli_like WHERE l_b_pk = bo.b_pk) AS l_count, " +
             "(SELECT COUNT(*) FROM cli_comments WHERE cm_b_pk = bo.b_pk) AS c_count " +
             "from cli_board bo, cli_user " +
@@ -42,11 +42,11 @@ public interface CommunityMapper {
     public CommunityDTO selectCommunityRecruitment(int b_pk);
 
     // 자랑게시판 인서트
-    @Insert("insert into cli_board values (cli_board_seq.nextval, #{b_u_id}, '動画', #{b_video}, #{b_title}, #{b_text}, sysdate, #{b_thumbnail})")
+    @Insert("insert into cli_board values (cli_board_seq.nextval, #{b_u_id}, 'video', #{b_video}, #{b_title}, #{b_text}, sysdate, #{b_thumbnail})")
     public int insertCommunityShowoff(CommunityDTO communityDTO);
 
     // 모집게시판 인서트
-    @Insert("insert into cli_board values (cli_board_seq.nextval, 'ds6951', #{b_category}, '-', #{b_title}, #{b_text}, sysdate, '-')")
+    @Insert("insert into cli_board values (cli_board_seq.nextval, #{b_u_id}, #{b_category}, '-', #{b_title}, #{b_text}, sysdate, '-')")
     public int insertCommunityLfg(CommunityDTO communityDTO);
 
     // 자랑게시판 업데이트
@@ -86,7 +86,7 @@ public interface CommunityMapper {
             "SELECT bo.*, u_nickname, u_grade, " +
             "(SELECT COUNT(*) FROM cli_like WHERE l_b_pk = bo.b_pk) AS l_count " +
             "FROM cli_board bo JOIN cli_user ON u_id = b_u_id " +
-            "WHERE b_category = '動画' " +
+            "WHERE b_category = 'video' " +
             "<if test='columnName != null and searchWord != null'>" +
             "AND ${columnName} LIKE '%' || #{searchWord} || '%' " +
             "</if>" +
@@ -98,7 +98,7 @@ public interface CommunityMapper {
             "SELECT bo.*, u_nickname, u_grade, " +
             "(SELECT COUNT(*) FROM cli_like WHERE l_b_pk = bo.b_pk) AS l_count " +
             "FROM cli_board bo JOIN cli_user ON u_id = b_u_id " +
-            "WHERE b_category in ('クルー募集','急遽') " +
+            "WHERE b_category in ('Impromptu','Crew Recruitment') " +
             "<if test='columnName != null and searchWord != null'>" +
             "AND ${columnName} LIKE '%' || #{searchWord} || '%' " +
             "</if>" +
@@ -109,7 +109,7 @@ public interface CommunityMapper {
     @Select("SELECT bo.*, u_nickname, u_grade, " +
             "(SELECT COUNT(*) FROM cli_like WHERE l_b_pk = bo.b_pk) AS l_count " +
             "FROM cli_board bo JOIN cli_user ON u_id = b_u_id " +
-            "WHERE b_category = '動画' " +
+            "WHERE b_category = 'video' " +
             "AND (b_title like '%'||#{searchWord}||'%' or b_text like '%'||#{searchWord}||'%') ")
     public List<CommunityDTO> selectHashtagSearchCommunityShowoff(String searchWord);
 
@@ -117,7 +117,7 @@ public interface CommunityMapper {
     @Select("SELECT bo.*, u_nickname, u_grade, " +
             "(SELECT COUNT(*) FROM cli_like WHERE l_b_pk = bo.b_pk) AS l_count " +
             "FROM cli_board bo JOIN cli_user ON u_id = b_u_id " +
-            "WHERE b_category in ('クルー募集','急遽') " +
+            "WHERE b_category in ('Impromptu','Crew Recruitment') " +
             "AND (b_title like '%'||#{searchWord}||'%' or b_text like '%'||#{searchWord}||'%') ")
     public List<CommunityDTO> selectHashtagSearchCommunityLfg(String searchWord);
 
@@ -126,8 +126,8 @@ public interface CommunityMapper {
     public List<CommentsDTO> selectCommunityComments(int b_pk);
 
     // 댓글 인서트
-    @Insert("insert into cli_comments values (cli_comments_seq.nextval, #{b_pk}, 'ds6951', #{cm_text}, sysdate)")
-    public int insertCommunityComments(int b_pk, String cm_text);
+    @Insert("insert into cli_comments values (cli_comments_seq.nextval, #{cm_b_pk}, #{cm_u_id}, #{cm_text}, sysdate)")
+    public int insertCommunityComments(CommentsDTO commentsDTO);
 
     // 댓글 삭제
     @Delete("delete from cli_comments where cm_pk = #{cm_pk} ")
