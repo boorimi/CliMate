@@ -46,7 +46,7 @@ body {
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 900;
+            z-index: 1;
             width: 9vh;
             height: 9vh;
             border-radius: 100%;
