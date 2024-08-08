@@ -14,19 +14,8 @@ $(document).ready(function () {
     // 2초마다 slideImage 함수 호출
     setInterval(slideImage, 3000);
 
-    //브라우저 쿠키 확인
-    if (document.cookie.indexOf('jwt') !== -1) {
-        $(".main-login").remove();
-        $(".main-menu-list").append("<div class='main-mypage'><img class='main-login-img' src=\"/resources/icon/mypage.png\" /><p id=\"menu-login\">MyPage</p></div>");
-
-        $(".main-menu-list").append("<div class=\"main-logout\"\n" +
-            ">\n" +
-            "           <img class=\"main-login-img\" src=\"/resources/icon/logout.png\"/>\n" +
-            "        Logout</div>");
-    }
     $(".main-logout").click(function() {
         window.open("https://accounts.google.com/logout");
-        location.href = '/';
-        document.cookie = "jwt=; expires=Thu, 01 Jan 1970 00:00:10 UTC; path=/;"; //쿠키 초기화
+        location.href = '/logoutC';
     });
 });

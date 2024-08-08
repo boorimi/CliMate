@@ -1,6 +1,7 @@
 package com.climate.main.controller;
 
 import com.climate.main.service.HoldDAO;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,7 +14,10 @@ public class SimulatorC {
     private HoldDAO holdDAO;
 
     @GetMapping("/simulator_main")
-    public String simulatorMain(Model model){
+    public String simulatorMain(HttpSession session, Model model){
+        String userId = (String) session.getAttribute("user_id");
+        model.addAttribute("user_id", userId);
+
         model.addAttribute("content", "/simulator/simulator_main");
         return "index";
     }

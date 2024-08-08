@@ -1,5 +1,7 @@
 package com.climate.main.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -7,7 +9,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class HC {
     @GetMapping("/")
-    public String home(){
+    public String home(HttpServletRequest request, Model model){
+        HttpSession session = request.getSession();
+        String user_id = (String) session.getAttribute("user_id");
+        model.addAttribute("user_id", user_id);
         return "main";
     }
 
