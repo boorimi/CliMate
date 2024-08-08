@@ -53,16 +53,33 @@ public class SimulatorC {
     }
 
     @PostMapping("/upload")
-    public ResponseEntity<Map<String, String>> uploadFile(@RequestParam("file") MultipartFile file) {
-        String projectPath = System.getProperty("user.dir") + "/src/main/resources/static/upload/s_project/3D/";
+    public ResponseEntity<Map<String, String>> uploadFile(
+            @RequestParam("gltfFile") MultipartFile gltfFile,
+            @RequestParam("imgFile") MultipartFile imgFile) {
+
+        String gltfPath = System.getProperty("user.dir") + "/src/main/resources/static/upload/s_project/3D/";
+        String imgPath = System.getProperty("user.dir") + "/src/main/resources/static/upload/s_project/img/";
+
         Map<String, String> res = new HashMap<>();
 
+        System.out.println(gltfPath+"//"+imgPath);
+
         try {
-            // 파일 객체 생성                                 //업로드된 파일의 원본 이름
-            File targetFile = new File(projectPath + file.getOriginalFilename());
-            System.out.println("패치: " + projectPath);
+            // 파일 객체 생성                                     //업로드된 파일의 원본 이름
+            File gltfTargetFile = new File(gltfPath + gltfFile.getOriginalFilename());
+            File imgTargetgFile = new File(imgPath + imgFile.getOriginalFilename());
+
+            System.out.println(gltfFile.getOriginalFilename());
+            System.out.println(imgFile.getOriginalFilename());
+
+            System.out.println(gltfTargetFile);
+            System.out.println(imgTargetgFile);
+
+
             // 파일 저장
-            file.transferTo(targetFile);
+            gltfFile.transferTo(gltfTargetFile);
+            imgFile.transferTo(imgTargetgFile);
+
             System.out.println("저장 성공");
 
             res.put("status","success");

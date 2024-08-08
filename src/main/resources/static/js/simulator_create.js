@@ -112,8 +112,14 @@ class App {
                 // 랜덤 문자열 생성
                 const randomString = this.generateRandomString(6);
                 // 파일 이름에 랜덤 문자열 추가
-                const filename = `${randomString}.gltf`;
-                this.uploadGLTF(output, filename);
+                const gltfFile = `${randomString}.gltf`;
+                const imgFile = `${randomString}.png`;
+
+                // 씬을 캡처하기 전에 렌더링
+                this._renderer.render(this._scene, this._camera);
+
+                // gltf와 img 업로드
+                this.uploadGLTF(output, gltfFile, imgFile);
             },
             { binary: false }
         );
@@ -130,24 +136,28 @@ class App {
         return result;
     }
 
-    uploadGLTF(data, filename) {
-        const blob = new Blob([data], {type: 'application/json'});
-        const formData = new FormData();
-        formData.append('file', blob, filename);
+    uploadGLTF(data, gltfFile, imgFile) {
+        const gltfBlob = new Blob([data], {type: 'application/json'});
 
-        fetch('/simulator/upload', {
-            headers: {Accept: "application/json"},
-            method: 'POST',
-            body: formData
-        })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Success:'+ data.status);
+        // 캔버스를 캡처하여 이미지 데이터 URL로 변환
+        this._renderer.domElement.toBlob((imageBlob) => {
+            const formData = new FormData();
+            formData.append('gltfFile', gltfBlob, gltfFile);
+            formData.append('imgFile', imageBlob, imgFile);
+
+            fetch('/simulator/upload', {
+                headers: {Accept: "application/json"},
+                method: 'POST',
+                body: formData
             })
-            .catch((error) => {
-                console.error('에러:'+ error);
-            });
-
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Success:'+ data.status);
+                })
+                .catch((error) => {
+                    console.error('에러:'+ error);
+                });
+        }, 'image/png');
     }
 
 

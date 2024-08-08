@@ -13,16 +13,8 @@
             integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
             crossorigin="anonymous"
     ></script>
-    <script defer>
-        $(document).ready(function () {
-            $('.community-climbing-name').each(function () {
-                let text = $(this).text();
-                if (text.length > 7) {
-                    let moreText = text.substring(0, 7) + '...';
-                    $(this).text(moreText);
-                }
-            });
-        });
+    <script src="/resources/js/community_video.js" defer>
+
     </script>
 </head>
 <body>

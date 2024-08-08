@@ -30,7 +30,7 @@
     <div class="simulator-my-project">
         <p class="title-text">My project</p>
         <div class="my-project-list" id="myProjectList">
-<!--            <p>Empty</p>-->
+            <p th:if="${user_id == null}">Empty</p>
             <!-- 생기면 my-project 디브 어펜드 -->
             <!--            <div class="my-project"></div>-->
             <!-- 4개 이상인 경우 어펜드 -->
