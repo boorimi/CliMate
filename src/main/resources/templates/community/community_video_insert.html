@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -21,6 +21,7 @@
     <script src="/resources/js/community_video_insert.js" defer></script>
 </head>
 <body>
+<div th:text="${user_id}"></div>
 <form id="uploadForm" action="/community/video/insert" method="post" onsubmit="return validateForm(event);"
       enctype="multipart/form-data">
     <input type="hidden" name="b_u_id" th:value="${session.user_id}" />
