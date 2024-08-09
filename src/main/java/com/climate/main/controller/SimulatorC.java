@@ -49,9 +49,18 @@ public class SimulatorC {
 
     @GetMapping("/gallery")
     public String simulatorGallery(Model model) {
+        model.addAttribute("allProject", simulatorDAO.getAllProject());
+        System.out.println(simulatorDAO.getAllProject());
         model.addAttribute("content", "/simulator/simulator_gallery");
         return "index";
     }
+    @GetMapping("/gallery_detail")
+    public String galleryPost(Model model) {
+        model.addAttribute("content", "/simulator/simulator_gallery_detail");
+        return "index";
+
+    }
+
 
     @PostMapping("/upload")
     public ResponseEntity<Map<String, String>> uploadFile(
@@ -88,10 +97,9 @@ public class SimulatorC {
 
             res.put("status", "success");
 
-            if (simulatorDAO.uploadFile(simulatorDTO) == 1){
+            if (simulatorDAO.uploadFile(simulatorDTO) == 1) {
                 System.out.println("입력 성공~");
             }
-
 
 
             return ResponseEntity.ok(res);
