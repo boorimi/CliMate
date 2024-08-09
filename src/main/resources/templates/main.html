@@ -68,7 +68,7 @@
             <div>Login</div>
           </div>
 
-            <div th:if="${user_id} != null" class='main-mypage'>
+            <div th:if="${user_id} != null" class='main-mypage' onclick="location.href='/mypage'">
               <img class='main-login-img' src="/resources/icon/mypage.png" />
               <p id="menu-login">MyPage</p>
             </div>
