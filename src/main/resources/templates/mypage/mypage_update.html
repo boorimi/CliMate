@@ -1,8 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script
+            src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"
+    ></script>
 
     <link rel="stylesheet" href="/resources/css/signup.css" />
     <script th:src="'https://maps.googleapis.com/maps/api/js?key=' + ${mapKey} + '&libraries=places'" defer></script>
@@ -93,6 +98,7 @@
                 id="homeground"
                 placeholder="Address Click Me"
                 name="u_homeground"
+                th:value="${myinfo.u_homeground}"
         />
     </div>
     <div class="signup-input private">
