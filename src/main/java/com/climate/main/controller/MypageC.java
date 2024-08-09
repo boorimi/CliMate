@@ -29,7 +29,6 @@ public class MypageC {
     @GetMapping("/mypage")
     public String moveMypage(HttpSession session, Model model, UserDTO userDTO) {
         userDTO.setU_id((String) session.getAttribute("user_id"));
-
         model.addAttribute("myinfo", mypageDAO.selectUserInfo(userDTO));
         model.addAttribute("content", "/mypage/mypage");
         return "index";
@@ -93,6 +92,13 @@ public class MypageC {
             e.printStackTrace();
             return null;
         }
+    }
+
+    @GetMapping("/mypage/userProfile")
+    public String userProfile(HttpSession session, UserDTO userDTO, Model model) {
+        model.addAttribute("myinfo", mypageDAO.selectUserInfo(userDTO));
+        model.addAttribute("content", "/mypage/profile");
+        return "index";
     }
 
 }

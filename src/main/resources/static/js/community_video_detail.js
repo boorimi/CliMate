@@ -50,14 +50,23 @@ $(document).ready(function () {
         });
     });
 
+    // 자랑게시판 댓글 닉네임 눌렀을때 메뉴표시
     $(document).on('click', '.community-showoff-detail-comments-nickname', function (event) {
         $('.community-showoff-detail-comments-nicknameMenu').removeClass('activeNickname');
         $(this).siblings('.community-showoff-detail-comments-nicknameMenu').toggleClass('activeNickname');
         event.stopPropagation();
     });
 
+    // 자랑게시판 게시글 닉네임 눌렀을때 메뉴표시
+    $(document).on('click', '.community-video-detail-nickname', function (event) {
+        $('.community-video-detail-board-nicknameMenu').removeClass('activeNickname');
+        $(this).siblings('.community-video-detail-board-nicknameMenu ').toggleClass('activeNickname');
+        event.stopPropagation();
+    });
+
     $(document).on('click', function () {
         $('.community-showoff-detail-comments-nicknameMenu').removeClass('activeNickname');
+        $('.community-video-detail-board-nicknameMenu').removeClass('activeNickname');
     });
 
     $(document).on('click','.community-video-detail-more-wrapper', function () {
@@ -95,5 +104,20 @@ function deleteCommentsCheck(cm_pk, b_pk) {
     if (confirm('정말 삭제하시겠습니까?')) {
         location.href = '/community/video/deleteComments?cm_pk=' + cm_pk + '&b_pk=' + b_pk;
     }
+}
+
+function redirectToProfile(element) {
+    const userId = element.getAttribute('data-u_id');
+    location.href = '/mypage/userProfile?u_id=' + userId;
+}
+
+function redirectToVideoPost(element) {
+    const userNickname = element.getAttribute('data-u_nickname');
+    location.href = '/community/search?columnName=u_nickname&searchWord=' + userNickname;
+}
+
+function redirectToLfgPost(element) {
+    const userNickname = element.getAttribute('data-u_nickname');
+    location.href = '/community/searchLfg?columnName=u_nickname&searchWord=' + userNickname;
 }
 
