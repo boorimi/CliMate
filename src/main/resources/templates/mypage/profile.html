@@ -2,11 +2,11 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
     <meta
             name="viewport"
             content="width=device-width,initial-scale=1.0, minimum-scale=1.0,maximum-scale=1.0"
     />
+    <title>Title</title>
     <link rel="stylesheet" href="/resources/css/mypage.css">
 </head>
 <body>
@@ -14,13 +14,12 @@
     <div class="mypage-menu-img"><img th:src="@{${myinfo.u_img}}"></div>
     <div class="mypage-menu-name">
         <div th:text="${myinfo.u_nickname}"></div>
-        <div><img th:src="@{'resources/grade_icon/hold_' + ${myinfo.u_grade} + '.png'}"></div>
+        <div><img th:src="@{'/resources/grade_icon/hold_' + ${myinfo.u_grade} + '.png'}"></div>
         <div><a th:href="@{'http://www.instagram.com/' + ${myinfo.u_insta}}" target="_blank"><img src="/resources/icon/insta.png"></a></div>
     </div>
     <div class="mypage-menu-div">가고싶어 / 가봤어</div>
     <div class="mypage-menu-div" th:utext="'homeground<br>'+${myinfo.u_homeground}"></div>
-    <div class="mypage-menu-div">채팅목록</div>
-    <div class="mypage-info-update" onclick="location.href='/mypage/update'">회원정보수정</div>
+    <div class="mypage-menu-div">1:1 chating</div>
 </div>
 </body>
 </html>

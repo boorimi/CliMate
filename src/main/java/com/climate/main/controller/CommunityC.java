@@ -43,7 +43,9 @@ public class CommunityC {
     }
 
     @GetMapping("/community/lfg")
-    public String communityLfg(Model model) {
+    public String communityLfg(HttpSession session, Model model) {
+        String userId = (String) session.getAttribute("user_id");
+        model.addAttribute("user_id", userId);
         model.addAttribute("recruitment", communityDAO.selectAllCommunityRecruitment());
         model.addAttribute("actionURL", "/community/searchLfg");
         model.addAttribute("content", "/community/community_menu");
@@ -138,7 +140,11 @@ public class CommunityC {
 
     @GetMapping("/community/search")
     public String communitySearch(String searchWord, String columnName, Model model) {
+        model.addAttribute("searchResult","searchResult");
+        model.addAttribute("searchWord",searchWord );
         model.addAttribute("showoffLists", communityDAO.selectSearchCommunityShowoff(columnName, searchWord));
+        columnName = columnName.substring(2);
+        model.addAttribute("columnName",columnName );
         model.addAttribute("content", "/community/community_menu");
         model.addAttribute("community_content", "/community/community_video");
         return "index";
@@ -146,7 +152,11 @@ public class CommunityC {
 
     @GetMapping("/community/searchLfg")
     public String communitySearchLfg(String searchWord, String columnName, Model model) {
+        model.addAttribute("searchResult","searchResult");
+        model.addAttribute("searchWord",searchWord );
         model.addAttribute("recruitment", communityDAO.selectSearchCommunityLfg(columnName, searchWord));
+        columnName = columnName.substring(2);
+        model.addAttribute("columnName",columnName );
         model.addAttribute("content", "/community/community_menu");
         model.addAttribute("community_content", "/community/community_lfg");
         return "index";
