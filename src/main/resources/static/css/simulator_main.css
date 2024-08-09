@@ -36,13 +36,13 @@
         background-color: white;
 
         img {
-            width: 70%;
+            width: 30%;
             height: auto;
         }
         p {
             margin: 0;
             font-weight: 900;
-            font-size: 6vw;
+            font-size: 3vw;
         }
     }
 
@@ -182,5 +182,22 @@
         .others:hover {
             color: white;
         }
+    }
+}
+@media (max-width: 768px){
+    .simulator-main-container {
+        .simulator-loading {
+            img {
+                width: 70%;
+                height: auto;
+            }
+
+            p {
+                margin: 0;
+                font-weight: 900;
+                font-size: 6vw;
+            }
+        }
+
     }
 }
