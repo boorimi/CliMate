@@ -24,10 +24,17 @@ public class SimulatorC {
     private SimulatorDAO simulatorDAO;
 
     @GetMapping("/main")
-    public String simulatorMain(HttpSession session, Model model) {
+    public String simulatorMain(HttpSession session, Model model, SimulatorDTO simulatorDTO) {
         String userId = (String) session.getAttribute("user_id");
         model.addAttribute("user_id", userId);
         System.out.println(userId);
+
+        if (userId != null){
+            simulatorDTO.setS_u_id(userId);
+            model.addAttribute("myProject", simulatorDAO.getMyProject());
+            System.out.println(simulatorDAO.getMyProject());
+        }
+
         model.addAttribute("content", "/simulator/simulator_main");
         return "index";
 

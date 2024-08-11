@@ -40,17 +40,15 @@
             </div>
         </div>
     </div>
-    <span th:text="${session.user_id}"></span>
 </div>
 </body>
 <script>
     function loginCheck(userId) {
-        alert("펑션!"+userId);
-        console.log(userId);
+        // console.log(userId);
         if (userId != null && userId !== '') {
             location.href = '/simulator/gallery_detail';
         } else {
-            alert('로그인해요~');
+            alert('Available after login');
         }
     }
 </script>

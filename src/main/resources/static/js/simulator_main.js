@@ -3,6 +3,10 @@ $(document).ready(function () {
     loading();
     drag(); // 마이프로로젝트 좌우 드래그 스크롤
 
+
+
+
+
     function loading() {
         $(".simulator-loading").css("display", "none");
 
@@ -11,7 +15,6 @@ $(document).ready(function () {
             $(".simulator-loading").show();
             $(".simulator-loading").css("display", "flex");
         });
-
     }
 
     function drag() {

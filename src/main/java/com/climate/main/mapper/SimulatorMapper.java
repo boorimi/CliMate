@@ -24,4 +24,12 @@ public interface SimulatorMapper {
             "ON s.s_u_id = u.u_id")
     public List<SimulatorDTO> getAllProject();
 
+    // 내가 만든 문제 셀렉트
+    @Select("select s.*, u.u_nickname, u.u_grade, u.u_category " +
+            "from cli_simulator s " +
+            "JOIN cli_user u " +
+            "ON s.s_u_id = u.u_id " +
+            "where s.s_u_id = #{userId}")
+    public List<SimulatorDTO> getMyProject();
+
 }

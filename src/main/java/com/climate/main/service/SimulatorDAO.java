@@ -29,6 +29,9 @@ public class SimulatorDAO implements SimulatorMapper {
         return simulatorMapper.getAllProject();
     }
 
-    ;
+    @Override
+    public List<SimulatorDTO> getMyProject() {return  simulatorMapper.getMyProject();}
+
+
 
 }
