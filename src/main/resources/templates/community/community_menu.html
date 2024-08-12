@@ -18,11 +18,11 @@
         <div onclick="location.href='/community/lfg'">together</div>
         <div class="community-search-icon"></div>
     </div>
-    <form action="/community/search">
+    <form th:action="@{${actionURL}}">
         <div class="community-search-wrapper hidden">
             <select name="columnName">
                 <option value="b_text">본문</option>
-                <option value="b_title">암장</option>
+                <option value="b_title">제목</option>
                 <option value="u_nickname">닉네임</option>
             </select>
             <div class="search-input">
@@ -31,6 +31,14 @@
             </div>
         </div>
     </form>
+    <div class="community-search-result">
+        <div th:if="${searchResult == 'searchResult'}">
+            Search "<span style="font-style: italic" th:text="${columnName}"></span>" as "<span style="font-style: italic" th:text="${searchWord}"></span>"
+        </div>
+        <div th:if="${#lists.isEmpty(recruitment) and #lists.isEmpty(showoffLists)}">
+            검색 결과가 없습니다.
+        </div>
+    </div>
     <div th:include="${community_content}"></div>
 </div>
 </body>

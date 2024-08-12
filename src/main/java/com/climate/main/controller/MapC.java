@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class MapC {
+
     @Value("${google.map_key}")
     private String mapKey;
 

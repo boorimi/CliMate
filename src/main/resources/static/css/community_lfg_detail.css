@@ -88,15 +88,18 @@
     display: none;
     position: absolute;
     z-index: 900;
-    top: -4vh;
-    left: 25vw;
-    background-color: #e4e4e4;
-    box-shadow: 0em 0em 1em #d7d7d7;
-    width: 120%;
+    top: 5vh;
+    left: 0vw;
+    box-shadow: 0em 0em 1em #79976a;
+    width: 130%;
     border-radius: 1em;
+    border: 0.2vw solid #79976a;
+    color: #79976a;
+    background-color: white;
+    font-weight: bold;
 
     li {
-        border-bottom: 1px solid #ddd;
+        border-bottom: 1px solid #79976a;
         display: flex;
         align-items: center;
         justify-content: center;

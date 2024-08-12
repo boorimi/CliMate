@@ -22,6 +22,7 @@ public class CommunityDTO {
     private MultipartFile b_FileThumbnail;
     private String u_nickname;
     private String u_grade;
+    private String u_id;
     private int l_count;
     private int c_count;
 

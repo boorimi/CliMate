@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hamburger Title</title>
+    <title></title>
     <link rel="stylesheet" href="/resources/css/index.css">
     <script
             src="https://code.jquery.com/jquery-3.6.0.min.js"
@@ -13,6 +13,7 @@
 
 </head>
 <body>
+<span th:text="${session.user_id}" style="display: none"></span>
 <nav class="menu">
     <div class="logo" onclick="location.href='/'"><img src="/resources/img/logo.png"></div>
     <div class="hamburger" onclick="toggleMenu()">
@@ -22,12 +23,12 @@
     </div>
     <ul class="hamburger-menu">
         <li onclick="location.href='/mapC'"><img src="/resources/icon/map.png" />Map</li>
-        <li onclick="location.href='/simulator_main'"><img src="/resources/icon/hold.png" />Simulator</li>
+        <li onclick="location.href='/simulator/main'"><img src="/resources/icon/hold.png" />Simulator</li>
         <li onclick="location.href='/community/video'"><img src="/resources/icon/community.png" />Community</li>
-        <li th:if="${user_id != null}" onclick="location.href='/mypageC'"><img src="/resources/icon/mypage.png" /><p id="menu-mypage">My Page</p></li>
-        <li th:if="${user_id != null}" onclick="location.href='/logoutC'"><img src="/resources/icon/google.png" /><p id="menu-logout">Logout</p></li>
+        <li th:if="${session.user_id != null}" onclick="location.href='/mypageC'"><img src="/resources/icon/mypage.png" /><p id="menu-mypage">My Page</p></li>
+        <li th:if="${session.user_id != null}" onclick="location.href='/logoutC'"><img src="/resources/icon/logout.png" /><p id="menu-logout">Logout</p></li>
 
-        <li th:if="${user_id == null}" onclick="location.href='/loginC'"><img src="/resources/icon/google.png" /><p id="menu-login">Login</p></li>
+        <li th:if="${session.user_id == null}" onclick="location.href='/loginC'"><img src="/resources/icon/google.png" /><p id="menu-login">Login</p></li>
     </ul>
 </nav>
 <div th:include="${content}"></div>

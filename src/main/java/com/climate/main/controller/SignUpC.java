@@ -49,12 +49,13 @@ public class SignUpC {
     private String saveFile(MultipartFile file) {
         try {
             // 절대 경로로 디렉토리 설정
-            File uploadDirFile = new File("/Users/master/Documents/java_practice/final_project/src/main/resources/static/upload/img");
+//            File uploadDirFile = new File("/Users/master/Documents/java_practice/final_project/src/main/resources/static/upload/img");
+            File uploadDirFile = new File(System.getProperty("user.dir") + "/src/main/resources/static/upload/img");
 
             // 디렉토리가 존재하지 않으면 생성
-            if (!uploadDirFile.exists()) {
-                uploadDirFile.mkdirs();
-            }
+//            if (!uploadDirFile.exists()) {
+//                uploadDirFile.mkdirs();
+//            }
 
             String originalFilename = file.getOriginalFilename();
             String filePath = uploadDirFile.getAbsolutePath() + File.separator + originalFilename;

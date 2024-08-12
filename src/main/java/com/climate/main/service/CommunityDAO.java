@@ -33,8 +33,8 @@ public class CommunityDAO implements CommunityMapper {
     }
 
     @Override
-    public CommunityDTO selectCommunityShowoff(int b_pk) {
-        return communityMapper.selectCommunityShowoff(b_pk);
+    public CommunityDTO selectCommunityShowoff(CommunityDTO communityDTO) {
+        return communityMapper.selectCommunityShowoff(communityDTO);
     }
 
     @Override
@@ -154,14 +154,14 @@ public class CommunityDAO implements CommunityMapper {
     }
 
     @Override
-    public int deleteCommunityShowoff(int b_pk) {
-        CommunityDTO communityDTO = communityMapper.selectCommunityShowoff(b_pk);
+    public int deleteCommunityShowoff(CommunityDTO communityDTO) {
+        CommunityDTO c = communityMapper.selectCommunityShowoff(communityDTO);
 
         String UPLOADED_FOLDER_VIDEO = "src/main/resources/static/upload/video/";
         String UPLOADED_FOLDER_THUMBNAIL = "src/main/resources/static/upload/thumbnail/";
 
-        String b_video = communityDTO.getB_video();
-        String b_thumbnail = communityDTO.getB_thumbnail();
+        String b_video = c.getB_video();
+        String b_thumbnail = c.getB_thumbnail();
         if (b_video != null && !b_video.isEmpty()) {
             String[] fileNames = b_video.split("!");
 
@@ -183,7 +183,7 @@ public class CommunityDAO implements CommunityMapper {
                 }
             }
         }
-        return communityMapper.deleteCommunityShowoff(b_pk);
+        return communityMapper.deleteCommunityShowoff(communityDTO);
     }
 
     public int deleteCommunityLfg(int b_pk) {
@@ -222,17 +222,17 @@ public class CommunityDAO implements CommunityMapper {
                     }
                 }
             }
-        return communityMapper.deleteCommunityShowoff(b_pk);
+        return communityMapper.deleteCommunityShowoff(communityDTO);
     }
 
     @Override
-    public int insertCommunityLike(int b_pk, String u_id) {
-        return communityMapper.insertCommunityLike(b_pk, u_id);
+    public int insertCommunityLike(CommunityDTO communityDTO) {
+        return communityMapper.insertCommunityLike(communityDTO);
     }
 
     @Override
-    public int deleteCommunityLike(int b_pk, String u_id) {
-        return communityMapper.deleteCommunityLike(b_pk, u_id);
+    public int deleteCommunityLike(CommunityDTO communityDTO) {
+        return communityMapper.deleteCommunityLike(communityDTO);
     }
 
     @Override
@@ -241,8 +241,8 @@ public class CommunityDAO implements CommunityMapper {
     }
 
     @Override
-    public int selectLikeCountThisUser(int b_pk) {
-        return communityMapper.selectLikeCountThisUser(b_pk);
+    public int selectLikeCountThisUser(CommunityDTO communityDTO) {
+        return communityMapper.selectLikeCountThisUser(communityDTO);
     }
 
     @Override
@@ -256,13 +256,23 @@ public class CommunityDAO implements CommunityMapper {
     }
 
     @Override
+    public List<CommunityDTO> selectSearchCommunityLfg(String columnName, String searchWord) {
+        return communityMapper.selectSearchCommunityLfg(columnName, searchWord);
+    }
+
+    @Override
     public List<CommunityDTO> selectHashtagSearchCommunityShowoff(String searchWord) {
         return communityMapper.selectHashtagSearchCommunityShowoff(searchWord);
     }
 
     @Override
-    public int insertCommunityComments(int b_pk, String cm_text) {
-        return communityMapper.insertCommunityComments(b_pk, cm_text);
+    public List<CommunityDTO> selectHashtagSearchCommunityLfg(String searchWord) {
+        return communityMapper.selectHashtagSearchCommunityLfg(searchWord);
+    }
+
+    @Override
+    public int insertCommunityComments(CommentsDTO commentsDTO) {
+        return communityMapper.insertCommunityComments(commentsDTO);
     }
 
     @Override
@@ -291,7 +301,9 @@ public class CommunityDAO implements CommunityMapper {
             int endIndex = b_text.indexOf(endDelimiter, startIndex);
             if (endIndex != -1) {
                 String filename = b_text.substring(startIndex, endIndex);
-                filenames.add(filename);
+                if (filename.length() >= 200) {
+                    filenames.add(filename);
+                }
                 startIndex = endIndex + endDelimiter.length();
             } else {
                 break;
@@ -303,6 +315,7 @@ public class CommunityDAO implements CommunityMapper {
         for (int i = 0; i < filenameArray.length; i++) {
             b_text = communityDTO.getB_text();
             String originBase64Key = filenameArray[i];
+//            System.out.println(originBase64Key);
             // value를 분리하여 변수에 저장
             Map<String, String> fileMap = fileMapList.get(i);
             String newUUIDName = fileMap.get(originBase64Key);
@@ -311,6 +324,11 @@ public class CommunityDAO implements CommunityMapper {
                 communityDTO.setB_text(b_text.replace(originBase64Key, "/resources/upload/lfgimg/" + newUUIDName + ".png"));
             }
         }
+
+        // </p><p> 를 제거하고 <br>로 대체 코드
+        b_text = communityDTO.getB_text();
+        communityDTO.setB_text(b_text.replace("</p><p>", "<br>"));
+
 
     }
 

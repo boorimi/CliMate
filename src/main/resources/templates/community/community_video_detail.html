@@ -28,19 +28,21 @@
 <body>
 <input id="l_b_pk" type="hidden" th:value="${showoffList.b_pk}">
 <div class="community-video-detail-all-wrapper">
-    <div class="custom-arrows">
-        <button class="slick-prev">&lt;</button>
-        <button class="slick-next">&gt;</button>
-    </div>
-    <div class="community-showoff-video">
-        <div th:each="video : ${showoffList.videoList}">
-            <video class="video" controls>
-                <source
-                        th:src="@{/resources/upload/video/{filename}(filename=${video})}"
-                        type="video/mp4"
-                />
-                Your browser does not support the video tag.
-            </video>
+    <div style="position: relative;">
+        <div class="custom-arrows">
+            <button class="slick-prev">&lt;</button>
+            <button class="slick-next">&gt;</button>
+        </div>
+        <div class="community-showoff-video">
+            <div th:each="video : ${showoffList.videoList}">
+                <video class="video" controls>
+                    <source
+                            th:src="@{/resources/upload/video/{filename}(filename=${video})}"
+                            type="video/mp4"
+                    />
+                    Your browser does not support the video tag.
+                </video>
+            </div>
         </div>
     </div>
     <div class="community-video-detail-info">
@@ -51,16 +53,24 @@
             ></div>
             <div class="community-video-detail-grade"><img
                     th:src="@{'/resources/grade_icon/hold_' + ${showoffList.u_grade} + '.png'}"></div>
+            <ul class="community-video-detail-board-nicknameMenu">
+                <li th:data-u_id="${showoffList.u_id}" onclick="redirectToProfile(this)">Profile</li>
+                <li th:data-u_nickname="${showoffList.u_nickname}" onclick="redirectToVideoPost(this)">Post (Video)</li>
+                <li th:data-u_nickname="${showoffList.u_nickname}" onclick="redirectToLfgPost(this)">Post (Lfg)</li>
+                <li>チャットする</li>
+            </ul>
         </div>
         <div class="community-video-detail-like">
             <div class="community-video-detail-like-icon" th:data-b_pk="${showoffList.b_pk}"
+                 th:data-u_id="${session.user_id}"
                  th:if="${showoffLikeCountThisUser == 0}"><img src="/resources/icon/love_blank.png"></div>
             <div class="community-video-detail-like-icon" th:data-b_pk="${showoffList.b_pk}"
+                 th:data-u_id="${session.user_id}"
                  th:if="${showoffLikeCountThisUser > 0}"><img src="/resources/icon/love.png"></div>
             <div class="community-video-detail-like-count" th:text="${showoffList.l_count}"></div>
         </div>
         <div class="community-video-detail-more-wrapper">
-            <div class="community-video-detail-more">
+            <div class="community-video-detail-more" th:if="${session.user_id == showoffList.u_id}">
                 <img src="/resources/icon/more.png">
             </div>
             <ul class="community-video-detail-updelMenu">
@@ -95,36 +105,41 @@
         <div class="community-showoff-detail-comments-contents">
             <form action="/community/video/comments/insert" method="post">
                 <div class="community-showoff-detail-comments-textarea">
-                    <textarea name="cm_text"></textarea>
-                    <button name="b_pk" th:value="${showoffList.b_pk}">등록</button>
+                    <textarea name="cm_text" style="resize: none"></textarea>
+                    <input type="hidden" name="cm_u_id" th:value="${session.user_id}"/>
+                    <button name="cm_b_pk" th:value="${showoffList.b_pk}">등록</button>
                 </div>
             </form>
-            <div class="community-showoff-detail-comments-border" th:each="co : ${showoffCommentsLists}">
-                <!-- 여기에 th걸기 -->
-                <div class="community-showoff-detail-comments-detail">
-                    <div class="community-showoff-detail-comments-nickgrade">
-                        <div class="community-showoff-detail-comments-nickname" th:text="${co.u_nickname}"></div>
-                        <!-- 숨김메뉴 시작 -->
-                        <ul class="community-showoff-detail-comments-nicknameMenu">
-                            <li>プロフィール</li>
-                            <li>掲示文見る</li>
-                            <li>チャットする</li>
-                        </ul>
-                        <!-- 숨김메뉴 끝 -->
-                        <div class="community-showoff-detail-comments-grade"><img
-                                th:src="@{'/resources/grade_icon/hold_' + ${co.u_grade} + '.png'}"></div>
-                    </div>
-                    <div style="display: flex">
-                        <div class="community-showoff-detail-comments-delete"
-                             th:onclick="'deleteCommentsCheck('+${co.cm_pk}+','+${showoffList.b_pk}+')'">
-                            <img src="/resources/icon/delete.png"/>
+            <div class="community-showoff-detail-comments">
+                <div class="community-showoff-detail-comments-border" th:each="co : ${showoffCommentsLists}">
+                    <!-- 여기에 th걸기 -->
+                    <div class="community-showoff-detail-comments-detail">
+                        <div class="community-showoff-detail-comments-nickgrade">
+                            <div class="community-showoff-detail-comments-nickname" th:text="${co.u_nickname}"></div>
+                            <!-- 숨김메뉴 시작 -->
+                            <ul class="community-showoff-detail-comments-nicknameMenu">
+                                <li th:data-u_id="${co.cm_u_id}" onclick="redirectToProfile(this)">Profile</li>
+                                <li th:data-u_nickname="${co.u_nickname}" onclick="redirectToVideoPost(this)">Post (Video)</li>
+                                <li th:data-u_nickname="${co.u_nickname}" onclick="redirectToLfgPost(this)">Post (Lfg)</li>
+                                <li>チャットする</li>
+                            </ul>
+                            <!-- 숨김메뉴 끝 -->
+                            <div class="community-showoff-detail-comments-grade"><img
+                                    th:src="@{'/resources/grade_icon/hold_' + ${co.u_grade} + '.png'}"></div>
                         </div>
-                        <div class="community-showoff-detail-comments-date"
-                             th:text="${#dates.format(co.cm_datetime, 'yyyy.MM.dd.')}">
+                        <div style="display: flex">
+                            <div class="community-showoff-detail-comments-delete"
+                                 th:onclick="'deleteCommentsCheck('+${co.cm_pk}+','+${showoffList.b_pk}+')'"
+                                 th:if="${session.user_id == co.cm_u_id}">
+                                <img src="/resources/icon/delete.png"/>
+                            </div>
+                            <div class="community-showoff-detail-comments-date"
+                                 th:text="${#dates.format(co.cm_datetime, 'yyyy.MM.dd.')}">
+                            </div>
                         </div>
                     </div>
+                    <div class="community-showoff-detail-comments-text" th:text="${co.cm_text}"></div>
                 </div>
-                <div class="community-showoff-detail-comments-text" th:text="${co.cm_text}"></div>
             </div>
         </div>
     </div>

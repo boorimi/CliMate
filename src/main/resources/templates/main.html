@@ -19,7 +19,7 @@
     <script src="/resources/js/main.js" defer></script>
   </head>
   <body>
-    <div class="main-container">
+  <div class="main-container">
       <div class="main-background-img">
         <img src="/resources/img/main1.jpg" />
         <img src="/resources/img/main2.jpg" />
@@ -46,7 +46,7 @@
             </div>
             <div>Map</div>
           </div>
-          <div class="main-simulator" onclick="location.href='/simulator_main'">
+          <div class="main-simulator" onclick="location.href='/simulator/main'">
             <div class="main-simulator-img">
               <img src="/resources/icon/hold.png" />
             </div>
@@ -68,8 +68,9 @@
             <div>Login</div>
           </div>
 
-            <div th:if="${user_id} != null" class='main-mypage'>
+            <div th:if="${user_id} != null" class='main-mypage' onclick="location.href='/mypage'">
               <img class='main-login-img' src="/resources/icon/mypage.png" />
+
               <p id="menu-login">MyPage</p>
             </div>
             <div th:if="${user_id} != null" class="main-logout">

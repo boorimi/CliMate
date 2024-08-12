@@ -24,8 +24,11 @@
 
     .simulator-loading {
         display: none;
+        width: 100%;
         height: 100%;
         position: fixed;
+        top: 0;
+        left: 0;
         z-index: 999;
         flex-direction: column;
         justify-content: center;
@@ -33,13 +36,13 @@
         background-color: white;
 
         img {
-            width: 70%;
+            width: 30%;
             height: auto;
         }
         p {
             margin: 0;
             font-weight: 900;
-            font-size: 6vw;
+            font-size: 3vw;
         }
     }
 
@@ -79,6 +82,15 @@
 
         .create-project:hover {
             color: white;
+        }
+
+        .project-login{
+            padding-bottom: 1em;
+            p{
+                font-style: italic;
+                font-size: 1.2em;
+                font-weight: 100;
+            }
         }
     }
 
@@ -170,5 +182,22 @@
         .others:hover {
             color: white;
         }
+    }
+}
+@media (max-width: 768px){
+    .simulator-main-container {
+        .simulator-loading {
+            img {
+                width: 70%;
+                height: auto;
+            }
+
+            p {
+                margin: 0;
+                font-weight: 900;
+                font-size: 6vw;
+            }
+        }
+
     }
 }

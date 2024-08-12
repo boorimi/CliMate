@@ -13,25 +13,13 @@
             integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
             crossorigin="anonymous"
     ></script>
-    <script defer>
-        $(document).ready(function () {
-            $('.community-climbing-name').each(function () {
-                let text = $(this).text();
-                if (text.length > 7) {
-                    let moreText = text.substring(0, 7) + '...';
-                    $(this).text(moreText);
-                }
-            });
-        });
+    <script src="/resources/js/community_video.js" defer>
+
     </script>
 </head>
 <body>
-<span th:text="${user_id}"></span>
 <div class="community-contents-container">
     <div class="community-contents-wrapper">
-        <div th:if="${#lists.isEmpty(showoffLists)}">
-            검색 결과가 없습니다.
-        </div>
         <div class="community-content" th:each="show : ${showoffLists}"
              th:onclick="'location.href=\'/community/video/detail?b_pk=' + ${show.b_pk} + '\''">
             <div class="community-video">
