@@ -7,8 +7,7 @@
 .custom-arrows {
   display: flex;
   justify-content: space-between;
-  margin: 0vh 2vw;
-  width: 93%;
+  width: 100%;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -21,7 +20,6 @@
   height: 5vh;
   font-size: 1.5em;
   background-color: rgba(255, 255, 255, 0.69);
-
   border-radius: 5vw;
   padding: 2vw;
   cursor: pointer;
@@ -37,6 +35,7 @@
 .community-video-detail-name {
   flex: 1;
   display: flex;
+  align-items: center;
   font-size: 1.5em;
   margin: 0vh 1vw;
 }
@@ -45,8 +44,13 @@
   margin: 0vh 1vw;
 }
 
+.community-video-detail-grade {
+  display: flex;
+  align-items: center;
+}
+
 .community-video-detail-grade img {
-  width: 7vw;
+  width: 9vw;
   height: auto;
 }
 
@@ -64,6 +68,11 @@
   margin: 0vh 1vw;
 }
 
+.community-video-detail-like-icon {
+  display: flex;
+  align-items: center;
+}
+
 .community-video-detail-like-icon img {
   width: 8vw;
   height: auto;
@@ -78,6 +87,9 @@
   font-size: 1.5em;
 }
 
+.community-showoff-detail-comments {
+  margin: 2vh 0vw;
+}
 
 .community-showoff-detail-comments-info {
   display: flex;
@@ -113,7 +125,6 @@
 }
 
 .community-showoff-detail-comments-border {
-  margin: 2vh 0vw;
   padding: 2vh 0vw;
   border-bottom: 0.2vw solid gray;
   border-top: 0.2vw solid gray;
@@ -148,15 +159,18 @@
   display: none;
   position: absolute;
   z-index: 900;
-  top: -4vh;
-  left: 25vw;
-  background-color: #e4e4e4;
-  box-shadow: 0em 0em 1em #d7d7d7;
+  top: 5vh;
+  left: 0vw;
+  box-shadow: 0em 0em 1em #79976a;
   width: 120%;
   border-radius: 1em;
+  border: 0.2vw solid #79976a;
+  color: #79976a;
+  background-color: white;
+  font-weight: bold;
 
   li {
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #79976a;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -237,4 +251,48 @@
 .community-showoff-detail-comments-text {
   margin-top: 1vh;
   font-size: 1.8em;
+}
+
+.community-video-detail-board-nicknameMenu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: none;
+  position: absolute;
+  z-index: 900;
+  top: 5vh;
+  left: 0vw;
+  /*box-shadow: 0em 0em 1em #79976a;*/
+  width: 45%;
+  border-radius: 1em;
+  border: 0.1em solid #79976a;
+  color: #79976a;
+  background-color: white;
+  font-weight: bold;
+
+  li {
+    border-bottom: 1px solid #79976a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 5vh;
+    font-size: 1em;
+    img {
+      width: 4vw;
+      height: auto;
+      padding: 1em;
+    }
+  }
+
+  li:last-child {
+    border-bottom: none;
+    img{
+      width: 3.5vw;
+    }
+  }
+}
+
+.community-video-detail-board-nicknameMenu.activeNickname  {
+  display: flex;
+  flex-direction: column;
 }

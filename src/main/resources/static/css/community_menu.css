@@ -103,8 +103,10 @@
     height: 10vw;
 }
 
-.community-search-wrapper > div {
-
+.community-search-result > div {
+    margin: 1vh 0vw;
+    text-align: center;
+    color: #79976a;
 }
 
 

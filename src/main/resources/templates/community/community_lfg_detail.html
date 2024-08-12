@@ -27,8 +27,9 @@
                 <div class="community-lfg-detail-title-grade"><img
                         th:src="@{'/resources/grade_icon/hold_' + ${lfgList.u_grade} + '.png'}"></div>
                 <ul class="community-lfg-detail-board-nicknameMenu">
-                    <li>プロフィール</li>
-                    <li>掲示文見る</li>
+                    <li th:data-u_id="${lfgList.u_id}" onclick="redirectToProfile(this)">Profile</li>
+                    <li th:data-u_nickname="${lfgList.u_nickname}" onclick="redirectToVideoPost(this)">Post (Video)</li>
+                    <li th:data-u_nickname="${lfgList.u_nickname}" onclick="redirectToLfgPost(this)">Post (Lfg)</li>
                     <li>チャットする</li>
                 </ul>
             </div>
@@ -36,7 +37,8 @@
                  th:text="${#dates.format(lfgList.b_datetime, 'yyyy.MM.dd.')}"></div>
         </div>
         <div class="community-lfg-detail-more-wrapper">
-            <div class="community-lfg-detail-title-more" th:if="${session.user_id == lfgList.u_id}"><img src="/resources/icon/more.png"></div>
+            <div class="community-lfg-detail-title-more" th:if="${session.user_id == lfgList.u_id}"><img
+                    src="/resources/icon/more.png"></div>
             <ul class="community-lfg-detail-updelMenu">
                 <li th:onclick="'location.href=\'/community/lfg/update?b_pk=' + ${lfgList.b_pk} + '\''"><img
                         src="/resources/icon/update.png"/>update
@@ -61,38 +63,41 @@
         <div class="community-showoff-detail-comments-contents">
             <form action="/community/lfg/comments/insert" method="post">
                 <div class="community-showoff-detail-comments-textarea">
-                    <textarea name="cm_text"></textarea>
-                    <input type="hidden" name="cm_u_id" th:value="${session.user_id}" />
+                    <textarea name="cm_text" style="resize: none"></textarea>
+                    <input type="hidden" name="cm_u_id" th:value="${session.user_id}"/>
                     <button name="cm_b_pk" th:value="${lfgList.b_pk}">등록</button>
                 </div>
             </form>
-            <div class="community-showoff-detail-comments-border" th:each="co : ${showoffCommentsLists}">
-                <!-- 여기에 th걸기 -->
-                <div class="community-showoff-detail-comments-detail">
-                    <div class="community-showoff-detail-comments-nickgrade">
-                        <div class="community-showoff-detail-comments-nickname" th:text="${co.u_nickname}"></div>
-                        <!-- 숨김메뉴 시작 -->
-                        <ul class="community-showoff-detail-comments-nicknameMenu">
-                            <li>プロフィール</li>
-                            <li>掲示文見る</li>
-                            <li>チャットする</li>
-                        </ul>
-                        <!-- 숨김메뉴 끝 -->
-                        <div class="community-showoff-detail-comments-grade"><img
-                                th:src="@{'/resources/grade_icon/hold_' + ${co.u_grade} + '.png'}"></div>
-                    </div>
-                    <div style="display: flex">
-                        <div class="community-showoff-detail-comments-delete"
-                             th:onclick="'deleteCommentsCheck('+${co.cm_pk}+','+${lfgList.b_pk}+')'"
-                             th:if="${session.user_id == co.cm_u_id}">
-                            <img src="/resources/icon/delete.png"/>
+            <div class="community-showoff-detail-comments">
+                <div class="community-showoff-detail-comments-border" th:each="co : ${showoffCommentsLists}">
+                    <!-- 여기에 th걸기 -->
+                    <div class="community-showoff-detail-comments-detail">
+                        <div class="community-showoff-detail-comments-nickgrade">
+                            <div class="community-showoff-detail-comments-nickname" th:text="${co.u_nickname}"></div>
+                            <!-- 숨김메뉴 시작 -->
+                            <ul class="community-showoff-detail-comments-nicknameMenu">
+                                <li th:data-u_id="${co.cm_u_id}" onclick="redirectToProfile(this)">Profile</li>
+                                <li th:data-u_nickname="${co.u_nickname}" onclick="redirectToVideoPost(this)">Post (Video)</li>
+                                <li th:data-u_nickname="${co.u_nickname}" onclick="redirectToLfgPost(this)">Post (Lfg)</li>
+                                <li>チャットする</li>
+                            </ul>
+                            <!-- 숨김메뉴 끝 -->
+                            <div class="community-showoff-detail-comments-grade"><img
+                                    th:src="@{'/resources/grade_icon/hold_' + ${co.u_grade} + '.png'}"></div>
                         </div>
-                        <div class="community-showoff-detail-comments-date"
-                             th:text="${#dates.format(co.cm_datetime, 'yyyy.MM.dd.')}">
+                        <div style="display: flex">
+                            <div class="community-showoff-detail-comments-delete"
+                                 th:onclick="'deleteCommentsCheck('+${co.cm_pk}+','+${lfgList.b_pk}+')'"
+                                 th:if="${session.user_id == co.cm_u_id}">
+                                <img src="/resources/icon/delete.png"/>
+                            </div>
+                            <div class="community-showoff-detail-comments-date"
+                                 th:text="${#dates.format(co.cm_datetime, 'yyyy.MM.dd.')}">
+                            </div>
                         </div>
                     </div>
+                    <div class="community-showoff-detail-comments-text" th:text="${co.cm_text}"></div>
                 </div>
-                <div class="community-showoff-detail-comments-text" th:text="${co.cm_text}"></div>
             </div>
         </div>
     </div>

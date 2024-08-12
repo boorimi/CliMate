@@ -20,9 +20,6 @@
 <body>
 <div class="community-contents-container">
     <div class="community-contents-wrapper">
-        <div th:if="${#lists.isEmpty(showoffLists)}">
-            검색 결과가 없습니다.
-        </div>
         <div class="community-content" th:each="show : ${showoffLists}"
              th:onclick="'location.href=\'/community/video/detail?b_pk=' + ${show.b_pk} + '\''">
             <div class="community-video">

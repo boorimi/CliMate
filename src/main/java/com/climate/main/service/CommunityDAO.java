@@ -325,6 +325,11 @@ public class CommunityDAO implements CommunityMapper {
             }
         }
 
+        // </p><p> 를 제거하고 <br>로 대체 코드
+        b_text = communityDTO.getB_text();
+        communityDTO.setB_text(b_text.replace("</p><p>", "<br>"));
+
+
     }
 
 }
