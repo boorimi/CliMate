@@ -1,20 +1,21 @@
-
 let map;
 let userMarker;
 let markers = [];
 let service;
 let infowindow;
+const userId = $("#userId").text();
+const myplaceList = [];
 $(function () {
     initMap();
     //유저가 목록 버튼 클릭시
-    $("#category-box").click(function() {
-        $(".search-overlay").css("display","block");
-        $(".search-popup-box").css("display","block");
+    $("#category-box").click(function () {
+        $(".search-overlay").css("display", "block");
+        $(".search-popup-box").css("display", "block");
     })
     //유저가 목록에서 x 버튼 클릭시
-    $(".popup-cancel").click(function() {
-        $(".search-overlay").css("display","none");
-        $(".search-popup-box").css("display","none");
+    $(".popup-cancel").click(function () {
+        $(".search-overlay").css("display", "none");
+        $(".search-popup-box").css("display", "none");
     })
     //wish버튼 클릭시 실행되는 함수
     $("#wish-img").click(function () {
@@ -23,36 +24,31 @@ $(function () {
     //check버튼 클릭시 실행되는 함수
     $("#check-img").click(function () {
         console.log("check");
-
     })
 })
 
 function initMap() {
-    let defaultLocation = {
-        center: { lat: 37.5665, lng: 126.9780 }, //서울
-        zoom: 15,
-        mapTypeControl: false,
-        fullscreenControl: false,  // 전체화면 컨트롤 제거
-        streetViewControl: false,  // 스트리트 뷰 컨트롤 제거
-    }
-    map = new google.maps.Map(document.getElementById("map"), defaultLocation);
-
-    service = new google.maps.places.PlacesService(map);
-    infowindow = new google.maps.InfoWindow();
-
-    searchClimbingGyms(defaultLocation.center, 5000); // 기본 위치와 반경 5km
+    getAllWish().then(() => {
+        let defaultLocation = {
+            center           : {lat: 37.5665, lng: 126.9780}, // 서울
+            zoom             : 15,
+            mapTypeControl   : false,
+            fullscreenControl: false,
+            streetViewControl: false,
+        };
+        map = new google.maps.Map(document.getElementById("map"), defaultLocation);
+        service = new google.maps.places.PlacesService(map);
+        infowindow = new google.maps.InfoWindow();
+        searchClimbingGyms(defaultLocation.center, 5000);
+    }).catch(error => {
+        console.error("Error loading wishes:", error);
+    });
 }
 
 function searchClimbingGyms(location, radius) {
     const request = {
-        location: location,
-        radius: radius,
-        query: 'climbing gym',
-        locationBias: { // 검색을 한정하는 지역 설정
-            north: 45.551483,
-            south: 24.396308,
-            east: 153.986672,
-            west: 122.93457
+        location: location, radius: radius, query: 'climbing gym', locationBias: { // 검색을 한정하는 지역 설정
+            north: 45.551483, south: 24.396308, east: 153.986672, west: 122.93457
         }
     };
 
@@ -77,27 +73,34 @@ function clearMarkers() {
 
 function createMarker(place) {
     if (!place.geometry || !place.geometry.location) return;
+    console.log("check mylist => " + myplaceList);
+    // 현재 장소의 좋아요 상태를 가져옴
+    const isLiked = myplaceList.some(p => p.place_name === place.name && p.like);
+    const iconUrl = isLiked ? "/resources/icon/wish_red.png" : "/resources/icon/wish_gray.png";
 
     const marker = new google.maps.Marker({
-        map: map,
+        map     : map,
         position: place.geometry.location,
-        title: place.name
+        title   : place.name,
+        address : place.formatted_address
     });
 
     google.maps.event.addListener(marker, "click", () => {
         const placeUrl = `https://www.google.com/maps/search/?api=1&query=${place.name}}`;
         console.log("check place => " + JSON.stringify(place));
-        const content = `<div　style="{width:5vw;}">
-<div class="status-box">
-<img onclick="wishClick()" src="/resources/icon/wish_gray.png">
-<img onclick="checkClick()" src="/resources/icon/check_gray.png">
-</div>
-<p onclick="handlePlaceClick('${place.name}')">${place.name}</p>
-<p onclick="handlePlaceClick('${place.name}')">${place.formatted_address}</p>
-           <a href="${placeUrl}" target="_blank">View on Google Maps</a>
-</div>`;
+        console.log("check user id => " + userId);
+        const content = `<div　style="{width:5vw;}">` +
+            `<div class="status-box">` +
+            `<img id="wish-img" onclick="wishClick('${place.name}', '${place.formatted_address}', '${place.place_id}', this)" src="${iconUrl}">` +
+            `<img id="check-img" onclick="checkClick()" src="/resources/icon/check_gray.png">` +
+            `</div>` +
+            `<p id="place-name" onclick="handlePlaceClick('${place.name}')">${place.name}</p>` +
+            `<p id="place-addr" onclick="handlePlaceClick('${place.name}')">${place.formatted_address}</p>` +
+            `<a href="${placeUrl}" target="_blank">View on Google Maps</a>` +
+            `</div>`;
         infowindow.setContent(content);
         infowindow.open(map, marker);
+        //getOneWish(`${place.name}`);
     });
 
     markers.push(marker); // 마커 배열에 추가
@@ -106,10 +109,10 @@ function createMarker(place) {
 function handlePlaceClick(placeName) {
     //마커 클릭시
     $("#homeground").val(placeName);
-    $("#map-box").css("display","none");
+    $("#map-box").css("display", "none");
     $("#map-box").css("transform", "translateY(0)");
     $("#map-box").css("top", "0");
-    $("body").css("overflow","scroll");
+    $("body").css("overflow", "scroll");
 }
 
 function searchLocation() {
@@ -117,13 +120,8 @@ function searchLocation() {
 
     // 클라이밍장 이름으로 검색하기
     const request = {
-        query: mapInput,
-        fields: ["name", "geometry"],
-        locationBias: { // 검색을 한정하는 지역 설정
-            north: 45.551483,
-            south: 24.396308,
-            east: 153.986672,
-            west: 122.93457
+        query: mapInput, fields: ["name", "geometry"], locationBias: { // 검색을 한정하는 지역 설정
+            north: 45.551483, south: 24.396308, east: 153.986672, west: 122.93457
         }
     };
 
@@ -155,7 +153,7 @@ function isClimbingGym(place) {
 
 function geocodeAddress(address) {
     const geocoder = new google.maps.Geocoder();
-    geocoder.geocode({ address: address }, (results, status) => {
+    geocoder.geocode({address: address}, (results, status) => {
         if (status === google.maps.GeocoderStatus.OK) {
             const location = results[0].geometry.location;
 
@@ -172,7 +170,7 @@ function geocodeAddress(address) {
 window.searchLocation = searchLocation;
 
 $("#map-input").keydown(function (e) {
-    if(e.keyCode == 13) {
+    if (e.keyCode == 13) {
         // enter key(13) 눌렀을 때 이벤트
         searchLocation();
     }
@@ -185,22 +183,91 @@ function goMap() {
     window.open(placeUrl, '_blank');
 }
 
-function wishClick() {
-    console.log("wish");
-    const userId = $("#session-value").val();
-    $.ajax({
-        url: "/WishC",
-        data: userId,
-        type: "post",
-        success: function () {
-            
-        },
-        error: function () {
+function wishClick(placeName, placeAddr, placeId, imgElement) {
+    const isCurrentlyLiked = imgElement.src.includes('wish_red.png');
+    const newIconUrl = isCurrentlyLiked ? '/resources/icon/wish_gray.png' : '/resources/icon/wish_red.png';
 
+    console.log("check userId => " + userId);
+    if (userId == "") {
+        alert("do login");
+        location.href = "/";
+    }
+
+    console.log("check userId => " + userId);
+    console.log("check place name => " + placeName);
+    console.log("check place addr => " + placeAddr);
+
+    if (!isCurrentlyLiked) {
+        $.ajax({
+            url    : "/insertWish",
+            data   : {
+                mp_u_id    : userId,
+                mp_like    : placeName,
+                mp_likeaddr: placeAddr
+            },
+            type   : "post",
+            success: function () {
+                // 상태 업데이트 후 myplaceList 배열 갱신
+                const index = myplaceList.findIndex(p => p.place_name === placeName);
+                if (index !== -1) {
+                    myplaceList[index].like = !myplaceList[index].like;
+                } else {
+                    myplaceList.push({place_name: placeName, like: true});
+                }
+
+                // infoWindow 내 이미지 업데이트
+                imgElement.src = newIconUrl;
+            },
+            error  : function () {
+                console.log("아 에러에유");
+            }
+        })
+    } else {
+        //제거하는 ajax
+    }
+
+}
+
+function checkClick() {
+    console.log("check userId => " + userId);
+    if (userId == "") {
+        alert("do login");
+        location.href = "/";
+    }
+}
+
+function getOneWish(place_name) {
+    $("#wish-img").attr("src", "/resources/icon/wish_red.png");
+    $.ajax({
+        url    : "/getOneWish",
+        data   : {
+            mp_u_id: userId,
+            mp_like: place_name
+        },
+        success: function () {
+            console.log("아 성공이에유");
+        },
+        error  : function (err) {
+            console.log("아 에러에유");
+            console.error(err);
         }
     })
 }
 
-function checkClick() {
-    console.log("check");
+async function getAllWish() {
+    await $.ajax({
+        url    : "/getAllWish",
+        data   : {
+            mp_u_id: userId
+        },
+        success: function (resData) {
+            myplaceList.length = 0; // 배열 초기화
+            resData.forEach(item => {
+                myplaceList.push({place_name: item.mp_like, like: true});
+            });
+        },
+        error  : function (error) {
+            console.error(error)
+        }
+    })
 }
