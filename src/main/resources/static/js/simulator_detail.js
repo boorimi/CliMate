@@ -2,10 +2,27 @@ import * as THREE from "three";
 import {OrbitControls} from "three/addons/controls/OrbitControls.js";
 import {GLTFLoader} from "three/addons/loaders/GLTFLoader.js";
 
-$(document).ready(function () {
-    // let fileName = $('.content-container').data('file');
-    // console.log(fileName);
-});
+$(document).ready(function (){
+    $(".delete").click(function (){
+        const pk = $(this).data('pk');
+        const gltf =  $(this).data('gltf');
+        const img =  $(this).data('img');
+        if (confirm("진짜 삭제?"+pk+"파일: "+gltf+"이미지: "+img)){
+            $.ajax({
+                url: '/simulator/deleteProject',  // 서버에서 요청을 처리할 URL
+                type: 'POST',
+                data: {pk: pk},
+                success: function (response) {
+                    alert('삭제되었습니다.');
+                    location.href = '/simulator/gallery';
+                },
+                error: function (error) {
+                    alert('삭제 중 오류가 발생했습니다.');
+                }
+            });
+        }
+    })
+})
 
 function rgbToHex(r, g, b) {
     return (r << 16) | (g << 8) | b;
@@ -60,9 +77,6 @@ function init(app) {
 
     requestAnimationFrame((time) => app.render(time));
 
-    console.log('width', window.innerWidth);
-    console.log('height', window.innerHeight);
-
 }
 
 function resize(app) {
@@ -94,17 +108,14 @@ function setupCamera(app) {
 
 function setupLight(app) {
     let rgbColor = rgbToHex(255, 255, 255);
-    const intensity = 1;
+    const intensity = 0.5;
     const directionalLight = new THREE.DirectionalLight(rgbColor, intensity);
-    directionalLight.position.set(-3, 4.7, 4);
+    directionalLight.position.set(1, 1, 4);
     app._scene.add(directionalLight);
 
-    const ambientLight = new THREE.AmbientLight(rgbColor, 1.5);
+    const ambientLight = new THREE.AmbientLight(rgbColor, 2);
     app._scene.add(ambientLight);
 
-    const pointLight = new THREE.PointLight(rgbColor, 50);
-    pointLight.position.set(0, 5, 5);
-    app._scene.add(pointLight);
 }
 
 function setupModel(app) {
@@ -123,12 +134,6 @@ function setupModel(app) {
 
             // 모델 위치 조정 (옵션)
             model.position.set(0, 0, 0);
-        },
-        function (xhr) {
-            console.log((xhr.loaded / xhr.total * 100) + '% loaded');
-        },
-        function (error) {
-            console.error('An error happened', error);
         }
     );
 }

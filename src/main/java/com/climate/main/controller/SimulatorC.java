@@ -1,9 +1,11 @@
 package com.climate.main.controller;
 
 import com.climate.main.dto.SimulatorDTO;
+import com.climate.main.mapper.SimulatorMapper;
 import com.climate.main.service.SimulatorDAO;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -22,6 +24,9 @@ public class SimulatorC {
 
     @Autowired
     private SimulatorDAO simulatorDAO;
+    @Qualifier("simulatorMapper")
+    @Autowired
+    private SimulatorMapper simulatorMapper;
 
     @GetMapping("/main")
     public String simulatorMain(HttpSession session, Model model, SimulatorDTO simulatorDTO) {
@@ -70,6 +75,21 @@ public class SimulatorC {
         System.out.println(simulatorDAO.getProject(pk));
         model.addAttribute("content", "/simulator/simulator_gallery_detail");
         return "index";
+    }
+
+    @ResponseBody
+    @PostMapping("/deleteProject")
+    public String deleteProject(@RequestParam("pk") int pk){
+
+        Map<String, String> response = new HashMap<>();
+
+        if (simulatorMapper.deleteProject(pk) == 1) {
+            System.out.println("삭제 성공~");
+            response.put("status", "success");
+        } else {
+            response.put("status", "error");
+        }
+        return response.toString();
     }
 
     @PostMapping("/upload")

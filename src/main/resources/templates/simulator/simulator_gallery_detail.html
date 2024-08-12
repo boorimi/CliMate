@@ -26,11 +26,15 @@
     <div id="webgl-container"></div>
 </div>
 <div class="content-container" th:each="pj : ${project}" th:attr="data-file=${pj.s_file}">
-    <div class="like-and-comment">
-        <img src="/resources/icon/love_blank.png">
-        <p>100</p>
-        <img src="/resources/icon/chat-bubble.png">
-        <p>0</p>
+    <div class="top-box">
+        <div class="like-box">
+            <img src="/resources/icon/love_blank.png">
+            <p>100</p>
+        </div>
+        <div class="delete" th:attr="data-pk=${pj.s_pk}, data-gltf=${pj.s_file}, data-img=${pj.s_img}, data-id=${pj.s_u_id}"
+        th:if="${session.user_id} == ${pj.s_u_id}">
+            <img src="/resources/icon/delete.png">
+        </div>
     </div>
     <div class="name-box">
         <p th:text="${pj.u_nickname}"></p>

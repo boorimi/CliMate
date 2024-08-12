@@ -37,4 +37,7 @@ public class SimulatorDAO implements SimulatorMapper {
         return simulatorMapper.getProject(pk);
     }
 
+    @Override
+    public int deleteProject(int pk){return simulatorMapper.deleteProject(pk);}
+
 }
