@@ -4,7 +4,12 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="/resources/css/simulator_gallery.css">
-<!--    <script src="/resources/js/simulator_gallery.js" defer></script>-->
+    <script
+            src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"
+    ></script>
+    <script src="/resources/js/simulator_gallery.js" defer></script>
 </head>
 <body>
 <div class="project-container">
@@ -23,8 +28,7 @@
     </form>
 
     <div class="project-content">
-        <div th:each="pj: ${allProject}" class="project-post" th:onclick="loginCheck([[${session.user_id}]])"
-        th:attr="data-pk=${pj.s_pk}">
+        <div th:each="pj: ${allProject}" class="project-post" th:attr="data-pk=${pj.s_pk}">
             <div class="project-img">
                 <img th:src="@{/resources/upload/s_project/img/{s_img}(s_img=${pj.s_img})}">
             </div>
@@ -35,21 +39,11 @@
                 <p>0</p>
             </div>
             <div class="name-box">
-                <p th:text="${pj.u_nickname}">닉네임</p>
+                <p th:text="${pj.u_nickname}"></p>
                 <img th:src="@{'/resources/grade_icon/hold_' + ${pj.u_grade} + '.png'}">
             </div>
         </div>
     </div>
 </div>
 </body>
-<script>
-    function loginCheck(userId) {
-        // console.log(userId);
-        if (userId != null && userId !== '') {
-            location.href = '/simulator/gallery_detail';
-        } else {
-            alert('Available after login');
-        }
-    }
-</script>
 </html>
