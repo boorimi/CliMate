@@ -30,7 +30,7 @@ public class SimulatorDAO implements SimulatorMapper {
     }
 
     @Override
-    public List<SimulatorDTO> getMyProject() {return  simulatorMapper.getMyProject();}
+    public List<SimulatorDTO> getMyProject(String userId) {return  simulatorMapper.getMyProject(userId);}
 
 
 

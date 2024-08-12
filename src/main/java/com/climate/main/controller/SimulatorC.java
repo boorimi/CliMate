@@ -30,9 +30,9 @@ public class SimulatorC {
         System.out.println(userId);
 
         if (userId != null){
-            simulatorDTO.setS_u_id(userId);
-            model.addAttribute("myProject", simulatorDAO.getMyProject());
-            System.out.println(simulatorDAO.getMyProject());
+
+            model.addAttribute("myProject", simulatorDAO.getMyProject(userId));
+            System.out.println(simulatorDAO.getMyProject(userId));
         }
 
         model.addAttribute("content", "/simulator/simulator_main");

@@ -30,6 +30,5 @@ public interface SimulatorMapper {
             "JOIN cli_user u " +
             "ON s.s_u_id = u.u_id " +
             "where s.s_u_id = #{userId}")
-    public List<SimulatorDTO> getMyProject();
-
+    public  List<SimulatorDTO> getMyProject(String userId);
 }
