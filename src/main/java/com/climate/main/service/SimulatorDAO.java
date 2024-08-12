@@ -24,6 +24,14 @@ public class SimulatorDAO implements SimulatorMapper {
         return simulatorMapper.uploadFile(simulatorDTO);
     }
 
-    ;
+    @Override
+    public List<SimulatorDTO> getAllProject() {
+        return simulatorMapper.getAllProject();
+    }
+
+    @Override
+    public List<SimulatorDTO> getMyProject(String userId) {return  simulatorMapper.getMyProject(userId);}
+
+
 
 }

@@ -24,10 +24,17 @@ public class SimulatorC {
     private SimulatorDAO simulatorDAO;
 
     @GetMapping("/main")
-    public String simulatorMain(HttpSession session, Model model) {
+    public String simulatorMain(HttpSession session, Model model, SimulatorDTO simulatorDTO) {
         String userId = (String) session.getAttribute("user_id");
         model.addAttribute("user_id", userId);
         System.out.println(userId);
+
+        if (userId != null){
+
+            model.addAttribute("myProject", simulatorDAO.getMyProject(userId));
+            System.out.println(simulatorDAO.getMyProject(userId));
+        }
+
         model.addAttribute("content", "/simulator/simulator_main");
         return "index";
 
@@ -49,9 +56,18 @@ public class SimulatorC {
 
     @GetMapping("/gallery")
     public String simulatorGallery(Model model) {
+        model.addAttribute("allProject", simulatorDAO.getAllProject());
+        System.out.println(simulatorDAO.getAllProject());
         model.addAttribute("content", "/simulator/simulator_gallery");
         return "index";
     }
+    @GetMapping("/gallery_detail")
+    public String galleryPost(Model model) {
+        model.addAttribute("content", "/simulator/simulator_gallery_detail");
+        return "index";
+
+    }
+
 
     @PostMapping("/upload")
     public ResponseEntity<Map<String, String>> uploadFile(
@@ -88,10 +104,9 @@ public class SimulatorC {
 
             res.put("status", "success");
 
-            if (simulatorDAO.uploadFile(simulatorDTO) == 1){
+            if (simulatorDAO.uploadFile(simulatorDTO) == 1) {
                 System.out.println("입력 성공~");
             }
-
 
 
             return ResponseEntity.ok(res);
