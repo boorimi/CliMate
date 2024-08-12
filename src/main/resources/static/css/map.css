@@ -14,6 +14,7 @@ body {
         opacity: 0.5;
         height: 100%;
         width: 100%;
+        display: none;
     }
 
     #map {
@@ -69,7 +70,7 @@ body {
     }
 
     .search-popup-box {
-        display: block;
+        display: none;
         position: absolute;
         background-color: #fff;
         width: 100%;
@@ -151,14 +152,14 @@ body {
                 padding: 0;
                 border-top: 1px solid black;
                 border-bottom: 1px solid black;
-                height: 15vw;
+                height: auto;
                 width: 100%;
                 display: flex;
                 justify-content: center;
 
                 .search-icon {
                     width: 15vw;
-                    height: 100%;
+                    height: auto;
                     border: 1px solid black;
                     img {
                         width: 100%;
@@ -168,16 +169,19 @@ body {
                 }
                 .search-text {
                     width: 60vw;
-                    height: 100%;
+                    height: auto;
                     border: 1px solid black;
-                    font-size: 1em;
+                    font-size: 1.1em;
+                    display: flex;
+                    flex-wrap: wrap;
+                    padding: 10px;
                     p {
                         margin: 1vw 0;
                     }
                 }
                 .search-map {
                     width: 15vw;
-                    height: 100%;
+                    height: auto;
                     border: 1px solid black;
                     img {
                         width: 100%;
@@ -188,4 +192,20 @@ body {
             }
         }
     }
+
+    .status-box {
+        display: flex;
+        justify-content: center;
+        height: 10vw;
+        width: 100%;
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+    }
+}
+
+.session-value {
+    display: none;
 }

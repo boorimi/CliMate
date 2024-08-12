@@ -6,7 +6,23 @@ let service;
 let infowindow;
 $(function () {
     initMap();
+    //유저가 목록 버튼 클릭시
     $("#category-box").click(function() {
+        $(".search-overlay").css("display","block");
+        $(".search-popup-box").css("display","block");
+    })
+    //유저가 목록에서 x 버튼 클릭시
+    $(".popup-cancel").click(function() {
+        $(".search-overlay").css("display","none");
+        $(".search-popup-box").css("display","none");
+    })
+    //wish버튼 클릭시 실행되는 함수
+    $("#wish-img").click(function () {
+        console.log("wish");
+    })
+    //check버튼 클릭시 실행되는 함수
+    $("#check-img").click(function () {
+        console.log("check");
 
     })
 })
@@ -72,6 +88,10 @@ function createMarker(place) {
         const placeUrl = `https://www.google.com/maps/search/?api=1&query=${place.name}}`;
         console.log("check place => " + JSON.stringify(place));
         const content = `<div　style="{width:5vw;}">
+<div class="status-box">
+<img onclick="wishClick()" src="/resources/icon/wish_gray.png">
+<img onclick="checkClick()" src="/resources/icon/check_gray.png">
+</div>
 <p onclick="handlePlaceClick('${place.name}')">${place.name}</p>
 <p onclick="handlePlaceClick('${place.name}')">${place.formatted_address}</p>
            <a href="${placeUrl}" target="_blank">View on Google Maps</a>
@@ -81,10 +101,6 @@ function createMarker(place) {
     });
 
     markers.push(marker); // 마커 배열에 추가
-}
-
-function goPlaceClick(url) {
-    window.open(url, '_blank');
 }
 
 function handlePlaceClick(placeName) {
@@ -161,3 +177,30 @@ $("#map-input").keydown(function (e) {
         searchLocation();
     }
 });
+
+function goMap() {
+    const place_name = $("#place_name").text();
+    const placeUrl = `https://www.google.com/maps/search/?api=1&query=${place_name}}`;
+
+    window.open(placeUrl, '_blank');
+}
+
+function wishClick() {
+    console.log("wish");
+    const userId = $("#session-value").val();
+    $.ajax({
+        url: "/WishC",
+        data: userId,
+        type: "post",
+        success: function () {
+            
+        },
+        error: function () {
+
+        }
+    })
+}
+
+function checkClick() {
+    console.log("check");
+}
