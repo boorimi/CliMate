@@ -30,9 +30,8 @@ public class SimulatorC {
         System.out.println(userId);
 
         if (userId != null){
-
             model.addAttribute("myProject", simulatorDAO.getMyProject(userId));
-            System.out.println(simulatorDAO.getMyProject(userId));
+            System.out.println("내문제: "+simulatorDAO.getMyProject(userId));
         }
 
         model.addAttribute("content", "/simulator/simulator_main");
@@ -57,7 +56,7 @@ public class SimulatorC {
     @GetMapping("/gallery")
     public String simulatorGallery(Model model) {
         model.addAttribute("allProject", simulatorDAO.getAllProject());
-        System.out.println(simulatorDAO.getAllProject());
+        System.out.println("모든문제: "+simulatorDAO.getAllProject());
         model.addAttribute("content", "/simulator/simulator_gallery");
         return "index";
     }
@@ -82,7 +81,7 @@ public class SimulatorC {
 
         Map<String, String> res = new HashMap<>();
 
-        System.out.println(gltfPath + "//" + imgPath);
+//        System.out.println(gltfPath + "//" + imgPath);
 
         try {
             // 파일 객체 생성                                     //업로드된 파일의 원본 이름
