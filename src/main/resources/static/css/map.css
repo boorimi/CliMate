@@ -3,8 +3,18 @@ body {
 }
 
 .map-box {
-    width: 430px;
+    width: 100%;
     height: 80%;
+    position: relative;
+
+    .search-overlay {
+        position: absolute;
+        z-index: 2;
+        background-color: #000;
+        opacity: 0.5;
+        height: 100%;
+        width: 100%;
+    }
 
     #map {
         height: 80vh;
@@ -12,11 +22,170 @@ body {
         position: relative;
     }
 
-    .map-input {
+    .map-search-box {
         position: absolute;
         top: 2vw;
-        left: 20vw;
-        height: 4vw;
-        width: 50vw;
+        left: 15vw;
+        height: 8vw;
+        width: 65vw;
+        border-radius: 5vw;
+        display: flex;
+        justify-content: center;
+        background-color: #fff;
+
+        .category-box {
+            width: 10%;
+            height: 100%;
+            position: absolute;
+            left: 1vw;
+
+            .search-list {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+            }
+        }
+
+        .map-input {
+            width: 72%;
+            border: none;
+        }
+        .map-input:focus {
+            outline: none;
+        }
+
+        .btn-box {
+            width: 13%;
+            height: 100%;
+            position: absolute;
+            left: 58vw;
+
+            .search-btn {
+                width: 70%;
+                height: 100%;
+                object-fit: contain;
+            }
+        }
+    }
+
+    .search-popup-box {
+        display: block;
+        position: absolute;
+        background-color: #fff;
+        width: 100%;
+        height: 500px;
+        top: 20vw;
+        border-radius: 5vw;
+        z-index: 3;
+
+        .popup-cancel {
+            margin: 1.5vw 3vw;
+            font-size: 1.5em;
+            display: flex;
+            justify-content: end;
+        }
+
+        .search-box {
+            background-color: #fff;
+            border: 1px solid black;
+            width: 80vw;
+            height: 7vw;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            margin: 0 10vw;
+            border-radius: 5vw;
+
+            .search-input {
+                width: 84%;
+                height: 85%;
+                border: none;
+            }
+
+            .search-input:focus {
+                outline: none;
+            }
+
+            .search-img {
+                object-fit: contain;
+            }
+        }
+
+        .search-type {
+            border-top: 1px solid black;
+            border-bottom: 1px solid black;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 5vw 0;
+            height: 12vw;
+
+            .type-box {
+                width: 30vw;
+                height: 5vw;
+                background-color: #fff;
+                border: 1px solid black;
+                margin: 1vw 2vw;
+                border-radius: 5vw;
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+
+                p {
+                    margin: 0;
+                    font-size: 4.5vw;
+                    height: 90%;
+                }
+            }
+
+        }
+
+        .search-result-list {
+            height: auto;
+            width: 80%;
+
+            .search-result {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+                border-top: 1px solid black;
+                border-bottom: 1px solid black;
+                height: 15vw;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+
+                .search-icon {
+                    width: 15vw;
+                    height: 100%;
+                    border: 1px solid black;
+                    img {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: contain;
+                    }
+                }
+                .search-text {
+                    width: 60vw;
+                    height: 100%;
+                    border: 1px solid black;
+                    font-size: 1em;
+                    p {
+                        margin: 1vw 0;
+                    }
+                }
+                .search-map {
+                    width: 15vw;
+                    height: 100%;
+                    border: 1px solid black;
+                    img {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: contain;
+                    }
+                }
+            }
+        }
     }
 }

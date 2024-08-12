@@ -6,7 +6,9 @@ let service;
 let infowindow;
 $(function () {
     initMap();
-    //$("#map").attr("center", JSON.stringify(seoul));
+    $("#category-box").click(function() {
+
+    })
 })
 
 function initMap() {
@@ -67,16 +69,22 @@ function createMarker(place) {
     });
 
     google.maps.event.addListener(marker, "click", () => {
-        console.log("check place => "+JSON.stringify(place));
+        const placeUrl = `https://www.google.com/maps/search/?api=1&query=${place.name}}`;
+        console.log("check place => " + JSON.stringify(place));
         const content = `<div　style="{width:5vw;}">
 <p onclick="handlePlaceClick('${place.name}')">${place.name}</p>
 <p onclick="handlePlaceClick('${place.name}')">${place.formatted_address}</p>
+           <a href="${placeUrl}" target="_blank">View on Google Maps</a>
 </div>`;
         infowindow.setContent(content);
         infowindow.open(map, marker);
     });
 
     markers.push(marker); // 마커 배열에 추가
+}
+
+function goPlaceClick(url) {
+    window.open(url, '_blank');
 }
 
 function handlePlaceClick(placeName) {
