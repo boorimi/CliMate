@@ -48,7 +48,10 @@ public class SimulatorC {
     }
 
     @GetMapping("/my_project")
-    public String myProject(Model model) {
+    public String myProject(HttpSession session, Model model, SimulatorDTO simulatorDTO) {
+        String userId = (String) session.getAttribute("user_id");
+        model.addAttribute("user_id", userId);
+        model.addAttribute("myProject", simulatorDAO.getMyProject(userId));
         model.addAttribute("content", "/simulator/simulator_my_project");
         return "index";
     }
@@ -60,13 +63,14 @@ public class SimulatorC {
         model.addAttribute("content", "/simulator/simulator_gallery");
         return "index";
     }
+
     @GetMapping("/gallery_detail")
-    public String galleryPost(Model model) {
+    public String galleryPost(@RequestParam("pk") int pk, Model model) {
+        model.addAttribute("project", simulatorDAO.getProject(pk));
+        System.out.println(simulatorDAO.getProject(pk));
         model.addAttribute("content", "/simulator/simulator_gallery_detail");
         return "index";
-
     }
-
 
     @PostMapping("/upload")
     public ResponseEntity<Map<String, String>> uploadFile(
@@ -107,7 +111,6 @@ public class SimulatorC {
                 System.out.println("입력 성공~");
             }
 
-
             return ResponseEntity.ok(res);
         } catch (IOException e) {
             e.printStackTrace();
@@ -116,8 +119,6 @@ public class SimulatorC {
             res.put("message", e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(res);
         }
-
-
     }
 
 

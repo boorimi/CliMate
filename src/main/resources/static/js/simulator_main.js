@@ -1,29 +1,35 @@
 $(document).ready(function () {
 
-    const projectList = $("#myProjectList");
-    const myProject = $(".my-project");
+    let projectList = $("#myProjectList");
+    let userId = $('#userId').text();
+    // console.log(userId);
 
     loading();
     drag(); // 마이프로로젝트 좌우 드래그 스크롤
-    sizeCheck();
+    loginCheck();
 
-    let sPk = myProject.data('pk');
-    console.log(sPk);
+    function loginCheck() {
+        let empty = `<p>Empty</p>`;
 
-    // 나의 프로젝트가 4개 이상인 경우 3개까지만 표시 후 더보기 디브 어펜드
-    function sizeCheck() {
-        let myProjectSize = projectList.data('myproject-size');
-        let moreText = myProjectSize - 3 +" +";
+        if (userId != null && userId != "") {
+            let myProjectSize = $('.my-project').data('size');
+            let moreText = myProjectSize - 3 + " +";
+            console.log("myProject Size: ", myProjectSize);
 
-        console.log("myProject Size: ", myProjectSize);
-
-        if (myProjectSize >= 3) {
-            let more = ` <div class="my-project more" 
+            if (myProjectSize == 0) {
+                // 없으면 empty p태그 어펜드
+                projectList.append(empty);
+            } else if (myProjectSize > 3) {
+                // 나의 프로젝트 3개 넘으면 더보기 디브 어펜드
+                let more = `<div class="my-project more" 
                                 onclick="location.href='/simulator/my_project'">
-                                <p>`+moreText+`</p></div>`;
-            projectList.append(more);
+                                <p>` + moreText + `</p></div>`;
+                projectList.append(more);
+            }
         }
+
     }
+
 
     function loading() {
         $(".simulator-loading").css("display", "none");

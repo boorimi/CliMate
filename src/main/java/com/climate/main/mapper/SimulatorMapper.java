@@ -32,5 +32,13 @@ public interface SimulatorMapper {
             "ON s.s_u_id = u.u_id " +
             "where s.s_u_id = #{userId} " +
             "order by s.s_date desc")
-    public  List<SimulatorDTO> getMyProject(String userId);
+    public List<SimulatorDTO> getMyProject(String userId);
+
+    // 문제 하나만 셀렉트
+    @Select("SELECT s.*, u.u_nickname, u.u_grade, u.u_category " +
+            "FROM cli_simulator s " +
+            "JOIN cli_user u " +
+            "ON s.s_u_id = u.u_id " +
+            "WHERE s.s_pk = #{pk}")
+    public List<SimulatorDTO> getProject(int pk);
 }
