@@ -43,3 +43,6 @@ sTest/
 
 #upload
 upload/
+
+#firebase
+firebaseAccountKey.json
