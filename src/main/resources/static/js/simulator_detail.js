@@ -108,9 +108,9 @@ function setupCamera(app) {
 
 function setupLight(app) {
     let rgbColor = rgbToHex(255, 255, 255);
-    const intensity = 0.5;
+    const intensity = 0;
     const directionalLight = new THREE.DirectionalLight(rgbColor, intensity);
-    directionalLight.position.set(1, 1, 4);
+    directionalLight.position.set(1, 1, 1);
     app._scene.add(directionalLight);
 
     const ambientLight = new THREE.AmbientLight(rgbColor, 2);
@@ -121,7 +121,7 @@ function setupLight(app) {
 function setupModel(app) {
     const loader = new GLTFLoader();
     const fileName = $('.content-container').data('file');
-    const filePath = `${fileName}`;
+    const filePath = `/climate_upload/${fileName}`;
 
     loader.load(
         filePath,

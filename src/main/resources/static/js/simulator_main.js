@@ -14,9 +14,10 @@ $(document).ready(function () {
         if (userId != null && userId != "") {
             let myProjectSize = $('.my-project').data('size');
             let moreText = myProjectSize - 3 + " +";
-            console.log("myProject Size: ", myProjectSize);
+            // console.log("myProject Size: ", myProjectSize);
 
-            if (myProjectSize == 0) {
+            if (myProjectSize == 0 || myProjectSize == undefined) {
+                // console.log("언디파인드");
                 // 없으면 empty p태그 어펜드
                 projectList.append(empty);
             } else if (myProjectSize > 3) {
