@@ -2,12 +2,12 @@ import * as THREE from "three";
 import {OrbitControls} from "three/addons/controls/OrbitControls.js";
 import {GLTFLoader} from "three/addons/loaders/GLTFLoader.js";
 
-$(document).ready(function (){
-    $(".delete").click(function (){
+$(document).ready(function () {
+    $(".delete").click(function () {
         const pk = $(this).data('pk');
-        const gltf =  $(this).data('gltf');
-        const img =  $(this).data('img');
-        if (confirm("진짜 삭제?"+pk+"파일: "+gltf+"이미지: "+img)){
+        const gltf = $(this).data('gltf');
+        const img = $(this).data('img');
+        if (confirm("진짜 삭제?" + pk + "파일: " + gltf + "이미지: " + img)) {
             $.ajax({
                 url: '/simulator/deleteProject',  // 서버에서 요청을 처리할 URL
                 type: 'POST',
@@ -22,6 +22,56 @@ $(document).ready(function (){
             });
         }
     })
+
+
+    // 메뉴 열기 및 닫기 토글
+    function toggleMenu($pTag) {
+        var $profileMenu = $('.profile-menu');
+        var offset = $pTag.offset();
+
+        // 메뉴가 이미 열려 있고 같은 p 태그를 다시 클릭한 경우, 메뉴를 닫음
+        if ($profileMenu.hasClass('active') && $profileMenu.data('activeElement') === $pTag[0]) {
+            closeMenu();
+        } else {
+            // 클릭된 p 태그 위치를 기준으로 메뉴 위치 설정
+            $profileMenu.css({
+                top: offset.top + $pTag.outerHeight(),
+                left: offset.left
+            });
+
+            // 메뉴 활성화
+            $profileMenu.addClass('active');
+            $profileMenu.data('activeElement', $pTag[0]); // 현재 활성화된 p 태그를 저장
+        }
+    }
+
+    // 메뉴 닫기
+    function closeMenu() {
+        var $profileMenu = $('.profile-menu');
+        $profileMenu.removeClass('active');
+        $profileMenu.removeData('activeElement'); // 활성화된 p 태그 데이터 제거
+    }
+
+    // p 태그 클릭 이벤트 연결
+    $('.title-nickname, .comment-nickname').on('click', function(event) {
+        event.stopPropagation(); // 메뉴 외부 감지를 위해 클릭 전파 중지
+        toggleMenu($(this));
+    });
+
+    // 프로필 메뉴 외부 클릭 감지
+    $(document).on('click', function(event) {
+        var $profileMenu = $('.profile-menu');
+        if (!$profileMenu.is(event.target) && $profileMenu.has(event.target).length === 0) {
+            closeMenu();
+        }
+    });
+
+    // 메뉴 클릭 시 전파 중지
+    $('.profile-menu').on('click', function(event) {
+        event.stopPropagation();
+    });
+
+
 })
 
 function rgbToHex(r, g, b) {
@@ -120,7 +170,7 @@ function setupLight(app) {
 
 function setupModel(app) {
     const loader = new GLTFLoader();
-    const fileName = $('.content-container').data('file');
+    const fileName = $('.simulator-content').data('file');
     const filePath = `/climate_upload/${fileName}`;
 
     loader.load(

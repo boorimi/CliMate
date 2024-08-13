@@ -21,24 +21,65 @@
 </script>
 <script type="module" src="/resources/js/simulator_detail.js" defer></script>
 <body>
-<div th:text="${project}"></div>
-<div class="webgl-content">
-    <div id="webgl-container"></div>
-</div>
-<div class="content-container" th:each="pj : ${project}" th:attr="data-file=${pj.s_file}">
-    <div class="top-box">
-        <div class="like-box">
-            <img src="/resources/icon/love_blank.png">
-            <p>100</p>
+<div class="content-container">
+    <div class="simulator-content" th:each="pj : ${project}" th:attr="data-file=${pj.s_file}">
+        <div class="top-box">
+            <div class="name-box">
+                <p th:text="${pj.u_nickname}" class="title-nickname"></p>
+                <img th:src="@{'/resources/grade_icon/hold_' + ${pj.u_grade} + '.png'}">
+            </div>
+            <div class="date">
+                <p th:text="${#dates.format(pj.s_date, 'yyyy-MM-dd HH:mm')}"></p>
+            </div>
         </div>
-        <div class="delete" th:attr="data-pk=${pj.s_pk}, data-gltf=${pj.s_file}, data-img=${pj.s_img}, data-id=${pj.s_u_id}"
-        th:if="${session.user_id} == ${pj.s_u_id}">
-            <img src="/resources/icon/delete.png">
+
+        <div class="webgl-content">
+            <div id="webgl-container"></div>
+        </div>
+
+        <div class="middle-box">
+            <div class="like-box">
+                <img src="/resources/icon/love_blank.png">
+                <p>100</p>
+                <img src="/resources/icon/chat-bubble.png">
+                <p>100</p>
+            </div>
+            <div class="delete"
+                 th:attr="data-pk=${pj.s_pk}, data-gltf=${pj.s_file}, data-img=${pj.s_img}, data-id=${pj.s_u_id}"
+                 th:if="${session.user_id} == ${pj.s_u_id}">
+                <img src="/resources/icon/delete.png">
+            </div>
         </div>
     </div>
-    <div class="name-box">
-        <p th:text="${pj.u_nickname}"></p>
-        <img th:src="@{'/resources/grade_icon/hold_' + ${pj.u_grade} + '.png'}">
+
+    <div class="comment-container">
+        <form action="">
+            <div class="comment-input">
+                <input name="pj_chat">
+                <button name="" value="">
+                    <img src="/resources/icon/send.png">
+                </button>
+            </div>
+        </form>
+
+        <div class="comment-list" th:each="pj : ${project}" th:attr="data-file=${pj.s_file}">
+            <div class="top-box">
+                <div class="name-box">
+                    <p th:text="${pj.u_nickname}" class="comment-nickname"></p>
+                    <img th:src="@{'/resources/grade_icon/hold_' + ${pj.u_grade} + '.png'}">
+                </div>
+                <div class="date">
+                    <p th:text="${#dates.format(pj.s_date, 'yyyy-MM-dd')}"></p>
+                </div>
+                <ul class="profile-menu">
+                    <li th:data-id="${pj.s_u_id}" onclick="redirectToProfile(this)">Profile</li>
+                    <li th:data-nickname="${pj.u_nickname}" onclick="redirectToVideoPost(this)">Post (Video)</li>
+                    <li th:data-nickname="${pj.u_nickname}" onclick="redirectToLfgPost(this)">Post (Lfg)</li>
+                    <li>chating</li>
+                </ul>
+            </div>
+            <p>우와 문제 정말 멋져요!우와 문제 정말 멋져요!우와 문제 정말 멋져요!우와 문제 정말 멋져요!우와 문제 정말 멋져요!우와 문제 정말 멋져요!우와 문제 정말 멋져요!우와 문제 정말 멋져요!우와 문제 정말 멋져요!</p>
+        </div>
     </div>
 </div>
 
