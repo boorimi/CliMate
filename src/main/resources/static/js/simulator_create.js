@@ -82,7 +82,11 @@ class App {
         this._draggableObjects = [];
         this._dragControls = null;
         this._exportButton = document.querySelector("#save-btn");
-        this._exportButton.addEventListener("click", () => this.exportScene());
+        this._exportButton.addEventListener("click", () => {
+            if (confirm('Do you want to save?')) {
+                this.exportScene();
+            }
+        });
         this.userData = null;
     }
 
