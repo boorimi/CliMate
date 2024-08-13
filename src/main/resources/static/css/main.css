@@ -238,10 +238,7 @@ body {
         .main-simulator-img,
         .main-community-img,
         .main-login-img {
-            width: 9vw;
-        }
-        #mypage-img{
-            width: 7vw;
+            width: 16%;
         }
     }
   }

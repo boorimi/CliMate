@@ -4,7 +4,43 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+<link rel="stylesheet" href="/resources/css/simulator_detail.css"/>
+<script
+        src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+        crossorigin="anonymous"
+></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/exporters/GLTFExporter.js"></script>
+<script type="importmap">
+    {
+       "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.166.1/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.166.1/examples/jsm/"
+        }
+    }
+</script>
+<script type="module" src="/resources/js/simulator_detail.js" defer></script>
 <body>
-<h1>디테일~~~!!!!</h1>
+<div th:text="${project}"></div>
+<div class="webgl-content">
+    <div id="webgl-container"></div>
+</div>
+<div class="content-container" th:each="pj : ${project}" th:attr="data-file=${pj.s_file}">
+    <div class="top-box">
+        <div class="like-box">
+            <img src="/resources/icon/love_blank.png">
+            <p>100</p>
+        </div>
+        <div class="delete" th:attr="data-pk=${pj.s_pk}, data-gltf=${pj.s_file}, data-img=${pj.s_img}, data-id=${pj.s_u_id}"
+        th:if="${session.user_id} == ${pj.s_u_id}">
+            <img src="/resources/icon/delete.png">
+        </div>
+    </div>
+    <div class="name-box">
+        <p th:text="${pj.u_nickname}"></p>
+        <img th:src="@{'/resources/grade_icon/hold_' + ${pj.u_grade} + '.png'}">
+    </div>
+</div>
+
 </body>
 </html>
