@@ -1,8 +1,13 @@
 package com.climate.main.controller;
 
+import com.climate.main.config.FirebaseConfig;
 import com.climate.main.dto.SimulatorDTO;
 import com.climate.main.mapper.SimulatorMapper;
 import com.climate.main.service.SimulatorDAO;
+import com.google.cloud.storage.BlobId;
+import com.google.cloud.storage.BlobInfo;
+import com.google.cloud.storage.Storage;
+import com.google.firebase.FirebaseApp;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -22,6 +27,15 @@ import java.util.Map;
 @Controller
 public class SimulatorC {
 
+
+    private final Storage storage;
+
+    @Autowired
+    public SimulatorC(Storage storage) {
+        this.storage = storage;
+    }
+
+
     @Autowired
     private SimulatorDAO simulatorDAO;
     @Qualifier("simulatorMapper")
@@ -34,9 +48,9 @@ public class SimulatorC {
         model.addAttribute("user_id", userId);
         System.out.println(userId);
 
-        if (userId != null){
+        if (userId != null) {
             model.addAttribute("myProject", simulatorDAO.getMyProject(userId));
-            System.out.println("내문제: "+simulatorDAO.getMyProject(userId));
+            System.out.println("내문제: " + simulatorDAO.getMyProject(userId));
         }
 
         model.addAttribute("content", "/simulator/simulator_main");
@@ -64,7 +78,7 @@ public class SimulatorC {
     @GetMapping("/gallery")
     public String simulatorGallery(Model model) {
         model.addAttribute("allProject", simulatorDAO.getAllProject());
-        System.out.println("모든문제: "+simulatorDAO.getAllProject());
+        System.out.println("모든문제: " + simulatorDAO.getAllProject());
         model.addAttribute("content", "/simulator/simulator_gallery");
         return "index";
     }
@@ -79,7 +93,7 @@ public class SimulatorC {
 
     @ResponseBody
     @PostMapping("/deleteProject")
-    public String deleteProject(@RequestParam("pk") int pk){
+    public String deleteProject(@RequestParam("pk") int pk) {
 
         Map<String, String> response = new HashMap<>();
 
@@ -100,28 +114,53 @@ public class SimulatorC {
             SimulatorDTO simulatorDTO,
             HttpSession session) {
 
-        String gltfPath = System.getProperty("user.dir") + "/src/main/resources/static/upload/s_project/3D/";
-        String imgPath = System.getProperty("user.dir") + "/src/main/resources/static/upload/s_project/img/";
+//        String gltfPath = System.getProperty("user.dir") + "/src/main/resources/static/upload/s_project/3D/";
+//        String imgPath = System.getProperty("user.dir") + "/src/main/resources/static/upload/s_project/img/";
+//        String imgPath = "C:/ttt/";
+//        String imgPath = System.getProperty("user.dir") + "/upload_test/";
+
 
         Map<String, String> res = new HashMap<>();
 
-//        System.out.println(gltfPath + "//" + imgPath);
+        System.out.println("------------");
+//        System.out.println(imgPath);
+        System.out.println("------------");
 
         try {
             // 파일 객체 생성                                     //업로드된 파일의 원본 이름
-            File gltfTargetFile = new File(gltfPath + gltfFile.getOriginalFilename());
-            File imgTargetgFile = new File(imgPath + imgFile.getOriginalFilename());
-
-            simulatorDTO.setS_file(gltfFile.getOriginalFilename());
-            simulatorDTO.setS_img(imgFile.getOriginalFilename());
+//            File gltfTargetFile = new File(gltfPath + gltfFile.getOriginalFilename());
+//            File imgTargetgFile = new File(imgPath + imgFile.getOriginalFilename());
+            String gltfTargetFile = gltfFile.getOriginalFilename();
+            String imgTargetgFile = imgFile.getOriginalFilename();
+//
+//            simulatorDTO.setS_file(gltfFile.getOriginalFilename());
+//            simulatorDTO.setS_img(imgFile.getOriginalFilename());
             simulatorDTO.setS_u_id((String) session.getAttribute("user_id"));
+//
+//            System.out.println(gltfTargetFile);
+//            System.out.println(imgTargetgFile);
+//
+//            // 파일 저장
+//            gltfFile.transferTo(gltfTargetFile);
+//            imgFile.transferTo(imgTargetgFile);
 
-            System.out.println(gltfTargetFile);
-            System.out.println(imgTargetgFile);
 
-            // 파일 저장
-            gltfFile.transferTo(gltfTargetFile);
-            imgFile.transferTo(imgTargetgFile);
+            // FirebaseStorage 인스턴스를 가져옵니다.
+            // GLTF 파일을 Firebase Storage에 업로드
+            BlobId gltfBlobId = BlobId.of("climate-4e4fe.appspot.com", "upload/" + gltfTargetFile);
+            BlobInfo gltfBlobInfo = BlobInfo.newBuilder(gltfBlobId).build();
+            storage.create(gltfBlobInfo, gltfFile.getBytes());
+
+            // 이미지 파일을 Firebase Storage에 업로드
+            String imgContentType = imgFile.getContentType();
+            BlobId imgBlobId = BlobId.of("climate-4e4fe.appspot.com","upload/" + imgTargetgFile);
+            BlobInfo imgBlobInfo = BlobInfo.newBuilder(imgBlobId).setContentType(imgContentType).build();
+            storage.create(imgBlobInfo, imgFile.getBytes());
+
+            String url ="https://firebasestorage.googleapis.com/v0/b/climate-4e4fe.appspot.com/o/upload%2F";
+            simulatorDTO.setS_file(url + gltfTargetFile + "?alt=media");
+            simulatorDTO.setS_img(url + imgTargetgFile + "?alt=media");
+
 
             System.out.println("저장 성공");
 
@@ -129,6 +168,7 @@ public class SimulatorC {
 
             if (simulatorDAO.uploadFile(simulatorDTO) == 1) {
                 System.out.println("입력 성공~");
+
             }
 
             return ResponseEntity.ok(res);

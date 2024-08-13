@@ -121,7 +121,7 @@ function setupLight(app) {
 function setupModel(app) {
     const loader = new GLTFLoader();
     const fileName = $('.content-container').data('file');
-    const filePath = `/resources/upload/s_project/3D/${fileName}`;
+    const filePath = `${fileName}`;
 
     loader.load(
         filePath,

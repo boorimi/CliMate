@@ -27,8 +27,13 @@ $(document).ready(function () {
                 projectList.append(more);
             }
         }
-
     }
+
+    $('.my-project').click(function (){
+        const pk = $(this).data('pk');
+        // console.log(pk);
+        location.href = '/simulator/gallery_detail?pk=' + pk;
+    })
 
 
     function loading() {

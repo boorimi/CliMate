@@ -85,6 +85,7 @@ class App {
         this._exportButton.addEventListener("click", () => {
             if (confirm('Do you want to save?')) {
                 this.exportScene();
+
             }
         });
         this.userData = null;
@@ -133,7 +134,7 @@ class App {
 
     // 랜덤 문자열 생성
     generateRandomString(length) {
-        const characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
+        const characters = '123456789';
         let result = '';
         const charactersLength = characters.length;
         for (let i = 0; i < length; i++) {
@@ -159,6 +160,8 @@ class App {
                 .then(response => response.json())
                 .then(data => {
                     console.log('Success:' + data.status);
+                    alert("성공~~")
+                    location.href="/simulator/main";
                 })
                 .catch((error) => {
                     console.error('에러:' + error);

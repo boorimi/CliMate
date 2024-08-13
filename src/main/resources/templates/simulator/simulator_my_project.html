@@ -18,7 +18,7 @@
     <div class="project-content">
         <div th:each="myPj: ${myProject}" class="project-post" th:attr="data-pk=${myPj.s_pk}">
             <div class="project-img">
-                <img th:src="@{/resources/upload/s_project/img/{s_img}(s_img=${myPj.s_img})}">
+                <img th:src="${myPj.s_img}">
             </div>
             <div class="like-and-comment">
                 <img src="/resources/icon/love_blank.png">
