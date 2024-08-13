@@ -1,8 +1,12 @@
 $(document).ready(function () {
     const post = $('.project-post');
     let dataPk;
-
     let userId = $('#userId').text();
+
+    $(".s-menu-gallery").css({
+        "background-color": "#79976a",
+        "color": "#ffffff"
+    });
 
     post.on('click', function () {
         dataPk = $(this).data('pk');

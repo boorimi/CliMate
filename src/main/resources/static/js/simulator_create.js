@@ -14,6 +14,11 @@ $(document).ready(function () {
     holdListMenuPC.hide();
     holdListMenuMobile.hide();
 
+    $(".s-menu-create").css({
+        "background-color": "#79976a",
+        "color": "#ffffff"
+    });
+
     function checkWidth() {
         holdBtn.off('click');
 
