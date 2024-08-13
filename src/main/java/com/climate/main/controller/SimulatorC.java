@@ -98,6 +98,7 @@ public class SimulatorC {
         return "index";
     }
 
+
     @ResponseBody
     @PostMapping("/deleteProject")
     public String deleteProject(@RequestParam("pk") int pk) {

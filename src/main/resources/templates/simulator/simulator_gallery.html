@@ -13,19 +13,22 @@
 </head>
 <body>
 <div class="project-container">
-    <form action="">
-        <div class="project-search">
-            <select name="category" id="category">
-                <option value="Normal">Normal</option>
-                <option value="Setter">Setter</option>
-                <option value="NickName">NickName</option>
-            </select>
-            <input type="text" />
-            <button>
-                <img src="/resources/icon/search.png" />
-            </button>
+
+    <div class="gallery-search-box">
+        <div class="gallery-search-menu">
+            <form action="">
+                <input id="gallery-search-input" placeholder=" Nickname search" />
+                <button id="gallery-search-btn">
+                    <img src="/resources/icon/search.png" />
+                </button>
+            </form>
         </div>
-    </form>
+        <div class="gallery-category">
+            <div class="search-all">All</div>
+            <div class="search-setter">Setter</div>
+            <div class="search-normal">Normal</div>
+        </div>
+    </div>
 
     <div class="project-content">
         <div th:each="pj: ${allProject}" class="project-post" th:attr="data-pk=${pj.s_pk}">

@@ -40,6 +40,14 @@ public interface SimulatorMapper {
             "WHERE s.s_pk = #{pk}")
     public List<SimulatorDTO> getProject(int pk);
 
+    // 세터 문제만 셀렉트
+    @Select("SELECT s.*, u.u_nickname, u.u_grade, u.u_category " +
+            "FROM cli_simulator s " +
+            "JOIN cli_user u " +
+            "ON s.s_u_id = u.u_id " +
+            "WHERE u.u_category = #{u_category}")
+    public List<SimulatorDTO> selectSetter();
+
     // 삭제
     @Delete("delete from cli_simulator where s_pk = #{pk}")
     public int deleteProject(@Param("pk") int pk);

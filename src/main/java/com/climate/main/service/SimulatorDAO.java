@@ -38,6 +38,8 @@ public class SimulatorDAO implements SimulatorMapper {
     }
 
     @Override
+    public List<SimulatorDTO> selectSetter() { return simulatorMapper.selectSetter();}
+    @Override
     public int deleteProject(int pk){return simulatorMapper.deleteProject(pk);}
 
 }

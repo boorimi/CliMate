@@ -2,10 +2,26 @@ $(document).ready(function () {
     const post = $('.project-post');
     let dataPk;
     let userId = $('#userId').text();
+    let category;
+
 
     $(".s-menu-gallery").css({
         "background-color": "#79976a",
         "color": "#ffffff"
+    });
+
+    $(".search-all").click(function (){
+        location.href="/simulator/gallery";
+    });
+
+    $(".search-setter").click(function (){
+        category = "setter";
+        location.href="/simulator/selectSetter?category="+category;
+    });
+
+    $(".search-normal").click(function () {
+        category = "normal";
+        location.href="";
     });
 
     post.on('click', function () {
