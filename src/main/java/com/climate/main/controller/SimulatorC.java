@@ -111,9 +111,18 @@ public class SimulatorC {
     @GetMapping("/searchNickname")
     public String searchNickname(@RequestParam("nickname")String nickname, Model model){
         System.out.println("검색한 닉네임: "+nickname);
-        model.addAttribute("searchResult", "\"" + nickname + "\"");
-        model.addAttribute("project", simulatorDAO.searchNickname(nickname));
+
+        int resultSize = simulatorDAO.searchNickname(nickname).size();
+
+        if (resultSize == 0){
+            model.addAttribute("searchResult", "No search results matching " + "\"" + nickname + "\"");
+        } else {
+            model.addAttribute("searchResult", "The result of a search for " + "\"" + nickname + "\"");
+        }
+
         System.out.println(simulatorDAO.searchNickname(nickname));
+
+        model.addAttribute("project", simulatorDAO.searchNickname(nickname));
         model.addAttribute("content", "/simulator/simulator_menu");
         model.addAttribute("simulator_content", "/simulator/simulator_gallery");
         return "index";

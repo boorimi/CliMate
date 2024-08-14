@@ -17,12 +17,11 @@ $(document).ready(function () {
             // console.log("myProject Size: ", myProjectSize);
 
             if (myProjectSize == 0 || myProjectSize == undefined) {
-                // console.log("언디파인드");
                 // 없으면 empty p태그 어펜드
                 projectList.append(empty);
             } else if (myProjectSize > 3) {
                 // 나의 프로젝트 3개 넘으면 더보기 디브 어펜드
-                let more = `<div class="my-project more" 
+                let more = `<div class="my-project-more" 
                                 onclick="location.href='/simulator/my_project'">
                                 <p>` + moreText + `</p></div>`;
                 projectList.append(more);

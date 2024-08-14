@@ -12,6 +12,7 @@
     display: flex;
     justify-content: space-between;
 }
+
 .gallery-search-menu {
     width: 70%;
     height: 75%;
@@ -26,6 +27,7 @@
         align-items: center;
     }
 }
+
 #gallery-search-input,
 #gallery-search-btn {
     height: 100%;
@@ -34,6 +36,7 @@
     box-sizing: border-box;
     margin-right: 1em;
 }
+
 #gallery-search-input {
     width: 90%;
 }
@@ -43,6 +46,7 @@
     align-items: center;
     justify-content: center;
     background-color: white;
+
     img {
         height: 100%;
     }
@@ -77,12 +81,10 @@
     font-size: 1em;
     font-style: italic;
     color: #79976a;
+
     p {
         margin: 0;
     }
-}
-#search-result{
-    text-decoration: underline;
 }
 
 /* 컨텐츠 영역 */
@@ -156,7 +158,7 @@
         height: 2em;
     }
 
-    .gallery-search-menu{
+    .gallery-search-menu {
         width: 50%;
     }
 
@@ -174,12 +176,12 @@
         min-height: 70vh;
         min-width: 0;
         width: 100%;
-        grid-template-columns: repeat(2, 1fr);
 
-        .project-post {
-            width: 41vw;
-            height: 60vw;
-        }
+    }
+
+    .project-post {
+        width: 41vw;
+        height: 60vw;
     }
 
 }

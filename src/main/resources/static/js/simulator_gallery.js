@@ -52,9 +52,7 @@ $(document).ready(function () {
     });
 
     function loginCheck(userId, dataPk) {
-        console.log(userId);
         if (userId != null && userId !== '') {
-            alert(dataPk);
             location.href = '/simulator/gallery_detail?pk=' + dataPk;
         } else {
             alert('Available after login');

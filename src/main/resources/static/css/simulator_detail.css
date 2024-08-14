@@ -25,6 +25,7 @@
     padding: 0 15%;
     flex-direction: column;
     margin: 1em 0 2em 0;
+    min-height: 145vh;
 }
 
 .top-box {
@@ -39,6 +40,9 @@
         margin: 0;
         font-size: 1.5em;
     }
+}
+.create-date{
+    font-size: 1.2em;
 }
 
 .name-box {
@@ -92,9 +96,11 @@
     top: 0;
     left: 0;
     background-color: #fff;
-    width: 30%;
+    width: 20%;
     border-radius: 1em;
     border: solid #79976a;
+    font-weight: 900;
+    color: #79976a;
 
     li {
         border-bottom: 1px solid #ddd;
@@ -102,6 +108,7 @@
         align-items: center;
         height: 6vw;
         font-size: 2.2vw;
+        padding: 0 1em;
     }
 
     li:last-child {
@@ -149,11 +156,14 @@
     border-bottom: 0.1em solid #79976a;
 }
 
+#comment-text{
+    padding: 0 0.5em;
+}
+
 
 
 @media (max-width: 768px) {
     .content-container {
-        min-height: 100vh;
         padding: 0 2%;
     }
 
@@ -162,9 +172,14 @@
     }
 
     .top-box {
+        margin: 0;
         p {
             font-size: 1.3em;
         }
+    }
+
+    .create-date{
+        font-size: 1em;
     }
 
     .name-box {
@@ -182,6 +197,20 @@
         img {
             height: 60%;
         }
+    }
+
+    .profile-menu{
+        width: 35%;
+
+        li {
+            height: 8vw;
+            font-size: 4vw;
+        }
+    }
+
+    #comment-text {
+        padding: 0 0.5em;
+        margin: 0 0 1em 0;
     }
 
 }

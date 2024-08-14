@@ -30,8 +30,7 @@ $(document).ready(function () {
         }
     })
 
-
-    // 메뉴 열기 및 닫기 토글
+    // 프로필 메뉴 열기 및 닫기 토글
     function toggleMenu($pTag) {
         var $profileMenu = $('.profile-menu');
         var offset = $pTag.offset();
@@ -78,6 +77,28 @@ $(document).ready(function () {
         event.stopPropagation();
     });
 
+    // 프로필 메뉴 클릭 시 href
+    const linkProfile = $("#link-profile");
+    const linkVideo = $("#link-video");
+    const linklfg = $("#link-lfg");
+
+    linkProfile.click(function (){
+        const userId = linkProfile.data('id');
+        console.log(userId);
+        location.href = '/mypage/userProfile?u_id=' + userId;
+    });
+
+    linkVideo.click(function (){
+        const nickname = linkVideo.data('nickname');
+        console.log(nickname);
+        location.href = '/community/search?columnName=u_nickname&searchWord=' + nickname;
+    });
+
+    linklfg.click(function (){
+        const nickname = linklfg.data('nickname');
+        console.log(nickname);
+        location.href = '/community/searchLfg?columnName=u_nickname&searchWord=' + nickname;
+    });
 
 })
 

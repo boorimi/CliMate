@@ -28,9 +28,7 @@
                 <p th:text="${pj.u_nickname}" class="title-nickname"></p>
                 <img th:src="@{'/resources/grade_icon/hold_' + ${pj.u_grade} + '.png'}">
             </div>
-            <div class="date">
-                <p th:text="${#dates.format(pj.s_date, 'yyyy-MM-dd HH:mm')}"></p>
-            </div>
+            <div class="create-date" th:text="${#dates.format(pj.s_date, 'yyyy-MM-dd')}"></div>
         </div>
 
         <div class="webgl-content">
@@ -69,17 +67,15 @@
                     <p th:text="${pj.u_nickname}" class="comment-nickname"></p>
                     <img th:src="@{'/resources/grade_icon/hold_' + ${pj.u_grade} + '.png'}">
                 </div>
-                <div class="date">
-                    <p th:text="${#dates.format(pj.s_date, 'yyyy-MM-dd')}"></p>
-                </div>
+                <div class="create-date" th:text="${#dates.format(pj.s_date, 'yyyy-MM-dd')}"></div>
                 <ul class="profile-menu">
-                    <li th:data-id="${pj.s_u_id}" onclick="redirectToProfile(this)">Profile</li>
-                    <li th:data-nickname="${pj.u_nickname}" onclick="redirectToVideoPost(this)">Post (Video)</li>
-                    <li th:data-nickname="${pj.u_nickname}" onclick="redirectToLfgPost(this)">Post (Lfg)</li>
-                    <li>chating</li>
+                    <li th:data-id="${pj.s_u_id}" id="link-profile">Profile</li>
+                    <li th:data-nickname="${pj.u_nickname}" id="link-video">Post (Video)</li>
+                    <li th:data-nickname="${pj.u_nickname}" id="link-lfg">Post (Lfg)</li>
+                    <li>Chating</li>
                 </ul>
             </div>
-            <p>우와 문제 정말 멋져요!우와 문제 정말 멋져요!우와 문제 정말 멋져요!우와 문제 정말 멋져요!우와 문제 정말 멋져요!우와 문제 정말 멋져요!우와 문제 정말 멋져요!우와 문제 정말 멋져요!우와 문제 정말 멋져요!</p>
+            <p id="comment-text">우와 문제 정말 멋져요!우와 문제 정말 멋져요!우와 문제 정말 멋져요!우와 문제 정말 멋져요!우와 문제 정말 멋져요!우와 문제 정말 멋져요!우와 문제 정말 멋져요!우와 문제 정말 멋져요!우와 문제 정말 멋져요!</p>
         </div>
 
     </div>
