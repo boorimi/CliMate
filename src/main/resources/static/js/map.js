@@ -3,14 +3,21 @@ let userMarker;
 let markers = [];
 let service;
 let infowindow;
+
 const userId = $("#userId").text();
 const myplaceList = [];
+const obj = {
+    place_name: null,
+    wish      : null,
+    check     : null
+}
 $(function () {
     initMap();
     //유저가 목록 버튼 클릭시
     $("#category-box").click(function () {
         $(".search-overlay").css("display", "block");
         $(".search-popup-box").css("display", "block");
+        getAllById();
     })
     //유저가 목록에서 x 버튼 클릭시
     $(".popup-cancel").click(function () {
@@ -25,10 +32,21 @@ $(function () {
     $("#check-img").click(function () {
         console.log("check");
     })
+
+    $("#search-popup-box").scroll(function () {
+        var scrollT = $(this).scrollTop(); //스크롤바의 상단위치
+        var scrollH = $(this).height(); //스크롤바를 갖는 div의 높이
+        var contentH = $('#search-popup-box').height(); //문서 전체 내용을 갖는 div의 높이
+        if (scrollT + scrollH + 1 >= contentH) { // 스크롤바가 아래 쪽에 위치할 때
+            console.log("scroll!!!")
+            getAllById();
+        }
+    })
+    getAllById();
 })
 
 function initMap() {
-    getAllWish().then(() => {
+    getAll().then(() => {
         let defaultLocation = {
             center           : {lat: 37.5665, lng: 126.9780}, // 서울
             zoom             : 15,
@@ -73,10 +91,7 @@ function clearMarkers() {
 
 function createMarker(place) {
     if (!place.geometry || !place.geometry.location) return;
-    console.log("check mylist => " + myplaceList);
-    // 현재 장소의 좋아요 상태를 가져옴
-    const isLiked = myplaceList.some(p => p.place_name === place.name && p.like);
-    const iconUrl = isLiked ? "/resources/icon/wish_red.png" : "/resources/icon/wish_gray.png";
+    console.log("check mylist => " + JSON.stringify(myplaceList));
 
     const marker = new google.maps.Marker({
         map     : map,
@@ -86,13 +101,18 @@ function createMarker(place) {
     });
 
     google.maps.event.addListener(marker, "click", () => {
+        const isLiked = myplaceList.some(p => p.place_name === place.name && p.wish);
+        const iconUrl = isLiked ? "/resources/icon/wish_red.png" : "/resources/icon/wish_gray.png";
+        const isChecked = myplaceList.some(p => p.place_name === place.name && p.check);
+        const iconUrl2 = isChecked ? "/resources/icon/check_red.png" : "/resources/icon/check_gray.png";
+
         const placeUrl = `https://www.google.com/maps/search/?api=1&query=${place.name}}`;
         console.log("check place => " + JSON.stringify(place));
         console.log("check user id => " + userId);
         const content = `<div　style="{width:5vw;}">` +
             `<div class="status-box">` +
             `<img id="wish-img" onclick="wishClick('${place.name}', '${place.formatted_address}', '${place.place_id}', this)" src="${iconUrl}">` +
-            `<img id="check-img" onclick="checkClick()" src="/resources/icon/check_gray.png">` +
+            `<img id="check-img" onclick="checkClick('${place.name}', '${place.formatted_address}', '${place.place_id}', this)" src="${iconUrl2}">` +
             `</div>` +
             `<p id="place-name" onclick="handlePlaceClick('${place.name}')">${place.name}</p>` +
             `<p id="place-addr" onclick="handlePlaceClick('${place.name}')">${place.formatted_address}</p>` +
@@ -176,14 +196,14 @@ $("#map-input").keydown(function (e) {
     }
 });
 
-function goMap() {
-    const place_name = $("#place_name").text();
-    const placeUrl = `https://www.google.com/maps/search/?api=1&query=${place_name}}`;
+function goMap(name) {
+    const placeUrl = "https://www.google.com/maps/search/?api=1&query=" + name;
 
     window.open(placeUrl, '_blank');
 }
 
 function wishClick(placeName, placeAddr, placeId, imgElement) {
+    const placeType = "Wish";
     const isCurrentlyLiked = imgElement.src.includes('wish_red.png');
     const newIconUrl = isCurrentlyLiked ? '/resources/icon/wish_gray.png' : '/resources/icon/wish_red.png';
 
@@ -201,18 +221,21 @@ function wishClick(placeName, placeAddr, placeId, imgElement) {
         $.ajax({
             url    : "/insertWish",
             data   : {
-                mp_u_id    : userId,
-                mp_like    : placeName,
-                mp_likeaddr: placeAddr
+                mp_u_id: userId,
+                mp_name: placeName,
+                mp_addr: placeAddr,
+                mp_type: placeType
             },
             type   : "post",
             success: function () {
                 // 상태 업데이트 후 myplaceList 배열 갱신
                 const index = myplaceList.findIndex(p => p.place_name === placeName);
                 if (index !== -1) {
-                    myplaceList[index].like = !myplaceList[index].like;
+                    myplaceList[index].wish = !myplaceList[index].wish;
                 } else {
-                    myplaceList.push({place_name: placeName, like: true});
+                    obj.place_name = placeName;
+                    obj.wish = true;
+                    myplaceList.push(obj);
                 }
 
                 // infoWindow 내 이미지 업데이트
@@ -224,15 +247,96 @@ function wishClick(placeName, placeAddr, placeId, imgElement) {
         })
     } else {
         //제거하는 ajax
+        $.ajax({
+            url    : "/deleteWish",
+            data   : {
+                mp_u_id: userId,
+                mp_name: placeName,
+                mp_type: placeType
+            },
+            type   : "post",
+            success: function () {
+                // 상태 업데이트 후 myplaceList 배열 갱신
+                const index = myplaceList.filter(p => p.place_name === placeName);
+                index.forEach(item => {
+                    console.log("check index item => " + JSON.stringify(item));
+                    item.wish = false;
+                })
+
+                // infoWindow 내 이미지 업데이트
+                imgElement.src = newIconUrl;
+            },
+            error  : function () {
+                console.log("아 에러에유");
+            }
+        })
     }
 
 }
 
-function checkClick() {
-    console.log("check userId => " + userId);
+function checkClick(placeName, placeAddr, placeId, imgElement) {
+    const placeType = "Check";
+    const isCurrentlyCheck = imgElement.src.includes('check_red.png');
+    const newIconUrl = isCurrentlyCheck ? '/resources/icon/check_gray.png' : '/resources/icon/check_red.png';
+
     if (userId == "") {
         alert("do login");
         location.href = "/";
+    }
+
+    if (!isCurrentlyCheck) {
+        $.ajax({
+            url    : "/insertCheck",
+            data   : {
+                mp_u_id: userId,
+                mp_name: placeName,
+                mp_addr: placeAddr,
+                mp_type: placeType
+            },
+            type   : "post",
+            success: function () {
+                // 상태 업데이트 후 myplaceList 배열 갱신
+                const index = myplaceList.findIndex(p => p.place_name === placeName);
+                if (index !== -1) {
+                    myplaceList[index].check = !myplaceList[index].check;
+                } else {
+                    obj.place_name = placeName;
+                    obj.check = true
+                    myplaceList.push(obj);
+                }
+
+                // infoWindow 내 이미지 업데이트
+                imgElement.src = newIconUrl;
+            },
+            error  : function () {
+                console.log("아 에러에유");
+            }
+        })
+    } else {
+        //제거하는 ajax
+        $.ajax({
+            url    : "/deleteCheck",
+            data   : {
+                mp_u_id: userId,
+                mp_name: placeName,
+                mp_type: placeType
+            },
+            type   : "post",
+            success: function () {
+                // 상태 업데이트 후 myplaceList 배열 갱신
+                const index = myplaceList.filter(p => p.place_name === placeName);
+                index.forEach(item => {
+                    console.log("check index item => " + JSON.stringify(item));
+                    item.check = false;
+                })
+
+                // infoWindow 내 이미지 업데이트
+                imgElement.src = newIconUrl;
+            },
+            error  : function () {
+                console.log("아 에러에유");
+            }
+        })
     }
 }
 
@@ -242,7 +346,7 @@ function getOneWish(place_name) {
         url    : "/getOneWish",
         data   : {
             mp_u_id: userId,
-            mp_like: place_name
+            mp_wish: place_name
         },
         success: function () {
             console.log("아 성공이에유");
@@ -254,20 +358,94 @@ function getOneWish(place_name) {
     })
 }
 
-async function getAllWish() {
+async function getAll() {
     await $.ajax({
-        url    : "/getAllWish",
+        url    : "/getAll",
         data   : {
             mp_u_id: userId
         },
         success: function (resData) {
             myplaceList.length = 0; // 배열 초기화
+
             resData.forEach(item => {
-                myplaceList.push({place_name: item.mp_like, like: true});
+                const obj = { //객체 초기화
+                    place_name: null,
+                    wish      : null,
+                    check     : null
+                }
+                console.log("check item json => " + JSON.stringify(item))
+                obj.place_name = item.mp_name;
+                item.mp_type === "Check" ? obj.check = true : obj.check = false;
+                item.mp_type === "Wish" ? obj.wish = true : obj.wish = false;
+                myplaceList.push(obj);
+                console.log("check get all obj=> " + JSON.stringify(obj));
+                console.log("check get all list=> " + JSON.stringify(myplaceList));
             });
         },
         error  : function (error) {
             console.error(error)
+        }
+    })
+}
+
+let page = 0;
+
+function getAllById(limit) {
+
+    $.ajax({
+        url     : "/getAllById",
+        data    : {
+            mp_u_id: userId
+        },
+        success : function (item) {
+            let limit = 4;
+            if (page <= (item.length / 4) - 1) {
+                for (let i = 0; i < limit; i++) {
+                    console.log(i);
+                    if (item[i].mp_type === "Wish") {
+                        const content = `
+                        <div class="search-result-box">
+                            <div class="search-icon">
+                                <img class="icon" id="icon" src="/resources/icon/wish_red.png">
+                            </div>
+                            <div class="search-text">
+                                <p id="place_name">${item[i].mp_name}</p>
+                                <p id="place_addr">${item[i].mp_addr}</p>
+                            </div>
+                            <div class="search-map">
+                                <img onclick="goMap('${item[i].mp_name}')" src="/resources/icon/map.png">
+                            </div>
+                        </div>`;
+                        $(".search-result").append(content);
+                    } else if (item[i].mp_type === "Check") {
+                        const content = `
+                        <div class="search-result-box">
+                            <div class="search-icon">
+                                <img class="icon" id="icon" src="/resources/icon/check_red.png">
+                            </div>
+                            <div class="search-text">
+                                <p id="place_name">${item[i].mp_name}</p>
+                                <p id="place_addr">${item[i].mp_addr}</p>
+                            </div>
+                            <div class="search-map">
+                                <img onclick="goMap('${item[i].mp_name}')" src="/resources/icon/map.png">
+                            </div>
+                        </div>`;
+                        $(".search-result").append(content);
+                    }
+                    console.log("check get all by id => " + JSON.stringify(item));
+                    if (limit <= item.length - 1) limit += 4;
+                }
+                console.log("check page => " + page);
+                console.log("check item length => " + item.length);
+                page++;
+            }
+        },
+        error   : function (error) {
+
+        },
+        complete: function () {
+            page = page + 1;
         }
     })
 }

@@ -20,12 +20,32 @@ public class MyPlaceDAO implements MyPlaceMapper {
     }
 
     @Override
-    public MyPlaceDTO getOneWish(MyPlaceDTO myplaceDTO) {
-        return myPlaceMapper.getOneWish(myplaceDTO);
+    public MyPlaceDTO getOne(MyPlaceDTO myplaceDTO) {
+        return myPlaceMapper.getOne(myplaceDTO);
     }
 
     @Override
-    public List<MyPlaceDTO> getAllWish(String mp_u_id) {
-        return myPlaceMapper.getAllWish(mp_u_id);
+    public List<MyPlaceDTO> getAll(String mp_u_id) {
+        return myPlaceMapper.getAll(mp_u_id);
+    }
+
+    @Override
+    public List<MyPlaceDTO> getAllById(String mp_u_id) {
+        return myPlaceMapper.getAllById(mp_u_id);
+    }
+
+    @Override
+    public int deleteWish(String mp_u_id, String mp_name, String mp_type) {
+        return myPlaceMapper.deleteWish(mp_u_id, mp_name, mp_type);
+    }
+
+    @Override
+    public int insertCheck(MyPlaceDTO myplaceDTO) {
+        return myPlaceMapper.insertCheck(myplaceDTO);
+    }
+
+    @Override
+    public int deleteCheck(String mp_u_id, String mp_name, String mp_type) {
+        return myPlaceMapper.deleteCheck(mp_u_id, mp_name, mp_type);
     }
 }

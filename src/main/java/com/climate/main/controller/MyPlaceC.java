@@ -19,27 +19,70 @@ public class MyPlaceC {
     private MyPlaceDAO myPlaceDAO;
 
     @PostMapping("/insertWish")
-    public void WishC(@ModelAttribute MyPlaceDTO myplaceDTO, HttpServletRequest request, HttpServletResponse response) {
-        if (myPlaceDAO.insertWish(myplaceDTO) == 1) {
-            response.setStatus(response.SC_CREATED);
+    public void InsertWish(@ModelAttribute MyPlaceDTO myplaceDTO, HttpServletResponse response) {
+        //테이블에 데이터 존재 확인 이후 insert, delete 실행
+        if (myPlaceDAO.getOne(myplaceDTO) != null) {
+            if (myPlaceDAO.deleteWish(myplaceDTO.getMp_u_id(), myplaceDTO.getMp_name(), myplaceDTO.getMp_type()) != 1) {
+                response.setStatus(HttpServletResponse.SC_OK);
+            } else {
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            }
         } else {
-            response.setStatus(response.SC_BAD_REQUEST);
+            if (myPlaceDAO.insertWish(myplaceDTO) == 1) {
+                response.setStatus(response.SC_CREATED);
+            } else {
+                response.setStatus(response.SC_BAD_REQUEST);
+            }
         }
     }
 
-    @GetMapping("/getOneWish")
-    public void GetOneWish(HttpServletResponse response, @ModelAttribute MyPlaceDTO myplaceDTO) {
+    @PostMapping("/deleteWish")
+    public int DeleteWish(String mp_u_id, String mp_name, String mp_type) {
+        return myPlaceDAO.deleteWish(mp_u_id, mp_name, mp_type);
+    }
+
+    @PostMapping("/insertCheck")
+    public void InsertCheck(@ModelAttribute MyPlaceDTO myplaceDTO, HttpServletResponse response) {
+        //테이블에 데이터 존재 확인 이후 insert, delete 실행
+        if (myPlaceDAO.getOne(myplaceDTO) != null) {
+            if (myPlaceDAO.deleteCheck(myplaceDTO.getMp_u_id(), myplaceDTO.getMp_name(), myplaceDTO.getMp_type()) == 1) {
+                response.setStatus(response.SC_OK);
+            } else {
+                response.setStatus(response.SC_BAD_REQUEST);
+            }
+        } else {
+            if (myPlaceDAO.insertCheck(myplaceDTO) == 1) {
+                response.setStatus(response.SC_CREATED);
+            } else {
+                response.setStatus(response.SC_BAD_REQUEST);
+            }
+
+        }
+    }
+
+    @PostMapping("/deleteCheck")
+    public int DeleteCheck(String mp_u_id, String mp_name, String mp_type) {
+        return myPlaceDAO.deleteCheck(mp_u_id, mp_name, mp_type);
+    }
+
+    @GetMapping("/getOne")
+    public void GetOne(HttpServletResponse response, @ModelAttribute MyPlaceDTO myplaceDTO) {
         System.out.println("check dto => " + myplaceDTO);
-        if (myPlaceDAO.getOneWish(myplaceDTO) != null) {
+        if (myPlaceDAO.getOne(myplaceDTO) != null) {
             response.setStatus(response.SC_OK);
         } else {
             response.setStatus(response.SC_BAD_REQUEST);
         }
     }
 
-    @GetMapping("/getAllWish")
-    public List<MyPlaceDTO> GetAllWish(HttpServletResponse response, String mp_u_id) {
+    @GetMapping("/getAll")
+    public List<MyPlaceDTO> GetAll(String mp_u_id) {
         System.out.println("check dto => " + mp_u_id);
-        return myPlaceDAO.getAllWish(mp_u_id);
+        return myPlaceDAO.getAll(mp_u_id);
+    }
+
+    @GetMapping("/getAllById")
+    public List<MyPlaceDTO> GetAllById(String mp_u_id) {
+        return myPlaceDAO.getAllById(mp_u_id);
     }
 }
