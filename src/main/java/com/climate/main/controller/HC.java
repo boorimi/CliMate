@@ -18,7 +18,6 @@ public class HC {
 
     @GetMapping("/map")
     public  String map(){
-
         return "index";
     }
 
@@ -26,4 +25,10 @@ public class HC {
     public  String login(){
         return "index";
     }
+
+    @GetMapping("/chating")
+    public  String chating(){
+        return "redirect:http://localhost:3000";
+    }
+
 }

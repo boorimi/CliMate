@@ -59,3 +59,21 @@ dependencies {
 tasks.named('test') {
     useJUnitPlatform()
 }
+
+task testBatchFile(type: Exec) {
+    commandLine 'cmd', '/c', 'c:\\kds\\climate\\start-servers.bat'
+    workingDir = file('.')
+    standardOutput = new FileOutputStream('batch-output.log')
+    errorOutput = new FileOutputStream('batch-error.log')
+    ignoreExitValue = true
+}
+
+task startNodeServer(type: Exec) {
+    commandLine 'cmd', '/c', 'c:\\kds\\climate\\start-servers.bat'
+    workingDir = file('.')
+}
+
+bootRun {
+    dependsOn startNodeServer
+}
+
