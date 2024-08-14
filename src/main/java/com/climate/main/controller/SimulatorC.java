@@ -111,6 +111,7 @@ public class SimulatorC {
     public String searchNickname(@RequestParam("nickname")String nickname, Model model){
         System.out.println("검색한 닉네임: "+nickname);
         model.addAttribute("project", simulatorDAO.searchNickname(nickname));
+        System.out.println(simulatorDAO.searchNickname(nickname));
         model.addAttribute("content", "/simulator/simulator_menu");
         model.addAttribute("simulator_content", "/simulator/simulator_gallery");
         return "index";
