@@ -13,7 +13,7 @@
   justify-content: flex-end;
   align-items: center;
   margin-bottom: 0.5rem;
-  height: 10vh;
+  height: 5em;
   color: #302e23;
   font-family: "jpFont01";
 
@@ -88,7 +88,7 @@
 }
 
 footer {
-    height: 10vh;
+    height: 4em;
     background-color: #79976a;
     display: flex;
     justify-content: center;

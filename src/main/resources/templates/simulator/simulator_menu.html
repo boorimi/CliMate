@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/resources/css/simulator_menu.css">
+    <script
+            src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"
+    ></script>
+    <script src="/resources/js/simulator_menu.js" defer></script>
+</head>
+<body>
+<div class="s-menu-container">
+    <div class="s-menu-create">Create</div>
+    <div class="s-menu-my-project">My project</div>
+    <div class="s-menu-gallery">Gallery</div>
+</div>
+<div th:include="${simulator_content}"></div>
+</body>
+</html>

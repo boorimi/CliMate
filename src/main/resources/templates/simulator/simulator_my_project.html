@@ -13,8 +13,6 @@
 </head>
 <body>
 <div class="project-container">
-    <div id="my-project-title">My Project</div>
-    <hr>
     <div class="project-content">
         <div th:each="myPj: ${myProject}" class="project-post" th:attr="data-pk=${myPj.s_pk}">
             <div class="project-img">

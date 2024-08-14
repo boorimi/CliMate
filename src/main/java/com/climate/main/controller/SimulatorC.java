@@ -65,7 +65,8 @@ public class SimulatorC {
     public String simulator(Model model) {
         model.addAttribute("holds", simulatorDAO.getAllHolds());
 //        System.out.println(holdDAO.getAllHolds());
-        model.addAttribute("content", "/simulator/simulator_create");
+        model.addAttribute("content", "/simulator/simulator_menu");
+        model.addAttribute("simulator_content", "/simulator/simulator_create");
         return "index";
     }
 
@@ -74,7 +75,8 @@ public class SimulatorC {
         String userId = (String) session.getAttribute("user_id");
         model.addAttribute("user_id", userId);
         model.addAttribute("myProject", simulatorDAO.getMyProject(userId));
-        model.addAttribute("content", "/simulator/simulator_my_project");
+        model.addAttribute("content", "/simulator/simulator_menu");
+        model.addAttribute("simulator_content", "/simulator/simulator_my_project");
         return "index";
     }
 
@@ -82,7 +84,8 @@ public class SimulatorC {
     public String simulatorGallery(Model model) {
         model.addAttribute("allProject", simulatorDAO.getAllProject());
         System.out.println("모든문제: " + simulatorDAO.getAllProject());
-        model.addAttribute("content", "/simulator/simulator_gallery");
+        model.addAttribute("content", "/simulator/simulator_menu");
+        model.addAttribute("simulator_content", "/simulator/simulator_gallery");
         return "index";
     }
 
@@ -90,9 +93,11 @@ public class SimulatorC {
     public String galleryPost(@RequestParam("pk") int pk, Model model) {
         model.addAttribute("project", simulatorDAO.getProject(pk));
         System.out.println(simulatorDAO.getProject(pk));
-        model.addAttribute("content", "/simulator/simulator_gallery_detail");
+        model.addAttribute("content", "/simulator/simulator_menu");
+        model.addAttribute("simulator_content", "/simulator/simulator_gallery_detail");
         return "index";
     }
+
 
     @ResponseBody
     @PostMapping("/deleteProject")
