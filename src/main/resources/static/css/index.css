@@ -73,6 +73,12 @@
     }
   }
 
+  li:nth-child(4){
+    img{
+      width: 3.5vw;
+    }
+  }
+
   li:last-child {
     border-bottom: none;
 

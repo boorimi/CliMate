@@ -62,6 +62,7 @@
             </div>
         </form>
 
+        <!--    댓글 시작    -->
         <div class="comment-list" th:each="pj : ${project}" th:attr="data-file=${pj.s_file}">
             <div class="top-box">
                 <div class="name-box">
@@ -80,24 +81,7 @@
             </div>
             <p>우와 문제 정말 멋져요!우와 문제 정말 멋져요!우와 문제 정말 멋져요!우와 문제 정말 멋져요!우와 문제 정말 멋져요!우와 문제 정말 멋져요!우와 문제 정말 멋져요!우와 문제 정말 멋져요!우와 문제 정말 멋져요!</p>
         </div>
-        <div class="comment-list" th:each="pj : ${project}" th:attr="data-file=${pj.s_file}">
-            <div class="top-box">
-                <div class="name-box">
-                    <p th:text="${pj.u_nickname}" class="comment-nickname"></p>
-                    <img th:src="@{'/resources/grade_icon/hold_' + ${pj.u_grade} + '.png'}">
-                </div>
-                <div class="date">
-                    <p th:text="${#dates.format(pj.s_date, 'yyyy-MM-dd')}"></p>
-                </div>
-                <ul class="profile-menu">
-                    <li th:data-id="${pj.s_u_id}" onclick="redirectToProfile(this)">Profile</li>
-                    <li th:data-nickname="${pj.u_nickname}" onclick="redirectToVideoPost(this)">Post (Video)</li>
-                    <li th:data-nickname="${pj.u_nickname}" onclick="redirectToLfgPost(this)">Post (Lfg)</li>
-                    <li>chating</li>
-                </ul>
-            </div>
-            <p>우와 문제 정말 멋져요!우와 문제 정말 멋져요!우와 문제 정말 멋져요!우와 문제 정말 멋져요!우와 문제 정말 멋져요!우와 문제 정말 멋져요!우와 문제 정말 멋져요!우와 문제 정말 멋져요!우와 문제 정말 멋져요!</p>
-        </div>
+
     </div>
 </div>
 

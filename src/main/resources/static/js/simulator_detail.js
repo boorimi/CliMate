@@ -3,6 +3,13 @@ import {OrbitControls} from "three/addons/controls/OrbitControls.js";
 import {GLTFLoader} from "three/addons/loaders/GLTFLoader.js";
 
 $(document).ready(function () {
+
+    $(".s-menu-gallery").css({
+        "background-color": "#79976a",
+        "color": "#ffffff"
+    });
+
+
     $(".delete").click(function () {
         const pk = $(this).data('pk');
         const gltf = $(this).data('gltf');
