@@ -40,4 +40,10 @@ out/
 
 ### simulator js test folder ###
 sTest/
+
+#upload
 upload/
+
+#firebase
+firebaseAccountKey.json
+

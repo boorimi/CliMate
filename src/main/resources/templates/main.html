@@ -1,84 +1,93 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8"/>
+  <head>
+    <meta charset="UTF-8" />
     <!--    미디어쿼리 쓸 때에 추가해주기-->
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <!-- 애니메이션 cdn -->
     <link
-            href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
-            rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+      rel="stylesheet"
     />
 
-    <link href="/resources/css/main.css" rel="stylesheet"/>
+    <link href="/resources/css/main.css" rel="stylesheet" />
     <script
-            crossorigin="anonymous"
-            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-            src="https://code.jquery.com/jquery-3.6.0.min.js"
+      crossorigin="anonymous"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
     ></script>
-    <script defer src="/resources/js/main.js"></script>
-</head>
-<body>
-<div class="main-container">
-    <div class="main-background-img">
-        <img src="/resources/img/main1.jpg"/>
-        <img src="/resources/img/main2.jpg"/>
-        <img src="/resources/img/main3.jpg"/>
-        <img src="/resources/img/main4.jpg"/>
-        <img src="/resources/img/main5.jpg"/>
-    </div>
-    <div class="main-menu-container">
+    <script src="/resources/js/main.js" defer></script>
+  </head>
+  <body>
+    <a href="/chating" target="_blank">채팅테스트</a>
+    <div class="main-container">
+      <div class="main-background-img">
+        <img src="/resources/img/main1.jpg" />
+        <img src="/resources/img/main2.jpg" />
+        <img src="/resources/img/main3.jpg" />
+        <img src="/resources/img/main4.jpg" />
+        <img src="/resources/img/main5.jpg" />
+      </div>
+      <div class="main-menu-container">
         <div class="main-title">
-            <div class="animate__animated animate__backInDown animate__delay-2s">
-                <img
-                        id="main-title-carabiner"
-                        src="/resources/img/logoCarabiner.png"
-                />
-            </div>
-            <div class="animate__animated animate__tada animate__delay-1s">
-                <img id="main-title-text" src="/resources/img/logoText.png"/>
-            </div>
+          <div class="animate__animated animate__backInDown animate__delay-2s">
+            <img
+              id="main-title-carabiner"
+              src="/resources/img/logoCarabiner.png"
+            />
+          </div>
+          <div class="animate__animated animate__tada animate__delay-1s">
+            <img id="main-title-text" src="/resources/img/logoText.png" />
+          </div>
         </div>
         <div class="main-menu-list">
-            <div class="main-map" onclick="location.href='/mapC'">
-                <div class="main-map-img">
-                    <img src="/resources/icon/map.png"/>
-                </div>
-                <div>Map</div>
+          <div class="main-map" onclick="location.href='/mapC'">
+            <div class="main-map-img">
+              <img src="/resources/icon/map.png" />
             </div>
-            <div class="main-simulator" onclick="location.href='/simulator/main'">
-                <div class="main-simulator-img">
-                    <img src="/resources/icon/hold.png"/>
-                </div>
-                <div>Simulator</div>
+            <div>Map</div>
+          </div>
+          <div class="main-simulator" onclick="location.href='/simulator/main'">
+            <div class="main-simulator-img">
+              <img src="/resources/icon/hold.png" />
             </div>
-            <div
-                    class="main-community"
-                    onclick="location.href='/community/video'"
-            >
-                <div class="main-community-img">
-                    <img src="/resources/icon/community.png"/>
-                </div>
-                <div>Community</div>
+            <div>Simulator</div>
+          </div>
+          <div
+            class="main-community"
+            onclick="location.href='/community/video'"
+          >
+            <div class="main-community-img">
+              <img src="/resources/icon/community.png" />
             </div>
-            <div class="main-login" onclick="location.href='/loginC'" th:if="${user_id} == null">
-                <div class="main-login-img">
-                    <img src="/resources/icon/google.png"/>
-                </div>
-                <div>Login</div>
+            <div>Community</div>
+          </div>
+          <div
+            class="main-login"
+            onclick="location.href='/loginC'"
+            th:if="${user_id} == null"
+          >
+            <div class="main-login-img">
+              <img src="/resources/icon/google.png" />
             </div>
+            <div>Login</div>
+          </div>
 
-            <div class='main-mypage' onclick="location.href='/mypage'" th:if="${user_id} != null">
-                <img class='main-login-img' src="/resources/icon/mypage.png"/>
+          <div
+            class="main-mypage"
+            onclick="location.href='/mypage'"
+            th:if="${user_id} != null"
+          >
+            <img class="main-login-img" src="/resources/icon/mypage.png" />
 
-                <p id="menu-login">MyPage</p>
-            </div>
-            <div class="main-logout" th:if="${user_id} != null">
-                <img class="main-login-img" src="/resources/icon/logout.png"/>
-                Logout
-            </div>
+            <p id="menu-login">MyPage</p>
+          </div>
+          <div class="main-logout" th:if="${user_id} != null">
+            <img class="main-login-img" src="/resources/icon/logout.png" />
+            Logout
+          </div>
         </div>
+      </div>
     </div>
-</div>
-</body>
+  </body>
 </html>
