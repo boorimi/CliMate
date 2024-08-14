@@ -3,8 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="/resources/css/simulator_gallery.css">
+    <script
+            src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"
+    ></script>
+    <script src="/resources/js/simulator_gallery.js" defer></script>
 </head>
 <body>
-<h1>갤러리페이지 ~~</h1>
+<div class="project-container">
+    <form action="">
+        <div class="project-search">
+            <select name="category" id="category">
+                <option value="Normal">Normal</option>
+                <option value="Setter">Setter</option>
+                <option value="NickName">NickName</option>
+            </select>
+            <input type="text" />
+            <button>
+                <img src="/resources/icon/search.png" />
+            </button>
+        </div>
+    </form>
+
+    <div class="project-content">
+        <div th:each="pj: ${allProject}" class="project-post" th:attr="data-pk=${pj.s_pk}">
+            <div class="project-img">
+                <img th:src="${pj.s_img}">
+            </div>
+            <div class="like-and-comment">
+                <img src="/resources/icon/love_blank.png">
+                <p>100</p>
+                <img src="/resources/icon/chat-bubble.png">
+                <p>0</p>
+            </div>
+            <div class="name-box">
+                <p th:text="${pj.u_nickname}"></p>
+                <img th:src="@{'/resources/grade_icon/hold_' + ${pj.u_grade} + '.png'}">
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

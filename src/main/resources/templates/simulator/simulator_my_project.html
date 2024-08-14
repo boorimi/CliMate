@@ -3,10 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="/resources/css/simulator_gallery.css">
+    <script
+            src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"
+    ></script>
+    <script src="/resources/js/simulator_my_project.js" defer></script>
 </head>
 <body>
-<h1>
-내가만든문제 페이지~
-</h1>
+<div class="project-container">
+    <div id="my-project-title">My Project</div>
+    <hr>
+    <div class="project-content">
+        <div th:each="myPj: ${myProject}" class="project-post" th:attr="data-pk=${myPj.s_pk}">
+            <div class="project-img">
+                <img th:src="${myPj.s_img}">
+            </div>
+            <div class="like-and-comment">
+                <img src="/resources/icon/love_blank.png">
+                <p>100</p>
+                <img src="/resources/icon/chat-bubble.png">
+                <p>0</p>
+            </div>
+            <div class="name-box">
+                <p th:text="${#dates.format(myPj.s_date, 'yyyy-MM-dd HH:mm')}"></p>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
