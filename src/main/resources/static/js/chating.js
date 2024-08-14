@@ -17,9 +17,9 @@ const port = 3000;
 
 // CORS 미들웨어 설정
 app.use(cors({
-    origin: 'http://localhost:80/chating', // 스프링 부트 애플리케이션 URL
+    origin: '*',
     methods: ['GET', 'POST'],
-    credentials: true
+    // credentials: true
 }));
 
 // 정적 파일 제공 설정
