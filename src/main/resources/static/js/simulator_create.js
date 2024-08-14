@@ -72,6 +72,7 @@ class App {
         this._mouse = new THREE.Vector2();
         this._camera = new THREE.PerspectiveCamera();
         this._controls = null;
+        this._currentGroupName = null;
         this._positionData = null;
         this._rotationData = null;
         this._positionDataJSON = null;
@@ -81,7 +82,12 @@ class App {
         this._draggableObjects = [];
         this._dragControls = null;
         this._exportButton = document.querySelector("#save-btn");
-        this._exportButton.addEventListener("click", () => this.exportScene());
+        this._exportButton.addEventListener("click", () => {
+            if (confirm('Do you want to save?')) {
+                this.exportScene();
+
+            }
+        });
         this.userData = null;
     }
 
@@ -128,7 +134,7 @@ class App {
 
     // 랜덤 문자열 생성
     generateRandomString(length) {
-        const characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
+        const characters = '123456789';
         let result = '';
         const charactersLength = characters.length;
         for (let i = 0; i < length; i++) {
@@ -154,6 +160,8 @@ class App {
                 .then(response => response.json())
                 .then(data => {
                     console.log('Success:' + data.status);
+                    alert("성공~~")
+                    location.href="/simulator/main";
                 })
                 .catch((error) => {
                     console.error('에러:' + error);
@@ -387,7 +395,7 @@ function loadModel(app, modelPath, groupName, position, scale, rotation) {
             const modelGroup = model;
             modelGroup.name = groupName;
 
-            console.log(groupName);
+            // console.log(groupName);
 
             app._currentGroupName = groupName;
 
@@ -427,8 +435,10 @@ function setupDragControls(app) {
     app._dragControls.addEventListener('dragstart', function (event) {
         app._controls.enabled = false;
 
+        let originObject = event.object;
+        let object = event.object.parent;
+
         // 드래그 시작 시 객체를 투명하게 설정
-        const object = event.object;
         object.traverse((child) => {
             if (child.isMesh) {
                 if (!child.userData.hasOwnProperty('originalOpacity')) {
@@ -439,17 +449,22 @@ function setupDragControls(app) {
                 child.material.transparent = true;
             }
         });
+        handleDrag(originObject, object, object.name, event);
     });
 
     app._dragControls.addEventListener('drag', function (event) {
-        handleDrag(event.object);
+        let object = event.object.parent;
+        let originObject = event.object;
+
+        handleDrag(originObject, object, object.name, event);
     });
 
     app._dragControls.addEventListener('dragend', function (event) {
         app._controls.enabled = true;
 
         // 드래그 종료 시 객체를 불투명하게 설정
-        const object = event.object;
+        let object = event.object.parent;
+        let originObject = event.object;
         object.traverse((child) => {
             if (child.isMesh) {
                 child.material.opacity = child.userData.originalOpacity;
@@ -459,33 +474,34 @@ function setupDragControls(app) {
 
         // 새로운 위치로 positionData를 업데이트
         app._positionData = {
-            x: object.position.x,
-            y: object.position.y,
-            z: object.position.z
+            x: originObject.position.x,
+            y: originObject.position.y,
+            z: originObject.position.z
         };
 
         app._rotationData = {
-            x: object.rotation.x,
-            y: object.rotation.y,
-            z: object.rotation.z
+            x: originObject.rotation.x,
+            y: originObject.rotation.y,
+            z: originObject.rotation.z
         }
-
-        let groupName = app._currentGroupName;
-        // console.log("나오나?"+groupName);
+        let groupName = object.name;
         // 업데이트된 위치 데이터를 로그로 출력
-        logModelInfo(groupName, app._positionData, app._rotationData, object);
+        logModelInfo(groupName, app._positionData, app._rotationData, object, originObject);
+        handleDrag(originObject, object, object.name, event);
     });
 }
 
 // 모델 정보
-function logModelInfo(groupName, positionData, rotationData, object) {
-    // console.log("Model Name: " + groupName);
+function logModelInfo(groupName, positionData, rotationData, object, originObject, event) {
+    // console.log("모델인포펑션: " + object.name);
     console.log(`Position - X: ${positionData.x}, Y: ${positionData.y}, Z: ${positionData.z}`);
     console.log(`로테이션 - Z: ${rotationData.z}`);
     console.log(`로테이션 - X: ${rotationData.x}`);
+    // console.log("로그 모델" + groupName);
+    handleDrag(object, groupName);
 }
 
-function handleDrag(object, groupName) {
+function handleDrag(originObject, object, event) {
     // 객체의 위치 제한 (지정된 범위 내에서만 이동 가능)
     const minX = -1700;
     const maxX = 2000;
@@ -494,58 +510,59 @@ function handleDrag(object, groupName) {
     const minY = -3500;
     const maxY = -200;
 
-    groupName = app._currentGroupName;
-    // console.log(groupName);
-    if (groupName.includes('5') || groupName.includes('6')) {
-        if (object.rotation.x === 0) {
-            object.position.x = Math.max(minX, Math.min(maxX, object.position.x));
-            object.position.z = Math.max(minZ, Math.min(maxZ, object.position.z));
-            // y 축 이동 제한 (사실 z축인 셈)
-            object.position.y = 0;
+    // groupName = app._currentGroupName;
+    let modelName = String(object.name);
 
-            if (object.position.z <= minZ){
-                console.log("닿았다");
-                object.rotation.x = -1.6;
+    if (modelName.includes('phone')) {
+        if (originObject.rotation.x === 0) {
+            originObject.position.x = Math.max(minX, Math.min(maxX, originObject.position.x));
+            originObject.position.z = Math.max(minZ, Math.min(maxZ, originObject.position.z));
+            // y 축 이동 제한 (사실 z축인 셈)
+            originObject.position.y = 0;
+
+            if (originObject.position.z <= minZ) {
+                // console.log("닿았다");
+                originObject.rotation.x = -1.6;
             }
             // x축을 y축으로 인식중.
             // y축이 x축.
-        } else if (object.rotation.x === -1.6){
-            object.position.x = Math.max(-1900, Math.min(2200, object.position.x));
-            object.position.y = Math.max(-3500, Math.min(100, object.position.y));
-            object.position.z = -2000;
+        } else if (originObject.rotation.x === -1.6) {
+            originObject.position.x = Math.max(-1900, Math.min(2200, originObject.position.x));
+            originObject.position.y = Math.max(-3500, Math.min(100, originObject.position.y));
+            originObject.position.z = -2000;
 
-            if (object.position.y >= maxY) {
-                console.log("다시 닿았다")
-                object.rotation.x = 0;
+            if (originObject.position.y >= maxY) {
+                // console.log("다시 닿았다")
+                originObject.rotation.x = 0;
             }
         }
         // 모델 1,2,3,4
     } else {
-        if (object.rotation.z === 0) {
+        if (originObject.rotation.z === 0) {
             // x, z 축 범위 내에서만 이동 가능하도록 설정
-            object.position.x = Math.max(minX, Math.min(maxX, object.position.x));
-            object.position.z = Math.max(minZ, Math.min(maxZ, object.position.z));
+            originObject.position.x = Math.max(minX, Math.min(maxX, originObject.position.x));
+            originObject.position.z = Math.max(minZ, Math.min(maxZ, originObject.position.z));
 
             // y 축 이동 제한 (사실 z축인 셈)
-            object.position.y = 0; // y 축 위치를 0으로 고정
+            originObject.position.y = 0; // y 축 위치를 0으로 고정
 
-            if (object.position.x >= maxX) {
-                console.log("닿았다");
-                object.rotation.z = -1.6;
+            if (originObject.position.x >= maxX) {
+                // console.log("닿았다");
+                originObject.rotation.z = -1.6;
             }
 
-        } else if (object.rotation.z === -1.6) {
+        } else if (originObject.rotation.z === -1.6) {
             // y 축 범위 내에서만 이동 가능하도록 설정
-            object.position.y = Math.max(minY, Math.min(maxY, object.position.y));
-            object.position.z = Math.max(minZ, Math.min(maxZ, object.position.z));
+            originObject.position.y = Math.max(minY, Math.min(maxY, originObject.position.y));
+            originObject.position.z = Math.max(minZ, Math.min(maxZ, originObject.position.z));
 
             // x 축 고정값 설정
-            object.position.x = 2000;
+            originObject.position.x = 2000;
 
             // cube2 왼쪽 끝에 닿으면 다시 회전
-            if (object.position.y >= -200) {
-                console.log("다시 닿았다")
-                object.rotation.z = 0;
+            if (originObject.position.y >= -200) {
+                // console.log("다시 닿았다")
+                originObject.rotation.z = 0;
             }
         }
     }
