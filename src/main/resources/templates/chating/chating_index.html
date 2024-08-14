@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spring Boot Chat Integration</title>
+    <script>
+        // URL에서 userId 파라미터 추출 및 세션 스토리지에 저장
+        const userId = new URLSearchParams(window.location.search).get('userId');
+        if (userId) {
+            sessionStorage.setItem('userId', userId);
+        }
+
+
+
+    </script>
+</head>
+<body>
+<div id="chat">
+    <div id="messages"></div>
+    <form id="form" action="">
+        <input id="input" autocomplete="off" placeholder="Type a message..."/>
+        <button>Send</button>
+    </form>
+</div>
+
+<script src="https://popular-plainly-mongoose.ngrok-free.app/socket.io/socket.io.js"></script>
+<script>
+
+
+    const socket = io('https://popular-plainly-mongoose.ngrok-free.app');
+
+    const form = document.getElementById('form');
+    const input = document.getElementById('input');
+
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (input.value) {
+            socket.emit('chat message', input.value);
+            input.value = '';
+        }
+    });
+
+    socket.on('chat message', function (msg) {
+        const item = document.createElement('div');
+        let userId = sessionStorage.getItem('userId')
+        item.textContent = userId + msg;
+        item.classList.add('chating-mine');
+        document.getElementById('messages').appendChild(item);
+        window.scrollTo(0, document.body.scrollHeight);
+    });
+</script>
+
+</body>
+</html>

@@ -5,6 +5,8 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
 public class HC {
@@ -18,7 +20,6 @@ public class HC {
 
     @GetMapping("/map")
     public  String map(){
-
         return "index";
     }
 
@@ -26,4 +27,12 @@ public class HC {
     public  String login(){
         return "index";
     }
+
+    @GetMapping("/chating")
+    public RedirectView chating(HttpSession session, Model model) {
+        String userId = (String) session.getAttribute("user_id");
+        String redirectUrl = "https://popular-plainly-mongoose.ngrok-free.app?userId=" + userId;
+        return new RedirectView(redirectUrl);
+    }
+
 }
