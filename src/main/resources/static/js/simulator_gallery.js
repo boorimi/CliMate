@@ -6,8 +6,9 @@ $(document).ready(function () {
 
     const urlParams = new URLSearchParams(window.location.search);
     const getCategory = urlParams.get('category');
+    const getNickname = urlParams.get('nickname');
 
-    if (getCategory === "All") {
+    if (getCategory === "All" || getNickname) {
         $(".search-all").css({
             "background-color": "#79976a",
             "color": "#ffffff"

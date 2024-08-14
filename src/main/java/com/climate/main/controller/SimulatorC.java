@@ -84,13 +84,13 @@ public class SimulatorC {
     public String simulatorGallery(@RequestParam("category") String category, Model model) {
         if (category.equals("Setter")) {
             System.out.println("카테고리: "+category);
-            model.addAttribute("Project", simulatorDAO.selectSetter());
+            model.addAttribute("project", simulatorDAO.selectSetter());
         } else if (category.equals("Normal")) {
             System.out.println("카테고리: "+category);
-            model.addAttribute("Project", simulatorDAO.selectNormal());
+            model.addAttribute("project", simulatorDAO.selectNormal());
         } else {
             System.out.println("카테고리: "+category);
-            model.addAttribute("Project", simulatorDAO.getAllProject());
+            model.addAttribute("project", simulatorDAO.getAllProject());
             System.out.println("모든문제: " + simulatorDAO.getAllProject());
         }
         model.addAttribute("content", "/simulator/simulator_menu");
@@ -107,9 +107,11 @@ public class SimulatorC {
         return "index";
     }
 
+    // 닉네임 검색
     @GetMapping("/searchNickname")
     public String searchNickname(@RequestParam("nickname")String nickname, Model model){
         System.out.println("검색한 닉네임: "+nickname);
+        model.addAttribute("searchResult", "\"" + nickname + "\"");
         model.addAttribute("project", simulatorDAO.searchNickname(nickname));
         System.out.println(simulatorDAO.searchNickname(nickname));
         model.addAttribute("content", "/simulator/simulator_menu");

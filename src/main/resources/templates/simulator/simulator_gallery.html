@@ -18,7 +18,7 @@
     <div class="gallery-search-box">
         <div class="gallery-search-menu">
             <form action="/simulator/searchNickname">
-                <input id="gallery-search-input" placeholder=" Nickname search" name="nickname"/>
+                <input id="gallery-search-input" placeholder=" nickname search" name="nickname"/>
                 <button id="gallery-search-btn">
                     <img src="/resources/icon/search.png" />
                 </button>
@@ -31,9 +31,15 @@
         </div>
     </div>
 
+    <!--   검색결과   -->
+    <div class="gallery-search-result" th:if="${searchResult}">
+        <p>the result of a search for&nbsp;</p>
+        <p th:text="${searchResult}" id="search-result"></p>
+    </div>
+
     <!--  컨텐츠  -->
     <div class="project-content">
-        <div th:each="pj: ${Project}" class="project-post" th:attr="data-pk=${pj.s_pk}">
+        <div th:each="pj: ${project}" class="project-post" th:attr="data-pk=${pj.s_pk}">
             <div class="project-img">
                 <img th:src="${pj.s_img}">
             </div>

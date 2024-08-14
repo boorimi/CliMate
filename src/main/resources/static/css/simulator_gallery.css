@@ -68,6 +68,23 @@
     align-items: center;
 }
 
+/* 검색결과 */
+.gallery-search-result {
+    height: 2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1em;
+    font-style: italic;
+    color: #79976a;
+    p {
+        margin: 0;
+    }
+}
+#search-result{
+    text-decoration: underline;
+}
+
 /* 컨텐츠 영역 */
 .project-content {
     display: flex;
