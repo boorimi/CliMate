@@ -45,8 +45,24 @@ public interface SimulatorMapper {
             "FROM cli_simulator s " +
             "JOIN cli_user u " +
             "ON s.s_u_id = u.u_id " +
-            "WHERE u.u_category = #{u_category}")
+            "WHERE u.u_category = 'Setter'")
     public List<SimulatorDTO> selectSetter();
+
+    // 일반유저 문제만 셀렉트
+    @Select("SELECT s.*, u.u_nickname, u.u_grade, u.u_category " +
+            "FROM cli_simulator s " +
+            "JOIN cli_user u " +
+            "ON s.s_u_id = u.u_id " +
+            "WHERE u.u_category = 'Normal'")
+    public List<SimulatorDTO> selectNormal();
+
+    // 닉네임 검색
+    @Select("SELECT s.*, u.u_nickname, u.u_grade, u.u_category " +
+            "FROM cli_simulator s " +
+            "JOIN cli_user u " +
+            "ON s.s_u_id = u.u_id " +
+            "WHERE u.u_nickname LIKE  '%' || #{nickname} || '%'")
+    public List<SimulatorDTO> searchNickname(String nickname);
 
     // 삭제
     @Delete("delete from cli_simulator where s_pk = #{pk}")

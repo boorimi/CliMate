@@ -81,9 +81,18 @@ public class SimulatorC {
     }
 
     @GetMapping("/gallery")
-    public String simulatorGallery(Model model) {
-        model.addAttribute("allProject", simulatorDAO.getAllProject());
-        System.out.println("모든문제: " + simulatorDAO.getAllProject());
+    public String simulatorGallery(@RequestParam("category") String category, Model model) {
+        if (category.equals("Setter")) {
+            System.out.println("카테고리: "+category);
+            model.addAttribute("Project", simulatorDAO.selectSetter());
+        } else if (category.equals("Normal")) {
+            System.out.println("카테고리: "+category);
+            model.addAttribute("Project", simulatorDAO.selectNormal());
+        } else {
+            System.out.println("카테고리: "+category);
+            model.addAttribute("Project", simulatorDAO.getAllProject());
+            System.out.println("모든문제: " + simulatorDAO.getAllProject());
+        }
         model.addAttribute("content", "/simulator/simulator_menu");
         model.addAttribute("simulator_content", "/simulator/simulator_gallery");
         return "index";
@@ -95,6 +104,15 @@ public class SimulatorC {
         System.out.println(simulatorDAO.getProject(pk));
         model.addAttribute("content", "/simulator/simulator_menu");
         model.addAttribute("simulator_content", "/simulator/simulator_gallery_detail");
+        return "index";
+    }
+
+    @GetMapping("/searchNickname")
+    public String searchNickname(@RequestParam("nickname")String nickname, Model model){
+        System.out.println("검색한 닉네임: "+nickname);
+        model.addAttribute("project", simulatorDAO.searchNickname(nickname));
+        model.addAttribute("content", "/simulator/simulator_menu");
+        model.addAttribute("simulator_content", "/simulator/simulator_gallery");
         return "index";
     }
 
@@ -126,23 +144,23 @@ public class SimulatorC {
 
         try {
             System.out.println("--------------------");
-            System.out.println("주소: "+gltfPath);
+            System.out.println("주소: " + gltfPath);
             System.out.println("--------------------");
 
             // 파일 객체 생성                                     //업로드된 파일의 원본 이름
             File gltfTargetFile = new File(gltfPath + gltfFile.getOriginalFilename());
             String imgTargetgFile = imgFile.getOriginalFilename();
 
-            System.out.println("3D파일 : "+gltfFile.getOriginalFilename());
-            System.out.println("이미지파일 : "+imgTargetgFile);
+            System.out.println("3D파일 : " + gltfFile.getOriginalFilename());
+            System.out.println("이미지파일 : " + imgTargetgFile);
 
             // 이미지 파일을 Firebase Storage에 업로드
             String imgContentType = imgFile.getContentType();
-            BlobId imgBlobId = BlobId.of("climate-4e4fe.appspot.com","upload/" + imgTargetgFile);
+            BlobId imgBlobId = BlobId.of("climate-4e4fe.appspot.com", "upload/" + imgTargetgFile);
             BlobInfo imgBlobInfo = BlobInfo.newBuilder(imgBlobId).setContentType(imgContentType).build();
             storage.create(imgBlobInfo, imgFile.getBytes());
 
-            String url ="https://firebasestorage.googleapis.com/v0/b/climate-4e4fe.appspot.com/o/upload%2F";
+            String url = "https://firebasestorage.googleapis.com/v0/b/climate-4e4fe.appspot.com/o/upload%2F";
 
             // sql set
             gltfFile.transferTo(gltfTargetFile);

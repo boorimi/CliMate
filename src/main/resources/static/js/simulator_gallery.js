@@ -4,6 +4,26 @@ $(document).ready(function () {
     let userId = $('#userId').text();
     let category;
 
+    const urlParams = new URLSearchParams(window.location.search);
+    const getCategory = urlParams.get('category');
+
+    if (getCategory === "All") {
+        $(".search-all").css({
+            "background-color": "#79976a",
+            "color": "#ffffff"
+        });
+    } else if (getCategory === "Setter") {
+        $(".search-setter").css({
+            "background-color": "#79976a",
+            "color": "#ffffff"
+        });
+    } else if (getCategory === "Normal") {
+        $(".search-normal").css({
+            "background-color": "#79976a",
+            "color": "#ffffff"
+        });
+    }
+
 
     $(".s-menu-gallery").css({
         "background-color": "#79976a",
@@ -11,17 +31,18 @@ $(document).ready(function () {
     });
 
     $(".search-all").click(function (){
-        location.href="/simulator/gallery";
+        category = "All";
+        location.href="/simulator/gallery?category="+category;
     });
 
     $(".search-setter").click(function (){
-        category = "setter";
-        location.href="/simulator/selectSetter?category="+category;
+        category = "Setter";
+        location.href="/simulator/gallery?category="+category;
     });
 
     $(".search-normal").click(function () {
-        category = "normal";
-        location.href="";
+        category = "Normal";
+        location.href="/simulator/gallery?category="+category;
     });
 
     post.on('click', function () {

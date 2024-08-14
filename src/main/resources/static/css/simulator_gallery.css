@@ -10,9 +10,7 @@
 .gallery-search-box {
     height: 3em;
     display: flex;
-    /* align-items: center; */
     justify-content: space-between;
-    /* padding: 0 1em; */
 }
 .gallery-search-menu {
     width: 70%;
@@ -54,7 +52,7 @@
     width: 30%;
     height: 70%;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     font-size: 1.1em;
 }
 
@@ -140,12 +138,19 @@
     .gallery-search-box {
         height: 2em;
     }
+
+    .gallery-search-menu{
+        width: 50%;
+    }
+
     #gallery-search-input,
     #gallery-search-btn {
         margin-right: 0.5em;
     }
+
     .gallery-category {
         font-size: 0.8em;
+        width: 50%;
     }
 
     .project-content {
