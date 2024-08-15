@@ -82,7 +82,27 @@ public class MyPlaceC {
     }
 
     @GetMapping("/getAllById")
-    public List<MyPlaceDTO> GetAllById(String mp_u_id) {
-        return myPlaceDAO.getAllById(mp_u_id);
+    public List<MyPlaceDTO> GetAllById(String mp_u_id, int page, int size) {
+        return myPlaceDAO.getAllById(mp_u_id, page, size);
+    }
+
+    @GetMapping("/getAllByIdCnt")
+    public int GetAllByIdCnt(String mp_u_id) {
+        return myPlaceDAO.getAllByIdCnt(mp_u_id);
+    }
+
+    @GetMapping("/searchMyplace")
+    public List<MyPlaceDTO> searchMyplace(String mp_u_id, String mp_name) {
+        return myPlaceDAO.getSearchById(mp_u_id, mp_name);
+    }
+
+    @GetMapping("/getWishCnt")
+    public int GetWishCnt(String mp_u_id) {
+        return myPlaceDAO.getWishCntById(mp_u_id);
+    }
+
+    @GetMapping("/getCheckCnt")
+    public int GetCheckCnt(String mp_u_id) {
+        return myPlaceDAO.getCheckCntById(mp_u_id);
     }
 }

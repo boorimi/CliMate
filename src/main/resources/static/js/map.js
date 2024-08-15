@@ -1,8 +1,14 @@
 let map;
-let userMarker;
 let markers = [];
 let service;
 let infowindow;
+let scrollList = 0;
+let totalItems = 0;
+let page = 0;  // 페이지 번호를 초기화합니다.
+const size = 5;  // 한 번에 가져올 데이터 수
+let timeoutId = null;  // 타이머 ID
+let cnt = 0; //스크롤 횟수
+
 
 const userId = $("#userId").text();
 const myplaceList = [];
@@ -17,12 +23,13 @@ $(function () {
     $("#category-box").click(function () {
         $(".search-overlay").css("display", "block");
         $(".search-popup-box").css("display", "block");
-        getAllById();
+        getAllByIdCnt();
     })
     //유저가 목록에서 x 버튼 클릭시
     $(".popup-cancel").click(function () {
         $(".search-overlay").css("display", "none");
         $(".search-popup-box").css("display", "none");
+        $(".search-result-box").remove();
     })
     //wish버튼 클릭시 실행되는 함수
     $("#wish-img").click(function () {
@@ -32,17 +39,42 @@ $(function () {
     $("#check-img").click(function () {
         console.log("check");
     })
-
+    //내 목록에서 스크롤 함수
     $("#search-popup-box").scroll(function () {
-        var scrollT = $(this).scrollTop(); //스크롤바의 상단위치
-        var scrollH = $(this).height(); //스크롤바를 갖는 div의 높이
-        var contentH = $('#search-popup-box').height(); //문서 전체 내용을 갖는 div의 높이
-        if (scrollT + scrollH + 1 >= contentH) { // 스크롤바가 아래 쪽에 위치할 때
-            console.log("scroll!!!")
-            getAllById();
+
+        //스크롤 될때 한번씩 되게끔 실행해주는 함수
+        if (timeoutId) {
+
+            clearTimeout(timeoutId);  // 이전 타이머를 지웁니다.
+        }
+        if (scrollList > totalItems) {
+            $(window).off("scroll");
+        } else {
+
+            timeoutId = setTimeout(function () {
+                cnt++;
+                console.log("check scroll cnt => " + cnt);
+                if (cnt <= 1) {
+                    if ($(window).scrollTop() + $(window).height() >= $(document).height() - 100) {
+                        getAllByIdCnt();
+                    }
+                }
+            }, 1000)
         }
     })
-    getAllById();
+
+    //내 목록에서 검색 함수
+    $("#search-input").keyup(function (e) {
+        if (e.keyCode === 13) {
+            getSearchById();
+        }
+    })
+    $(".search-img").click(function () {
+        getSearchById();
+    });
+
+    getWishCnt();
+    getCheckCnt();
 })
 
 function initMap() {
@@ -91,7 +123,6 @@ function clearMarkers() {
 
 function createMarker(place) {
     if (!place.geometry || !place.geometry.location) return;
-    console.log("check mylist => " + JSON.stringify(myplaceList));
 
     const marker = new google.maps.Marker({
         map     : map,
@@ -107,8 +138,7 @@ function createMarker(place) {
         const iconUrl2 = isChecked ? "/resources/icon/check_red.png" : "/resources/icon/check_gray.png";
 
         const placeUrl = `https://www.google.com/maps/search/?api=1&query=${place.name}}`;
-        console.log("check place => " + JSON.stringify(place));
-        console.log("check user id => " + userId);
+
         const content = `<div　style="{width:5vw;}">` +
             `<div class="status-box">` +
             `<img id="wish-img" onclick="wishClick('${place.name}', '${place.formatted_address}', '${place.place_id}', this)" src="${iconUrl}">` +
@@ -207,15 +237,10 @@ function wishClick(placeName, placeAddr, placeId, imgElement) {
     const isCurrentlyLiked = imgElement.src.includes('wish_red.png');
     const newIconUrl = isCurrentlyLiked ? '/resources/icon/wish_gray.png' : '/resources/icon/wish_red.png';
 
-    console.log("check userId => " + userId);
     if (userId == "") {
         alert("do login");
         location.href = "/";
     }
-
-    console.log("check userId => " + userId);
-    console.log("check place name => " + placeName);
-    console.log("check place addr => " + placeAddr);
 
     if (!isCurrentlyLiked) {
         $.ajax({
@@ -259,15 +284,14 @@ function wishClick(placeName, placeAddr, placeId, imgElement) {
                 // 상태 업데이트 후 myplaceList 배열 갱신
                 const index = myplaceList.filter(p => p.place_name === placeName);
                 index.forEach(item => {
-                    console.log("check index item => " + JSON.stringify(item));
                     item.wish = false;
                 })
 
                 // infoWindow 내 이미지 업데이트
                 imgElement.src = newIconUrl;
             },
-            error  : function () {
-                console.log("아 에러에유");
+            error  : function (error) {
+                console.error(error);
             }
         })
     }
@@ -308,8 +332,8 @@ function checkClick(placeName, placeAddr, placeId, imgElement) {
                 // infoWindow 내 이미지 업데이트
                 imgElement.src = newIconUrl;
             },
-            error  : function () {
-                console.log("아 에러에유");
+            error  : function (error) {
+                console.error(error);
             }
         })
     } else {
@@ -326,15 +350,14 @@ function checkClick(placeName, placeAddr, placeId, imgElement) {
                 // 상태 업데이트 후 myplaceList 배열 갱신
                 const index = myplaceList.filter(p => p.place_name === placeName);
                 index.forEach(item => {
-                    console.log("check index item => " + JSON.stringify(item));
                     item.check = false;
                 })
 
                 // infoWindow 내 이미지 업데이트
                 imgElement.src = newIconUrl;
             },
-            error  : function () {
-                console.log("아 에러에유");
+            error  : function (error) {
+                console.error(error);
             }
         })
     }
@@ -373,13 +396,10 @@ async function getAll() {
                     wish      : null,
                     check     : null
                 }
-                console.log("check item json => " + JSON.stringify(item))
                 obj.place_name = item.mp_name;
                 item.mp_type === "Check" ? obj.check = true : obj.check = false;
                 item.mp_type === "Wish" ? obj.wish = true : obj.wish = false;
                 myplaceList.push(obj);
-                console.log("check get all obj=> " + JSON.stringify(obj));
-                console.log("check get all list=> " + JSON.stringify(myplaceList));
             });
         },
         error  : function (error) {
@@ -388,64 +408,139 @@ async function getAll() {
     })
 }
 
-let page = 0;
-
-function getAllById(limit) {
-
+function getAllById() {
     $.ajax({
-        url     : "/getAllById",
-        data    : {
-            mp_u_id: userId
+        url    : "/getAllById",
+        data   : {
+            mp_u_id: userId,
+            page   : page,
+            size   : size
         },
-        success : function (item) {
-            let limit = 4;
-            if (page <= (item.length / 4) - 1) {
-                for (let i = 0; i < limit; i++) {
-                    console.log(i);
-                    if (item[i].mp_type === "Wish") {
+        success: function (resData) {
+            if (resData.length > 0) {
+                resData.forEach(function (item, index) {
+                    if (item.mp_type === "Wish") {
                         const content = `
                         <div class="search-result-box">
                             <div class="search-icon">
                                 <img class="icon" id="icon" src="/resources/icon/wish_red.png">
                             </div>
                             <div class="search-text">
-                                <p id="place_name">${item[i].mp_name}</p>
-                                <p id="place_addr">${item[i].mp_addr}</p>
+                                <p id="place_name">${item.mp_name}</p>
+                                <p id="place_addr">${item.mp_addr}</p>
                             </div>
                             <div class="search-map">
-                                <img onclick="goMap('${item[i].mp_name}')" src="/resources/icon/map.png">
+                                <img onclick="goMap('${item.mp_name}')" src="/resources/icon/map.png">
                             </div>
                         </div>`;
                         $(".search-result").append(content);
-                    } else if (item[i].mp_type === "Check") {
+                    } else if (item.mp_type === "Check") {
                         const content = `
                         <div class="search-result-box">
                             <div class="search-icon">
                                 <img class="icon" id="icon" src="/resources/icon/check_red.png">
                             </div>
                             <div class="search-text">
-                                <p id="place_name">${item[i].mp_name}</p>
-                                <p id="place_addr">${item[i].mp_addr}</p>
+                                <p id="place_name">${item.mp_name}</p>
+                                <p id="place_addr">${item.mp_addr}</p>
                             </div>
                             <div class="search-map">
-                                <img onclick="goMap('${item[i].mp_name}')" src="/resources/icon/map.png">
+                                <img onclick="goMap('${item.mp_name}')" src="/resources/icon/map.png">
                             </div>
                         </div>`;
                         $(".search-result").append(content);
                     }
-                    console.log("check get all by id => " + JSON.stringify(item));
-                    if (limit <= item.length - 1) limit += 4;
-                }
-                console.log("check page => " + page);
-                console.log("check item length => " + item.length);
+                })
+                scrollList += resData.length;
                 page++;
+            } else {
+                $(window).off("scroll");
             }
         },
-        error   : function (error) {
+        error  : function (error) {
+            console.error(error);
+        }
+    })
+}
+
+function getAllByIdCnt() {
+    $.ajax({
+        url    : "/getAllByIdCnt",
+        data   : {
+            mp_u_id: userId
+        },
+        success: function (resData) {
+            totalItems = resData;
+            getAllById();
+        },
+        error  : function (error) {
+            console.error(error);
+        }
+    })
+}
+
+function getSearchById() {
+    $.ajax({
+        url    : "/searchMyplace",
+        data   : {
+            mp_u_id: userId,
+            mp_name: $("#search-input").val()
+        },
+        success: function (resData) {
+            console.log("check resData => " + JSON.stringify(resData));
+            $(".search-result-box").remove();
+            resData.forEach(function (item) {
+                const content = `
+                        <div class="search-result-box">
+                            <div class="search-icon">
+                                <img class="icon" id="icon" src="/resources/icon/check_red.png">
+                            </div>
+                            <div class="search-text">
+                                <p id="place_name">${item.mp_name}</p>
+                                <p id="place_addr">${item.mp_addr}</p>
+                            </div>
+                            <div class="search-map">
+                                <img onclick="goMap('${item.mp_name}')" src="/resources/icon/map.png">
+                            </div>
+                        </div>`;
+                $(".search-result").append(content);
+            })
 
         },
-        complete: function () {
-            page = page + 1;
+        error  : function (error) {
+            console.error(error);
+        }
+    });
+}
+
+function getWishCnt() {
+    $.ajax({
+        url    : "/getWishCnt",
+        data   : {
+            mp_u_id: userId
+        },
+        success: function (resData) {
+            console.log("check resData => " + resData);
+            $("#wish-cnt").text('(' + resData + ')');
+        },
+        error  : function (error) {
+            console.error(error);
+        }
+    })
+}
+
+function getCheckCnt() {
+    $.ajax({
+        url    : "/getCheckCnt",
+        data   : {
+            mp_u_id: userId
+        },
+        success: function (resData) {
+            console.log("check resData => " + resData);
+            $("#check-cnt").text('(' + resData + ')');
+        },
+        error  : function (error) {
+            console.error(error);
         }
     })
 }
