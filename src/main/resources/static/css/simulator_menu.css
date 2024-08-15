@@ -19,11 +19,38 @@
         font-size: 1.3em;
         color: #79976a;
         font-weight: 900;
+        overflow: hidden;
+        position: relative;
+        z-index: 1;
     }
+
+    div::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: #79976a;
+        transition: left 0.5s ease;
+        z-index: -1;
+    }
+
+    div:hover::before {
+        left: 0;
+    }
+
+    div:hover {
+        color: white;
+    }
+
 }
+
+
 /* 모달 배경 */
 .menu-modal-background,
-.create-modal-background {
+.create-modal-background,
+.delete-background {
     display: none;
     position: fixed;
     top: 0;
@@ -37,7 +64,10 @@
 /* 모달 창 */
 .menu-modal,
 .create-modal,
-.save-complete-modal {
+.loading-modal,
+.save-complete-modal,
+.delete-modal,
+.delete-complete-modal {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -56,10 +86,17 @@
     flex-direction: column;
     align-items: center;
 }
-.save-complete-modal{
+.loading-modal,
+.save-complete-modal,
+.delete-complete-modal {
     display: none;
 }
+.loading-modal img {
+    width: 50%;
+    height: auto;
+}
 
+.delete-modal p,
 .create-modal p:first-child {
     font-weight: 900;
 }
@@ -70,7 +107,9 @@
 /* 버튼 스타일 */
 .menu-modal button,
 .create-modal button,
-.save-complete-modal button{
+.save-complete-modal button,
+.delete-modal button,
+.delete-complete-modal button{
     padding: 0.5em 1em;
     border: none;
     background-color: #79976a;
@@ -80,7 +119,9 @@
 
 .menu-modal button:hover,
 .create-modal button:hover,
-.save-complete-modal button:hover {
+.save-complete-modal button:hover,
+.delete-modal button:hover,
+.delete-complete-modal button:hover{
     background-color: #516746;
 }
 

@@ -37,29 +37,28 @@ $(document).ready(function () {
             showConfirm();
         }
     }
-
-    // 모달
-    function showConfirm(){
-        $('#confirm-background').css("display", "block");
-    }
-
-    // 로그인 버튼 클릭
-    $('#confirm-yes').on('click', function() {
-        $('#confirm-background').css("display", "none");
-        location.href ='/loginC';
-    });
-
-    // 취소 버튼 클릭
-    $('#confirm-no').on('click', function() {
-        $('#confirm-background').css("display", "none");
-    });
-
-    // 배경을 클릭했을 때 모달 닫기
-    $('#confirm-background').on('click', function(event) {
-        if (event.target === this) {
-            $(this).css("display", "none");
-        }
-    });
-
-
 })
+
+// 모달
+function showConfirm() {
+    document.getElementById('confirm-background').style.display = 'block';
+}
+
+// 로그인 버튼 클릭
+document.getElementById('confirm-yes').addEventListener('click', function() {
+    document.getElementById('confirm-background').style.display = 'none';
+    location.href = '/loginC';
+});
+
+// 취소 버튼 클릭
+document.getElementById('confirm-no').addEventListener('click', function() {
+    document.getElementById('confirm-background').style.display = 'none';
+});
+
+// 배경을 클릭했을 때 모달 닫기
+document.getElementById('confirm-background').addEventListener('click', function(event) {
+    if (event.target === this) {
+        this.style.display = 'none';
+    }
+});
+

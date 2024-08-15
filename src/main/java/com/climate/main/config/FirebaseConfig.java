@@ -15,6 +15,7 @@ public class FirebaseConfig {
 
     private Storage storage;
 
+
     @PostConstruct
     public void init(){
         try{
@@ -30,4 +31,6 @@ public class FirebaseConfig {
     public Storage firebaseStorage() {
         return storage;
     }
+
+
 }

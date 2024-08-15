@@ -1,18 +1,64 @@
+.community-insert-container{
+    display: flex;
+    flex-direction: column;
+    margin: 5% 20%;
+    padding: 1em 1em 2em 1em;
+    font-weight: 900;
+    color: #79976a;
+    font-style: italic;
+    align-items: center;
+    border: 0.1em solid #79976a;
+    border-radius: 0.3em;
+    position: relative;
+
+    p{
+        margin: 0;
+    }
+}
+
+#uploadFile,
+#uploadThumbnail {
+    display: none;
+}
+
+.custom-upload-btn {
+    display: inline-block;
+    border-radius: 0.3em;
+    padding: 1% 3%;
+    color: white;
+    background: #79976a;
+    font-weight: 700;
+    margin-top: 0.5em;
+    font-style: normal;
+}
+
+
+.file-name {
+    margin-top: 0.5em;
+    font-weight: normal;
+    font-size: 0.8em;
+    font-style: normal;
+}
 
 .community-showoff-video video {
-    width: 70vw;
+    width: 15em;
     height: auto;
-    margin: 0vh 7vw;
+    margin: 0vh 2em;
 }
+
+
+/*
 .custom-arrows {
     display: flex;
     justify-content: space-between;
     margin: 0vh 2vw;
-    width: 93%;
+    width: 90%;
     position: absolute;
-    top: 50%;
+    top: 28%;
     transform: translateY(-50%);
     z-index: 10;
+    height: 3em;
+    background-color: aquamarine;
 }
 
 .slick-prev,
@@ -21,8 +67,83 @@
     height: 5vh;
     font-size: 1.5em;
     background-color: rgba(255, 255, 255, 0.69);
-
     border-radius: 5vw;
     padding: 2vw;
     cursor: pointer;
+}
+*/
+
+.video-box,
+.thumbnail-box,
+.title-box,
+.text-box {
+    width: 100%;
+    margin: 0.5em 0;
+}
+
+.title-box input,
+.text-box textarea {
+    width: 100%;
+    box-sizing: border-box;
+    border: 0.1em solid #79976a;
+    border-radius: 0.3em;
+    resize: none;
+}
+
+.title-box input{
+    height: 3em;
+}
+
+
+#video-insert-btn{
+    border: 0.2em solid #79976a;
+    border-radius: 0.3em;
+    padding: 2% 10%;
+    color: #79976a;
+    background: white;
+    font-weight: 700;
+    font-style: italic;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+    margin-top: 1.5em;
+}
+
+#video-insert-btn::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: #79976a;
+    transition: left 0.5s ease;
+    z-index: -1;
+}
+
+#video-insert-btn:hover::before {
+    left: 0;
+}
+
+#video-insert-btn:hover {
+    color: white;
+}
+
+
+@media (max-width: 768px){
+
+    form{
+        border-top: 0.1em solid #79976a;
+    }
+    .community-insert-container{
+        margin: 0 2%;
+        padding: 0.5em 0 2em 0;
+        border: none;
+    }
+
+    .community-showoff-video video {
+        width: 12em;
+        height: auto;
+        margin: 0vh 7vw;
+    }
 }

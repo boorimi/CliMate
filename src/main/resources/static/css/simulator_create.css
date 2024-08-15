@@ -31,7 +31,7 @@
 .btn-container {
     position: absolute;
     top: 1em;
-    width: 93%;
+    width: 96%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -43,8 +43,8 @@
     align-items: center;
     justify-content: center;
     z-index: 1;
-    width: 9vh;
-    height: 9vh;
+    width: 4em;
+    height: 4em;
     border-radius: 100%;
     box-shadow: 0em 0em 0.4em gray;
     background-color: rgba(245, 245, 245, 0.52);

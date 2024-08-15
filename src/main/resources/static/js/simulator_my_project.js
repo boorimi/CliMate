@@ -10,4 +10,6 @@ $(document).ready(function () {
         console.log(pk);
         location.href = '/simulator/gallery_detail?pk=' + pk;
     })
+
+
 })

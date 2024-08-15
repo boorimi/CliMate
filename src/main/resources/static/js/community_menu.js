@@ -14,10 +14,8 @@ $(document).ready(function () {
         // 아이콘 토글
         if (iconImg.attr("src") === "/resources/icon/search_green.png") {
             iconImg.attr("src", "/resources/icon/close.png");
-            iconImg.css("height", "60%");
         } else {
             iconImg.attr("src", "/resources/icon/search_green.png");
-            iconImg.css("height", "100%");
         }
     });
 

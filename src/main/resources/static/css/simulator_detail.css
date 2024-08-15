@@ -57,7 +57,7 @@
     }
 }
 
-.middle-box {
+.like-delete-box {
     display: flex;
     height: 3rem;
     justify-content: space-between;

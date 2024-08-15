@@ -55,15 +55,15 @@
   position: fixed;
   justify-content: center;
   align-items: center;
-  right: 7vw;
-  bottom: 7vw;
-  background-color: #79976a;
-  color: white;
-  width: 15vw;
-  height: 15vw;
-  border-radius: 15vw;
+  right: 1em;
+  bottom: 1em;
+  background-color: #79976a30;
+  color: #79976a;
+  width: 1.5em;
+  height: 1.5em;
+  border-radius: 10rem;
   font-size: 3.5em;
-  border: 0.01em solid white;
+  border: none;
 }
 
 @media (max-width: 768px){

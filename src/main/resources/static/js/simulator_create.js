@@ -64,7 +64,7 @@ $(document).ready(function () {
     });
 });
 
-// 모달
+// 저장버튼 클릭 모달
 function showSaveConfirm() {
 const modalBackground = document.getElementById('create-modal-background');
 const confirmSave = document.getElementById('confirm-save');
@@ -74,11 +74,24 @@ const confirmCancel = document.getElementById('confirm-cancel');
 
     confirmSave.addEventListener('click', () => {
         console.log("세이브 클릭");
+
+        document.getElementById('create-modal').style.display = "none";
+        document.getElementById('loading-modal').style.display = "block";
+
         app.exportScene();
     });
 
     confirmCancel.addEventListener('click', function () {
         modalBackground.style.display = 'none';
+    })
+}
+
+// 저장 완료 모달
+function saveComplete() {
+    document.getElementById('loading-modal').style.display = 'none';
+    document.getElementById('save-complete-modal').style.display = 'block';
+    document.getElementById('confirm-close').addEventListener('click', function (){
+        location.href="/simulator/main";
     })
 }
 
@@ -91,16 +104,7 @@ document.getElementById('create-modal-background').addEventListener('click', fun
             location.href = "/simulator/main";
         }
     }
-
 });
-
-function saveComplete() {
-    document.getElementById('create-modal').style.display = 'none';
-    document.getElementById('save-complete-modal').style.display = 'block';
-    document.getElementById('confirm-close').addEventListener('click', function (){
-        location.href="/simulator/main";
-    })
-}
 
 function rgbToHex(r, g, b) {
     return (r << 16) | (g << 8) | b;

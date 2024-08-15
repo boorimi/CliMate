@@ -13,12 +13,6 @@
     <meta name="theme-color" content="#ffffff">
 
     <link rel="stylesheet" href="/resources/css/index.css">
-    <script
-            src="https://code.jquery.com/jquery-3.6.0.min.js"
-            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-            crossorigin="anonymous"
-    ></script>
-
 </head>
 <body>
 <span id="userId" th:text="${session.user_id}" style="display: none"></span>
@@ -47,6 +41,20 @@
         <p>CliMate_PJ</p>
     </a>
 </footer>
-<script src="/resources/js/index.js"></script>
 </body>
+<script>
+    function toggleMenu() {
+        document.querySelector('.hamburger-menu').classList.toggle('active');
+    }
+
+    document.addEventListener('click', function(event) {
+        const menu = document.querySelector('.hamburger-menu');
+        const icon = document.querySelector('.hamburger');
+
+        // 클릭한 요소가 메뉴나 아이콘이 아닌 경우
+        if (!menu.contains(event.target) && !icon.contains(event.target)) {
+            menu.classList.remove('active');
+        }
+    });
+</script>
 </html>

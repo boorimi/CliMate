@@ -14,8 +14,8 @@
 <body>
 <div class="community-all-wrapper">
     <div class="community-category-wrapper">
-        <div onclick="location.href='/community/video'" id="category-video">video post</div>
-        <div onclick="location.href='/community/lfg'" id="category-together">together</div>
+        <div onclick="location.href='/community/video'" id="category-video">Video</div>
+        <div onclick="location.href='/community/lfg'" id="category-together">Together</div>
         <div class="community-search-icon"></div>
     </div>
     <form th:action="@{${actionURL}}">
@@ -26,7 +26,7 @@
                 <option value="u_nickname">nickname</option>
             </select>
             <input type="text" name="searchWord" id="search-input" />
-            <button id="search-btn"><img src="/resources/icon/search.png" /></button>
+            <button id="search-btn"><img src="/resources/icon/search_green.png" /></button>
         </div>
     </form>
     <div class="community-search-result">
