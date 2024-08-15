@@ -21,6 +21,78 @@
         font-weight: 900;
     }
 }
+/* 모달 배경 */
+.menu-modal-background,
+.create-modal-background {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+}
+
+/* 모달 창 */
+.menu-modal,
+.create-modal,
+.save-complete-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 12rem;
+    background-color: white;
+    padding: 1.5em;
+    border-radius: 0.5em;
+    text-align: center;
+    z-index: 10000;
+    font-style: italic;
+    color: #79976a;
+}
+.menu-modal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.save-complete-modal{
+    display: none;
+}
+
+.create-modal p:first-child {
+    font-weight: 900;
+}
+.create-modal p:nth-child(2){
+    font-size: 0.7em;
+}
+
+/* 버튼 스타일 */
+.menu-modal button,
+.create-modal button,
+.save-complete-modal button{
+    padding: 0.5em 1em;
+    border: none;
+    background-color: #79976a;
+    color: white;
+    border-radius: 0.3em;
+}
+
+.menu-modal button:hover,
+.create-modal button:hover,
+.save-complete-modal button:hover {
+    background-color: #516746;
+}
+
+#confirm-no {
+    font-size: 0.7em;
+    margin-bottom: 0;
+    color: #a7b39f;;
+}
+
+#confirm-no:hover{
+    font-weight: 900;
+}
 
 @media (max-width: 768px) {
     .s-menu-container{

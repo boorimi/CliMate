@@ -1,7 +1,5 @@
 $(document).ready(function () {
-    const post = $('.project-post');
-    let dataPk;
-    let userId = $('#userId').text();
+
     let category;
 
     const urlParams = new URLSearchParams(window.location.search);
@@ -31,33 +29,22 @@ $(document).ready(function () {
         "color": "#ffffff"
     });
 
-    $(".search-all").click(function (){
+    $(".search-all").click(function () {
         category = "All";
-        location.href="/simulator/gallery?category="+category;
+        location.href = "/simulator/gallery?category=" + category;
     });
 
-    $(".search-setter").click(function (){
+    $(".search-setter").click(function () {
         category = "Setter";
-        location.href="/simulator/gallery?category="+category;
+        location.href = "/simulator/gallery?category=" + category;
     });
 
     $(".search-normal").click(function () {
         category = "Normal";
-        location.href="/simulator/gallery?category="+category;
+        location.href = "/simulator/gallery?category=" + category;
     });
 
-    post.on('click', function () {
-        dataPk = $(this).data('pk');
-        loginCheck(userId, dataPk);
-    });
 
-    function loginCheck(userId, dataPk) {
-        if (userId != null && userId !== '') {
-            location.href = '/simulator/gallery_detail?pk=' + dataPk;
-        } else {
-            alert('Available after login');
-        }
-    }
 
 
 })
