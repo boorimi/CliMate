@@ -81,7 +81,35 @@
     margin: 0.5em 0;
 }
 
-.title-box input,
+.title-box{
+    display: flex;
+    align-items: self-end;
+    border-bottom: 0.1em solid #79976a;
+
+    p{
+        width: 7%;
+        height: 1.5em;
+    }
+}
+
+.title-box input{
+    width: 93%;
+    box-sizing: border-box;
+    border: none;
+    height: 2em;
+    background-color: #ffffff00;
+}
+
+.title-box input:focus {
+    outline: none;
+}
+
+.text-box textarea:focus {
+    outline: none;
+    background-color: #f3f6ee;
+}
+
+
 .text-box textarea {
     width: 100%;
     box-sizing: border-box;
@@ -89,11 +117,6 @@
     border-radius: 0.3em;
     resize: none;
 }
-
-.title-box input{
-    height: 3em;
-}
-
 
 #video-insert-btn{
     border: 0.2em solid #79976a;

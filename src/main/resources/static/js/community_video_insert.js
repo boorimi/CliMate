@@ -121,3 +121,17 @@ document.getElementById('uploadThumbnail').addEventListener('change', function()
         fileNameDisplay.textContent = '선택된 파일 없음';
     }
 });
+
+// 인풋 포커스 div background-color 변경
+document.addEventListener('DOMContentLoaded', function() {
+    var inputElement = document.querySelector('input[name="b_title"]');
+    var titleBox = document.querySelector('.title-box');
+
+    inputElement.addEventListener('focus', function() {
+        titleBox.style.backgroundColor = '#f3f6ee';
+    });
+
+    inputElement.addEventListener('blur', function() {
+        titleBox.style.backgroundColor = '';
+    });
+});

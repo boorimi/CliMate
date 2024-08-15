@@ -1,5 +1,5 @@
 .community-lfg-all-wrapper{
-  min-height: 65vh;
+  min-height: 75vh;
 }
 .community-lfg-container{
   margin: 1em 2%;
@@ -58,6 +58,10 @@
   border-radius: 10rem;
   font-size: 3.5em;
   border: none;
+}
+
+.community-lfg-insert:hover {
+  transform: scale(1.05);
 }
 
 @media (max-width: 768px){

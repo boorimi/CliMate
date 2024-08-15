@@ -31,7 +31,7 @@
 }
 */
 
-#lfg-insert-container{
+#lfg-insert-container {
     display: flex;
     flex-direction: column;
     margin: 5% 20%;
@@ -54,13 +54,14 @@
         border: 0.1em solid #79976a;
         border-radius: 0.3em;
         font-size: 1em;
+        background-color: white;
     }
 }
 
 .community-lfg-title-input input {
     border: none;
     box-sizing: border-box;
-    font-size: 1.8em;
+    font-size: 1.5em;
     border-bottom: 0.1em solid #79976a;
     width: 100%;
     margin-left: 0.5em;
@@ -70,6 +71,7 @@
 
 .community-lfg-title-input input:focus {
     outline: none;
+    background-color: #f3f6ee;
 }
 
 .community-lfg-insert-button {
@@ -82,7 +84,7 @@
 }
 
 #lfg-insert-btn {
-    border: 0.2em solid #79976a;
+    border: 0.1em solid #79976a;
     border-radius: 0.3em;
     padding: 1% 6%;
     color: #79976a;
@@ -115,6 +117,10 @@
     color: white;
 }
 
+/* 썸머노트 틀 */
+.note-editor.note-frame {
+    border: 0.1em solid #afafaf32 !important;
+}
 
 /*버튼 크기 조정*/
 .note-btn {
@@ -126,7 +132,7 @@
     overflow: hidden;
 }
 
-.note-icon-magic{
+.note-icon-magic {
     height: 1em;
 }
 
@@ -151,7 +157,7 @@
 }
 
 /* 폰트박스 */
-.note-current-fontname{
+.note-current-fontname {
     font-size: 2rem;
     position: absolute;
 }
@@ -166,7 +172,7 @@
 }
 
 /* A 옆 화살표 박스  */
-.note-editor .note-toolbar .note-color .dropdown-toggle{
+.note-editor .note-toolbar .note-color .dropdown-toggle {
     width: 36px !important;
 }
 
@@ -182,10 +188,17 @@ button.note-btn.btn.btn-default.btn-sm.dropdown-toggle:nth-child(1) {
 footer {
     display: flex !important;
 }
+
 @media (max-width: 768px) {
-    #lfg-insert-container{
+
+    #lfg-insert-container {
         margin: 5% 0;
         border: none;
+    }
+
+    /* 썸머노트 틀 */
+    .note-editor.note-frame {
+        border: 0.1em solid #79976a !important;
     }
 
     /* 전체 버튼 */
@@ -200,7 +213,7 @@ footer {
     }
 
     /* 폰트박스 */
-    .note-current-fontname{
+    .note-current-fontname {
         font-size: 1.5rem;
         position: absolute;
     }
@@ -213,7 +226,7 @@ footer {
     }
 
     /* A 옆 화살표 박스  */
-    .note-editor .note-toolbar .note-color .dropdown-toggle{
+    .note-editor .note-toolbar .note-color .dropdown-toggle {
         width: 30px !important;
     }
 

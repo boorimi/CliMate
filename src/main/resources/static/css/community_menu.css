@@ -94,6 +94,7 @@
 
 #search-select {
     width: 20%;
+    background-color: white;
 }
 #search-select:focus {
     outline: none;
