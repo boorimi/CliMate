@@ -192,8 +192,16 @@ footer {
 @media (max-width: 768px) {
 
     #lfg-insert-container {
-        margin: 5% 0;
+        margin: 0;
         border: none;
+    }
+
+    .community-lfg-insert-button {
+        margin-bottom: -0.7em;
+    }
+
+    #lfg-insert-btn{
+        margin-top: 0;
     }
 
     /* 썸머노트 틀 */
