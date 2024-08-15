@@ -81,10 +81,6 @@
 
   li:last-child {
     border-bottom: none;
-
-    img {
-      width: 3.5vw;
-    }
   }
 }
 
@@ -148,7 +144,7 @@ footer {
       }
     }
 
-    li:last-child {
+    li:nth-child(4) {
       img {
         width: 6vw;
       }
