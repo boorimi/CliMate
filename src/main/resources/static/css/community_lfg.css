@@ -2,7 +2,7 @@
   min-height: 65vh;
 }
 .community-lfg-container{
-  margin: 2vw 0;
+  margin: 1em 2%;
 }
 .community-lfg-wrapper {
   padding: 1em 0.5em;
@@ -13,41 +13,35 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 2vh;
-  margin-top: 0.5em;
-  font-size: 1.5em;
 }
 
 .community-lfg-category {
   margin-right: 1vh;
-  padding: 0.1vh;
   border: 0.1em solid #79976a;
-  border-radius: 0.5em;
-  width: 20vh;
-  text-align: center;
+  border-radius: 0.3em;
   color: #79976a;
+  padding: 0.1em 0.5em;
 }
 
 .community-lfg-nickname-wrapper {
   flex: 1;
   display: flex;
   align-items: center;
-  padding: 1vw;
 }
 
 .community-lfg-grade {
   display: flex;
   margin-left: 1vw;
+  height: 1.5em;
 }
 
 .community-lfg-grade img {
-  width: 2.5vh;
-  height: auto;
+  height: 100%;
 }
 
 .community-lfg-below {
-  font-size: 1.8em;
-  padding-top: 2vh
+  font-size: 1.1em;
+  padding-top: 0.5em;
 }
 
 .community-lfg-insert {
@@ -67,10 +61,18 @@
 }
 
 @media (max-width: 768px){
-  .community-lfg-above {
-    font-size: 1em;
+  .community-lfg-container {
+    margin: 1em 0;
   }
+
   .community-lfg-below {
     font-size: 1.2em;
+  }
+
+  .community-lfg-insert {
+    right: 0.5em;
+    bottom: 0.5em;
+    width: 1em;
+    height: 1em;
   }
 }

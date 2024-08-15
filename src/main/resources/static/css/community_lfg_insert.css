@@ -6,6 +6,7 @@
     }
 }
 
+/*
 .main-container {
     padding: 1vh 0vw;
     margin: 1vh 0vw;
@@ -28,20 +29,43 @@
 .ck-dropdown__panel, .ck-button {
     font-size: 0.95em !important;
 }
+*/
 
+#lfg-insert-container{
+    display: flex;
+    flex-direction: column;
+    margin: 5% 20%;
+    padding: 1em 1em 2em 1em;
+    color: #79976a;
+    align-items: center;
+    border: 0.1em solid #79976a;
+    border-radius: 0.3em;
+}
 
 .community-lfg-title-input {
-    border-bottom: 0.2vw solid gray;
-    border-top: 0.2vw solid gray;
     display: flex;
+    width: 100%;
+    margin: 1em 0;
+    align-items: flex-end;
+
+    select {
+        width: 8em;
+        height: 2.5em;
+        border: 0.1em solid #79976a;
+        border-radius: 0.3em;
+        font-size: 1em;
+    }
 }
 
 .community-lfg-title-input input {
-    flex: 1;
-    height: 100%;
     border: none;
     box-sizing: border-box;
-    font-size: 1.5em;
+    font-size: 1.8em;
+    border-bottom: 0.1em solid #79976a;
+    width: 100%;
+    margin-left: 0.5em;
+    font-weight: 700;
+    font-style: italic;
 }
 
 .community-lfg-title-input input:focus {
@@ -51,5 +75,151 @@
 .community-lfg-insert-button {
     display: flex;
     justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 3em;
+    margin-bottom: 1em;
 }
 
+#lfg-insert-btn {
+    border: 0.2em solid #79976a;
+    border-radius: 0.3em;
+    padding: 1% 6%;
+    color: #79976a;
+    background: white;
+    font-weight: 700;
+    font-style: italic;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+    margin-top: 1.5em;
+}
+
+#lfg-insert-btn::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: #79976a;
+    transition: left 0.5s ease;
+    z-index: -1;
+}
+
+#lfg-insert-btn:hover::before {
+    left: 0;
+}
+
+#lfg-insert-btn:hover {
+    color: white;
+}
+
+
+/*버튼 크기 조정*/
+.note-btn {
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    overflow: hidden;
+}
+
+.note-icon-magic{
+    height: 1em;
+}
+
+.note-icon::before {
+    font-size: 1rem;
+    line-height: 1;
+    vertical-align: middle;
+    display: block;
+}
+
+.note-btn i {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+/* 아이콘 */
+.note-btn i::before {
+    font-size: 1.5rem;
+    line-height: 1.5;
+}
+
+/* 폰트박스 */
+.note-current-fontname{
+    font-size: 2rem;
+    position: absolute;
+}
+
+/* 화살표 */
+.note-icon-caret::before {
+    font-size: 0.5em !important;
+    height: 1.8em !important;
+    position: absolute !important;
+    top: -0.1em !important;
+    right: 0 !important;
+}
+
+/* A 옆 화살표 박스  */
+.note-editor .note-toolbar .note-color .dropdown-toggle{
+    width: 36px !important;
+}
+
+/* 내림 박스 */
+button.note-btn.btn.btn-default.btn-sm.dropdown-toggle:nth-child(1) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 0.5rem;
+    width: 15rem;
+}
+
+footer {
+    display: flex !important;
+}
+@media (max-width: 768px) {
+    #lfg-insert-container{
+        margin: 5% 0;
+        border: none;
+    }
+
+    /* 전체 버튼 */
+    .note-btn {
+        height: 2rem;
+    }
+
+    /* 아이콘 */
+    .note-btn i::before {
+        font-size: 0.8rem;
+        line-height: 1.5;
+    }
+
+    /* 폰트박스 */
+    .note-current-fontname{
+        font-size: 1.5rem;
+        position: absolute;
+    }
+
+    /* 화살표 */
+    .note-icon-caret::before {
+        font-size: 0.8em !important;
+        top: -0.1em !important;
+
+    }
+
+    /* A 옆 화살표 박스  */
+    .note-editor .note-toolbar .note-color .dropdown-toggle{
+        width: 30px !important;
+    }
+
+    /* 내림 박스 */
+    button.note-btn.btn.btn-default.btn-sm.dropdown-toggle:nth-child(1) {
+        width: 12rem;
+    }
+
+}

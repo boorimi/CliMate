@@ -129,11 +129,15 @@
     .community-category-wrapper {
         height: 2.5em;
         margin: 1em 0;
+    }
 
-        div {
-            width: 40%;
-            font-size: 1em;
-        }
+    #category-video,
+    #category-together{
+        width: 40%;
+    }
+
+    .community-search-icon{
+        height: 100%;
     }
     .community-search-wrapper {
         height: 2em;
