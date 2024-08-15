@@ -38,6 +38,19 @@ public class SimulatorDAO implements SimulatorMapper {
     }
 
     @Override
+    public List<SimulatorDTO> selectSetter() { return simulatorMapper.selectSetter();}
+
+    @Override
+    public List<SimulatorDTO> selectNormal() {
+        return simulatorMapper.selectNormal();
+    }
+
+    @Override
+    public List<SimulatorDTO> searchNickname(String nickname) {
+        return simulatorMapper.searchNickname(nickname);
+    }
+
+    @Override
     public int deleteProject(int pk){return simulatorMapper.deleteProject(pk);}
 
 }

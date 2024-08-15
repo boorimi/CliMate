@@ -181,8 +181,6 @@ body {
         }
 
     }
-
-
     .main-map-img,
     .main-simulator-img,
     .main-community-img,
@@ -196,8 +194,10 @@ body {
             height: auto;
         }
     }
-    #mypage-img{
-        width: 2.5vw;
+    .main-mypage{
+        img{
+            width: 2.5vw;
+        }
     }
   }
 

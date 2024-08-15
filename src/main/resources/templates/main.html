@@ -63,9 +63,9 @@
             <div>Community</div>
           </div>
           <div
+            th:if="${user_id} == null"
             class="main-login"
             onclick="location.href='/loginC'"
-            th:if="${user_id} == null"
           >
             <div class="main-login-img">
               <img src="/resources/icon/google.png" />
@@ -74,15 +74,15 @@
           </div>
 
           <div
+            th:if="${user_id} != null"
             class="main-mypage"
             onclick="location.href='/mypage'"
-            th:if="${user_id} != null"
           >
             <img class="main-login-img" src="/resources/icon/mypage.png" />
 
             <p id="menu-login">MyPage</p>
           </div>
-          <div class="main-logout" th:if="${user_id} != null">
+          <div th:if="${user_id} != null" class="main-logout">
             <img class="main-login-img" src="/resources/icon/logout.png" />
             Logout
           </div>

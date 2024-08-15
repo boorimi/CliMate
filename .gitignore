@@ -47,3 +47,5 @@ upload/
 #firebase
 firebaseAccountKey.json
 
+#node_modules
+node_modules/
