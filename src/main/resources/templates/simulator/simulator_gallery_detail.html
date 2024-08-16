@@ -89,12 +89,7 @@
                     <img th:src="@{'/resources/grade_icon/hold_' + ${scl.u_grade} + '.png'}">
                 </div>
                 <div class="create-date" th:text="${#dates.format(scl.cm_datetime, 'yyyy-MM-dd')}"></div>
-                <ul class="profile-menu">
-                    <li th:data-id="${scl.cm_u_id}" id="link-profile">Profile</li>
-                    <li th:data-nickname="${scl.u_nickname}" id="link-video">Post (Video)</li>
-                    <li th:data-nickname="${scl.u_nickname}" id="link-lfg">Post (Lfg)</li>
-                    <li>Chating</li>
-                </ul>
+
             </div>
             <p id="comment-text" th:text="${scl.cm_text}"></p>
         </div>

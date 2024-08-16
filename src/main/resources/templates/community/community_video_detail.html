@@ -27,7 +27,7 @@
     <!--  최상단   이름, 그레이드      날짜 -->
     <div class="video-detail top-box">
         <div class="video-detail name-box">
-            <p th:text="${showoffList.u_nickname}"></p>
+            <p class="title-nickname" th:text="${showoffList.u_nickname}" th:attr="data-nickname=${showoffList.u_nickname}, data-id=${showoffList.u_id}"></p>
             <img th:src="@{'/resources/grade_icon/hold_' + ${showoffList.u_grade} + '.png'}">
         </div>
         <div class="detail-date" th:text="${#dates.format(showoffList.b_datetime, 'yyyy.MM.dd')}"></div>
@@ -108,7 +108,7 @@
     <div class="comment-list" th:each="co : ${showoffCommentsLists}">
         <div class="top-box-comment">
             <div class="name-box">
-                <p th:text="${co.u_nickname}" class="comment-nickname"></p>
+                <p th:text="${co.u_nickname}" class="comment-nickname" th:attr="data-nickname=${co.u_nickname}, data-id=${co.cm_u_id}"></p>
                 <img th:src="@{'/resources/grade_icon/hold_' + ${co.u_grade} + '.png'}">
             </div>
             <div class="date-delete-box">
@@ -123,15 +123,8 @@
         <p class="comment-text" th:text="${co.cm_text}"></p>
     </div>
 
-    <ul class="video profile-menu">
-        <li th:data-id="${co.u_id}" id="link-profile">Profile</li>
-        <li th:data-nickname="${co.u_nickname}" id="link-video">Post (Video)</li>
-        <li th:data-nickname="${co.u_nickname}" id="link-lfg">Post (Lfg)</li>
-        <li>Chating</li>
-    </ul>
-
-
 </div>
+
 </body>
 
 </html>
