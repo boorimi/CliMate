@@ -28,11 +28,4 @@ public class HC {
         return "index";
     }
 
-    @GetMapping("/chating")
-    public RedirectView chating(HttpSession session, Model model) {
-        String userId = (String) session.getAttribute("user_id");
-        String redirectUrl = "https://popular-plainly-mongoose.ngrok-free.app?userId=" + userId;
-        return new RedirectView(redirectUrl);
-    }
-
 }

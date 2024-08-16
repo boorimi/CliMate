@@ -7,11 +7,11 @@ function validateForm(event) {
     let fileInput = document.getElementById('uploadFile');
     let files = fileInput.files;
     if (fileInput.files.length === 0) {
-        alert('ファイルを選んでください。');
+        alert('파일을 선택해 주세요');
         event.preventDefault(); // 폼 제출 방지
         return false;
     } else if (fileInput.files.length > 4) {
-        alert('最大4個までアップロードできます。');
+        alert('최대 4개의 파일까지 선택 가능합니다');
         event.preventDefault(); // 폼 제출 방지
         return false;
     }
@@ -53,7 +53,7 @@ function setThumbnail(event) {
     for (var i = 0; i < files.length; i++) {
         let file = files[i];
         if (!file.name.endsWith('.mp4')) {
-            alert('.MP4ファイルのみアップロードできます。');
+            alert('MP4파일만 업로드 가능합니다.');
             event.target.value = "";
             return;
         }
