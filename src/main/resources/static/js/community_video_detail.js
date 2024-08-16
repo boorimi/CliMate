@@ -69,6 +69,7 @@ $(document).ready(function () {
         $('.community-video-detail-board-nicknameMenu').removeClass('activeNickname');
     });
 
+    // 업데이트,딜리트 메뉴 토글하는 기능
     $(document).on('click','.community-video-detail-more-wrapper', function () {
         $('.community-video-detail-updelMenu').toggleClass('active');
     });

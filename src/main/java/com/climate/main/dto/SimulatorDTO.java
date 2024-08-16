@@ -7,12 +7,15 @@ import java.util.Date;
 
 @Data
 public class SimulatorDTO {
-    private int s_pk;
-    private String s_file;
-    private String s_img;
-    private Date s_date;
-    private String s_u_id;
+    private int b_pk;
+    private String b_video;
+    private String b_thumbnail;
+    private Date b_datetime;
+    private String b_category;
+    private String b_u_id;
     private String u_nickname;
     private String u_grade;
     private String u_category;
+    private int l_count;
+    private int c_count;
 }

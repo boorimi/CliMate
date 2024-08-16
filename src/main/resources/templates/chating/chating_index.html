@@ -6,14 +6,27 @@
     <title>Spring Boot Chat Integration</title>
     <script>
         // URL에서 userId 파라미터 추출 및 세션 스토리지에 저장
-        const userId = new URLSearchParams(window.location.search).get('userId');
-        if (userId) {
-            sessionStorage.setItem('userId', userId);
+        const user_id = new URLSearchParams(window.location.search).get('userId');
+        if (user_id) {
+            sessionStorage.setItem('userId', user_id);
         }
-
-
-
     </script>
+    <style>
+        .chat-sent {
+            background-color: #dcf8c6; /* 보낸 메시지 배경색 */
+            text-align: right; /* 보낸 메시지 오른쪽 정렬 */
+            padding: 10px;
+            border-radius: 10px;
+            margin: 5px;
+        }
+        .chat-received {
+            background-color: #f1f0f0; /* 받은 메시지 배경색 */
+            text-align: left; /* 받은 메시지 왼쪽 정렬 */
+            padding: 10px;
+            border-radius: 10px;
+            margin: 5px;
+        }
+    </style>
 </head>
 <body>
 <div id="chat">
@@ -26,26 +39,34 @@
 
 <script src="https://popular-plainly-mongoose.ngrok-free.app/socket.io/socket.io.js"></script>
 <script>
-
-
     const socket = io('https://popular-plainly-mongoose.ngrok-free.app');
 
     const form = document.getElementById('form');
     const input = document.getElementById('input');
+    const userId = sessionStorage.getItem('userId'); // 사용자 ID 가져오기
 
     form.addEventListener('submit', function (e) {
         e.preventDefault();
-        if (input.value) {
-            socket.emit('chat message', input.value);
+        const message = input.value;
+
+        if (message) {
+            socket.emit('chat message', { userId, message, senderId: userId }); // 사용자 ID를 포함하여 전송
             input.value = '';
         }
     });
 
-    socket.on('chat message', function (msg) {
+    socket.on('chat message', function (data) {
+        const { userId2, message, senderId } = data;
         const item = document.createElement('div');
-        let userId = sessionStorage.getItem('userId')
-        item.textContent = userId + msg;
-        item.classList.add('chating-mine');
+        item.textContent = `[${userId}] [${senderId}] : ${message}`;
+
+        // 메시지를 보낸 사람과 받은 사람에 따라 클래스 다르게 설정
+        if (senderId === userId) {
+            item.classList.add('chat-sent'); // 본인이 보낸 메시지
+        } else {
+            item.classList.add('chat-received'); // 상대방이 보낸 메시지
+        }
+
         document.getElementById('messages').appendChild(item);
         window.scrollTo(0, document.body.scrollHeight);
     });

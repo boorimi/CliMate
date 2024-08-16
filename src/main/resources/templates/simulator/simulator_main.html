@@ -32,8 +32,8 @@
     <div class="simulator-my-project">
         <p class="title-text">My project</p>
         <div class="my-project-list" id="myProjectList" th:if="${user_id != null}">
-            <div class="my-project" th:each="myPj: ${myProject}" th:if="${myPjStat.index} < 3" th:attr="data-pk=${myPj.s_pk}, data-size=${#lists.size(myProject)}">
-                <img th:src="${myPj.s_img}">
+            <div class="my-project" th:each="myPj: ${myProject}" th:if="${myPjStat.index} < 3" th:attr="data-pk=${myPj.b_pk}, data-size=${#lists.size(myProject)}">
+                <img th:src="${myPj.b_thumbnail}">
             </div>
         </div>
         <div class="my-project-list" th:if="${user_id == null}">
