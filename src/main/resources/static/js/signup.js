@@ -2,16 +2,16 @@ let map;
 let markers = [];
 let service;
 let infowindow;
-$(function() {
+$(function () {
     initMap();
     //프로필 이미지 업로드 및 미리보기
-    $("#file-input").on("change",function(event) {
-            const file = event.target.files;
-        if(file && file[0]) {
+    $("#file-input").on("change", function (event) {
+        const file = event.target.files;
+        if (file && file[0]) {
             var reader = new FileReader();
-            reader.onload = function(e) {
+            reader.onload = function (e) {
                 document.getElementById('profile').src = e.target.result;
-                $(this).attr("name","file_upload");
+                $(this).attr("name", "file_upload");
             };
             reader.readAsDataURL(file[0]);
         } else {
@@ -22,59 +22,59 @@ $(function() {
     })
 
     //등급 설정
-    $("#grade-select").on("change", function(event) {
-        console.log("check color value => "+event.target.value);
+    $("#grade-select").on("change", function (event) {
+        console.log("check color value => " + event.target.value);
         const color = event.target.value;
-        console.log("check color value => "+color);
-        if(color === "red") {
+        console.log("check color value => " + color);
+        if (color === "red") {
             $("#grade-img").attr("src", "");
             $("#grade-img").attr("src", "/resources/grade_icon/hold_red.png");
-        } else if(color === "orange") {
+        } else if (color === "orange") {
             $("#grade-img").attr("src", "");
             $("#grade-img").attr("src", "/resources/grade_icon/hold_orange.png");
-        }else if(color === "yellow") {
+        } else if (color === "yellow") {
             $("#grade-img").attr("src", "");
             $("#grade-img").attr("src", "/resources/grade_icon/hold_yellow.png");
-        }else if(color === "green") {
+        } else if (color === "green") {
             $("#grade-img").attr("src", "");
             $("#grade-img").attr("src", "/resources/grade_icon/hold_green.png");
-        }else if(color === "blue") {
+        } else if (color === "blue") {
             $("#grade-img").attr("src", "");
             $("#grade-img").attr("src", "/resources/grade_icon/hold_blue.png");
-        }else if(color === "deepBlue") {
+        } else if (color === "deepBlue") {
             $("#grade-img").attr("src", "");
             $("#grade-img").attr("src", "/resources/grade_icon/hold_deepBlue.png");
-        }else if(color === "purple") {
+        } else if (color === "purple") {
             $("#grade-img").attr("src", "");
             $("#grade-img").attr("src", "/resources/grade_icon/hold_purple.png");
         }
     })
 
     //google map
-    $("#homeground").on("click", function(event) {
+    $("#homeground").on("click", function (event) {
         event.preventDefault();
         let map_height = $("#map-box").offset.top;
         let header_height = $("#menu").offset.top;
-        $("#map-box").css("display","block");
+        $("#map-box").css("display", "block");
         $("#map-box").css("transform", "translateY(0)");
         $("#map-box").css("top", "12%");
-        $("body").css("overflow","hidden");
-        window.scrollTo({top:map_height-header_height, behavior:'smooth'});
+        $("body").css("overflow", "hidden");
+        window.scrollTo({top: map_height - header_height, behavior: 'smooth'});
         //window.open("/miniMapC", "_blank","width=820,height=820,left=1,top=200, right:10");
     })
 
-    $(".map-cancel").on("click", function(event) {
-        $("#map-box").css("display","none");
+    $(".map-cancel").on("click", function (event) {
+        $("#map-box").css("display", "none");
         $("#map-box").css("transform", "translateY(0)");
         $("#map-box").css("top", "0");
-        $("body").css("overflow","scroll");
+        $("body").css("overflow", "scroll");
     });
 })
 
 /* google map */
 function initMap() {
     let defaultLocation = {
-        center: { lat: 37.5665, lng: 126.9780 }, //서울
+        center: {lat: 37.5665, lng: 126.9780}, //서울
         zoom: 15,
         mapTypeControl: false,
         fullscreenControl: false,  // 전체화면 컨트롤 제거
@@ -94,10 +94,10 @@ function searchClimbingGyms(location, radius) {
         radius: radius,
         query: 'climbing gym',
         locationBias: { // 검색을 한정하는 지역 설정
-                north: 45.551483,
-                south: 24.396308,
-                east: 153.986672,
-                west: 122.93457
+            north: 45.551483,
+            south: 24.396308,
+            east: 153.986672,
+            west: 122.93457
         }
     };
 
@@ -130,12 +130,15 @@ function createMarker(place) {
     });
 
     google.maps.event.addListener(marker, "click", () => {
-        console.log("check place => "+JSON.stringify(place));
+        const placeUrl = `https://www.google.com/maps/search/?api=1&query=${place.name}}`;
+        console.log("check place => " + JSON.stringify(place));
         const content = `<div　style="{width:5vw;}">
 <p onclick="handlePlaceClick('${place.name}')">${place.name}</p>
 <p onclick="handlePlaceClick('${place.name}')">${place.formatted_address}</p>
+           <a href="${placeUrl}" target="_blank">View on Google Maps</a>
 </div>`;
-        infowindow.setContent(content);
+
+           infowindow.setContent(content);
         infowindow.open(map, marker);
     });
 
@@ -145,10 +148,10 @@ function createMarker(place) {
 function handlePlaceClick(placeName) {
     //마커 클릭시
     $("#homeground").val(placeName);
-    $("#map-box").css("display","none");
+    $("#map-box").css("display", "none");
     $("#map-box").css("transform", "translateY(0)");
     $("#map-box").css("top", "0");
-    $("body").css("overflow","scroll");
+    $("body").css("overflow", "scroll");
 }
 
 function searchLocation() {
@@ -159,10 +162,10 @@ function searchLocation() {
         query: mapInput,
         fields: ["name", "geometry"],
         locationBias: { // 검색을 한정하는 지역 설정
-                north: 45.551483,
-                south: 24.396308,
-                east: 153.986672,
-                west: 122.93457
+            north: 45.551483,
+            south: 24.396308,
+            east: 153.986672,
+            west: 122.93457
         }
     };
 
@@ -194,7 +197,7 @@ function isClimbingGym(place) {
 
 function geocodeAddress(address) {
     const geocoder = new google.maps.Geocoder();
-    geocoder.geocode({ address: address }, (results, status) => {
+    geocoder.geocode({address: address}, (results, status) => {
         if (status === google.maps.GeocoderStatus.OK) {
             const location = results[0].geometry.location;
 
@@ -211,7 +214,7 @@ function geocodeAddress(address) {
 window.searchLocation = searchLocation;
 
 $("#map-input").keydown(function (e) {
-    if(e.keyCode == 13) {
+    if (e.keyCode == 13) {
         e.preventDefault();
         // enter key(13) 눌렀을 때 이벤트
         searchLocation();
