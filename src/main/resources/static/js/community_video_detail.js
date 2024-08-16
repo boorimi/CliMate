@@ -70,18 +70,4 @@ function deleteCommentsCheck(cm_pk, b_pk) {
     }
 }
 
-function redirectToProfile(element) {
-    const userId = element.getAttribute('data-u_id');
-    location.href = '/mypage/userProfile?u_id=' + userId;
-}
-
-function redirectToVideoPost(element) {
-    const userNickname = element.getAttribute('data-u_nickname');
-    location.href = '/community/search?columnName=u_nickname&searchWord=' + userNickname;
-}
-
-function redirectToLfgPost(element) {
-    const userNickname = element.getAttribute('data-u_nickname');
-    location.href = '/community/searchLfg?columnName=u_nickname&searchWord=' + userNickname;
-}
 
