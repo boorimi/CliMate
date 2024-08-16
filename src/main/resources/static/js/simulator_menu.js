@@ -22,8 +22,6 @@ $(document).ready(function () {
         location.href="/simulator/gallery?category=All";
     })
 
-
-
     function loginCheck(userId, dataPk) {
         if (userId != null && userId !== '') {
             location.href = '/simulator/gallery_detail?b_pk=' + dataPk;

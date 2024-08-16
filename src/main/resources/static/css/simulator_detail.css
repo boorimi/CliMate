@@ -57,7 +57,6 @@
     align-items: center;
     height: 100%;
 
-
     img {
         height: 80%;
         margin-left: 0.5em;
@@ -100,42 +99,6 @@
 
 .nickname {
     position: relative;
-}
-
-.profile-menu {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: none;
-    position: absolute;
-    z-index: 900;
-    top: 0;
-    left: 0;
-    background-color: #fff;
-    width: 20%;
-    border-radius: 1em;
-    border: solid #79976a;
-    font-weight: 900;
-    color: #79976a;
-
-    li {
-        border-bottom: 1px solid #ddd;
-        display: flex;
-        align-items: center;
-        height: 6vw;
-        font-size: 2.2vw;
-        padding: 0 1em;
-    }
-
-    li:last-child {
-        border-bottom: none;
-    }
-}
-
-.profile-menu.active {
-    display: flex;
-    flex-direction: column;
-
 }
 
 .comment-input {
@@ -186,7 +149,7 @@
         height: 60vh;
     }
 
-    .create-date {
+    .detail-date {
         font-size: 1em;
     }
 

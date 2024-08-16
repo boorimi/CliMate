@@ -83,14 +83,12 @@ $(document).ready(function () {
             $('.s-delete-background').css("display", "none");
         })
 
-
         // 배경을 클릭했을 때 모달 닫기
         $('#s-delete-confirm-background').on('click', function (event) {
             if (event.target === this) {
                 $(this).css("display", "none");
             }
         });
-
     })
 
     // 프로필 메뉴 열기 및 닫기 토글
