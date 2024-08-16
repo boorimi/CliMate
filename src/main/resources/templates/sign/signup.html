@@ -1,142 +1,155 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="UTF-8" />
+<head>
+    <meta charset="UTF-8"/>
     <title>Title</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta
-      name="viewport"
-      content="width=device-width,initial-scale=1.0, minimum-scale=1.0,maximum-scale=1.0"
+            name="viewport"
+            content="width=device-width,initial-scale=1.0, minimum-scale=1.0,maximum-scale=1.0"
     />
-    <link rel="stylesheet" href="/resources/css/signup.css" />
+    <link rel="stylesheet" href="/resources/css/signup.css"/>
     <script
-      th:src="'https://maps.googleapis.com/maps/api/js?key=' + ${mapKey} + '&libraries=places'"
-      defer
+            th:src="'https://maps.googleapis.com/maps/api/js?key=' + ${mapKey} + '&libraries=places'"
+            defer
     ></script>
-  </head>
-  <body>
-    <form
-      action="/signup"
-      method="post"
-      class="signup-container"
-      enctype="multipart/form-data"
-    >
-      <div class="profile-img">
+    <script
+            crossorigin="anonymous"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            src="https://code.jquery.com/jquery-3.6.0.min.js"
+    ></script>
+</head>
+<body>
+<form
+        action="/signup"
+        method="post"
+        class="signup-container"
+        enctype="multipart/form-data"
+>
+    <div class="profile-img">
         <div class="profile-img-box">
-          <img id="profile" th:src="${profile}" alt="private" />
+            <img id="profile" th:src="${profile}" alt="private"/>
         </div>
-        <input th:value="${profile}" name="u_img" style="display: none" />
+        <input th:value="${profile}" name="u_img" style="display: none"/>
         <label for="file-input" class="profile-img-upload">+</label>
-        <input type="file" id="file-input" name="file_upload" />
-      </div>
-      <div class="signup-input">
+        <input type="file" id="file-input" name="file_upload"/>
+    </div>
+    <div class="signup-input">
         <label for="u_id" class="u_label">ID</label>
         <input
-          th:value="${email}"
-          id="u_id"
-          class="id-input"
-          name="u_id"
-          readonly
+                th:value="${email}"
+                id="u_id"
+                class="id-input"
+                name="u_id"
+                readonly
         />
-      </div>
-      <div class="signup-input">
+    </div>
+    <div class="signup-input">
         <label for="u_nickname" class="u_label">NickName</label>
         <input
-          id="u_nickname"
-          class="nickname-input"
-          placeholder="NickName"
-          name="u_nickname"
+                id="u_nickname"
+                class="nickname-input"
+                placeholder="NickName"
+                name="u_nickname"
         />
-      </div>
-      <div class="signup-input">
+    </div>
+    <div class="signup-input">
         <label for="u_insta" class="u_label">Instagram ID</label>
         <input
-          id="u_insta"
-          class="insta-input"
-          placeholder="Instagram ID"
-          name="u_insta"
+                id="u_insta"
+                class="insta-input"
+                placeholder="Instagram ID"
+                name="u_insta"
         />
-      </div>
-      <div class="grade-container">
+    </div>
+    <div class="signup-input">
+        <div class="usertype-text-box">
+            <p>User Type</p>
+            <div id="usertype-grade-preview">
+                <img class="grade-image"
+                     id="usertype-grade-img"
+                     src="/resources/grade_icon/hold_red.png"
+                />
+            </div>
+        </div>
+        <select class="category-select" name="u_category">
+            <option class="category-value" selected value="Setter">Setter</option>
+            <option class="category-value" value="Normal">Normal</option>
+        </select>
+    </div>
+    <div class="grade-container">
         <p>Grade</p>
         <div class="grade-box">
-          <select class="grade-select" name="u_grade" id="grade-select">
-            <option value="red" data-icon="/resources/grade_icon/hold_red.png">
-              Red
-            </option>
-            <option
-              value="orange"
-              data-icon="/resources/grade_icon/hold_orange.png"
-            >
-              Orange
-            </option>
-            <option
-              value="yellow"
-              data-icon="/resources/grade_icon/hold_yellow.png"
-            >
-              Yellow
-            </option>
-            <option value="green" title="/resources/grade_icon/hold_green.png">
-              Green
-            </option>
-            <option value="blue" title="/resources/grade_icon/hold_blue.png">
-              Blue
-            </option>
-            <option
-              value="deepBlue"
-              title="/resources/grade_icon/hold_deepBlue.png"
-            >
-              deepBlue
-            </option>
-            <option
-              value="purple"
-              title="/resources/grade_icon/hold_purple.png"
-            >
-              Purple
-            </option>
-          </select>
-          <div id="grade-preview">
-            <img
-              class="grade-image"
-              id="grade-img"
-              src="/resources/grade_icon/hold_red.png"
-            />
-          </div>
+            <select class="grade-select" name="u_grade" id="grade-select">
+                <option value="red" data-icon="/resources/grade_icon/hold_red.png">
+                    Red
+                </option>
+                <option
+                        value="orange"
+                        data-icon="/resources/grade_icon/hold_orange.png"
+                >
+                    Orange
+                </option>
+                <option
+                        value="yellow"
+                        data-icon="/resources/grade_icon/hold_yellow.png"
+                >
+                    Yellow
+                </option>
+                <option value="green" title="/resources/grade_icon/hold_green.png">
+                    Green
+                </option>
+                <option value="blue" title="/resources/grade_icon/hold_blue.png">
+                    Blue
+                </option>
+                <option
+                        value="deepBlue"
+                        title="/resources/grade_icon/hold_deepBlue.png"
+                >
+                    deepBlue
+                </option>
+                <option
+                        value="purple"
+                        title="/resources/grade_icon/hold_purple.png"
+                >
+                    Purple
+                </option>
+            </select>
+            <div id="grade-preview">
+                <img
+                        class="grade-image"
+                        id="grade-img"
+                        src="/resources/grade_icon/hold_red.png"
+                />
+            </div>
         </div>
-      </div>
-      <div class="signup-input">
-        <p>User Type</p>
-        <select class="category-select" name="u_category">
-          <option class="category-value" value="Setter">Setter</option>
-          <option class="category-value" value="Normal">Normal</option>
-        </select>
-      </div>
-      <div class="signup-input">
+    </div>
+    <div class="signup-input">
         <label for="homeground" class="u_label">Homegroud</label>
         <input
-          readonly
-          class="homeground"
-          id="homeground"
-          placeholder="Address Click Me"
-          name="u_homeground"
+                readonly
+                class="homeground"
+                id="homeground"
+                placeholder="Address Click Me"
+                name="u_homeground"
         />
-      </div>
-      <div class="signup-input private">
+    </div>
+    <div class="signup-input private">
         <p>Profile Private</p>
         <select class="signup-select-box" name="u_profile">
-          <option class="select-value" value="yes">Public</option>
-          <option class="select-value" value="no">Private</option>
+            <option class="select-value" value="yes">Public</option>
+            <option class="select-value" value="no">Private</option>
         </select>
-      </div>
-      <button class="signup-btn" type="submit">SignUp</button>
-      <div class="map-box" id="map-box">
+    </div>
+    <button class="signup-btn" type="submit">SignUp</button>
+    <div class="map-box" id="map-box">
         <div class="map-input-box">
-          <input id="map-input" class="map-input" placeholder="Search" />
-          <p class="map-cancel" id="map-cancel">X</p>
+            <input id="map-input" class="map-input" placeholder="Search"/>
+            <p class="map-cancel" id="map-cancel">X</p>
         </div>
         <div id="map"></div>
-      </div>
-    </form>
-    <script src="/resources/js/signup.js" />
-  </body>
+    </div>
+</form>
+<script src="/resources/js/signup.js"/>
+</body>
 </html>
