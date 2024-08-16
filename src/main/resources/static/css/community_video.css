@@ -1,37 +1,33 @@
-.community-contents-container{
+.community-contents-container {
     min-height: 80vh;
 
 }
+
 .community-contents-wrapper {
-    margin-top: 1vh;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
-    padding: 0 2vw;
+    gap: 3%;
+    margin: 1.5rem 0;
 }
 
 .community-content {
-    display: flex;
-    flex-direction: column;
-    margin: 2vw 2vh;
-    padding: 1em;
-    aspect-ratio: 1 / 1.5;
+    width: 15rem;
+    height: 20rem;
     border: 0.07em solid #79976a;
     border-radius: 0.8em;
-    height: 30vh;
-    flex: 0 0 auto;
-}
-
-.community-contents-wrapper::after {
-    content: "";
-    flex: auto;
+    padding: 1%;
+    margin-bottom: 1em;
 }
 
 .community-video {
-    width: 20vh;
-    height: 18vh;
-    background-color: rgb(206, 206, 206);
-    text-align: center;
+    width: 100%;
+    height: 70%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.5em;
+    position: relative;
 }
 
 .community-video img {
@@ -40,23 +36,51 @@
     object-fit: cover;
 }
 
+
+.community-nickname-wrapper {
+    display: flex;
+    align-items: center;
+    height: 8%;
+    position: absolute;
+    top: 0.5em;
+    left: 0.5em;
+    z-index: 100;
+     color: white;
+    font-weight: 600;
+    text-shadow: 0 0 0.1em black;
+}
+
+.community-nickname {
+    margin-right: 0.5em;
+}
+
+.community-grade {
+    display: flex;
+    align-items: center;
+    height: 100%;
+
+    img {
+        height: 100%;
+    }
+}
+
 .community-likecomments-wrapper {
     display: flex;
     flex-direction: row;
-    height: 3.2vh;
+    height: 8%;
     margin-top: 0.5em;
     align-items: center;
 }
 
 .community-like img,
 .community-comments img {
-    width: 3.5vh;
-    height: auto;
+    height: 100%;
 }
 
 .community-like,
 .community-comments {
-    margin: 0 0.5vh 0 0;
+    height: 100%;
+    margin: 0 0.5em 0 0;
 }
 
 .community-like-count,
@@ -71,65 +95,80 @@
 }
 
 .community-climbing-name {
-    font-size: 3vh;
-    margin: 0.5vh 0;
-    width: 110%;
+    font-size: 1.3em;
+    margin: 0.3em 0;
     font-weight: 900;
 }
 
-.community-nickname-wrapper {
-    display: flex;
-}
-
-.community-nickname {
-    font-size: 2.7vh;
-}
-
-.community-grade img {
-    margin-left: 0.5em;
-    width: 2.7vh;
-    height: auto;
-}
 
 .community-video-insert {
     display: flex;
     position: fixed;
     justify-content: center;
     align-items: center;
-    right: 7vw;
-    bottom: 7vw;
-    background-color: #79976a;
-    color: white;
-    width: 15vw;
-    height: 15vw;
-    border-radius: 15vw;
+    right: 1em;
+    bottom: 1em;
+    background-color: #79976a30;
+    color: #79976a;
+    width: 1.5em;
+    height: 1.5em;
+    border-radius: 10rem;
     font-size: 3.5em;
-    border: 0.01em solid white;
+    border: none;
+}
+.community-video-insert:hover {
+    transform: scale(1.05);
 }
 
 @media (max-width: 768px) {
-    .community-content {
-        margin: 2vw 0;
-        height: 53vw;
+
+    .community-contents-wrapper {
+        margin: 1.5rem 0 1.5rem 0.7em;
     }
+
+    .community-content {
+        width: 41vw;
+        /*height: 60vw;*/
+        max-height: 15rem;
+    }
+
     .community-video {
-        width: 35.5vw;
-        height: 35vw;
+        height: 65%;
     }
 
     .community-likecomments-wrapper {
-        height: 3vw;
         margin-top: 0.8em;
+        height: 8%;
+    }
+
+    .community-climbing-name{
+        margin: 0.1em 0;
+        font-size: large;
+    }
+
+    .community-nickname-wrapper{
+        height: 1.3em;
+    }
+
+    .community-grade {
+        height: 100%;
+        margin-left: 0.2em;
+
+        img {
+            height: 100%;
+        }
+
+    }
+
+    .community-video-insert {
+        right: 0.5em;
+        bottom: 0.5em;
+        width: 1em;
+        height: 1em;
     }
 
     .community-climbing-name {
-        font-size: 5vw;
-    }
-    .community-nickname {
-        font-size: 4vw;
-    }
-    .community-grade img {
-        margin-left: 0.2em;
+        /*height: 8%;*/
     }
 
 }

@@ -40,6 +40,10 @@
 #gallery-search-input {
     width: 90%;
 }
+#gallery-search-input:focus {
+    outline: none;
+    background-color: #f3f6ee;
+}
 
 #gallery-search-btn {
     display: flex;
@@ -70,6 +74,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    color: #79976a;
 }
 
 /* 검색결과 */
@@ -111,6 +116,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: 0.5em;
 
     img {
         width: 100%;
@@ -150,7 +156,6 @@
         width: auto;
     }
 }
-
 
 @media (max-width: 768px) {
 

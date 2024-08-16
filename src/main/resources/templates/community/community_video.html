@@ -24,6 +24,11 @@
              th:onclick="'location.href=\'/community/video/detail?b_pk=' + ${show.b_pk} + '\''">
             <div class="community-video">
                 <img th:src="@{'/resources/upload/thumbnail/' + ${show.b_thumbnail}}"/>
+                <div class="community-nickname-wrapper">
+                    <div class="community-nickname" th:text="${show.u_nickname}"></div>
+                    <div class="community-grade"><img th:src="@{'/resources/grade_icon/hold_' + ${show.u_grade} + '.png'}">
+                    </div>
+                </div>
             </div>
             <div class="community-likecomments-wrapper">
                 <div class="community-like"><img src="/resources/icon/love.png"/></div>
@@ -32,11 +37,7 @@
                 <div class="community-comments-count" th:text="${show.c_count}"></div>
             </div>
             <div class="community-climbing-name" th:text="${show.b_title}"></div>
-            <div class="community-nickname-wrapper">
-                <div class="community-nickname" th:text="${show.u_nickname}"></div>
-                <div class="community-grade"><img th:src="@{'/resources/grade_icon/hold_' + ${show.u_grade} + '.png'}">
-                </div>
-            </div>
+
         </div>
     </div>
 </div>

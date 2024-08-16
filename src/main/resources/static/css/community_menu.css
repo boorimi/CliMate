@@ -6,34 +6,68 @@
 .community-all-wrapper {
     width: 100%;
     height: auto;
-    margin: 2vw 0;
+    margin: 1em 0;
 }
 
 .community-category-wrapper {
-    margin-top: 1.5vh;
     display: flex;
     justify-content: space-between;
     align-items: center;
     height: 3rem;
-    font-size: 2.5vh;
-    font-family: "jpFont01";
-    div {
-        background-color: #79976a;
-        border-radius: 0.3em;
-        width: 45%;
-        height: 100%;
-        display: grid;
-        place-items: center;
-        color: white;
-        margin: 0 0.1em;
-    }
+    margin: 3em 0 1em 0;
+}
 
-    .community-search-icon {
-        width: 3rem;
-        img {
-            width: 100%;
-            filter: invert(100%);
-        }
+#category-video,
+#category-together {
+    border: 0.07em solid #79976a;
+    border-radius: 0.3em;
+    width: 45%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #79976a;
+    font-size: 1.3em;
+    font-weight: 900;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+}
+
+#category-video::before,
+#category-together::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: #79976a;
+    transition: left 0.5s ease;
+    z-index: -1;
+}
+
+#category-video:hover::before,
+#category-together:hover::before  {
+    left: 0;
+}
+
+#category-video:hover,
+#category-together:hover {
+    color: white;
+}
+
+.community-search-icon {
+    width: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border: 0.07em solid #79976a;
+    border-radius: 0.3em;
+
+    img {
+        width: 100%;
     }
 }
 
@@ -42,65 +76,48 @@
 }
 
 .community-search-wrapper {
-    width: 100%;
-    margin-top: 1.5vh;
+    margin-top: 1em;
     display: none;
     justify-content: space-between;
     align-items: center;
-    height: 2.2rem;
-
-    select,
-    .search-input {
-        border-radius: 1em;
-        border: 0.1rem solid #79976a;
-        font-family: "jpFont01";
-        height: 100%;
-    }
-
-    select {
-        width: 18%;
-    }
-    select:focus{
-        background-color: rgba(121, 151, 106, 0.26);
-    }
-
-    .search-input {
-        width: 80%;
-        display: flex;
-        overflow: hidden;
-
-        input {
-            border: none;
-            height: 96%;
-            width: 83%;
-            font-size: 1.5em;
-        }
-        input:focus {
-            outline: none; /* 포커스 시 아웃라인 제거 */
-            background-color: rgba(121, 151, 106, 0.26);
-        }
-
-        button {
-            height: 100%;
-            width: 17%;
-            background-color: #ffffff00;
-            overflow: hidden;
-            right: 0;
-            border: none;
-
-            img {
-                height: 100%;
-                width: auto;
-            }
-        }
-    }
-
-
+    height: 3em;
 }
 
-.community-search-wrapper.show {
-    flex-direction: row;
-    height: 10vw;
+#search-select,
+#search-input,
+#search-btn {
+    height: 75%;
+    border: 0.1em solid #79976a;
+    border-radius: 0.3em;
+    box-sizing: border-box;
+}
+
+#search-select {
+    width: 20%;
+    background-color: white;
+}
+#search-select:focus {
+    outline: none;
+    background-color: rgba(121, 151, 106, 0.26);
+}
+
+#search-input {
+    width: 70%;
+}
+#search-input:focus {
+    outline: none; /* 포커스 시 아웃라인 제거 */
+    background-color: rgba(121, 151, 106, 0.26);
+}
+
+#search-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+
+    img {
+        height: 100%;
+    }
 }
 
 .community-search-result > div {
@@ -109,6 +126,21 @@
     color: #79976a;
 }
 
+@media (max-width: 768px) {
+    .community-category-wrapper {
+        height: 2.5em;
+        margin: 1em 0;
+    }
 
+    #category-video,
+    #category-together{
+        width: 40%;
+    }
 
-
+    .community-search-icon{
+        height: 100%;
+    }
+    .community-search-wrapper {
+        height: 2em;
+    }
+}

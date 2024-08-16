@@ -93,3 +93,45 @@ function setThumbnail(event) {
     customArrows.style.display = 'flex';
 
 }
+
+// bm
+// 슬릭슬라이더 파일 업로드 버튼 연결 js
+document.getElementById('uploadFile').addEventListener('change', function() {
+    const fileInput = this;
+    const fileNameDisplay = document.getElementById('fileNameDisplay');
+
+    // 선택된 파일명을 표시
+    if (fileInput.files.length > 0) {
+        const fileNames = Array.from(fileInput.files).map(file => file.name).join(', ');
+        fileNameDisplay.textContent = fileNames;
+    } else {
+        fileNameDisplay.textContent = '선택된 파일 없음';
+    }
+});
+
+document.getElementById('uploadThumbnail').addEventListener('change', function() {
+    const fileInput = this;
+    const fileNameDisplay = document.getElementById('fileNameDisplay');
+
+    // 선택된 파일명을 표시
+    if (fileInput.files.length > 0) {
+        const fileNames = Array.from(fileInput.files).map(file => file.name).join(', ');
+        fileNameDisplay.textContent = fileNames;
+    } else {
+        fileNameDisplay.textContent = '선택된 파일 없음';
+    }
+});
+
+// 인풋 포커스 div background-color 변경
+document.addEventListener('DOMContentLoaded', function() {
+    var inputElement = document.querySelector('input[name="b_title"]');
+    var titleBox = document.querySelector('.title-box');
+
+    inputElement.addEventListener('focus', function() {
+        titleBox.style.backgroundColor = '#f3f6ee';
+    });
+
+    inputElement.addEventListener('blur', function() {
+        titleBox.style.backgroundColor = '';
+    });
+});
