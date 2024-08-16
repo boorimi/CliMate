@@ -1,7 +1,6 @@
 $(document).ready(function () {
     let userId = $('#userId').text();
-    const post = $('.project-post');
-    let dataPk;
+
 
     $(".s-menu-create").click(function (){
         if (userId != null && userId != ""){
@@ -23,17 +22,9 @@ $(document).ready(function () {
         location.href="/simulator/gallery?category=All";
     })
 
-
-    post.on('click', function () {
-        dataPk = $(this).data('pk');
-        loginCheck(userId, dataPk);
-        showConfirm();
-    });
-
-
     function loginCheck(userId, dataPk) {
         if (userId != null && userId !== '') {
-            location.href = '/simulator/gallery_detail?pk=' + dataPk;
+            location.href = '/simulator/gallery_detail?b_pk=' + dataPk;
         } else {
             showConfirm();
         }
