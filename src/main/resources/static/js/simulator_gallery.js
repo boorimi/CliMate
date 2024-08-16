@@ -54,7 +54,7 @@ $(document).ready(function () {
         console.log(userId);
 
         if (userId != null && userId !== '') {
-            location.href = '/simulator/gallery_detail?pk=' + dataPk;
+            location.href = '/simulator/gallery_detail?b_pk=' + dataPk;
         } else {
             $('.s-menu-modal-background').css("display", "block");
         }

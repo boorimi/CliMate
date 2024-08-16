@@ -4,33 +4,14 @@
   flex-direction: column;
   margin: 1em 0 2em 0;
   min-height: 145vh;
+  background-color: #dcf8c6;
+  overflow: hidden;
 }
 
 .community-showoff-video video {
   width: 15em;
   height: auto;
   margin: 0vh 7vw;
-}
-
-.custom-arrows {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 10;
-}
-
-.slick-prev,
-.slick-next {
-  width: 5vh;
-  height: 5vh;
-  font-size: 1.5em;
-  background-color: rgba(255, 255, 255, 0.69);
-  border-radius: 5vw;
-  padding: 2vw;
-  cursor: pointer;
 }
 
 .community-video-detail-info {

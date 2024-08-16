@@ -28,9 +28,10 @@
     min-height: 145vh;
 }
 
-.top-box {
+.top-box,
+.top-box-comment {
     display: flex;
-    height: 3rem;
+    height: 2rem;
     align-items: center;
     justify-content: space-between;
     padding: 0 0.5em;
@@ -38,12 +39,17 @@
 
     p {
         margin: 0;
-        font-size: 1.5em;
+        font-size: 1.1em;
     }
 }
-
-.create-date {
-    font-size: 1.2em;
+.top-box {
+    margin: 1em 0.5em;
+    border-bottom: 0.1em solid #79976a;
+    color: #79976a;
+    font-style: italic;
+    p {
+        font-weight: 900;
+    }
 }
 
 .name-box {
@@ -68,20 +74,12 @@
 
 #toggle-like {
     display: flex;
-
-
-    img {
-        height: 5vw;
-    }
-
-    p {
-        margin: 0 1em 0 0.3em;
-        font-size: 1.5em;
-    }
-
+    align-items: center;
+    height: 100%;
 }
 
 .like-box,
+#toggle-like,
 .delete {
     display: flex;
     align-items: center;
@@ -188,14 +186,6 @@
         height: 60vh;
     }
 
-    .top-box {
-        margin: 0;
-
-        p {
-            font-size: 1.3em;
-        }
-    }
-
     .create-date {
         font-size: 1em;
     }
@@ -207,6 +197,7 @@
     }
 
     .like-box,
+    #toggle-like,
     .delete {
         p {
             font-size: 1.3em;

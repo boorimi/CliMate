@@ -83,7 +83,7 @@
 
         <!--    댓글 시작    -->
         <div class="comment-list" th:each="scl : ${simulatorCommentsLists}"><!--th:attr="data-file=${scl.b_video}"-->
-            <div class="top-box">
+            <div class="top-box-comment">
                 <div class="name-box">
                     <p th:text="${scl.u_nickname}" class="comment-nickname"></p>
                     <img th:src="@{'/resources/grade_icon/hold_' + ${scl.u_grade} + '.png'}">
