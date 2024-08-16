@@ -22,7 +22,7 @@
                     <div class="community-lfg-grade"><img
                             th:src="@{'/resources/grade_icon/hold_' + ${re.u_grade} + '.png'}"/></div>
                 </div>
-                <div class="community-lfg-date" th:text="${#dates.format(re.b_datetime, 'yyyy.MM.dd.')}"></div>
+                <div class="community-lfg-date" th:text="${#dates.format(re.b_datetime, 'yyyy.MM.dd')}"></div>
             </div>
             <div class="community-lfg-below" th:text="${re.b_title}">
             </div>
@@ -32,4 +32,14 @@
 <button class="community-lfg-insert" onclick="location.href='/community/lfg/insert?b_pk=0'">+</button>
 
 </body>
+
+<script>
+    changeColor();
+
+    function changeColor(){
+        var element = document.getElementById('category-together');
+        element.style.backgroundColor = "#79976a";
+        element.style.color = "#ffffff";
+    }
+</script>
 </html>

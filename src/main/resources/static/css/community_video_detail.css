@@ -1,5 +1,13 @@
+.community-video-detail-all-wrapper{
+  display: flex;
+  padding: 0 15%;
+  flex-direction: column;
+  margin: 1em 0 2em 0;
+  min-height: 145vh;
+}
+
 .community-showoff-video video {
-  width: 70vw;
+  width: 15em;
   height: auto;
   margin: 0vh 7vw;
 }

@@ -14,21 +14,19 @@
 <body>
 <div class="community-all-wrapper">
     <div class="community-category-wrapper">
-        <div onclick="location.href='/community/video'">video post</div>
-        <div onclick="location.href='/community/lfg'">together</div>
+        <div onclick="location.href='/community/video'" id="category-video">Video</div>
+        <div onclick="location.href='/community/lfg'" id="category-together">Together</div>
         <div class="community-search-icon"></div>
     </div>
     <form th:action="@{${actionURL}}">
         <div class="community-search-wrapper hidden">
-            <select name="columnName">
-                <option value="b_text">본문</option>
-                <option value="b_title">제목</option>
-                <option value="u_nickname">닉네임</option>
+            <select name="columnName" id="search-select">
+                <option value="b_text">content</option>
+                <option value="b_title">title</option>
+                <option value="u_nickname">nickname</option>
             </select>
-            <div class="search-input">
-                <input type="text" name="searchWord"/>
-                <button><img src="/resources/icon/search.png"></button>
-            </div>
+            <input type="text" name="searchWord" id="search-input" />
+            <button id="search-btn"><img src="/resources/icon/search_green.png" /></button>
         </div>
     </form>
     <div class="community-search-result">

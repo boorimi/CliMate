@@ -10,7 +10,14 @@
       rel="stylesheet"
     />
 
-    <link href="/resources/css/main.css" rel="stylesheet" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
+    <meta name="theme-color" content="#ffffff" />
+
+    <link rel="stylesheet" href="/resources/css/main.css" />
     <script
       crossorigin="anonymous"
       integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
@@ -19,7 +26,6 @@
     <script src="/resources/js/main.js" defer></script>
   </head>
   <body>
-    <a href="/chating" target="_blank">채팅테스트</a>
     <div class="main-container">
       <div class="main-background-img">
         <img src="/resources/img/main1.jpg" />
@@ -72,14 +78,14 @@
             </div>
             <div>Login</div>
           </div>
-
           <div
             th:if="${user_id} != null"
             class="main-mypage"
             onclick="location.href='/mypage'"
           >
-            <img class="main-login-img" src="/resources/icon/mypage.png" />
-
+            <div class="main-login-img">
+              <img src="/resources/icon/mypage.png" />
+            </div>
             <p id="menu-login">MyPage</p>
           </div>
           <div th:if="${user_id} != null" class="main-logout">

@@ -131,7 +131,9 @@ public class SimulatorC {
 
     @ResponseBody
     @PostMapping("/deleteProject")
-    public String deleteProject(@RequestParam("pk") int pk) {
+    public String deleteProject(@RequestParam("pk") int pk,
+                                @RequestParam("gltf") String gltf,
+                                @RequestParam("img") String img) {
 
         Map<String, String> response = new HashMap<>();
 

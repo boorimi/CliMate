@@ -9,25 +9,50 @@ $(document).ready(function () {
         "color": "#ffffff"
     });
 
-
+    // 딜리트 모달
     $(".delete").click(function () {
         const pk = $(this).data('pk');
         const gltf = $(this).data('gltf');
         const img = $(this).data('img');
-        if (confirm("진짜 삭제?" + pk + "파일: " + gltf + "이미지: " + img)) {
+
+        $('.s-delete-background').css("display", "block");
+
+        $('#s-delete-confirm-yes').on('click', function () {
+            console.log("눌렀다");
             $.ajax({
                 url: '/simulator/deleteProject',  // 서버에서 요청을 처리할 URL
                 type: 'POST',
-                data: {pk: pk},
+                data: {pk: pk, gltf: gltf, img: gltf},
                 success: function (response) {
-                    alert('삭제되었습니다.');
-                    location.href = '/simulator/gallery';
+                    $('.s-delete-modal').css("display", "none");
+                    $('.s-delete-complete-modal').css("display", "block");
+
+                    $('#s-confirm-close').click(function () {
+                        location.href = '/simulator/gallery?category=All';
+                    });
+
+                    $('#s-delete-confirm-background').click(function (){
+                        location.href = '/simulator/gallery?category=All';
+                    })
                 },
                 error: function (error) {
-                    alert('삭제 중 오류가 발생했습니다.');
+                    alert('fail');
                 }
             });
-        }
+        });
+
+        $('#s-delete-confirm-no').click(function (){
+            $('.s-delete-background').css("display", "none");
+        })
+
+
+        // 배경을 클릭했을 때 모달 닫기
+        $('#s-delete-confirm-background').on('click', function (event) {
+            if (event.target === this) {
+                $(this).css("display", "none");
+            }
+        });
+
     })
 
     // 프로필 메뉴 열기 및 닫기 토글
@@ -59,13 +84,13 @@ $(document).ready(function () {
     }
 
     // p 태그 클릭 이벤트 연결
-    $('.title-nickname, .comment-nickname').on('click', function(event) {
+    $('.title-nickname, .comment-nickname').on('click', function (event) {
         event.stopPropagation(); // 메뉴 외부 감지를 위해 클릭 전파 중지
         toggleMenu($(this));
     });
 
     // 프로필 메뉴 외부 클릭 감지
-    $(document).on('click', function(event) {
+    $(document).on('click', function (event) {
         var $profileMenu = $('.profile-menu');
         if (!$profileMenu.is(event.target) && $profileMenu.has(event.target).length === 0) {
             closeMenu();
@@ -73,7 +98,7 @@ $(document).ready(function () {
     });
 
     // 메뉴 클릭 시 전파 중지
-    $('.profile-menu').on('click', function(event) {
+    $('.profile-menu').on('click', function (event) {
         event.stopPropagation();
     });
 
@@ -82,19 +107,19 @@ $(document).ready(function () {
     const linkVideo = $("#link-video");
     const linklfg = $("#link-lfg");
 
-    linkProfile.click(function (){
+    linkProfile.click(function () {
         const userId = linkProfile.data('id');
         console.log(userId);
         location.href = '/mypage/userProfile?u_id=' + userId;
     });
 
-    linkVideo.click(function (){
+    linkVideo.click(function () {
         const nickname = linkVideo.data('nickname');
         console.log(nickname);
         location.href = '/community/search?columnName=u_nickname&searchWord=' + nickname;
     });
 
-    linklfg.click(function (){
+    linklfg.click(function () {
         const nickname = linklfg.data('nickname');
         console.log(nickname);
         location.href = '/community/searchLfg?columnName=u_nickname&searchWord=' + nickname;
