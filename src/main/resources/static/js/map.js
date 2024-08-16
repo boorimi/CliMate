@@ -21,6 +21,8 @@ $(function () {
     initMap();
     //유저가 목록 버튼 클릭시
     $("#category-box").click(function () {
+        getWishCnt();
+        getCheckCnt();
         $(".search-overlay").css("display", "block");
         $(".search-popup-box").css("display", "block");
         getAllByIdCnt(page);
@@ -30,6 +32,9 @@ $(function () {
         $(".search-overlay").css("display", "none");
         $(".search-popup-box").css("display", "none");
         $(".search-result-box").remove();
+        page = 0;
+        scrollList = 0;
+        totalItems = 0;
     })
     //wish버튼 클릭시 실행되는 함수
     $("#wish-img").click(function () {
@@ -84,8 +89,7 @@ $(function () {
         }
     });
 
-    getWishCnt();
-    getCheckCnt();
+
 })
 
 function initMap() {
