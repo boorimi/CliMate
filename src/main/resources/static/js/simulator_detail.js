@@ -18,7 +18,6 @@ $(document).ready(function () {
         $('.s-delete-background').css("display", "block");
 
         $('#s-delete-confirm-yes').on('click', function () {
-            console.log("눌렀다");
             $.ajax({
                 url: '/simulator/deleteProject',  // 서버에서 요청을 처리할 URL
                 type: 'POST',
