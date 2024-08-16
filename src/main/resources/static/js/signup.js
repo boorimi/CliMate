@@ -19,6 +19,19 @@ $(function () {
         }
 
         $("#profile").attr("src", "");
+
+    })
+
+    //유저타입
+    $(".category-select").change(function () {
+        if ($(this).val() === "Normal") {
+            $(".grade-container").css("display", "block");
+            $("#usertype-grade-preview").css("display", "none");
+        } else {
+            $(".grade-container").css("display", "none");
+            $("#usertype-grade-preview").css("display", "block");
+
+        }
     })
 
     //등급 설정
@@ -74,9 +87,9 @@ $(function () {
 /* google map */
 function initMap() {
     let defaultLocation = {
-        center: {lat: 37.5665, lng: 126.9780}, //서울
-        zoom: 15,
-        mapTypeControl: false,
+        center           : {lat: 37.5665, lng: 126.9780}, //서울
+        zoom             : 15,
+        mapTypeControl   : false,
         fullscreenControl: false,  // 전체화면 컨트롤 제거
         streetViewControl: false,  // 스트리트 뷰 컨트롤 제거
     }
@@ -90,14 +103,14 @@ function initMap() {
 
 function searchClimbingGyms(location, radius) {
     const request = {
-        location: location,
-        radius: radius,
-        query: 'climbing gym',
+        location    : location,
+        radius      : radius,
+        query       : 'climbing gym',
         locationBias: { // 검색을 한정하는 지역 설정
             north: 45.551483,
             south: 24.396308,
-            east: 153.986672,
-            west: 122.93457
+            east : 153.986672,
+            west : 122.93457
         }
     };
 
@@ -124,9 +137,9 @@ function createMarker(place) {
     if (!place.geometry || !place.geometry.location) return;
 
     const marker = new google.maps.Marker({
-        map: map,
+        map     : map,
         position: place.geometry.location,
-        title: place.name
+        title   : place.name
     });
 
     google.maps.event.addListener(marker, "click", () => {
@@ -138,7 +151,7 @@ function createMarker(place) {
            <a href="${placeUrl}" target="_blank">View on Google Maps</a>
 </div>`;
 
-           infowindow.setContent(content);
+        infowindow.setContent(content);
         infowindow.open(map, marker);
     });
 
@@ -159,13 +172,13 @@ function searchLocation() {
 
     // 클라이밍장 이름으로 검색하기
     const request = {
-        query: mapInput,
-        fields: ["name", "geometry"],
+        query       : mapInput,
+        fields      : ["name", "geometry"],
         locationBias: { // 검색을 한정하는 지역 설정
             north: 45.551483,
             south: 24.396308,
-            east: 153.986672,
-            west: 122.93457
+            east : 153.986672,
+            west : 122.93457
         }
     };
 

@@ -1,170 +1,192 @@
 body {
-  margin: 0;
-  padding: 0;
+    margin: 0;
+    padding: 0;
 }
 
 select:focus {
-  outline: none;
+    outline: none;
 }
 
 input:focus {
-  outline: none;
+    outline: none;
 }
 
 @media (max-width: 768px) {
-  /* 회원가입 */
-  .signup-container {
-    width: 100%;
-    height: auto;
-  }
+    /* 회원가입 */
+    .signup-container {
+        width: 100%;
+        height: auto;
+    }
 
-  /* 프로필 사진 */
-  .profile-img {
-    width: 20vh;
-    height: 20vh;
-    object-fit: contain;
-    margin: 5% auto;
-    position: relative;
-  }
-  .profile-img-box {
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 100%;
+    /* 프로필 사진 */
+    .profile-img {
+        width: 20vh;
+        height: 20vh;
+        object-fit: contain;
+        margin: 5% auto;
+        position: relative;
+    }
+
+    .profile-img-box {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 100%;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+
+    .profile-img-upload {
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        top: 15vh;
+        right: 1vh;
+        border: 1px solid beige;
+        border-radius: 50%;
+        background-color: beige;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.5em;
+    }
+
+    #file-input {
+        display: none;
+    }
+
+    /* 회원가입 input */
+    .signup-container > .signup-input, .grade-container {
+        width: 80%;
+        height: 5%;
+        font-size: 1em;
+        margin: 10% auto;
+
+        .u_label, p {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #79976a;
+            margin: 0;
+        }
+    }
+
+    /* 회원가입 각 항목 */
+    .signup-input > .id-input,
+    .nickname-input,
+    .insta-input,
+    .category-select,
+    .homeground,
+    .signup-select-box {
+        width: 100%;
+        height: 5vh;
+        font-size: 1em;
+        border: 1px solid #79976a;
+    }
+
+    .usertype-text-box {
+        display: flex;
+        justify-content: flex-start;
+    }
+
+    .grade-container {
+        display: none;
+
+        p {
+            color: #79976a;
+        }
+    }
+
+    .grade-box {
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        width: 80%;
+        height: 5%;
+        font-size: 1em;
+
+        #grade-preview {
+            height: 100%;
+        }
+    }
+
+    .grade-select {
+        width: 70%;
+        height: 5vh;
+        font-size: 1em;
+        border: 1px solid #79976a;
+    }
+
+    .grade-image {
+        object-fit: contain;
+        width: 40%;
+        height: 60%;
+        padding-left: 25%;
+    }
+
+    /* 회원가입 버튼 */
+    .signup-btn {
+        width: 40%;
+        height: 5%;
+        font-size: 2em;
+        margin: 5% 30%;
+        background-color: #79976a;
+        color: #fff;
+        border: none;
+    }
+}
+
+#usertype-grade-preview {
+    display: block;
+    width: 20vw;
+    padding: 0;
 
     img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+        object-fit: contain;
+        width: 40%;
+        height: 60%;
+        padding: 0 2vw;
     }
-  }
-
-  .profile-img-upload {
-    position: absolute;
-    width: 30px;
-    height: 30px;
-    top: 15vh;
-    right: 1vh;
-    border: 1px solid beige;
-    border-radius: 50%;
-    background-color: beige;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.5em;
-  }
-
-  #file-input {
-    display: none;
-  }
-
-  /* 회원가입 input */
-  .signup-container > .signup-input, .grade-container {
-    width: 80%;
-    height: 5%;
-    font-size: 1em;
-    margin: 10% auto;
-
-    .u_label, p {
-      font-size: 1.3em;
-      font-weight: bold;
-      color: #79976a;
-      margin: 0;
-    }
-  }
-
-  /* 회원가입 각 항목 */
-  .signup-input > .id-input,
-  .nickname-input,
-  .insta-input,
-  .category-select,
-  .homeground,
-  .signup-select-box {
-    width: 100%;
-    height: 5vh;
-    font-size: 1em;
-    border: 1px solid #79976a;
-  }
-
-  .grade-container {
-    p {
-      color: #79976a;
-    }
-  }
-
-  .grade-box {
-    position: relative;
-    display: flex;
-    justify-content: space-between;
-    width: 80%;
-    height: 5%;
-    font-size: 1em;
-
-    #grade-preview {
-      height: 100%;
-    }
-  }
-
-  .grade-select {
-    width: 70%;
-    height: 5vh;
-    font-size: 1em;
-    border: 1px solid #79976a;
-  }
-  .grade-image {
-    object-fit: contain;
-    width: 40%;
-    height: 60%;
-    padding-left: 25%;
-  }
-
-  /* 회원가입 버튼 */
-  .signup-btn {
-    width: 40%;
-    height: 5%;
-    font-size: 2em;
-    margin: 5% 30%;
-    background-color: #79976a;
-    color: #fff;
-    border: none;
-  }
 }
 
 .map-box {
-  display: none;
-  height: 60%;
-  width: 430px;
-  position: absolute;
-  top: 0;
-  transform: translateY(0);
-  transition: transform 0.5s ease, top 0.5s ease;
+    display: none;
+    height: 60%;
+    width: 430px;
+    position: absolute;
+    top: 0;
+    transform: translateY(0);
+    transition: transform 0.5s ease, top 0.5s ease;
 }
 
 .map-box > #map {
-  width: 100%;
-  height: 430px;
+    width: 100%;
+    height: 430px;
 }
 
 .map-box > .map-input-box {
-  display: flex;
-  justify-content: center;
-  position: relative;
-  width: 100vw;
-  height: 5vh;
-  z-index: 2;
-  top: 5vh;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    width: 100vw;
+    height: 5vh;
+    z-index: 2;
+    top: 5vh;
 }
 
 .map-input-box > #map-input {
-  width: 60%;
-  margin: 1vh 5vw 0 0;
+    width: 60%;
+    margin: 1vh 5vw 0 0;
 }
 
 .map-input-box > p {
-  font-size: 2.5rem;
-  margin: 1vh;
-  font-weight: bold;
+    font-size: 2.5rem;
+    margin: 1vh;
+    font-weight: bold;
 }
