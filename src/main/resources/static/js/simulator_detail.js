@@ -4,6 +4,45 @@ import {GLTFLoader} from "three/addons/loaders/GLTFLoader.js";
 
 $(document).ready(function () {
 
+    // 좋아요 눌렀을때 토글되는 기능
+    $(document).on('click', '.like-icon', function () {
+        let b_pk = $(this).data('b_pk');
+        let u_id = $(this).data('u_id');
+
+        $.ajax({
+            url: '/clickLike', // 요청을 보낼 서버 URL
+            type: 'POST', // HTTP 요청 방법 (GET, POST 등)
+            contentType: 'application/json', // 요청 본문 타입
+            data: JSON.stringify({u_id: u_id, b_pk: b_pk}), // 서버에 보낼 데이터
+            success: function (response) {
+                console.log('Total Likes: ' + response.totalLikes);
+                console.log('User Likes: ' + response.userLikes);
+                // 요청이 성공했을 때 호출되는 함수
+                let html;
+                if (response.userLikes >= 1) {
+                    html = `<img class="like-icon"
+                     data-b_pk="${b_pk}"
+                     data-u_id="${response.u_id}"
+                     src="/resources/icon/love.png">`
+                } else if (response.userLikes == 0) {
+                    html = `<img class="like-icon"
+                     data-b_pk="${b_pk}"
+                     data-u_id="${response.u_id}"
+                     src="/resources/icon/love_blank.png">`
+                }
+                let html2 = `<p class="like-count">${response.totalLikes}</p>`
+
+                $('#toggle-like').empty().append(html);
+                $('#toggle-like').append(html2);
+
+            },
+            error: function (xhr, status, error) {
+                // 요청이 실패했을 때 호출되는 함수
+                console.log('Error:', error);
+            }
+        });
+    });
+
     $(".s-menu-gallery").css({
         "background-color": "#79976a",
         "color": "#ffffff"

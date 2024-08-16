@@ -1,5 +1,7 @@
 package com.climate.main.service;
 
+import com.climate.main.dto.CommentsDTO;
+import com.climate.main.dto.CommunityDTO;
 import com.climate.main.dto.HoldDTO;
 import com.climate.main.dto.SimulatorDTO;
 import com.climate.main.mapper.SimulatorMapper;
@@ -33,7 +35,7 @@ public class SimulatorDAO implements SimulatorMapper {
     public List<SimulatorDTO> getMyProject(String userId) { return  simulatorMapper.getMyProject(userId);}
 
     @Override
-    public List<SimulatorDTO> getProject(int pk){
+    public SimulatorDTO getProject(int pk){
         return simulatorMapper.getProject(pk);
     }
 
@@ -52,5 +54,25 @@ public class SimulatorDAO implements SimulatorMapper {
 
     @Override
     public int deleteProject(int pk){return simulatorMapper.deleteProject(pk);}
+
+    @Override
+    public int insertSimulatorComments(CommentsDTO commentsDTO) {
+        return simulatorMapper.insertSimulatorComments(commentsDTO);
+    }
+
+    @Override
+    public List<CommentsDTO> selectCommunityComments(int b_pk) {
+        return simulatorMapper.selectCommunityComments(b_pk);
+    }
+
+    @Override
+    public int selectLikeCountThisUser(CommunityDTO communityDTO) {
+        return simulatorMapper.selectLikeCountThisUser(communityDTO);
+    }
+
+    @Override
+    public int selectCommentsCount(int cm_b_pk) {
+        return simulatorMapper.selectCommentsCount(cm_b_pk);
+    }
 
 }

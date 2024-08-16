@@ -38,9 +38,9 @@
 
     <!--  컨텐츠  -->
     <div class="project-content">
-        <div th:each="pj: ${project}" class="project-post" th:attr="data-pk=${pj.s_pk}">
+        <div th:each="pj: ${project}" class="project-post" th:attr="data-pk=${pj.b_pk}">
             <div class="project-img">
-                <img th:src="${pj.s_img}">
+                <img th:src="${pj.b_thumbnail}">
             </div>
             <div class="like-and-comment">
                 <img src="/resources/icon/love_blank.png">
