@@ -187,44 +187,29 @@ body {
     }
 }
 
-
 .main-map-img,
 .main-simulator-img,
-.main-community-img,
-.main-login-img {
-    width: 3vw;
-    height: auto;
-    margin-right: 2vw;
+.main-community-img {
+    height: 66%;
+    margin-right: 0.5em;
     display: flex;
 
     img {
-        width: 100%;
-        height: auto;
+        height: 100%;
+        width: auto;
     }
 }
 
-.main-mypage {
-    img {
-        width: 2.5vw;
-    }
-}
-
-
-.main-map-img,
-.main-simulator-img,
-.main-community-img,
 .main-login-img {
-    width: 16%;
-    height: auto;
-    margin-right: 2vw;
+    height: 52%;
+    margin-right: 0.5em;
     display: flex;
 
     img {
-        width: 100%;
-        height: auto;
+        height: 100%;
+        width: auto;
     }
 }
-
 
 @media (max-width: 768px) {
 
@@ -244,12 +229,6 @@ body {
         font-size: 4vh;
     }
 
-    .main-map-img,
-    .main-simulator-img,
-    .main-community-img,
-    .main-login-img {
-        width: 16%;
-    }
 
 }
 
