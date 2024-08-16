@@ -23,7 +23,7 @@ $(function () {
     $("#category-box").click(function () {
         $(".search-overlay").css("display", "block");
         $(".search-popup-box").css("display", "block");
-        getAllByIdCnt();
+        getAllByIdCnt(page);
     })
     //유저가 목록에서 x 버튼 클릭시
     $(".popup-cancel").click(function () {
@@ -41,23 +41,16 @@ $(function () {
     })
     //내 목록에서 스크롤 함수
     $("#search-popup-box").scroll(function () {
-
         //스크롤 될때 한번씩 되게끔 실행해주는 함수
         if (timeoutId) {
-
             clearTimeout(timeoutId);  // 이전 타이머를 지웁니다.
         }
         if (scrollList > totalItems) {
             $(window).off("scroll");
         } else {
-
             timeoutId = setTimeout(function () {
-                cnt++;
-                console.log("check scroll cnt => " + cnt);
-                if (cnt <= 1) {
-                    if ($(window).scrollTop() + $(window).height() >= $(document).height() - 100) {
-                        getAllByIdCnt();
-                    }
+                if ($(window).scrollTop() + $(window).height() >= $(document).height() - 100) {
+                    getAllByIdCnt(page);
                 }
             }, 1000)
         }
@@ -66,11 +59,29 @@ $(function () {
     //내 목록에서 검색 함수
     $("#search-input").keyup(function (e) {
         if (e.keyCode === 13) {
-            getSearchById();
+            if ($("#search-input").val().length === 0) {
+                page = 0;
+                scrollList = 0;
+                totalItems = 0;
+                $(".search-result-box").remove();
+                getAllByIdCnt(page);
+            } else {
+                $(".search-result-box").remove();
+                getSearchById();
+            }
         }
     })
     $(".search-img").click(function () {
-        getSearchById();
+        if ($("#search-input").val().length === 0) {
+            page = 0;
+            scrollList = 0;
+            totalItems = 0;
+            $(".search-result-box").remove();
+            getAllByIdCnt(page);
+        } else {
+            $(".search-result-box").remove();
+            getSearchById();
+        }
     });
 
     getWishCnt();
@@ -266,8 +277,8 @@ function wishClick(placeName, placeAddr, placeId, imgElement) {
                 // infoWindow 내 이미지 업데이트
                 imgElement.src = newIconUrl;
             },
-            error  : function () {
-                console.log("아 에러에유");
+            error  : function (error) {
+                console.error(error);
             }
         })
     } else {
@@ -408,12 +419,12 @@ async function getAll() {
     })
 }
 
-function getAllById() {
+function getAllById(pageNo) {
     $.ajax({
         url    : "/getAllById",
         data   : {
             mp_u_id: userId,
-            page   : page,
+            page   : pageNo,
             size   : size
         },
         success: function (resData) {
@@ -463,7 +474,7 @@ function getAllById() {
     })
 }
 
-function getAllByIdCnt() {
+function getAllByIdCnt(pageNo) {
     $.ajax({
         url    : "/getAllByIdCnt",
         data   : {
@@ -471,7 +482,7 @@ function getAllByIdCnt() {
         },
         success: function (resData) {
             totalItems = resData;
-            getAllById();
+            getAllById(pageNo);
         },
         error  : function (error) {
             console.error(error);
@@ -487,14 +498,11 @@ function getSearchById() {
             mp_name: $("#search-input").val()
         },
         success: function (resData) {
-            console.log("check resData => " + JSON.stringify(resData));
             $(".search-result-box").remove();
             resData.forEach(function (item) {
                 const content = `
                         <div class="search-result-box">
-                            <div class="search-icon">
-                                <img class="icon" id="icon" src="/resources/icon/check_red.png">
-                            </div>
+                            <div class="search-icon"></div>
                             <div class="search-text">
                                 <p id="place_name">${item.mp_name}</p>
                                 <p id="place_addr">${item.mp_addr}</p>
@@ -504,6 +512,11 @@ function getSearchById() {
                             </div>
                         </div>`;
                 $(".search-result").append(content);
+                if (item.mp_type === "Check") {
+                    $(".search-icon").append('<img class="icon" id="icon" src="/resources/icon/check_red.png">');
+                } else if (item.mp_type === "Wish") {
+                    $(".search-icon").append('<img class="icon" id="icon" src="/resources/icon/wish_red.png">');
+                }
             })
 
         },
@@ -520,7 +533,6 @@ function getWishCnt() {
             mp_u_id: userId
         },
         success: function (resData) {
-            console.log("check resData => " + resData);
             $("#wish-cnt").text('(' + resData + ')');
         },
         error  : function (error) {
@@ -536,7 +548,6 @@ function getCheckCnt() {
             mp_u_id: userId
         },
         success: function (resData) {
-            console.log("check resData => " + resData);
             $("#check-cnt").text('(' + resData + ')');
         },
         error  : function (error) {
