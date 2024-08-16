@@ -133,19 +133,25 @@
 
             }
 
-            .more {
+            .my-project-more {
+                height: 10rem;
+                width: 10rem;
+                border: 0.1rem solid #79976a;
+                border-radius: 0.7rem;
+                margin-right: 1em;
+                flex-shrink: 0;
+                overflow: hidden;
                 display: flex;
                 justify-content: center;
                 align-items: center;
                 font-size: 3em;
                 position: relative;
-                overflow: hidden;
                 color: #79976a;
                 background: white;
                 z-index: 1;
             }
 
-            .more::before {
+            .my-project-more::before {
                 content: "";
                 position: absolute;
                 top: 0;
@@ -157,11 +163,11 @@
                 z-index: -1;
             }
 
-            .more:hover::before {
+            .my-project-more:hover::before {
                 left: 0;
             }
 
-            .more:hover {
+            .my-project-more:hover {
                 color: white;
             }
         }

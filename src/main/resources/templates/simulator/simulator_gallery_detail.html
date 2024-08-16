@@ -21,24 +21,77 @@
 </script>
 <script type="module" src="/resources/js/simulator_detail.js" defer></script>
 <body>
-<div th:text="${project}"></div>
-<div class="webgl-content">
-    <div id="webgl-container"></div>
-</div>
-<div class="content-container" th:each="pj : ${project}" th:attr="data-file=${pj.s_file}">
-    <div class="top-box">
-        <div class="like-box">
-            <img src="/resources/icon/love_blank.png">
-            <p>100</p>
+<div class="content-container">
+    <div class="simulator-content" th:each="pj : ${project}" th:attr="data-file=${pj.s_file}">
+        <div class="top-box">
+            <div class="name-box">
+                <p th:text="${pj.u_nickname}" class="title-nickname"></p>
+                <img th:src="@{'/resources/grade_icon/hold_' + ${pj.u_grade} + '.png'}">
+            </div>
+            <div class="create-date" th:text="${#dates.format(pj.s_date, 'yyyy-MM-dd')}"></div>
         </div>
-        <div class="delete" th:attr="data-pk=${pj.s_pk}, data-gltf=${pj.s_file}, data-img=${pj.s_img}, data-id=${pj.s_u_id}"
-        th:if="${session.user_id} == ${pj.s_u_id}">
-            <img src="/resources/icon/delete.png">
+
+        <div class="webgl-content">
+            <div id="webgl-container"></div>
+        </div>
+
+        <div class="like-delete-box">
+            <div class="like-box">
+                <img src="/resources/icon/love_blank.png">
+                <p>100</p>
+                <img src="/resources/icon/chat-bubble.png">
+                <p>100</p>
+            </div>
+            <div class="delete"
+                 th:attr="data-pk=${pj.s_pk}, data-gltf=${pj.s_file}, data-img=${pj.s_img}, data-id=${pj.s_u_id}"
+                 th:if="${session.user_id} == ${pj.s_u_id}">
+                <img src="/resources/icon/delete.png">
+            </div>
         </div>
     </div>
-    <div class="name-box">
-        <p th:text="${pj.u_nickname}"></p>
-        <img th:src="@{'/resources/grade_icon/hold_' + ${pj.u_grade} + '.png'}">
+
+    <!--  모달  -->
+    <div class="delete-background" id="delete-confirm-background">
+        <div class="delete-modal">
+            <p>Are you sure you want to delete this post?</p>
+            <button id="delete-confirm-yes">Delete</button>
+            <button id="delete-confirm-no">Cancel</button>
+        </div>
+        <div class="delete-complete-modal">
+            <p>Deleted complete</p>
+            <button id="confirm-close">Close</button>
+        </div>
+    </div>
+
+    <!--  댓글 작성  -->
+    <div class="comment-container">
+        <form action="">
+            <div class="comment-input">
+                <input name="pj_chat">
+                <button name="" value="">
+                    <img src="/resources/icon/send.png">
+                </button>
+            </div>
+        </form>
+
+        <!--    댓글 시작    -->
+        <div class="comment-list" th:each="pj : ${project}" th:attr="data-file=${pj.s_file}">
+            <div class="top-box">
+                <div class="name-box">
+                    <p th:text="${pj.u_nickname}" class="comment-nickname"></p>
+                    <img th:src="@{'/resources/grade_icon/hold_' + ${pj.u_grade} + '.png'}">
+                </div>
+                <div class="create-date" th:text="${#dates.format(pj.s_date, 'yyyy-MM-dd')}"></div>
+                <ul class="profile-menu">
+                    <li th:data-id="${pj.s_u_id}" id="link-profile">Profile</li>
+                    <li th:data-nickname="${pj.u_nickname}" id="link-video">Post (Video)</li>
+                    <li th:data-nickname="${pj.u_nickname}" id="link-lfg">Post (Lfg)</li>
+                    <li>Chating</li>
+                </ul>
+            </div>
+            <p id="comment-text">우와 문제 정말 멋져요!우와 문제 정말 멋져요!우와 문제 정말 멋져요!우와 문제 정말 멋져요!우와 문제 정말 멋져요!우와 문제 정말 멋져요!우와 문제 정말 멋져요!우와 문제 정말 멋져요!우와 문제 정말 멋져요!</p>
+        </div>
+
     </div>
 </div>
 

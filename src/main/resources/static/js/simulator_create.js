@@ -14,6 +14,11 @@ $(document).ready(function () {
     holdListMenuPC.hide();
     holdListMenuMobile.hide();
 
+    $(".s-menu-create").css({
+        "background-color": "#79976a",
+        "color": "#ffffff"
+    });
+
     function checkWidth() {
         holdBtn.off('click');
 
@@ -59,6 +64,48 @@ $(document).ready(function () {
     });
 });
 
+// 저장버튼 클릭 모달
+function showSaveConfirm() {
+const modalBackground = document.getElementById('create-modal-background');
+const confirmSave = document.getElementById('confirm-save');
+const confirmCancel = document.getElementById('confirm-cancel');
+
+    modalBackground.style.display = 'block';
+
+    confirmSave.addEventListener('click', () => {
+        console.log("세이브 클릭");
+
+        document.getElementById('create-modal').style.display = "none";
+        document.getElementById('loading-modal').style.display = "block";
+
+        app.exportScene();
+    });
+
+    confirmCancel.addEventListener('click', function () {
+        modalBackground.style.display = 'none';
+    })
+}
+
+// 저장 완료 모달
+function saveComplete() {
+    document.getElementById('loading-modal').style.display = 'none';
+    document.getElementById('save-complete-modal').style.display = 'block';
+    document.getElementById('confirm-close').addEventListener('click', function (){
+        location.href="/simulator/main";
+    })
+}
+
+// 배경을 클릭했을 때 모달 닫기
+document.getElementById('create-modal-background').addEventListener('click', function (event) {
+    if (event.target === event.currentTarget) {
+        this.style.display = 'none';
+
+        if (document.getElementById('save-complete-modal').style.display === 'block') {
+            location.href = "/simulator/main";
+        }
+    }
+});
+
 function rgbToHex(r, g, b) {
     return (r << 16) | (g << 8) | b;
 }
@@ -83,10 +130,7 @@ class App {
         this._dragControls = null;
         this._exportButton = document.querySelector("#save-btn");
         this._exportButton.addEventListener("click", () => {
-            if (confirm('Do you want to save?')) {
-                this.exportScene();
-
-            }
+            showSaveConfirm();
         });
         this.userData = null;
     }
@@ -160,10 +204,12 @@ class App {
                 .then(response => response.json())
                 .then(data => {
                     console.log('Success:' + data.status);
-                    alert("성공~~")
-                    location.href="/simulator/main";
+
+                    // 저장 성공 후 모달펑션
+                    saveComplete();
                 })
                 .catch((error) => {
+                    alert('fail');
                     console.error('에러:' + error);
                 });
         }, 'image/png');
@@ -510,7 +556,6 @@ function handleDrag(originObject, object, event) {
     const minY = -3500;
     const maxY = -200;
 
-    // groupName = app._currentGroupName;
     let modelName = String(object.name);
 
     if (modelName.includes('phone')) {

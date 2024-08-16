@@ -21,7 +21,7 @@ public interface CommunityMapper {
     // 모집게시판 전체조회
     @Select("select bo.*, u_nickname, u_grade " +
             "from cli_board bo, cli_user " +
-            "where u_id = b_u_id and b_category in ('Impromptu','Crew Recruitment') " +
+            "where u_id = b_u_id and b_category in ('Impromptu','Crew') " +
             "order by b_datetime desc")
     public  List<CommunityDTO> selectAllCommunityRecruitment();
 

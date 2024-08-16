@@ -1,5 +1,13 @@
 $(document).ready(function () {
 
+    // 현재 머무른 페이지 div색상 변경
+    changeColor();
+    function changeColor(){
+        $('#category-together').css({
+            "background-color": "#79976a",
+            "color": "#ffffff"
+        });
+    }
     // 댓글 닉네임 눌렀을때 정보보기 메뉴 나오게 하기
     $(document).on('click', '.community-showoff-detail-comments-nickname', function (event) {
         $('.community-showoff-detail-comments-nicknameMenu').removeClass('activeNickname');

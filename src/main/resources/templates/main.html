@@ -1,20 +1,27 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="UTF-8" />
+<head>
+    <meta charset="UTF-8"/>
     <!--    미디어쿼리 쓸 때에 추가해주기-->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <!-- 애니메이션 cdn -->
     <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
     />
 
-    <link rel="stylesheet" href="/resources/css/main.css" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="theme-color" content="#ffffff">
+
+    <link rel="stylesheet" href="/resources/css/main.css"/>
     <script
-      src="https://code.jquery.com/jquery-3.6.0.min.js"
-      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-      crossorigin="anonymous"
+            src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"
     ></script>
     <script src="/resources/js/main.js" defer></script>
   </head>
@@ -30,56 +37,53 @@
       </div>
       <div class="main-menu-container">
         <div class="main-title">
-          <div class="animate__animated animate__backInDown animate__delay-2s">
-            <img
-              src="/resources/img/logoCarabiner.png"
-              id="main-title-carabiner"
-            />
-          </div>
-          <div class="animate__animated animate__tada animate__delay-1s">
-            <img src="/resources/img/logoText.png" id="main-title-text" />
-          </div>
+            <div class="animate__animated animate__backInDown animate__delay-2s">
+                <img
+                        src="/resources/img/logoCarabiner.png"
+                        id="main-title-carabiner"
+                />
+            </div>
+            <div class="animate__animated animate__tada animate__delay-1s">
+                <img src="/resources/img/logoText.png" id="main-title-text"/>
+            </div>
         </div>
         <div class="main-menu-list">
-          <div class="main-map" onclick="location.href='/mapC'">
-            <div class="main-map-img">
-              <img src="/resources/icon/map.png" />
+            <div class="main-map" onclick="location.href='/mapC'">
+                <div class="main-map-img">
+                    <img src="/resources/icon/map.png"/>
+                </div>
+                <div>Map</div>
             </div>
-            <div>Map</div>
-          </div>
-          <div class="main-simulator" onclick="location.href='/simulator/main'">
-            <div class="main-simulator-img">
-              <img src="/resources/icon/hold.png" />
+            <div class="main-simulator" onclick="location.href='/simulator/main'">
+                <div class="main-simulator-img">
+                    <img src="/resources/icon/hold.png"/>
+                </div>
+                <div>Simulator</div>
             </div>
-            <div>Simulator</div>
-          </div>
-          <div
-            class="main-community"
-            onclick="location.href='/community/video'"
-          >
-            <div class="main-community-img">
-              <img src="/resources/icon/community.png" />
+            <div class="main-community" onclick="location.href='/community/video'">
+                <div class="main-community-img">
+                    <img src="/resources/icon/community.png"/>
+                </div>
+                <div>Community</div>
             </div>
-            <div>Community</div>
-          </div>
             <div th:if="${user_id} == null" class="main-login" onclick="location.href='/loginC'">
-            <div class="main-login-img">
-              <img src="/resources/icon/google.png" />
+                <div class="main-login-img">
+                    <img src="/resources/icon/google.png"/>
+                </div>
+                <div>Login</div>
             </div>
-            <div>Login</div>
-          </div>
 
             <div th:if="${user_id} != null" class='main-mypage' onclick="location.href='/mypage'">
-              <img class='main-login-img' src="/resources/icon/mypage.png" />
+                <img class='main-login-img' src="/resources/icon/mypage.png"/>
 
-              <p id="menu-login">MyPage</p>
+                <p id="menu-login">MyPage</p>
             </div>
             <div th:if="${user_id} != null" class="main-logout">
-              <img class="main-login-img" src="/resources/icon/logout.png"/>
-              Logout
+                <img class="main-login-img" src="/resources/icon/logout.png"/>
+                Logout
             </div>
         </div>
-      </div>
     </div>
-  </body>
+</div>
+</body>
 </html>
