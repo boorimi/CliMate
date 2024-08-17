@@ -350,7 +350,7 @@
     background-color: #fff;
     border-color: #dae0e5;
     padding: 5px 10px;
-    font-size: 26px;
+    /*font-size: 26px;*/
     line-height: 1.4;
     border-radius: 3px;
     -webkit-user-select: none;
@@ -780,7 +780,7 @@ a.note-dropdown-item, a.note-dropdown-item:hover {
     position: absolute;
     z-index: 1070;
     display: block;
-    font-size: 13px;
+    font-size: 6px;
     transition: opacity .15s;
     -webkit-opacity: 0;
     -khtml-opacity: 0;
@@ -800,22 +800,22 @@ a.note-dropdown-item, a.note-dropdown-item:hover {
 }
 
 .note-tooltip.top {
-    margin-top: -3px;
-    padding: 5px 0
+    /*margin-top: -3px;*/
+    /*padding: 5px 0*/
 }
 
 .note-tooltip.right {
-    margin-left: 3px;
+    /*margin-left: 3px;*/
     padding: 0 5px
 }
 
 .note-tooltip.bottom {
-    margin-top: 3px;
-    padding: 5px 0
+    /*margin-top: 3px;*/
+    /*padding: 5px 0*/
 }
 
 .note-tooltip.left {
-    margin-left: -3px;
+    /*margin-left: -3px;*/
     padding: 0 5px
 }
 
@@ -886,7 +886,7 @@ a.note-dropdown-item, a.note-dropdown-item:hover {
 
 .note-popover.top {
     margin-top: -10px;
-    padding: 5px 0
+    /*padding: 5px 0*/
 }
 
 .note-popover.right {
@@ -896,7 +896,7 @@ a.note-dropdown-item, a.note-dropdown-item:hover {
 
 .note-popover.bottom {
     margin-top: 10px;
-    padding: 5px 0
+    /*padding: 5px 0*/
 }
 
 .note-popover.left {
@@ -1311,7 +1311,8 @@ a.note-dropdown-item, a.note-dropdown-item:hover {
 
 .note-popover .popover-content .note-color .dropdown-toggle, .note-editor .note-toolbar .note-color .dropdown-toggle {
     width: 20px;
-    padding-left: 5px
+    padding-left: 5px;
+    padding-top: 16px;
 }
 
 .note-popover .popover-content .note-color .note-dropdown-menu .note-palette, .note-editor .note-toolbar .note-color .note-dropdown-menu .note-palette {

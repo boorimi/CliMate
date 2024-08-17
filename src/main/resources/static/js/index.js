@@ -31,7 +31,7 @@ $(document).ready(function () {
 // p 태그 클릭 이벤트 연결
     let currentNickname;
     let currentId;
-    $('.title-nickname, .comment-nickname').on('click', function (event) {
+    $('.nickname').on('click', function (event) {
         event.stopPropagation(); // 메뉴 외부 감지를 위해 클릭 전파 중지
 
         currentNickname = $(this).data('nickname');

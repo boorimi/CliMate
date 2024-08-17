@@ -22,12 +22,12 @@
 </head>
 <body>
 <input id="l_b_pk" type="hidden" th:value="${showoffList.b_pk}">
-<div class="video-detail-all-wrapper content-container">
+<div class="video-detail all-wrapper">
 
     <!--  최상단   이름, 그레이드      날짜 -->
     <div class="video-detail top-box">
         <div class="video-detail name-box">
-            <p class="title-nickname" th:text="${showoffList.u_nickname}" th:attr="data-nickname=${showoffList.u_nickname}, data-id=${showoffList.u_id}"></p>
+            <p class="nickname" th:text="${showoffList.u_nickname}" th:attr="data-nickname=${showoffList.u_nickname}, data-id=${showoffList.u_id}"></p>
             <img th:src="@{'/resources/grade_icon/hold_' + ${showoffList.u_grade} + '.png'}">
         </div>
         <div class="detail-date" th:text="${#dates.format(showoffList.b_datetime, 'yyyy.MM.dd')}"></div>
@@ -106,8 +106,8 @@
     <!--    댓글 시작    -->
     <div class="comment-list" th:each="co : ${showoffCommentsLists}">
         <div class="top-box-comment">
-            <div class="name-box">
-                <p th:text="${co.u_nickname}" class="comment-nickname" th:attr="data-nickname=${co.u_nickname}, data-id=${co.cm_u_id}"></p>
+            <div class="comment-name-box">
+                <p th:text="${co.u_nickname}" class="nickname" th:attr="data-nickname=${co.u_nickname}, data-id=${co.cm_u_id}"></p>
                 <img th:src="@{'/resources/grade_icon/hold_' + ${co.u_grade} + '.png'}">
             </div>
             <div class="date-delete-box">

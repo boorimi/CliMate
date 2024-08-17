@@ -1,4 +1,4 @@
-.video-detail-all-wrapper{
+.all-wrapper{
   display: flex;
   padding: 0 15%;
   flex-direction: column;
@@ -7,6 +7,7 @@
   overflow: hidden;
 }
 
+/* 비디오 디테일 CSS */
 .showoff-video video {
   width: 15em;
   height: auto;
@@ -16,11 +17,9 @@
 .top-box,
 .top-box-comment {
   display: flex;
-  height: 2rem;
   align-items: center;
   justify-content: space-between;
   color: #79976a;
-  font-style: italic;
 
   p {
     margin: 0;
@@ -31,19 +30,24 @@
 
 .top-box{
   border-bottom: 0.1em solid #79976a;
-  padding: 0 0.5em;
   margin: 1em 0;
+  padding: 0 0 0.5em 0;
 }
 
-.name-box{
+.name-box,
+.comment-name-box {
   display: flex;
   align-items: center;
   height: 100%;
 
   img {
-    height: 80%;
+    height: 1.5em;
     margin-left: 0.5em;
   }
+}
+
+.comment-name-box {
+  color: black;
 }
 
 .video-detail-info-container {
@@ -112,7 +116,7 @@
 }
 
 .video-detail-title a:visited {
-  color: #79976a; /* 방문한 링크의 색상도 동일하게 */
+  color: #79976a;
 }
 
 /* 본문 */
@@ -191,13 +195,87 @@
   padding: 0.5em 0;
 }
 
-.comment-nickname {
-  position: relative;
+/* lfg 디테일 CSS */
+
+/* 타이틀 */
+.lfg-detail-title{
+  display: flex;
 }
 
-@media (max-width: 768px){
+#lfg-title-category{
+  margin-right: 0.5em;
+}
 
-  .video-detail-all-wrapper{
+/* 닉네임, 날짜, 더보기 btn */
+.lfg-detail.top-box.name-date-more {
+  border: none;
+  margin: 0;
+  color: black;
+}
+
+.date-more-box{
+  display: flex;
+  align-items: center;
+  color: black;
+
+  img{
+    margin-left: 0.5em;
+    height: 2em;
+    width: 2em;
+    position: relative;
+  }
+}
+
+
+.lfg-detail-updelMenu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: none;
+  position: absolute;
+  z-index: 900;
+  top: 5vh;
+  right: 0vw;
+  background-color: #ffffff;
+  box-shadow: 0em 0em 1em #d7d7d7;
+  width: 30vw;
+  border-radius: 1em;
+
+  li {
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    height: 5vh;
+    font-size: 1em;
+
+    img {
+      width: 4vw;
+      height: auto;
+      padding: 1em;
+    }
+  }
+
+  li:last-child {
+    border-bottom: none;
+    img{
+      width: 3.5vw;
+    }
+  }
+}
+
+.lfg-detail-updelMenu.active {
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+
+@media (max-width: 768px){
+  .lfg-detail-title{
+    display: block;
+  }
+  .all-wrapper{
     padding: 0;
   }
 }
