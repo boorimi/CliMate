@@ -68,6 +68,20 @@ public class MyPlaceDAO implements MyPlaceMapper {
 
     @Override
     public int getCheckCntById(String mp_u_id) {
-        return myPlaceMapper.getWishCntById(mp_u_id);
+        return myPlaceMapper.getCheckCntById(mp_u_id);
+    }
+
+    @Override
+    public List<MyPlaceDTO> getWishDataById(String mp_u_id, int page, int size) {
+        int startRow = page * size + 1;
+        int endRow = (page + 1) * size;
+        return myPlaceMapper.getWishDataById(mp_u_id, startRow, endRow);
+    }
+
+    @Override
+    public List<MyPlaceDTO> getCheckDataById(String mp_u_id, int page, int size) {
+        int startRow = page * size + 1;
+        int endRow = (page + 1) * size;
+        return myPlaceMapper.getCheckDataById(mp_u_id, startRow, endRow);
     }
 }

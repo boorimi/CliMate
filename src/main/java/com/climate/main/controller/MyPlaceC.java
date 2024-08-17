@@ -105,4 +105,17 @@ public class MyPlaceC {
     public int GetCheckCnt(String mp_u_id) {
         return myPlaceDAO.getCheckCntById(mp_u_id);
     }
+
+    @GetMapping("/getWishData")
+    public List<MyPlaceDTO> GetWishDataById(String mp_u_id, int page, int size) {
+        System.out.println("check dto => " + mp_u_id);
+        System.out.println("check page => " + page);
+        System.out.println("check size => " + size);
+        return myPlaceDAO.getWishDataById(mp_u_id, page, size);
+    }
+
+    @GetMapping("/getCheckData")
+    public List<MyPlaceDTO> GetCheckDataById(String mp_u_id, int page, int size) {
+        return myPlaceDAO.getCheckDataById(mp_u_id, page, size);
+    }
 }
