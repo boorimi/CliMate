@@ -126,7 +126,7 @@ public interface CommunityMapper {
     public List<CommentsDTO> selectCommunityComments(int b_pk);
 
     // 댓글 인서트
-    @Insert("insert into cli_comments values (cli_comments_seq.nextval, #{cm_b_pk}, #{cm_u_id}, #{cm_text}, sysdate)")
+    @Insert("insert into cli_comments values (cli_comments_seq.nextval, #{cm_b_pk}, #{cm_u_id}, #{cm_text}, SYSTIMESTAMP AT TIME ZONE 'Asia/Seoul')")
     public int insertCommunityComments(CommentsDTO commentsDTO);
 
     // 댓글 삭제
