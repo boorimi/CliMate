@@ -142,6 +142,10 @@ body {
                 }
             }
 
+            .active {
+                background: #79976a;
+                color: #fff;
+            }
         }
 
         .search-result-list {
@@ -218,3 +222,4 @@ body {
 .session-value {
     display: none;
 }
+
