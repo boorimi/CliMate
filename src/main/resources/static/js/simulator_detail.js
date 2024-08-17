@@ -54,37 +54,22 @@ $(document).ready(function () {
         const gltf = $(this).data('gltf');
         const img = $(this).data('img');
 
-        $('.modal-background').css("display", "block");
+        $('.post-delete-modal-background').css("display", "block");
 
-        $('#s-delete-confirm-yes').on('click', function () {
-            $.ajax({
-                url: '/simulator/deleteProject',  // 서버에서 요청을 처리할 URL
-                type: 'POST',
-                data: {pk: pk, gltf: gltf, img: img},
-                success: function (response) {
-                    $('.s-delete-modal').css("display", "none");
-                    $('.s-delete-complete-modal').css("display", "block");
+        // 이전 페이지 url 전달
+        let previousUrl = document.referrer;
 
-                    $('#s-confirm-close').click(function () {
-                        location.href = '/simulator/gallery?category=All';
-                    });
-
-                    $('#s-delete-confirm-background').click(function (){
-                        location.href = '/simulator/gallery?category=All';
-                    })
-                },
-                error: function (error) {
-                    alert('fail');
-                }
-            });
+        $('#post-delete-confirm-yes').on('click', function () {
+            console.log("예스 클릭");
+            location.href = '/simulator/deleteProject?pk='+pk+'&previousUrl=' + previousUrl;
         });
 
-        $('#s-delete-confirm-no').click(function (){
-            $('.modal-background').css("display", "none");
+        $('#post-delete-confirm-no').click(function (){
+            $('.post-delete-modal-background').css("display", "none");
         })
 
         // 배경을 클릭했을 때 모달 닫기
-        $('#s-delete-confirm-background').on('click', function (event) {
+        $('#post-delete-modal-background').on('click', function (event) {
             if (event.target === this) {
                 $(this).css("display", "none");
             }
@@ -99,25 +84,23 @@ $(document).ready(function () {
 
         console.log(cmPk+"////"+bPk);
 
-        $('.delete-modal-background').css("display", "flex");
+        $('.comment-delete-modal-background').css("display", "flex");
 
         $('#comment-confirm-yes').click(function (){
-
             location.href = '/simulator/deleteComment?cm_pk=' + cmPk + '&b_pk=' + bPk;
         })
 
         $('#comment-confirm-no').click(function (){
-            $('.delete-modal-background').css("display", "none");
+            $('.comment-delete-modal-background').css("display", "none");
 
             // 클릭 이벤트를 제거하여 다음 클릭 시 초기화된 상태로 유지
             $('#comment-confirm-yes').off('click');
             $('#comment-confirm-no').off('click');
         })
-
     })
 
-    $('.delete-modal-background').click(function (){
-        $('.delete-modal-background').css("display", "none");
+    $('.comment-delete-modal-background').click(function (){
+        $('.comment-delete-modal-background').css("display", "none");
     })
 })
 

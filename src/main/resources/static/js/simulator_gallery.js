@@ -56,7 +56,7 @@ $(document).ready(function () {
         if (userId != null && userId !== '') {
             location.href = '/simulator/gallery_detail?b_pk=' + dataPk;
         } else {
-            $('.modal-background').css("display", "block");
+            $('.s-menu-modal-background').css("display", "block");
         }
     })
 

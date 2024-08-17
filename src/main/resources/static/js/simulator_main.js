@@ -39,9 +39,6 @@ $(document).ready(function () {
 
     })
 
-
-
-
     function drag() {
         let isDown = false;
         let startX;
@@ -72,6 +69,12 @@ $(document).ready(function () {
             $(this).scrollLeft(scrollLeft - walk);
         });
     }
+
+    $('.create-project').click(function (){
+        $('.loading-modal-background').css("display", "block");
+        $('.s-loading-modal').css("display", "block");
+    });
+
 });
 
 

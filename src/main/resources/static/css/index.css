@@ -115,9 +115,12 @@ footer {
 
 
 /* 모달 배경 */
-.delete-modal-background,
-.modal-background,
-.s-menu-modal-background{
+.s-create-modal-background,
+.comment-delete-modal-background, /* 댓글 삭제 */
+.post-delete-modal-background, /* 게시글 삭제 */
+.loading-modal-background,
+.s-menu-modal-background /* 시뮬레이터 메뉴 */
+  {
   display: none;
   position: fixed;
   top: 0;
@@ -129,13 +132,13 @@ footer {
 }
 
 /* 모달 창 */
-.comment-confirm,
-.loading-modal,
-.s-menu-modal,
-.s-create-modal,
-.s-save-complete-modal,
-.s-delete-modal,
-.s-delete-complete-modal {
+.comment-confirm, /* 댓글 삭제 yes or no */
+.s-menu-login-modal, /* 시뮬레이터 메뉴 */
+.s-create-modal, /* 시뮬레이터 저장 yes or no */
+.s-save-complete-modal,  /* 시뮬레이터 저장 완료 */
+.s-loading-modal, /* 시뮬레이터 로딩 */
+.post-delete-confirm /* 게시물 삭제 yes ot no */
+  {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -149,37 +152,43 @@ footer {
   font-style: italic;
   color: #79976a;
 }
-.s-menu-modal {
+
+.s-menu-login-modal {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-.loading-modal,
+
+.s-loading-modal,
 .s-save-complete-modal,
-.s-delete-complete-modal {
+.post-delete-complete {
   display: none;
 }
-.loading-modal img {
+
+.s-loading-modal img {
   width: 50%;
   height: auto;
 }
 
 .comment-confirm p,
-.s-delete-modal p,
-.s-create-modal p:first-child {
+.post-delete-confirm p,
+.post-delete-modal p,
+.s-create-modal p:first-child /* 시뮬레이터 저장 yes or no */
+  {
   font-weight: 900;
 }
+
 .s-create-modal p:nth-child(2){
   font-size: 0.7em;
 }
 
 /* 모달 버튼 스타일 */
 .comment-confirm button,
-.s-menu-modal button,
+.s-menu-login-modal button,
 .s-create-modal button,
 .s-save-complete-modal button,
-.s-delete-modal button,
-.s-delete-complete-modal button{
+.post-delete-confirm button,
+.post-delete-complete button{
   padding: 0.5em 1em;
   border: none;
   background-color: #79976a;
@@ -188,21 +197,21 @@ footer {
 }
 
 .comment-confirm button:hover,
-.s-menu-modal button:hover,
+.s-menu-login-modal button:hover,
 .s-create-modal button:hover,
 .s-save-complete-modal button:hover,
-.s-delete-modal button:hover,
-.s-delete-complete-modal button:hover{
+.post-delete-modal button:hover,
+.post-delete-complete-modal button:hover{
   background-color: #516746;
 }
 
-#s-confirm-no {
+#s-menu-confirm-no {
   font-size: 0.7em;
   margin-bottom: 0;
   color: #a7b39f;;
 }
 
-#s-confirm-no:hover{
+#s-menu-confirm-no:hover{
   font-weight: 900;
 }
 

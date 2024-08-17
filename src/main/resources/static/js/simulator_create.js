@@ -76,13 +76,14 @@ const confirmCancel = document.getElementById('s-confirm-cancel');
         console.log("세이브 클릭");
 
         document.getElementById('s-create-modal').style.display = "none";
-        document.getElementById('s-loading-modal').style.display = "block";
-
         app.exportScene();
+        document.getElementById('s-loading-modal').style.display = "block";
     });
 
     confirmCancel.addEventListener('click', function () {
         modalBackground.style.display = 'none';
+
+
     })
 }
 
@@ -130,6 +131,7 @@ class App {
         this._dragControls = null;
         this._exportButton = document.querySelector("#save-btn");
         this._exportButton.addEventListener("click", () => {
+            console.log('저장버튼 클릭');
             showSaveConfirm();
         });
         this.userData = null;

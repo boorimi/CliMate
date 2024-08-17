@@ -11,6 +11,7 @@ import com.google.cloud.storage.BlobId;
 import com.google.cloud.storage.BlobInfo;
 import com.google.cloud.storage.Storage;
 import com.google.firebase.FirebaseApp;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -117,19 +118,8 @@ public class SimulatorC {
     // 댓글 삭제
     @GetMapping("/deleteComment")
     public String deleteComment(int cm_pk, int b_pk) {
-
-        System.out.println(cm_pk);
-        System.out.println(b_pk);
-
         simulatorDAO.deleteSimulatorComment(cm_pk, b_pk);
-
         return "redirect:/simulator/gallery_detail?b_pk=" + b_pk;
-
-//        SimulatorDAO.deleteSimulatorComment(cm_pk, b_pk);
-//        return "redirect:/gallery_detail?b_pk=" + b_pk;
-
-//        communityDAO.deleteCommunityShowoff(communityDTO);
-//        return "redirect:/community/video";
     }
 
 
@@ -154,22 +144,10 @@ public class SimulatorC {
         return "index";
     }
 
-
-    @ResponseBody
-    @PostMapping("/deleteProject")
-    public String deleteProject(@RequestParam("pk") int pk,
-                                @RequestParam("gltf") String gltf,
-                                @RequestParam("img") String img) {
-
-        Map<String, String> response = new HashMap<>();
-
-        if (simulatorMapper.deleteProject(pk) == 1) {
-            System.out.println("삭제 성공~");
-            response.put("status", "success");
-        } else {
-            response.put("status", "error");
-        }
-        return response.toString();
+    @GetMapping("/deleteProject")
+    public String deleteProject(int pk, String previousUrl) {
+        simulatorDAO.deleteProject(pk);
+        return "redirect:" + previousUrl;
     }
 
     @PostMapping("/upload")
