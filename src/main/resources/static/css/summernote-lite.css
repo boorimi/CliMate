@@ -424,18 +424,39 @@
     margin-right: -5px
 }
 
+/* 모달 사진 업로드 버튼 */
 .note-btn-primary {
-    background: #fa6362;
-    color: #fff
+    border: 2px solid #79976a;
+    background: white;
+    color: #79976a;
+    font-size: 15px;
+    font-weight: bolder;
+    height: 36px;
 }
 
 .note-btn-primary:hover, .note-btn-primary:focus, .note-btn-primary.focus {
     color: #fff;
     text-decoration: none;
-    border: 1px solid #dae0e5;
-    background-color: #fa6362;
-    border-radius: 1px
+    border: 2px solid #79976a !important;
+    background-color: #79976a !important;
+    border-radius: 1px;
 }
+
+.note-image-url:focus,
+form-control:focus,
+note-form-control:focus,
+note-input:focus {
+    /*box-shadow: none !important;*/
+    box-shadow: 0 0 3px #79976a !important;
+    border: 1px solid #79976a !important;
+}
+
+/* 파일 업로드 버튼 */
+#file-upload-button{
+    background-color: #79976a !important;
+    border-radius: 10px !important;
+}
+
 
 .note-btn-block {
     display: block;
@@ -1604,5 +1625,10 @@ a.note-dropdown-item, a.note-dropdown-item:hover {
     }
     .note-btn > span.note-icon-caret:first-child{
         top: -4px;
+    }
+
+    .modal-dialog {
+        width: 80% !important;
+        margin: 10% auto !important;
     }
 }
