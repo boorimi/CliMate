@@ -23,7 +23,7 @@
                 <p th:text="${pj.u_nickname}" class="title-nickname"></p>
                 <img th:src="@{'/resources/grade_icon/hold_' + ${pj.u_grade} + '.png'}">
             </div>
-            <div class="detail-date" th:text="${#dates.format(pj.b_datetime, 'yyyy-MM-dd')}"></div>
+            <div class="detail-date" th:text="${#dates.format(pj.b_datetime, 'yyyy.MM.dd')}"></div>
         </div>
 
         <div class="webgl-content">
@@ -82,13 +82,13 @@
         </form>
 
         <!--    댓글 시작    -->
-        <div class="comment-list" th:each="scl : ${simulatorCommentsLists}"><!--th:attr="data-file=${scl.b_video}"-->
+        <div class="comment-list" th:each="scl : ${simulatorCommentsLists}">
             <div class="top-box-comment">
                 <div class="name-box">
                     <p th:text="${scl.u_nickname}" class="comment-nickname"></p>
                     <img th:src="@{'/resources/grade_icon/hold_' + ${scl.u_grade} + '.png'}">
                 </div>
-                <div class="create-date" th:text="${#dates.format(scl.cm_datetime, 'yyyy-MM-dd')}"></div>
+                <div class="create-date" th:text="${#dates.format(scl.cm_datetime, 'yyyy.MM.dd HH:mm')}"></div>
 
             </div>
             <p id="comment-text" th:text="${scl.cm_text}"></p>
