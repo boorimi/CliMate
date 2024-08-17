@@ -104,8 +104,6 @@ document.getElementById('uploadFile').addEventListener('change', function() {
     if (fileInput.files.length > 0) {
         const fileNames = Array.from(fileInput.files).map(file => file.name).join(', ');
         fileNameDisplay.textContent = fileNames;
-    } else {
-        fileNameDisplay.textContent = '선택된 파일 없음';
     }
 });
 
@@ -117,8 +115,6 @@ document.getElementById('uploadThumbnail').addEventListener('change', function()
     if (fileInput.files.length > 0) {
         const fileNames = Array.from(fileInput.files).map(file => file.name).join(', ');
         fileNameDisplay.textContent = fileNames;
-    } else {
-        fileNameDisplay.textContent = '선택된 파일 없음';
     }
 });
 
