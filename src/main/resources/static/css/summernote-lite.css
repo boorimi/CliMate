@@ -350,13 +350,18 @@
     background-color: #fff;
     border-color: #dae0e5;
     padding: 5px 10px;
-    font-size: 5vw;
+    /*font-size: 26px;*/
     line-height: 1.4;
     border-radius: 3px;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-    user-select: none
+    user-select: none;
+}
+
+.note-current-fontname {
+    font-size: 20px;
+    padding: 0;
 }
 
 .note-btn:focus, .note-btn.focus {
@@ -409,7 +414,9 @@
 }
 
 .note-btn > span.note-icon-caret:first-child {
-    margin-left: -1px
+    margin-left: -1px;
+    position: relative;
+    top: -11px;
 }
 
 .note-btn > span.note-icon-caret:nth-child(2) {
@@ -417,18 +424,39 @@
     margin-right: -5px
 }
 
+/* 모달 사진 업로드 버튼 */
 .note-btn-primary {
-    background: #fa6362;
-    color: #fff
+    border: 2px solid #79976a;
+    background: white;
+    color: #79976a;
+    font-size: 15px;
+    font-weight: bolder;
+    height: 36px;
 }
 
 .note-btn-primary:hover, .note-btn-primary:focus, .note-btn-primary.focus {
     color: #fff;
     text-decoration: none;
-    border: 1px solid #dae0e5;
-    background-color: #fa6362;
-    border-radius: 1px
+    border: 2px solid #79976a !important;
+    background-color: #79976a !important;
+    border-radius: 1px;
 }
+
+.note-image-url:focus,
+form-control:focus,
+note-form-control:focus,
+note-input:focus {
+    /*box-shadow: none !important;*/
+    box-shadow: 0 0 3px #79976a !important;
+    border: 1px solid #79976a !important;
+}
+
+/* 파일 업로드 버튼 */
+#file-upload-button{
+    background-color: #79976a !important;
+    border-radius: 10px !important;
+}
+
 
 .note-btn-block {
     display: block;
@@ -752,7 +780,7 @@ a.note-dropdown-item, a.note-dropdown-item:hover {
     position: absolute;
     z-index: 1070;
     display: block;
-    font-size: 13px;
+    font-size: 6px;
     transition: opacity .15s;
     -webkit-opacity: 0;
     -khtml-opacity: 0;
@@ -772,22 +800,22 @@ a.note-dropdown-item, a.note-dropdown-item:hover {
 }
 
 .note-tooltip.top {
-    margin-top: -3px;
-    padding: 5px 0
+    /*margin-top: -3px;*/
+    /*padding: 5px 0*/
 }
 
 .note-tooltip.right {
-    margin-left: 3px;
+    /*margin-left: 3px;*/
     padding: 0 5px
 }
 
 .note-tooltip.bottom {
-    margin-top: 3px;
-    padding: 5px 0
+    /*margin-top: 3px;*/
+    /*padding: 5px 0*/
 }
 
 .note-tooltip.left {
-    margin-left: -3px;
+    /*margin-left: -3px;*/
     padding: 0 5px
 }
 
@@ -858,7 +886,7 @@ a.note-dropdown-item, a.note-dropdown-item:hover {
 
 .note-popover.top {
     margin-top: -10px;
-    padding: 5px 0
+    /*padding: 5px 0*/
 }
 
 .note-popover.right {
@@ -868,7 +896,7 @@ a.note-dropdown-item, a.note-dropdown-item:hover {
 
 .note-popover.bottom {
     margin-top: 10px;
-    padding: 5px 0
+    /*padding: 5px 0*/
 }
 
 .note-popover.left {
@@ -1283,7 +1311,8 @@ a.note-dropdown-item, a.note-dropdown-item:hover {
 
 .note-popover .popover-content .note-color .dropdown-toggle, .note-editor .note-toolbar .note-color .dropdown-toggle {
     width: 20px;
-    padding-left: 5px
+    padding-left: 5px;
+    padding-top: 16px;
 }
 
 .note-popover .popover-content .note-color .note-dropdown-menu .note-palette, .note-editor .note-toolbar .note-color .note-dropdown-menu .note-palette {
@@ -1582,4 +1611,25 @@ a.note-dropdown-item, a.note-dropdown-item:hover {
 .help-list-item label {
     margin-bottom: 5px;
     display: inline-block
+}
+
+
+@media (max-width: 768px) {
+    .note-btn {
+        font-size: 17px;
+    }
+    .note-current-fontname{
+        font-size: 16px;
+    }
+    .note-btn i::before {
+        font-size: 13px;
+    }
+    .note-btn > span.note-icon-caret:first-child{
+        top: -4px;
+    }
+
+    .modal-dialog {
+        width: 80% !important;
+        margin: 10% auto !important;
+    }
 }

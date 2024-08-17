@@ -4,11 +4,6 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="/resources/css/simulator_gallery.css">
-    <script
-            src="https://code.jquery.com/jquery-3.6.0.min.js"
-            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-            crossorigin="anonymous"
-    ></script>
     <script src="/resources/js/simulator_gallery.js" defer></script>
 </head>
 <body>
@@ -52,6 +47,14 @@
                 <p th:text="${pj.u_nickname}"></p>
                 <img th:src="@{'/resources/grade_icon/hold_' + ${pj.u_grade} + '.png'}">
             </div>
+        </div>
+    </div>
+
+    <!--  모달  -->
+    <div class="s-create-modal-background" id="s-create-modal-background">
+        <div class="s-loading-modal" id="s-loading-modal">
+            <img src="/resources/img/s_loading.gif">
+            <p>Please wait for a moment</p>
         </div>
     </div>
 

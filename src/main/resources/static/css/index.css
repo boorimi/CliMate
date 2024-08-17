@@ -203,6 +203,42 @@ footer {
 }
 
 
+/* 시뮬레이터, 커뮤니티 프로필 토글 메뉴 */
+.profile-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: none;
+  position: absolute;
+  z-index: 900;
+  top: 0;
+  left: 0;
+  background-color: #f6f9f4;
+  width: 11%;
+  border-radius: 0.5em;
+  border: 0.1em solid #79976a;
+  font-weight: 900;
+  color: #79976a;
+  font-size: 0.8em;
+
+  li {
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    height: 2.5em;
+    padding: 0 1em;
+  }
+
+  li:last-child {
+    border-bottom: none;
+  }
+}
+
+.profile-menu.active {
+  display: flex;
+  flex-direction: column;
+}
+
 
 @media (max-width: 768px) {
   .menu {
@@ -240,4 +276,14 @@ footer {
       }
     }
   }
+
+  .profile-menu {
+    width: 35%;
+
+    li {
+      height: 8vw;
+      font-size: 4vw;
+    }
+  }
+
 }

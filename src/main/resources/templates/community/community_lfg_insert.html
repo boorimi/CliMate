@@ -9,11 +9,6 @@
     <meta name="_csrf" content="${_csrf.token}"/>
     <meta name="_csrf_header" content="${_csrf.headerName}"/>
     <title>Title</title>
-    <script
-            src="https://code.jquery.com/jquery-3.7.1.js"
-            integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
-            crossorigin="anonymous"
-    ></script>
     <link rel="stylesheet" href="/resources/css/community_lfg_insert.css">
     <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/42.0.2/ckeditor5.css">
     <!-- include libraries(jQuery, bootstrap) -->
@@ -24,6 +19,8 @@
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/resources/css/summernote-lite.css">
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+
+    <script src="/resources/js/community_lfg_insert.js" defer></script>
 </head>
 <body>
 <form action="/community/lfg/insert" method="post" id="lfg-insert-container">
@@ -43,60 +40,4 @@
 </form>
 
 </body>
-<style>
-
-</style>
-<script>
-    $(document).ready(function () {
-        $('#summernote').summernote({
-            height: 350,
-            toolbar: [
-                ['style', ['style']],
-                ['font', ['bold', 'underline', 'clear']],
-                ['fontname', ['fontname']],
-                ['color', ['color']],
-                ['para', ['ul', 'ol', 'paragraph']],
-                ['insert', ['picture']],
-                ['view', ['fullscreen', 'codeview']],
-            ],
-            // 리사이징바 제거 bm
-            focus: true,
-            disableResizeEditor: true,
-            callbacks: {
-                onImageUpload: function (files) {
-                    for (let i = 0; i < files.length; i++) {
-                        let reader = new FileReader();
-                        reader.onload = function (e) {
-                            $('#summernote').summernote('insertImage', e.target.result);
-                        };
-                        reader.readAsDataURL(files[i]);
-                        uploadImage(files[i]);
-                    }
-                }
-            }
-        });
-        // 리사이징바 제거 bm
-        $('.note-statusbar').hide();
-
-        function uploadImage(file) {
-            let data = new FormData();
-            data.append('file', file);
-
-            $.ajax({
-                url: '/community/lfg/insert/uploadImg',
-                method: 'POST',
-                data: data,
-                contentType: false,
-                processData: false,
-                success: function (response) {
-                    $('#summernote').summernote('insertImage', response);
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    console.error(textStatus + " " + errorThrown);
-                }
-            });
-        }
-    });
-</script>
-
 </html>
