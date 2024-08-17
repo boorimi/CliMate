@@ -3,12 +3,9 @@ body {
     padding: 0;
 }
 
-select:focus {
+input:focus, select:focus {
     outline: none;
-}
-
-input:focus {
-    outline: none;
+    background-color: #f3f6ee;
 }
 
 @media (max-width: 768px) {
@@ -81,11 +78,18 @@ input:focus {
     .signup-input > .id-input,
     .nickname-input,
     .insta-input,
-    .category-select,
-    .homeground,
-    .signup-select-box {
-        width: 100%;
+    .homeground {
+        width: 98%;
         height: 5vh;
+        font-size: 1em;
+        border: 1px solid #79976a;
+    }
+
+    .category-select,
+    .signup-select-box,
+    .grade-select {
+        width: 100%;
+        height: 5.7vh;
         font-size: 1em;
         border: 1px solid #79976a;
     }
@@ -116,13 +120,6 @@ input:focus {
         }
     }
 
-    .grade-select {
-        width: 70%;
-        height: 5vh;
-        font-size: 1em;
-        border: 1px solid #79976a;
-    }
-
     .grade-image {
         object-fit: contain;
         width: 40%;
@@ -132,13 +129,16 @@ input:focus {
 
     /* 회원가입 버튼 */
     .signup-btn {
-        width: 40%;
-        height: 5%;
-        font-size: 2em;
-        margin: 5% 30%;
+        border: 0.1rem solid #79976a;
+        border-radius: 0.7rem;
+        font-size: 1.1em;
+        padding: 3% 10%;
+        margin: 2% auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         background-color: #79976a;
         color: #fff;
-        border: none;
     }
 }
 

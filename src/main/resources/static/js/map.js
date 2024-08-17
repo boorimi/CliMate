@@ -142,7 +142,6 @@ function callback(results, status) {
             createMarker(results[i]);
         }
         for (const param of searchParams) {
-            console.log("check param => " + param);
             if (param[1] === "mypage") {
                 getWishCnt();
                 getCheckCnt();
@@ -423,11 +422,11 @@ function getOneWish(place_name) {
 
 async function getAll() {
     await $.ajax({
-        url    : "/getAll",
-        data   : {
+        url       : "/getAll",
+        data      : {
             mp_u_id: userId
         },
-        success: function (resData) {
+        success   : function (resData) {
             myplaceList.length = 0; // 배열 초기화
 
             resData.forEach(item => {
@@ -442,7 +441,15 @@ async function getAll() {
                 myplaceList.push(obj);
             });
         },
-        error  : function (error) {
+        beforeSend: function () {
+            $(".s-create-modal-background").css("display", "block");
+            $(".s-loading-modal").css("display", "block");
+        },
+        complete  : function () {
+            $(".s-create-modal-background").css("display", "none");
+            $(".s-loading-modal").css("display", "none");
+        },
+        error     : function (error) {
             console.error(error)
         }
     })
