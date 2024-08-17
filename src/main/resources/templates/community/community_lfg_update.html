@@ -24,27 +24,48 @@
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/resources/css/summernote-lite.css">
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+
+    <link rel="stylesheet" href="/resources/css/community_lfg_insert.css"/>
+    <script src="/resources/js/community_lfg_update.js" defer></script>
+
 </head>
 <body>
-<form action="/community/lfg/update" method="post">
+<form action="/community/lfg/update" method="post" class="lfg-insert-container">
     <input id="b_pk_value" name="b_pk" type="hidden" th:value="${lfgList.b_pk}"/>
-    category :
-    <select name="b_category">
-        <option value="Impromptu" th:selected="${lfgList.b_category == 'Impromptu'}">Impromptu</option>
-        <option value="Crew Recruitment" th:selected="${lfgList.b_category == 'Crew Recruitment'}">Crew Recruitment
-        </option>
-    </select> <br>
-    <div class="community-lfg-title-input"><input type="text" name="b_title" placeholder="TITLE"
-                                                  th:value="${lfgList.b_title}"></div>
+    <div class="community-lfg-title-input">
+        <select name="b_category">
+            <option value="Impromptu" th:selected="${lfgList.b_category == 'Impromptu'}">Impromptu</option>
+            <option value="Crew Recruitment" th:selected="${lfgList.b_category == 'Crew Recruitment'}">Crew Recruitment
+            </option>
+        </select>
+        <input type="text" name="b_title" placeholder="TITLE" th:value="${lfgList.b_title}">
+    </div>
     <div>
-        <textarea id="summernote" name="b_text"></textarea>
+        <textarea id="summernote2" name="b_text"></textarea>
     </div>
     <div class="community-lfg-insert-button">
-        <button>submit</button>
+        <button name="b_u_id" th:value="${session.user_id}" id="lfg-insert-btn">Post</button>
     </div>
 </form>
 
 </body>
+<style>
+    .note-btn i {
+        padding: 0 10px !important;
+    }
+    .note-current-fontname {
+        padding: 0px 10px !important;
+    }
+    .note-popover .popover-content .note-color .dropdown-toggle, .note-editor .note-toolbar .note-color .dropdown-toggle {
+        padding-top: 22px !important;
+    }
+    @media (max-width: 768px){
+        .note-popover .popover-content .note-color .dropdown-toggle, .note-editor .note-toolbar .note-color .dropdown-toggle {
+            padding-top: 10px !important;
+        }
+    }
+
+</style>
 <script>
     $(document).ready(function () {
 
@@ -58,7 +79,7 @@
             success: function (response) {
                 console.log(response.b_text);
                 // Summernote 초기화
-                $('#summernote').summernote({
+                $('#summernote2').summernote({
                     height: 350,
                     toolbar: [
                         ['style', ['style']],
@@ -69,12 +90,15 @@
                         ['insert', ['picture']],
                         ['view', ['fullscreen', 'codeview']],
                     ],
+                    // 리사이징바 제거 bm
+                    focus: true,
+                    disableResizeEditor: true,
                     callbacks: {
                         onImageUpload: function (files) {
                             for (let i = 0; i < files.length; i++) {
                                 let reader = new FileReader();
                                 reader.onload = function (e) {
-                                    $('#summernote').summernote('insertImage', e.target.result);
+                                    $('#summernote2').summernote('insertImage', e.target.result);
                                 };
                                 reader.readAsDataURL(files[i]);
                                 uploadImage(files[i]);
@@ -82,9 +106,11 @@
                         }
                     }
                 });
+                // 리사이징바 제거 bm
+                $('.note-statusbar').hide();
 
                 // 서버에서 가져온 HTML 코드를 에디터에 삽입
-                $('#summernote').summernote('code', response.b_text);
+                $('#summernote2').summernote('code', response.b_text);
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.error(textStatus + " " + errorThrown);
@@ -103,7 +129,7 @@
             contentType: false,
             processData: false,
             success: function (response) {
-                $('#summernote').summernote('insertImage', response);
+                $('#summernote2').summernote('insertImage', response);
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.error(textStatus + " " + errorThrown);
@@ -112,5 +138,4 @@
     }
 
 </script>
-
 </html>
