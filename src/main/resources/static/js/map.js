@@ -7,7 +7,7 @@ let totalItems = 0;
 let page = 0;  // 페이지 번호를 초기화합니다.
 const size = 5;  // 한 번에 가져올 데이터 수
 let timeoutId = null;  // 타이머 ID
-let cnt = 0; //스크롤 횟수
+let checkType = null; //스크롤 횟수
 
 
 const userId = $("#userId").text();
@@ -21,6 +21,8 @@ $(function () {
     initMap();
     //유저가 목록 버튼 클릭시
     $("#category-box").click(function () {
+        getWishCnt();
+        getCheckCnt();
         $(".search-overlay").css("display", "block");
         $(".search-popup-box").css("display", "block");
         getAllByIdCnt(page);
@@ -30,14 +32,9 @@ $(function () {
         $(".search-overlay").css("display", "none");
         $(".search-popup-box").css("display", "none");
         $(".search-result-box").remove();
-    })
-    //wish버튼 클릭시 실행되는 함수
-    $("#wish-img").click(function () {
-        console.log("wish");
-    })
-    //check버튼 클릭시 실행되는 함수
-    $("#check-img").click(function () {
-        console.log("check");
+        page = 0;
+        scrollList = 0;
+        totalItems = 0;
     })
     //내 목록에서 스크롤 함수
     $("#search-popup-box").scroll(function () {
@@ -50,7 +47,13 @@ $(function () {
         } else {
             timeoutId = setTimeout(function () {
                 if ($(window).scrollTop() + $(window).height() >= $(document).height() - 100) {
-                    getAllByIdCnt(page);
+                    if (checkType === "Wish") {
+                        getWishData(page);
+                    } else if (checkType === "Check") {
+                        getCheckData(page);
+                    } else {
+                        getAllByIdCnt(page);
+                    }
                 }
             }, 1000)
         }
@@ -84,8 +87,22 @@ $(function () {
         }
     });
 
-    getWishCnt();
-    getCheckCnt();
+    //위시 버튼 클릭 함수
+    $("#type-box-wish").click(function () {
+        page = 0;
+        scrollList = 0;
+        totalItems = 0;
+        $(".search-result-box").remove();
+        getWishData(page);
+    })
+    //visited 버튼 클릭 함수
+    $("#type-box-visited").click(function () {
+        page = 0;
+        scrollList = 0;
+        totalItems = 0;
+        $(".search-result-box").remove();
+        getCheckData(page);
+    })
 })
 
 function initMap() {
@@ -549,6 +566,93 @@ function getCheckCnt() {
         },
         success: function (resData) {
             $("#check-cnt").text('(' + resData + ')');
+        },
+        error  : function (error) {
+            console.error(error);
+        }
+    })
+}
+
+function getWishData(pageNum) {
+    checkType = "Wish";
+    $.ajax({
+        url    : "/getWishData",
+        data   : {
+            mp_u_id: userId,
+            page   : pageNum,
+            size   : size
+        },
+        success: function (resData) {
+            checkType = "Wish";
+            resData.forEach(function (item, i) {
+                const content = `
+                        <div class="search-result-box">
+                            <div class="search-icon"></div>
+                            <div class="search-text">
+                                <p id="place_name">${item.mp_name}</p>
+                                <p id="place_addr">${item.mp_addr}</p>
+                            </div>
+                            <div class="search-map">
+                                <img onclick="goMap('${item.mp_name}')" src="/resources/icon/map.png">
+                            </div>
+                        </div>`;
+                $(".search-result").append(content);
+            })
+
+
+            $(".icon").remove();
+            for (let i = 0; i <= $(".search-result-box").length; i++) {
+                $(".search-icon").eq(i).append('<img class="icon" id="icon" src="/resources/icon/wish_red.png">');
+            }
+            totalItems = resData.length;
+            scrollList += resData.length;
+            page++;
+        },
+        error  : function (error) {
+            console.error(error);
+        }
+    })
+}
+
+function getCheckData(pageNum) {
+    checkType = "Check";
+    $.ajax({
+        url    : "/getCheckData",
+        data   : {
+            mp_u_id: userId,
+            page   : pageNum,
+            size   : size
+        },
+        success: function (resData) {
+            resData.forEach(function (item, i) {
+                const content = `
+                        <div class="search-result-box">
+                            <div class="search-icon"></div>
+                            <div class="search-text">
+                                <p id="place_name">${item.mp_name}</p>
+                                <p id="place_addr">${item.mp_addr}</p>
+                            </div>
+                            <div class="search-map">
+                                <img onclick="goMap('${item.mp_name}')" src="/resources/icon/map.png">
+                            </div>
+                        </div>`;
+                $(".search-result").append(content);
+            })
+
+            $(".icon").remove();
+            if (page <= 1) {
+                for (let i = 0; i <= $(".search-result-box").length; i++) {
+                    $(".search-icon").eq(i).append('<img class="icon" id="icon" src="/resources/icon/check_red.png">');
+                }
+            } else {
+                for (let i = 0; i <= $(".search-result-box").length; i++) {
+                    $(".search-icon").eq(i).append('<img class="icon" id="icon" src="/resources/icon/check_red.png">');
+                }
+            }
+
+            totalItems = resData.length;
+            scrollList += resData.length;
+            page++;
         },
         error  : function (error) {
             console.error(error);
