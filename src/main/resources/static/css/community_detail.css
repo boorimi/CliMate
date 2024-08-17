@@ -150,6 +150,11 @@
     margin-right: 0.5em;
   }
 
+  input:focus {
+    outline: none;
+    background-color: #f3f6ee;
+  }
+
   button {
     width: 3.2em;
     height: 3.2em;
@@ -197,6 +202,7 @@
   display: flex;
   justify-content: space-between;
   height: 2em;
+  position: relative;
 }
 
 .date-more-box{
@@ -207,7 +213,6 @@
   img{
     margin-left: 0.5em;
     height: 1.3em;
-    position: relative;
   }
 }
 
@@ -217,43 +222,39 @@
 
 .lfg-detail-updelMenu {
   list-style: none;
-  padding: 0;
   margin: 0;
+  padding: 0;
   display: none;
+  flex-direction: column;
   position: absolute;
   z-index: 900;
-  top: 5vh;
-  right: 0vw;
-  background-color: #ffffff;
-  box-shadow: 0em 0em 1em #d7d7d7;
-  width: 30vw;
-  border-radius: 1em;
+  top: 2em;
+  right: 0;
+  width: 15%;
+  border-radius: 0.5em;
+  border: 0.1em solid #79976a;
+  background-color: #f6f9f4;
+  font-weight: 600;
 
   li {
-    border-bottom: 1px solid #ddd;
+    border-bottom: 0.1em solid #79976a;
     display: flex;
     align-items: center;
-    height: 5vh;
+    height: 2.5em;
     font-size: 1em;
 
     img {
-      width: 4vw;
-      height: auto;
-      padding: 1em;
+      margin-right: 0.5em;
     }
   }
 
   li:last-child {
     border-bottom: none;
-    img{
-      width: 3.5vw;
-    }
   }
 }
 
-.lfg-detail-updelMenu.active {
+.lfg-detail-updelMenu.active{
   display: flex;
-  flex-direction: column;
 }
 
 

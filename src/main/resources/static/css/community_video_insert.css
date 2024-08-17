@@ -47,33 +47,6 @@
     margin: 0vh 2em;
 }
 
-
-/*
-.custom-arrows {
-    display: flex;
-    justify-content: space-between;
-    margin: 0vh 2vw;
-    width: 90%;
-    position: absolute;
-    top: 28%;
-    transform: translateY(-50%);
-    z-index: 10;
-    height: 3em;
-    background-color: aquamarine;
-}
-
-.slick-prev,
-.slick-next {
-    width: 5vh;
-    height: 5vh;
-    font-size: 1.5em;
-    background-color: rgba(255, 255, 255, 0.69);
-    border-radius: 5vw;
-    padding: 2vw;
-    cursor: pointer;
-}
-*/
-
 .video-box,
 .thumbnail-box,
 .title-box,
