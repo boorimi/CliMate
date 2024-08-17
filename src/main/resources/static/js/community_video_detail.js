@@ -68,8 +68,12 @@ function deleteCheck(pk) {
     document.getElementById('post-delete-confirm-no').addEventListener('click', function (){
         document.getElementById('post-delete-modal-background').style.display = "none";
     });
+    document.getElementById('post-delete-modal-background').addEventListener('click', function (){
+        document.getElementById('post-delete-modal-background').style.display = "none";
+    });
 }
 
+// 게시물, 댓글 삭제
 function deleteCommentsCheck(cm_pk, b_pk) {
     document.getElementById('comment-delete-confirm-background').style.display = "block";
 
@@ -80,6 +84,11 @@ function deleteCommentsCheck(cm_pk, b_pk) {
     document.getElementById('comment-confirm-no').addEventListener('click', function (){
         document.getElementById('comment-delete-confirm-background').style.display = "none";
     });
+
+    document.getElementById('comment-delete-confirm-background').addEventListener('click', function (){
+        document.getElementById('comment-delete-confirm-background').style.display = "none";
+    });
+
 }
 
 
