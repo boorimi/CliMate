@@ -134,10 +134,22 @@ function searchClimbingGyms(location, radius) {
 }
 
 function callback(results, status) {
+    const searchParams = new URLSearchParams(location.search);
+
     if (status === google.maps.places.PlacesServiceStatus.OK) {
         clearMarkers();
         for (let i = 0; i < results.length; i++) {
             createMarker(results[i]);
+        }
+        for (const param of searchParams) {
+            console.log("check param => " + param);
+            if (param[1] === "mypage") {
+                getWishCnt();
+                getCheckCnt();
+                $(".search-overlay").css("display", "block");
+                $(".search-popup-box").css("display", "block");
+                getAllByIdCnt(page);
+            }
         }
     }
 }
