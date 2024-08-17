@@ -115,6 +115,7 @@ footer {
 
 
 /* 모달 배경 */
+.insert-check-modal-background, /* 유효성 체크 */
 .s-create-modal-background,
 .comment-delete-modal-background, /* 댓글 삭제 */
 .post-delete-modal-background, /* 게시글 삭제 */
@@ -132,6 +133,7 @@ footer {
 }
 
 /* 모달 창 */
+.insert-check-confirm, /* 유효성 체크 */
 .comment-confirm, /* 댓글 삭제 yes or no */
 .s-menu-login-modal, /* 시뮬레이터 메뉴 */
 .s-create-modal, /* 시뮬레이터 저장 yes or no */
@@ -151,6 +153,9 @@ footer {
   z-index: 10000;
   font-style: italic;
   color: #79976a;
+}
+.insert-check-confirm {
+  width: 15rem;
 }
 
 .s-menu-login-modal {
@@ -173,7 +178,8 @@ footer {
 .comment-confirm p,
 .post-delete-confirm p,
 .post-delete-modal p,
-.s-create-modal p:first-child /* 시뮬레이터 저장 yes or no */
+.s-create-modal p:first-child, /* 시뮬레이터 저장 yes or no */
+.insert-check-confirm p:first-child
   {
   font-weight: 900;
 }
@@ -205,7 +211,9 @@ footer {
   background-color: #516746;
 }
 
-#s-menu-confirm-no {
+#insert-confirm-ok, /* 커뮤니티 유효성 체크 close btn */
+#s-menu-confirm-no /* 로그인 체크 close btn */
+  {
   font-size: 0.7em;
   margin-bottom: 0;
   color: #a7b39f;;

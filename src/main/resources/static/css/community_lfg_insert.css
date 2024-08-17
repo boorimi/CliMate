@@ -6,7 +6,7 @@
     }
 }
 
-#lfg-insert-container {
+.lfg-insert-container {
     display: flex;
     flex-direction: column;
     margin: 5% 20%;
@@ -146,7 +146,7 @@ footer {
 
 @media (max-width: 768px) {
 
-    #lfg-insert-container {
+    .lfg-insert-container {
         margin: 0;
         border: none;
     }
