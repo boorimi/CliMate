@@ -36,8 +36,8 @@ $(document).ready(function () {
 
         currentNickname = $(this).data('nickname');
         currentId = $(this).data('id');
-        console.log('클릭한 사람의 닉네임:', currentNickname);
-        console.log('아이디 :'+currentId);
+        // console.log('클릭한 사람의 닉네임:', currentNickname);
+        // console.log('아이디 :'+currentId);
 
         profileToggleMenu($(this));
     });
