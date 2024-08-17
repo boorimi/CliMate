@@ -54,13 +54,13 @@ $(document).ready(function () {
         const gltf = $(this).data('gltf');
         const img = $(this).data('img');
 
-        $('.s-delete-background').css("display", "block");
+        $('.modal-background').css("display", "block");
 
         $('#s-delete-confirm-yes').on('click', function () {
             $.ajax({
                 url: '/simulator/deleteProject',  // 서버에서 요청을 처리할 URL
                 type: 'POST',
-                data: {pk: pk, gltf: gltf, img: gltf},
+                data: {pk: pk, gltf: gltf, img: img},
                 success: function (response) {
                     $('.s-delete-modal').css("display", "none");
                     $('.s-delete-complete-modal').css("display", "block");
@@ -80,7 +80,7 @@ $(document).ready(function () {
         });
 
         $('#s-delete-confirm-no').click(function (){
-            $('.s-delete-background').css("display", "none");
+            $('.modal-background').css("display", "none");
         })
 
         // 배경을 클릭했을 때 모달 닫기
@@ -91,6 +91,34 @@ $(document).ready(function () {
         });
     })
 
+
+    // 댓글 삭제
+    $('.comments-delete').click(function (){
+        let cmPk = $(this).data('cm_pk');
+        let bPk = $(this).data('b_pk');
+
+        console.log(cmPk+"////"+bPk);
+
+        $('.delete-modal-background').css("display", "flex");
+
+        $('#comment-confirm-yes').click(function (){
+
+            location.href = '/simulator/deleteComment?cm_pk=' + cmPk + '&b_pk=' + bPk;
+        })
+
+        $('#comment-confirm-no').click(function (){
+            $('.delete-modal-background').css("display", "none");
+
+            // 클릭 이벤트를 제거하여 다음 클릭 시 초기화된 상태로 유지
+            $('#comment-confirm-yes').off('click');
+            $('#comment-confirm-no').off('click');
+        })
+
+    })
+
+    $('.delete-modal-background').click(function (){
+        $('.delete-modal-background').css("display", "none");
+    })
 })
 
 function rgbToHex(r, g, b) {

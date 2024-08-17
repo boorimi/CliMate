@@ -20,7 +20,7 @@
     <div class="simulator-content" th:each="pj : ${project}" th:attr="data-file=${pj.b_video}">
         <div class="top-box">
             <div class="name-box">
-                <p th:text="${pj.u_nickname}" class="title-nickname"></p>
+                <p th:text="${pj.u_nickname}" class="nickname"></p>
                 <img th:src="@{'/resources/grade_icon/hold_' + ${pj.u_grade} + '.png'}">
             </div>
             <div class="detail-date" th:text="${#dates.format(pj.b_datetime, 'yyyy.MM.dd')}"></div>
@@ -57,7 +57,7 @@
     </div>
 
     <!--  모달  -->
-    <div class="s-delete-background" id="s-delete-confirm-background">
+    <div class="modal-background" id="s-delete-confirm-background">
         <div class="s-delete-modal">
             <p>Are you sure you want to delete this post?</p>
             <button id="s-delete-confirm-yes">Delete</button>
@@ -83,15 +83,19 @@
 
         <!--    댓글 시작    -->
         <div class="comment-list" th:each="scl : ${simulatorCommentsLists}">
-            <div class="top-box-comment">
-                <div class="name-box">
-                    <p th:text="${scl.u_nickname}" class="comment-nickname"></p>
+            <div class="comment-top-box">
+                <div class="comment-name-box">
+                    <p th:text="${scl.u_nickname}" class="nickname"></p>
                     <img th:src="@{'/resources/grade_icon/hold_' + ${scl.u_grade} + '.png'}">
                 </div>
-                <div class="create-date" th:text="${#dates.format(scl.cm_datetime, 'yyyy.MM.dd HH:mm')}"></div>
-
+                <div class="date-delete-box">
+                    <p class="create-date" th:text="${#dates.format(scl.cm_datetime, 'yyyy.MM.dd HH:mm')}"></p>
+                    <img class="comments-delete" th:data-cm_pk="${scl.cm_pk}" th:data-b_pk="${project.b_pk}"
+                         th:if="${session.user_id == scl.cm_u_id}"
+                         src="/resources/icon/delete.png"/>
+                </div>
             </div>
-            <p id="comment-text" th:text="${scl.cm_text}"></p>
+            <p class="comment-text" th:text="${scl.cm_text}"></p>
         </div>
 
     </div>

@@ -72,6 +72,7 @@ $(document).ready(function () {
             $(this).scrollLeft(scrollLeft - walk);
         });
     }
-
-
 });
+
+
+

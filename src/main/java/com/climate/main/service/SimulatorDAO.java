@@ -61,6 +61,11 @@ public class SimulatorDAO implements SimulatorMapper {
     }
 
     @Override
+    public int deleteSimulatorComment(int cm_pk, int b_pk) {
+        return simulatorMapper.deleteSimulatorComment(cm_pk, b_pk);
+    }
+
+    @Override
     public List<CommentsDTO> selectCommunityComments(int b_pk) {
         return simulatorMapper.selectCommunityComments(b_pk);
     }

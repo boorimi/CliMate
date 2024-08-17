@@ -115,9 +115,9 @@ footer {
 
 
 /* 모달 배경 */
-.s-menu-modal-background,
-.s-create-modal-background,
-.s-delete-background {
+.delete-modal-background,
+.modal-background,
+.s-menu-modal-background{
   display: none;
   position: fixed;
   top: 0;
@@ -129,9 +129,10 @@ footer {
 }
 
 /* 모달 창 */
+.comment-confirm,
+.loading-modal,
 .s-menu-modal,
 .s-create-modal,
-.s-loading-modal,
 .s-save-complete-modal,
 .s-delete-modal,
 .s-delete-complete-modal {
@@ -153,16 +154,17 @@ footer {
   flex-direction: column;
   align-items: center;
 }
-.s-loading-modal,
+.loading-modal,
 .s-save-complete-modal,
 .s-delete-complete-modal {
   display: none;
 }
-.s-loading-modal img {
+.loading-modal img {
   width: 50%;
   height: auto;
 }
 
+.comment-confirm p,
 .s-delete-modal p,
 .s-create-modal p:first-child {
   font-weight: 900;
@@ -172,6 +174,7 @@ footer {
 }
 
 /* 모달 버튼 스타일 */
+.comment-confirm button,
 .s-menu-modal button,
 .s-create-modal button,
 .s-save-complete-modal button,
@@ -184,6 +187,7 @@ footer {
   border-radius: 0.3em;
 }
 
+.comment-confirm button:hover,
 .s-menu-modal button:hover,
 .s-create-modal button:hover,
 .s-save-complete-modal button:hover,
@@ -214,7 +218,7 @@ footer {
   top: 0;
   left: 0;
   background-color: #f6f9f4;
-  width: 11%;
+  width: 12%;
   border-radius: 0.5em;
   border: 0.1em solid #79976a;
   font-weight: 900;

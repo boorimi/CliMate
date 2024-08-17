@@ -114,6 +114,25 @@ public class SimulatorC {
         return "index";
     }
 
+    // 댓글 삭제
+    @GetMapping("/deleteComment")
+    public String deleteComment(int cm_pk, int b_pk) {
+
+        System.out.println(cm_pk);
+        System.out.println(b_pk);
+
+        simulatorDAO.deleteSimulatorComment(cm_pk, b_pk);
+
+        return "redirect:/simulator/gallery_detail?b_pk=" + b_pk;
+
+//        SimulatorDAO.deleteSimulatorComment(cm_pk, b_pk);
+//        return "redirect:/gallery_detail?b_pk=" + b_pk;
+
+//        communityDAO.deleteCommunityShowoff(communityDTO);
+//        return "redirect:/community/video";
+    }
+
+
     // 닉네임 검색
     @GetMapping("/searchNickname")
     public String searchNickname(@RequestParam("nickname")String nickname, Model model){
