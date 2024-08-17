@@ -4,21 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/resources/css/simulator_main.css"/>
-    <script
-            src="https://code.jquery.com/jquery-3.6.0.min.js"
-            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-            crossorigin="anonymous"
-    ></script>
     <script src="/resources/js/simulator_main.js" defer></script>
     <title>Title</title>
 </head>
 <body>
 <!--<div th:text="${myProject}"></div>-->
 <div class="simulator-main-container">
-    <div class="simulator-loading">
-        <img src="/resources/img/s_loading.gif">
-        <p>Please wait for a moment</p>
-    </div>
     <div class="simulator-create-project">
         <p class="title-text">Create new project</p>
         <div class="create-project" th:if="${session.user_id != null}" onclick="location.href='/simulator/create'">+
@@ -32,8 +23,8 @@
     <div class="simulator-my-project">
         <p class="title-text">My project</p>
         <div class="my-project-list" id="myProjectList" th:if="${user_id != null}">
-            <div class="my-project" th:each="myPj: ${myProject}" th:if="${myPjStat.index} < 3" th:attr="data-pk=${myPj.s_pk}, data-size=${#lists.size(myProject)}">
-                <img th:src="${myPj.s_img}">
+            <div class="my-project" th:each="myPj: ${myProject}" th:if="${myPjStat.index} < 3" th:attr="data-pk=${myPj.b_pk}, data-size=${#lists.size(myProject)}">
+                <img th:src="${myPj.b_thumbnail}">
             </div>
         </div>
         <div class="my-project-list" th:if="${user_id == null}">
@@ -45,6 +36,7 @@
         <p class="title-text">Others</p>
         <div class="others" onclick="location.href='/simulator/gallery?category=All'">Project Gallery</div>
     </div>
+
 </div>
 </body>
 </html>

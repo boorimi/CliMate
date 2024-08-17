@@ -34,8 +34,9 @@ app.get('/', (req, res) => {
 io.on('connection', (socket) => {
     console.log('A user connected');
 
-    socket.on('chat message', (msg) => {
-        io.emit('chat message', msg);
+    socket.on('chat message', (data) => {
+        const { userId, message, senderId } = data;
+        io.emit('chat message', { userId, message, senderId }); // 클라이언트에 데이터 전송
     });
 
     socket.on('disconnect', () => {

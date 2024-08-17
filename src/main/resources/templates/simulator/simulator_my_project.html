@@ -4,19 +4,14 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="/resources/css/simulator_gallery.css">
-    <script
-            src="https://code.jquery.com/jquery-3.6.0.min.js"
-            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-            crossorigin="anonymous"
-    ></script>
     <script src="/resources/js/simulator_my_project.js" defer></script>
 </head>
 <body>
 <div class="project-container">
     <div class="project-content">
-        <div th:each="myPj: ${myProject}" class="project-post" th:attr="data-pk=${myPj.s_pk}">
+        <div th:each="myPj: ${myProject}" class="project-post" th:attr="data-pk=${myPj.b_pk}">
             <div class="project-img">
-                <img th:src="${myPj.s_img}">
+                <img th:src="${myPj.b_thumbnail}">
             </div>
             <div class="like-and-comment">
                 <img src="/resources/icon/love_blank.png">
@@ -25,7 +20,7 @@
                 <p>0</p>
             </div>
             <div class="name-box">
-                <p th:text="${#dates.format(myPj.s_date, 'yyyy-MM-dd')}" style="font-size: 0.9em"></p>
+                <p th:text="${#dates.format(myPj.b_datetime, 'yyyy-MM-dd')}" style="font-size: 0.9em"></p>
             </div>
         </div>
     </div>

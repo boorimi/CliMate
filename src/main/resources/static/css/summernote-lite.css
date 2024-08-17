@@ -350,13 +350,18 @@
     background-color: #fff;
     border-color: #dae0e5;
     padding: 5px 10px;
-    font-size: 5vw;
+    font-size: 26px;
     line-height: 1.4;
     border-radius: 3px;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-    user-select: none
+    user-select: none;
+}
+
+.note-current-fontname {
+    font-size: 20px;
+    padding: 0;
 }
 
 .note-btn:focus, .note-btn.focus {
@@ -409,7 +414,9 @@
 }
 
 .note-btn > span.note-icon-caret:first-child {
-    margin-left: -1px
+    margin-left: -1px;
+    position: relative;
+    top: -11px;
 }
 
 .note-btn > span.note-icon-caret:nth-child(2) {
@@ -1582,4 +1589,20 @@ a.note-dropdown-item, a.note-dropdown-item:hover {
 .help-list-item label {
     margin-bottom: 5px;
     display: inline-block
+}
+
+
+@media (max-width: 768px) {
+    .note-btn {
+        font-size: 17px;
+    }
+    .note-current-fontname{
+        font-size: 16px;
+    }
+    .note-btn i::before {
+        font-size: 13px;
+    }
+    .note-btn > span.note-icon-caret:first-child{
+        top: -4px;
+    }
 }

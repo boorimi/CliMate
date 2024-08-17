@@ -1,8 +1,11 @@
 package com.climate.main.controller;
 
 import com.climate.main.config.FirebaseConfig;
+import com.climate.main.dto.CommentsDTO;
+import com.climate.main.dto.CommunityDTO;
 import com.climate.main.dto.SimulatorDTO;
 import com.climate.main.mapper.SimulatorMapper;
+import com.climate.main.service.CommunityDAO;
 import com.climate.main.service.SimulatorDAO;
 import com.google.cloud.storage.BlobId;
 import com.google.cloud.storage.BlobInfo;
@@ -41,6 +44,7 @@ public class SimulatorC {
 
     @Autowired
     private SimulatorDAO simulatorDAO;
+    private CommunityDAO communityDAO;
     @Qualifier("simulatorMapper")
     @Autowired
     private SimulatorMapper simulatorMapper;
@@ -99,9 +103,12 @@ public class SimulatorC {
     }
 
     @GetMapping("/gallery_detail")
-    public String galleryPost(@RequestParam("pk") int pk, Model model) {
-        model.addAttribute("project", simulatorDAO.getProject(pk));
-        System.out.println(simulatorDAO.getProject(pk));
+    public String galleryPost(int b_pk, Model model, CommunityDTO communityDTO, HttpSession session) {
+        communityDTO.setU_id((String) session.getAttribute("user_id"));
+        model.addAttribute("project", simulatorDAO.getProject(b_pk));
+        model.addAttribute("simulatorCommentsLists", simulatorDAO.selectCommunityComments(b_pk));
+        model.addAttribute("simulatorLikeCountThisUser", simulatorDAO.selectLikeCountThisUser(communityDTO));
+//        System.out.println(simulatorDAO.getProject(pk));
         model.addAttribute("content", "/simulator/simulator_menu");
         model.addAttribute("simulator_content", "/simulator/simulator_gallery_detail");
         return "index";
@@ -178,9 +185,9 @@ public class SimulatorC {
 
             // sql set
             gltfFile.transferTo(gltfTargetFile);
-            simulatorDTO.setS_file(gltfFile.getOriginalFilename());
-            simulatorDTO.setS_img(url + imgTargetgFile + "?alt=media");
-            simulatorDTO.setS_u_id((String) session.getAttribute("user_id"));
+            simulatorDTO.setB_video(gltfFile.getOriginalFilename());
+            simulatorDTO.setB_thumbnail(url + imgTargetgFile + "?alt=media");
+            simulatorDTO.setB_u_id((String) session.getAttribute("user_id"));
 
             System.out.println("저장 성공");
 
@@ -200,5 +207,10 @@ public class SimulatorC {
         }
     }
 
+    @PostMapping("/comments/insert")
+    public String commentsInsertCommunityShowoff(int cm_b_pk, CommentsDTO commentsDTO) {
+        simulatorDAO.insertSimulatorComments(commentsDTO);
+        return "redirect:/simulator/gallery_detail?b_pk=" + cm_b_pk;
+    }
 
 }

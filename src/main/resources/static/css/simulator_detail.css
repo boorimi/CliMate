@@ -28,9 +28,10 @@
     min-height: 145vh;
 }
 
-.top-box {
+.top-box,
+.top-box-comment {
     display: flex;
-    height: 3rem;
+    height: 2rem;
     align-items: center;
     justify-content: space-between;
     padding: 0 0.5em;
@@ -38,18 +39,23 @@
 
     p {
         margin: 0;
-        font-size: 1.5em;
+        font-size: 1.1em;
     }
 }
-.create-date{
-    font-size: 1.2em;
+.top-box {
+    margin: 1em 0.5em;
+    border-bottom: 0.1em solid #79976a;
+    color: #79976a;
+    font-style: italic;
+    p {
+        font-weight: 900;
+    }
 }
 
 .name-box {
     display: flex;
     align-items: center;
     height: 100%;
-
 
     img {
         height: 80%;
@@ -65,7 +71,14 @@
     margin: 1em 0 0 0;
 }
 
+#toggle-like {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
 .like-box,
+#toggle-like,
 .delete {
     display: flex;
     align-items: center;
@@ -83,43 +96,9 @@
 .comment-container {
     /*background-color: #007bff;*/
 }
-.nickname{
+
+.nickname {
     position: relative;
-}
-.profile-menu {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: none;
-    position: absolute;
-    z-index: 900;
-    top: 0;
-    left: 0;
-    background-color: #fff;
-    width: 20%;
-    border-radius: 1em;
-    border: solid #79976a;
-    font-weight: 900;
-    color: #79976a;
-
-    li {
-        border-bottom: 1px solid #ddd;
-        display: flex;
-        align-items: center;
-        height: 6vw;
-        font-size: 2.2vw;
-        padding: 0 1em;
-    }
-
-    li:last-child {
-        border-bottom: none;
-    }
-}
-
-.profile-menu.active {
-    display: flex;
-    flex-direction: column;
-
 }
 
 .comment-input {
@@ -156,10 +135,9 @@
     border-bottom: 0.1em solid #79976a;
 }
 
-#comment-text{
+#comment-text {
     padding: 0 0.5em;
 }
-
 
 
 @media (max-width: 768px) {
@@ -171,14 +149,7 @@
         height: 60vh;
     }
 
-    .top-box {
-        margin: 0;
-        p {
-            font-size: 1.3em;
-        }
-    }
-
-    .create-date{
+    .detail-date {
         font-size: 1em;
     }
 
@@ -189,6 +160,7 @@
     }
 
     .like-box,
+    #toggle-like,
     .delete {
         p {
             font-size: 1.3em;
@@ -199,7 +171,7 @@
         }
     }
 
-    .profile-menu{
+    .profile-menu {
         width: 35%;
 
         li {
