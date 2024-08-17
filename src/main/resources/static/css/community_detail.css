@@ -14,11 +14,13 @@
   margin: 0vh 7vw;
 }
 
-.top-box,
-.top-box-comment {
+.top-box{
   display: flex;
   align-items: center;
   justify-content: space-between;
+  border-bottom: 0.1em solid #79976a;
+  margin: 1em 0;
+  padding: 0 0 0.5em 0;
   color: #79976a;
 
   p {
@@ -26,12 +28,6 @@
     font-weight: 900;
     font-size: 1.1em;
   }
-}
-
-.top-box{
-  border-bottom: 0.1em solid #79976a;
-  margin: 1em 0;
-  padding: 0 0 0.5em 0;
 }
 
 .name-box,
@@ -44,10 +40,6 @@
     height: 1.5em;
     margin-left: 0.5em;
   }
-}
-
-.comment-name-box {
-  color: black;
 }
 
 .video-detail-info-container {
@@ -131,7 +123,8 @@
   height: 2em;
 
   img{
-    height: 100%;
+    height: 70%;
+    padding-top: 0.1em;
   }
 
   p{
@@ -176,15 +169,6 @@
   padding: 0.5em 0;
 }
 
-.date-delete-box {
-    display: flex;
-    align-content: center;
-    p {
-        font-weight: normal;
-        font-size: 0.9em;
-    }
-}
-
 .showoff-detail-comments-delete img{
     height: 1.5em;
     margin-left: 0.5em;
@@ -196,7 +180,6 @@
 }
 
 /* lfg 디테일 CSS */
-
 /* 타이틀 */
 .lfg-detail-title{
   display: flex;
@@ -207,25 +190,30 @@
 }
 
 /* 닉네임, 날짜, 더보기 btn */
-.lfg-detail.top-box.name-date-more {
+.lfg-detail.top-box.name-date-more,
+.comment-top-box {
   border: none;
   margin: 0;
-  color: black;
+  display: flex;
+  justify-content: space-between;
+  height: 2em;
 }
 
 .date-more-box{
   display: flex;
   align-items: center;
-  color: black;
+  font-size: 0.9em;
 
   img{
     margin-left: 0.5em;
-    height: 2em;
-    width: 2em;
+    height: 1.3em;
     position: relative;
   }
 }
 
+#lfg-detail-more-btn{
+  height: 2em;
+}
 
 .lfg-detail-updelMenu {
   list-style: none;
@@ -267,8 +255,6 @@
   display: flex;
   flex-direction: column;
 }
-
-
 
 
 @media (max-width: 768px){
