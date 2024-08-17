@@ -77,7 +77,7 @@
                 <img th:src="@{'/resources/grade_icon/hold_' + ${co.u_grade} + '.png'}">
             </div>
             <div class="date-more-box">
-                <p th:text="${#dates.format(co.cm_datetime, 'yyyy.MM.dd')}"></p>
+                <p th:text="${#dates.format(co.cm_datetime, 'yyyy.MM.dd HH:mm')}"></p>
                 <img class="showoff-detail-comments-delete"
                      th:onclick="'deleteCommentsCheck('+${co.cm_pk}+','+${lfgList.b_pk}+')'"
                      th:if="${session.user_id == co.cm_u_id}"
