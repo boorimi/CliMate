@@ -207,7 +207,7 @@ footer {
 .s-menu-login-modal button:hover,
 .s-create-modal button:hover,
 .s-save-complete-modal button:hover,
-.post-delete-modal button:hover,
+.post-delete-confirm button:hover,
 .post-delete-complete-modal button:hover{
   background-color: #516746;
 }
