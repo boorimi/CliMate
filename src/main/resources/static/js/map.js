@@ -93,6 +93,9 @@ $(function () {
         scrollList = 0;
         totalItems = 0;
         $(".search-result-box").remove();
+        $("#type-box-all").removeClass("active");
+        $("#type-box-wish").addClass("active");
+        $("#type-box-visited").removeClass("active");
         getWishData(page);
     })
     //visited 버튼 클릭 함수
@@ -101,6 +104,9 @@ $(function () {
         scrollList = 0;
         totalItems = 0;
         $(".search-result-box").remove();
+        $("#type-box-all").removeClass("active");
+        $("#type-box-wish").removeClass("active");
+        $("#type-box-visited").addClass("active");
         getCheckData(page);
     })
 })
@@ -428,6 +434,9 @@ async function getAll() {
         },
         success   : function (resData) {
             myplaceList.length = 0; // 배열 초기화
+            $("#type-box-all").addClass("active");
+            $("#type-box-wish").removeClass("active");
+            $("#type-box-visited").removeClass("active");
 
             resData.forEach(item => {
                 const obj = { //객체 초기화
@@ -518,6 +527,7 @@ function getAllByIdCnt(pageNo) {
         },
         success: function (resData) {
             totalItems = resData;
+            $("#all-cnt").text('(' + resData + ')');
             getAllById(pageNo);
         },
         error  : function (error) {
