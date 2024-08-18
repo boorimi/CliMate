@@ -132,11 +132,14 @@
   }
 }
 
+.showoff-detail-comments-input-wrapper {
+  border-bottom: 0.1em solid #79976a;
+}
+
 /* 댓글 인풋 */
 .showoff-detail-comments-input {
   display: flex;
   height: 3rem;
-  border-bottom: 0.1em solid #79976a;
   align-items: center;
   justify-content: space-between;
   padding-bottom: 0.5em;
