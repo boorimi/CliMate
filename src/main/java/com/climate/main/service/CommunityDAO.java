@@ -2,6 +2,7 @@ package com.climate.main.service;
 
 import com.climate.main.dto.CommentsDTO;
 import com.climate.main.dto.CommunityDTO;
+import com.climate.main.dto.ReplyDTO;
 import com.climate.main.mapper.CommunityMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -283,6 +284,16 @@ public class CommunityDAO implements CommunityMapper {
     @Override
     public int deleteCommunityComments(int cm_pk, int b_pk) {
         return communityMapper.deleteCommunityComments(cm_pk, b_pk);
+    }
+
+    @Override
+    public List<ReplyDTO> selectReplyComments(int b_pk) {
+        return communityMapper.selectReplyComments(b_pk);
+    }
+
+    @Override
+    public int insertReplyComments(ReplyDTO replyDTO) {
+        return communityMapper.insertReplyComments(replyDTO);
     }
 
 

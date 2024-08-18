@@ -1,9 +1,6 @@
 package com.climate.main.controller;
 
-import com.climate.main.dto.CommentsDTO;
-import com.climate.main.dto.CommunityDTO;
-import com.climate.main.dto.LikeDTO;
-import com.climate.main.dto.SimulatorDTO;
+import com.climate.main.dto.*;
 import com.climate.main.service.CommunityDAO;
 import com.google.cloud.storage.BlobId;
 import com.google.cloud.storage.BlobInfo;
@@ -237,8 +234,9 @@ public class CommunityC {
     }
 
     @GetMapping("/community/video/detail")
-    public String communityShowoffDetail(HttpSession session, int b_pk, CommunityDTO communityDTO, Model model) {
+    public String communityShowoffDetail(HttpSession session, int b_pk, CommunityDTO communityDTO, Model model, ReplyDTO replyDTO) {
         communityDTO.setU_id((String) session.getAttribute("user_id"));
+        model.addAttribute("replyLists", communityDAO.selectReplyComments(b_pk));
         model.addAttribute("showoffList", communityDAO.selectCommunityShowoff(communityDTO));
         model.addAttribute("showoffCommentsLists", communityDAO.selectCommunityComments(b_pk));
         model.addAttribute("showoffLikeCountThisUser", communityDAO.selectLikeCountThisUser(communityDTO));
@@ -360,6 +358,12 @@ public class CommunityC {
             e.printStackTrace();
 //            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @PostMapping("/community/video/replyComments/insert")
+    public String insertReplyComments(ReplyDTO replyDTO) {
+        communityDAO.insertReplyComments(replyDTO);
+        return "redirect:/community/video";
     }
 
 }
