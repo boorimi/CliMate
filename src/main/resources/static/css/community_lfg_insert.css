@@ -6,32 +6,7 @@
     }
 }
 
-/*
-.main-container {
-    padding: 1vh 0vw;
-    margin: 1vh 0vw;
-    font-family: 'Lato';
-    width: 95vw;
-    margin-left: auto;
-    margin-right: auto;
-    border-bottom: 0.2vw solid gray;
-    border-top: 0.2vw solid gray;
-
-}
-
-.ck-content {
-    font-family: 'Lato';
-    font-size: 1.2em;
-    line-height: 1.6;
-    word-break: break-word;
-}
-
-.ck-dropdown__panel, .ck-button {
-    font-size: 0.95em !important;
-}
-*/
-
-#lfg-insert-container {
+.lfg-insert-container {
     display: flex;
     flex-direction: column;
     margin: 5% 20%;
@@ -117,11 +92,6 @@
     color: white;
 }
 
-/* 썸머노트 틀 */
-.note-editor.note-frame {
-    border: 0.1em solid #afafaf32 !important;
-}
-
 /*버튼 크기 조정*/
 .note-btn {
     height: 3rem;
@@ -156,21 +126,6 @@
     line-height: 1.5;
 }
 
-/* 폰트박스 */
-.note-current-fontname {
-    font-size: 2rem;
-    position: absolute;
-}
-
-/* 화살표 */
-.note-icon-caret::before {
-    font-size: 0.5em !important;
-    height: 1.8em !important;
-    position: absolute !important;
-    top: -0.1em !important;
-    right: 0 !important;
-}
-
 /* A 옆 화살표 박스  */
 .note-editor .note-toolbar .note-color .dropdown-toggle {
     width: 36px !important;
@@ -191,7 +146,7 @@ footer {
 
 @media (max-width: 768px) {
 
-    #lfg-insert-container {
+    .lfg-insert-container {
         margin: 0;
         border: none;
     }
@@ -204,43 +159,5 @@ footer {
         margin-top: 0;
     }
 
-    /* 썸머노트 틀 */
-    .note-editor.note-frame {
-        border: 0.1em solid #79976a !important;
-    }
-
-    /* 전체 버튼 */
-    .note-btn {
-        height: 2rem;
-    }
-
-    /* 아이콘 */
-    .note-btn i::before {
-        font-size: 0.8rem;
-        line-height: 1.5;
-    }
-
-    /* 폰트박스 */
-    .note-current-fontname {
-        font-size: 1.5rem;
-        position: absolute;
-    }
-
-    /* 화살표 */
-    .note-icon-caret::before {
-        font-size: 0.8em !important;
-        top: -0.1em !important;
-
-    }
-
-    /* A 옆 화살표 박스  */
-    .note-editor .note-toolbar .note-color .dropdown-toggle {
-        width: 30px !important;
-    }
-
-    /* 내림 박스 */
-    button.note-btn.btn.btn-default.btn-sm.dropdown-toggle:nth-child(1) {
-        width: 12rem;
-    }
 
 }

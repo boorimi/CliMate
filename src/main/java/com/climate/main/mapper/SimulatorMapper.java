@@ -82,13 +82,17 @@ public interface SimulatorMapper {
             "and b_category = 'simulator'")
     public List<SimulatorDTO> searchNickname(String nickname);
 
-    // 삭제
+    // 게시물 삭제
     @Delete("delete from cli_board where b_pk = #{pk}")
-    public int deleteProject(@Param("pk") int pk);
+    public int deleteProject(int pk);
 
     // 댓글 인서트
     @Insert("insert into cli_comments values (cli_comments_seq.nextval, #{cm_b_pk}, #{cm_u_id}, #{cm_text}, SYSTIMESTAMP AT TIME ZONE 'Asia/Seoul')")
     public int insertSimulatorComments(CommentsDTO commentsDTO);
+
+    // 댓글 삭제
+    @Delete("delete from cli_comments where cm_pk = #{cm_pk} ")
+    public int deleteSimulatorComment(int cm_pk, int b_pk);
 
     // 댓글 조회
     @Select("select co.*, u_nickname, u_grade from cli_comments co, cli_user " +

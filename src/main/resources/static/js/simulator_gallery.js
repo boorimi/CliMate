@@ -45,6 +45,25 @@ $(document).ready(function () {
     });
 
 
+    $('.project-post').click(function (){
+
+        let dataPk;
+        let userId = $('#userId').text();
+        dataPk = $(this).data('pk');
+
+        console.log(userId);
+
+        if (userId != null && userId !== '') {
+            location.href = '/simulator/gallery_detail?b_pk=' + dataPk;
+        } else {
+            $('.s-menu-modal-background').css("display", "block");
+        }
+    })
+
+
+
+
+
 
 
 })

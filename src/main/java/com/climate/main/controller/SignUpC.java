@@ -19,7 +19,6 @@ public class SignUpC {
 
     @PostMapping("/signup")
     public String signUp(@ModelAttribute UserDTO userDTO, @RequestParam("file_upload") MultipartFile file) {
-
         String profileImage;
         if (file == null || file.isEmpty()) {
             // 파일이 업로드되지 않은 경우 기본 이미지 사용
@@ -31,8 +30,12 @@ public class SignUpC {
 
         // userDTO에서 profile 이미지 설정
         userDTO.setU_img(profileImage);
-        System.out.println("check user dto => "+userDTO);
+        System.out.println("check user dto => "+userDTO.getU_homeground());
         System.out.println("check profile dto => "+profileImage);
+        //홈그라운드 확인
+        if(userDTO.getU_homeground().isEmpty()) {
+            userDTO.setU_homeground("none");
+        }
         int result = signDAO.insertUser(userDTO);
         if(result == 1) {
             System.out.println("유저 가입 성공");

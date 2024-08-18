@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    $(".community-showoff-video").slick({
+    $(".showoff-video").slick({
         prevArrow: $(".slick-prev"),
         nextArrow: $(".slick-next"),
         centerMode: true, // 가운데 정렬 모드 활성화
@@ -9,16 +9,7 @@ $(document).ready(function () {
         infinite: false
     });
 
-    // $('.video').on('click', function () {
-    //     // $('.community-showoff-video').on('click','video', function() {
-    //     if (this.paused) {
-    //         this.play();
-    //     } else {
-    //         this.pause();
-    //     }
-    // });
-
-    $(document).on('click', '.community-video-detail-like-icon', function () {
+    $(document).on('click', '.video-detail-like-icon', function () {
         let b_pk = $(this).data('b_pk');
         let u_id = $(this).data('u_id');
 
@@ -33,14 +24,14 @@ $(document).ready(function () {
                 // 요청이 성공했을 때 호출되는 함수
                 let html;
                 if (response.userLikes >= 1) {
-                    html = `<div class="community-video-detail-like-icon" data-b_pk="${b_pk}" data-u_id="${response.u_id}"><img src="/resources/icon/love.png"></div>`
+                    html = `<div class="video-detail-like-icon" data-b_pk="${b_pk}" data-u_id="${response.u_id}"><img src="/resources/icon/love.png"></div>`
                 } else if (response.userLikes == 0) {
-                    html = `<div class="community-video-detail-like-icon" data-b_pk="${b_pk}" data-u_id="${response.u_id}"><img src="/resources/icon/love_blank.png"></div>`
+                    html = `<div class="video-detail-like-icon" data-b_pk="${b_pk}" data-u_id="${response.u_id}"><img src="/resources/icon/love_blank.png"></div>`
                 }
-                let html2 = `<div class="community-video-detail-like-count">${response.totalLikes}</div>`
+                let html2 = `<div class="video-detail-like-count">${response.totalLikes}</div>`
 
-                $('.community-video-detail-like').empty().append(html);
-                $('.community-video-detail-like').append(html2);
+                $('.video-detail-like-box').empty().append(html);
+                $('.video-detail-like-box').append(html2);
 
             },
             error: function (xhr, status, error) {
@@ -50,37 +41,9 @@ $(document).ready(function () {
         });
     });
 
-    // 자랑게시판 댓글 닉네임 눌렀을때 메뉴표시
-    $(document).on('click', '.community-showoff-detail-comments-nickname', function (event) {
-        $('.community-showoff-detail-comments-nicknameMenu').removeClass('activeNickname');
-        $(this).siblings('.community-showoff-detail-comments-nicknameMenu').toggleClass('activeNickname');
-        event.stopPropagation();
-    });
-
-    // 자랑게시판 게시글 닉네임 눌렀을때 메뉴표시
-    $(document).on('click', '.community-video-detail-nickname', function (event) {
-        $('.community-video-detail-board-nicknameMenu').removeClass('activeNickname');
-        $(this).siblings('.community-video-detail-board-nicknameMenu ').toggleClass('activeNickname');
-        event.stopPropagation();
-    });
-
-    $(document).on('click', function () {
-        $('.community-showoff-detail-comments-nicknameMenu').removeClass('activeNickname');
-        $('.community-video-detail-board-nicknameMenu').removeClass('activeNickname');
-    });
-
-    // 업데이트,딜리트 메뉴 토글하는 기능
-    $(document).on('click','.community-video-detail-more-wrapper', function () {
-        $('.community-video-detail-updelMenu').toggleClass('active');
-    });
-
-    $(document).on('click', '.community-showoff-detail-comments-nicknameMenu', function (event) {
-        event.stopPropagation();
-    });
-
     // 해쉬태그 만들기 코드 (제목과 본문)
-    let htmlContent = $('.community-video-detail-text').html();
-    let htmlContent2 = $('.community-video-detail-title').html();
+    let htmlContent = $('.video-detail-text').html();
+    let htmlContent2 = $('.video-detail-title').html();
     function convertHashtagsToLinks(text) {
         return text.replace(/(#[^\s#]+)/g, function(match) {
             const encodedHashtag = encodeURIComponent(match);
@@ -89,36 +52,43 @@ $(document).ready(function () {
     }
     htmlContent = convertHashtagsToLinks(htmlContent);
     htmlContent2 = convertHashtagsToLinks(htmlContent2);
-    $('.community-video-detail-text').html(htmlContent);
-    $('.community-video-detail-title').html(htmlContent2);
+    $('.video-detail-text').html(htmlContent);
+    $('.video-detail-title').html(htmlContent2);
 
 });
 
 
 function deleteCheck(pk) {
-    if (confirm('정말 삭제하시겠습니까?')) {
+    document.getElementById('post-delete-modal-background').style.display = "block";
+
+    document.getElementById('post-delete-confirm-yes').addEventListener('click', function (){
         location.href = '/community/video/delete?b_pk=' + pk;
-    }
+    });
+
+    document.getElementById('post-delete-confirm-no').addEventListener('click', function (){
+        document.getElementById('post-delete-modal-background').style.display = "none";
+    });
+    document.getElementById('post-delete-modal-background').addEventListener('click', function (){
+        document.getElementById('post-delete-modal-background').style.display = "none";
+    });
 }
 
+// 게시물, 댓글 삭제
 function deleteCommentsCheck(cm_pk, b_pk) {
-    if (confirm('정말 삭제하시겠습니까?')) {
+    document.getElementById('comment-delete-confirm-background').style.display = "block";
+
+    document.getElementById('comment-confirm-yes').addEventListener('click', function (){
         location.href = '/community/video/deleteComments?cm_pk=' + cm_pk + '&b_pk=' + b_pk;
-    }
+    });
+
+    document.getElementById('comment-confirm-no').addEventListener('click', function (){
+        document.getElementById('comment-delete-confirm-background').style.display = "none";
+    });
+
+    document.getElementById('comment-delete-confirm-background').addEventListener('click', function (){
+        document.getElementById('comment-delete-confirm-background').style.display = "none";
+    });
+
 }
 
-function redirectToProfile(element) {
-    const userId = element.getAttribute('data-u_id');
-    location.href = '/mypage/userProfile?u_id=' + userId;
-}
-
-function redirectToVideoPost(element) {
-    const userNickname = element.getAttribute('data-u_nickname');
-    location.href = '/community/search?columnName=u_nickname&searchWord=' + userNickname;
-}
-
-function redirectToLfgPost(element) {
-    const userNickname = element.getAttribute('data-u_nickname');
-    location.href = '/community/searchLfg?columnName=u_nickname&searchWord=' + userNickname;
-}
 

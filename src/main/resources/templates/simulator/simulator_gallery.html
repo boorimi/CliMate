@@ -4,11 +4,6 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="/resources/css/simulator_gallery.css">
-    <script
-            src="https://code.jquery.com/jquery-3.6.0.min.js"
-            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-            crossorigin="anonymous"
-    ></script>
     <script src="/resources/js/simulator_gallery.js" defer></script>
 </head>
 <body>
@@ -56,11 +51,10 @@
     </div>
 
     <!--  모달  -->
-    <div class="menu-modal-background" id="confirm-background">
-        <div class="menu-modal">
-            <p>Available after login</p>
-            <button id="confirm-yes">Google login</button>
-            <p id="confirm-no">close</p>
+    <div class="loading-modal-background">
+        <div class="s-loading-modal" id="s-loading-modal">
+            <img src="/resources/img/s_loading.gif">
+            <p>Please wait for a moment</p>
         </div>
     </div>
 

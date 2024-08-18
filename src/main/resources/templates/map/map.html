@@ -2,21 +2,71 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta content="width=device-width,initial-scale=1" name="viewport"/>
     <title>Map</title>
     <script
-            src="https://code.jquery.com/jquery-3.6.0.min.js"
-            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
             crossorigin="anonymous"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            src="https://code.jquery.com/jquery-3.6.0.min.js"
     ></script>
-    <script th:src="'https://maps.googleapis.com/maps/api/js?key=' + ${mapKey} + '&libraries=places'" defer></script>
-    <script th:src="@{/resources/js/map.js}" defer></script>
+    <script defer th:src="'https://maps.googleapis.com/maps/api/js?key=' + ${mapKey} + '&libraries=places'"></script>
+    <script defer th:src="@{/resources/js/map.js}"></script>
     <link rel="stylesheet" th:href="@{/resources/css/map.css}">
 </head>
 <body>
 <div class="map-box">
+    <div class="search-overlay"></div>
     <div id="map"></div>
-    <input id="map-input" class="map-input"/>
+    <div class="map-search-box">
+        <div class="category-box" id="category-box" th:if="${user_id} != null">
+            <img class="search-list" src="/resources/icon/list.png"/>
+        </div>
+        <input class="map-input" id="map-input"/>
+        <div class="btn-box">
+            <img class="search-btn" src="/resources/icon/search.png"/>
+        </div>
+    </div>
+    <div class="search-popup-box" id="search-popup-box">
+        <p class="popup-cancel">X</p>
+        <div class="search-box">
+            <input class="search-input" id="search-input">
+            <img class="search-img" src="/resources/icon/search.png">
+        </div>
+        <div class="search-type">
+            <div class="type-box" id="type-box-all">
+                <p>All</p>
+                <p id="all-cnt"></p>
+            </div>
+            <div class="type-box" id="type-box-wish">
+                <p>Wish</p>
+                <p id="wish-cnt"></p>
+            </div>
+            <div class="type-box" id="type-box-visited">
+                <p>Visited</p>
+                <p id="check-cnt"></p>
+            </div>
+        </div>
+        <ul class="search-result-list">
+            <li class="search-result">
+                <!--                <div class="search-icon">-->
+                <!--                    <img class="icon" id="icon" src="/resources/icon/wish_gray.png">-->
+                <!--                </div>-->
+                <!--                <div class="search-text">-->
+                <!--                    <p id="place_name">손상원 클라이밍</p>-->
+                <!--                    <p id="place_addr">서울 특별시 특별한곳입니다만? 나는 여기 살고있어요?</p>-->
+                <!--                </div>-->
+                <!--                <div class="search-map">-->
+                <!--                    <a id="search-link"><img src="/resources/icon/map.png"></a>-->
+                <!--                </div>-->
+            </li>
+        </ul>
+    </div>
+    <div class="s-create-modal-background" id="s-create-modal-background">
+        <div class="s-loading-modal" id="s-loading-modal">
+            <img src="/resources/img/map-loading.gif">
+            <p>Please wait for a moment</p>
+        </div>
+    </div>
 </div>
 </body>
 </html>

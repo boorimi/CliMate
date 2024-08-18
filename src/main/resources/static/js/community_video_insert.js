@@ -3,15 +3,24 @@ $(document).ready(function(){
 
 });
 
+document.getElementById('insert-check-modal-background').addEventListener('click', function() {
+    // 클릭 시 insert-check-modal-background의 display 속성을 none으로 변경
+    this.style.display = 'none';
+});
+
 function validateForm(event) {
     let fileInput = document.getElementById('uploadFile');
     let files = fileInput.files;
     if (fileInput.files.length === 0) {
-        alert('파일을 선택해 주세요');
+        document.getElementById('insert-check-modal-background').style.display = "block";
+        document.getElementById('insert-confirm-text').textContent = 'Please select a file';
+        // alert('파일을 선택해 주세요');
         event.preventDefault(); // 폼 제출 방지
         return false;
     } else if (fileInput.files.length > 4) {
-        alert('최대 4개의 파일까지 선택 가능합니다');
+        document.getElementById('insert-check-modal-background').style.display = "block";
+        document.getElementById('insert-confirm-text').textContent = 'You can select up to 4 files';
+        // alert('최대 4개의 파일까지 선택 가능합니다');
         event.preventDefault(); // 폼 제출 방지
         return false;
     }
@@ -19,12 +28,16 @@ function validateForm(event) {
     let titleInput = document.querySelector('input[name="b_title"]');
     let title = titleInput.value.trim();
     if (!title.startsWith('#')) {
-        alert('제목은 #으로 시작해야 합니다.');
+        document.getElementById('insert-check-modal-background').style.display = "block";
+        document.getElementById('insert-confirm-text').textContent = 'The title must begin with #';
+        // alert('제목은 #으로 시작해야 합니다.');
         event.preventDefault(); // 폼 제출 방지
         return false;
     }
-    if (title.length < 2 || title.length > 40) {
-        alert('제목은 2글자 이상, 40글자 이하로 입력해야 합니다.');
+    if (title.length < 3 || title.length > 40) {
+        document.getElementById('insert-check-modal-background').style.display = "block";
+        document.getElementById('insert-confirm-text').textContent = 'The title must be at least 2 characters and not more than 40 characters';
+        // alert('제목은 2글자 이상, 40글자 이하로 입력해야 합니다.');
         event.preventDefault(); // 폼 제출 방지
         return false;
     }
@@ -33,7 +46,9 @@ function validateForm(event) {
     let textInput = document.querySelector('input[name="b_text"]');
     let text = textInput.value.trim();
     if (text.length < 2 || text.length > 200) {
-        alert('본문은 2글자 이상, 200글자 이하로 입력해야 합니다.');
+        document.getElementById('insert-check-modal-background').style.display = "block";
+        document.getElementById('insert-confirm-text').textContent = 'The text must be not less than 2 characters but not more than 200 characters';
+        // alert('본문은 2글자 이상, 200글자 이하로 입력해야 합니다.');
         event.preventDefault(); // 폼 제출 방지
         return false;
     }
@@ -53,7 +68,9 @@ function setThumbnail(event) {
     for (var i = 0; i < files.length; i++) {
         let file = files[i];
         if (!file.name.endsWith('.mp4')) {
-            alert('MP4파일만 업로드 가능합니다.');
+            document.getElementById('insert-check-modal-background').style.display = "block";
+            document.getElementById('insert-confirm-text').textContent = 'Only MP4 files can be uploaded\n';
+            // alert('MP4파일만 업로드 가능합니다.');
             event.target.value = "";
             return;
         }
@@ -104,8 +121,6 @@ document.getElementById('uploadFile').addEventListener('change', function() {
     if (fileInput.files.length > 0) {
         const fileNames = Array.from(fileInput.files).map(file => file.name).join(', ');
         fileNameDisplay.textContent = fileNames;
-    } else {
-        fileNameDisplay.textContent = '선택된 파일 없음';
     }
 });
 
@@ -117,8 +132,6 @@ document.getElementById('uploadThumbnail').addEventListener('change', function()
     if (fileInput.files.length > 0) {
         const fileNames = Array.from(fileInput.files).map(file => file.name).join(', ');
         fileNameDisplay.textContent = fileNames;
-    } else {
-        fileNameDisplay.textContent = '선택된 파일 없음';
     }
 });
 

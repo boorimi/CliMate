@@ -21,16 +21,13 @@
             type="text/javascript"
             src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"
     ></script>
-    <link rel="stylesheet" href="/resources/css/community_video_detail.css"/>
     <script src="/resources/js/community_video_update.js">
     </script>
+    <link rel="stylesheet" href="/resources/css/community_video_insert.css">
 </head>
 <body>
-<div class="community-video-detail-all-wrapper">
-    <div class="custom-arrows">
-        <button class="slick-prev">&lt;</button>
-        <button class="slick-next">&gt;</button>
-    </div>
+<div class="community-video-update-all-wrapper">
+
     <div class="community-showoff-video">
         <div th:each="video : ${showoffList.videoList}">
             <video class="video" controls>
@@ -42,26 +39,35 @@
             </video>
         </div>
     </div>
-    <div class="community-video-detail-info">
-        <div class="community-video-detail-name">
-            <div
-                    class="community-video-detail-nickname"
-                    th:text="${showoffList.u_nickname}"
-            ></div>
-            <div class="community-video-detail-grade"><img
-                    th:src="@{'/resources/grade_icon/hold_' + ${showoffList.u_grade} + '.png'}"></div>
-        </div>
-    </div>
-    <form action="/community/video/update" method="post">
+
+    <form class="video-update-form" action="/community/video/update" method="post">
         <input name="b_pk" type="hidden" th:value="${showoffList.b_pk}">
-        <div class="community-video-detail-title">
+        <div class="title-box">
+            <p>Title</p>
             <input type="text" name="b_title" th:value="${showoffList.b_title}"/>
         </div>
-        <div class="community-video-detail-text">
-            <input type="text" name="b_text" th:value="${showoffList.b_text}"/>
+        <div class="text-box">
+            <textarea name="b_text" cols="30" rows="10" maxlength="200" th:value="${showoffList.b_text}"/></textarea>
         </div>
-        <button type="submit">수정</button>
+        <button class="video-insert-btn" type="submit">Post</button>
     </form>
 </div>
+
+<script>
+    // 인풋 포커스 div background-color 변경
+    document.addEventListener('DOMContentLoaded', function() {
+        var inputElement = document.querySelector('input[name="b_title"]');
+        var titleBox = document.querySelector('.title-box');
+
+        inputElement.addEventListener('focus', function() {
+            titleBox.style.backgroundColor = '#f3f6ee';
+        });
+
+        inputElement.addEventListener('blur', function() {
+            titleBox.style.backgroundColor = '';
+        });
+    });
+</script>
+
 </body>
 </html>

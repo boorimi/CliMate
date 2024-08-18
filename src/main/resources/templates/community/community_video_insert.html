@@ -25,6 +25,7 @@
 <form id="uploadForm" action="/community/video/insert" method="post" onsubmit="return validateForm(event);"
       enctype="multipart/form-data">
     <div class="community-insert-container">
+
         <div class="video-box">
             <input type="hidden" name="b_u_id" th:value="${session.user_id}"/>
             <p>Video</p>
@@ -33,28 +34,36 @@
                    onchange="setThumbnail(event);">
             <div class="community-showoff-video"></div>
             <div class="file-name" id="fileNameDisplay">No files selected</div>
-<!--            <div class="custom-arrows" style="display: none">-->
-<!--                <button type="button" class="slick-prev">&lt;</button>-->
-<!--                <button type="button" class="slick-next">&gt;</button>-->
-<!--            </div>-->
         </div>
+
         <div class="thumbnail-box">
             <p>Thumbnail</p>
             <label class="custom-upload-btn" for="uploadThumbnail">Upload</label>
             <input id="uploadThumbnail" type="file" name="b_FileThumbnail"/>
             <div class="file-name" id="thumbnailNameDisplay">No thumbnail selected</div>
         </div>
+
         <div class="title-box">
             <p>Title</p>
-            <input type="text" name="b_title" placeholder="Type hashtag" maxlength="20"/>
+            <input type="text" name="b_title" placeholder="Type hashtag"/>
         </div>
+
         <div class="text-box">
             <p>Text</p>
             <textarea name="b_text" cols="30" rows="10" maxlength="200"></textarea>
-<!--            <input type="text" name="b_text" maxlength="200"/>-->
         </div>
-        <button type="submit" id="video-insert-btn">Post</button>
+
+        <button type="submit" class="video-insert-btn">Post</button>
+
     </div>
 </form>
+
+
+<!--  유효성 모달  -->
+<div class="insert-check-modal-background" id="insert-check-modal-background">
+    <div class="insert-check-confirm">
+        <p id="insert-confirm-text"></p>
+    </div>
+</div>
 </body>
 </html>

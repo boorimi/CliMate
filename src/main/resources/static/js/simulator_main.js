@@ -4,7 +4,6 @@ $(document).ready(function () {
     let userId = $('#userId').text();
     // console.log(userId);
 
-    loading();
     drag(); // 마이프로로젝트 좌우 드래그 스크롤
     loginCheck();
 
@@ -35,16 +34,10 @@ $(document).ready(function () {
         location.href = '/simulator/gallery_detail?b_pk=' + pk;
     })
 
+    $('.create-project').click(function (){
+        $('.s-create-modal-background').css("display", "block");
 
-    function loading() {
-        $(".simulator-loading").css("display", "none");
-
-        // 페이지 이동 시 로딩 화면 표시
-        $(".create-project").on("click", function (event) {
-            $(".simulator-loading").show();
-            $(".simulator-loading").css("display", "flex");
-        });
-    }
+    })
 
     function drag() {
         let isDown = false;
@@ -77,5 +70,12 @@ $(document).ready(function () {
         });
     }
 
+    $('.create-project').click(function (){
+        $('.loading-modal-background').css("display", "block");
+        $('.s-loading-modal').css("display", "block");
+    });
 
 });
+
+
+

@@ -11,16 +11,27 @@
 </head>
 <body>
 <div class="mypage-all-wrapper">
-    <div class="mypage-menu-img"><img th:src="@{${myinfo.u_img}}"></div>
-    <div class="mypage-menu-name">
-        <div th:text="${myinfo.u_nickname}"></div>
-        <div><img th:src="@{'resources/grade_icon/hold_' + ${myinfo.u_grade} + '.png'}"></div>
-        <div><a th:href="@{'http://www.instagram.com/' + ${myinfo.u_insta}}" target="_blank"><img src="/resources/icon/insta.png"></a></div>
+    <div class="mypage-profile">
+        <div class="mypage-title">MY Page</div>
+        <div class="mypage-profile-img">
+            <img th:src="@{${myinfo.u_img}}">
+        </div>
+        <div class="mypage-name-box">
+            <p th:text="${myinfo.u_nickname}"></p>
+            <img id="grade" th:src="@{'resources/grade_icon/hold_' + ${myinfo.u_grade} + '.png'}">
+            <a id="instagram-link" th:href="@{'http://www.instagram.com/' + ${myinfo.u_insta}}" target="_blank">
+                <img id="instagram" src="/resources/icon/insta.png"></a>
+        </div>
     </div>
-    <div class="mypage-menu-div">가고싶어 / 가봤어</div>
-    <div class="mypage-menu-div" th:utext="'homeground<br>'+${myinfo.u_homeground}"></div>
-    <div class="mypage-menu-div">채팅목록</div>
-    <div class="mypage-info-update" onclick="location.href='/mypage/update'">회원정보수정</div>
+    <div class="mypage homeground" th:utext="'homeground<br>'+${myinfo.u_homeground}"></div>
+    <div class="mypage myplace" id="mypage-myplace" onclick="goMyplace()">My Place</div>
+    <div class="mypage menu-div">Comment</div>
+    <div class="mypage info-update" onclick="location.href='/mypage/update'">Edit</div>
 </div>
 </body>
+<script>
+    function goMyplace() {
+        location.href = "/mapC?type=mypage";
+    }
+</script>
 </html>

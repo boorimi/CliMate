@@ -66,41 +66,42 @@ $(document).ready(function () {
 
 // 저장버튼 클릭 모달
 function showSaveConfirm() {
-const modalBackground = document.getElementById('create-modal-background');
-const confirmSave = document.getElementById('confirm-save');
-const confirmCancel = document.getElementById('confirm-cancel');
+const modalBackground = document.getElementById('s-create-modal-background');
+const confirmSave = document.getElementById('s-confirm-save');
+const confirmCancel = document.getElementById('s-confirm-cancel');
 
     modalBackground.style.display = 'block';
 
     confirmSave.addEventListener('click', () => {
         console.log("세이브 클릭");
 
-        document.getElementById('create-modal').style.display = "none";
-        document.getElementById('loading-modal').style.display = "block";
-
+        document.getElementById('s-create-modal').style.display = "none";
         app.exportScene();
+        document.getElementById('s-loading-modal').style.display = "block";
     });
 
     confirmCancel.addEventListener('click', function () {
         modalBackground.style.display = 'none';
+
+
     })
 }
 
 // 저장 완료 모달
 function saveComplete() {
-    document.getElementById('loading-modal').style.display = 'none';
-    document.getElementById('save-complete-modal').style.display = 'block';
-    document.getElementById('confirm-close').addEventListener('click', function (){
+    document.getElementById('s-loading-modal').style.display = 'none';
+    document.getElementById('s-save-complete-modal').style.display = 'block';
+    document.getElementById('s-confirm-close').addEventListener('click', function (){
         location.href="/simulator/main";
     })
 }
 
 // 배경을 클릭했을 때 모달 닫기
-document.getElementById('create-modal-background').addEventListener('click', function (event) {
+document.getElementById('s-create-modal-background').addEventListener('click', function (event) {
     if (event.target === event.currentTarget) {
         this.style.display = 'none';
 
-        if (document.getElementById('save-complete-modal').style.display === 'block') {
+        if (document.getElementById('s-save-complete-modal').style.display === 'block') {
             location.href = "/simulator/main";
         }
     }
@@ -130,6 +131,7 @@ class App {
         this._dragControls = null;
         this._exportButton = document.querySelector("#save-btn");
         this._exportButton.addEventListener("click", () => {
+            console.log('저장버튼 클릭');
             showSaveConfirm();
         });
         this.userData = null;

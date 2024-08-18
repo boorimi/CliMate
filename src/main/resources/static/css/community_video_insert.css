@@ -1,4 +1,5 @@
-.community-insert-container{
+.community-insert-container,
+.community-video-update-all-wrapper {
     display: flex;
     flex-direction: column;
     margin: 5% 20%;
@@ -47,33 +48,6 @@
     margin: 0vh 2em;
 }
 
-
-/*
-.custom-arrows {
-    display: flex;
-    justify-content: space-between;
-    margin: 0vh 2vw;
-    width: 90%;
-    position: absolute;
-    top: 28%;
-    transform: translateY(-50%);
-    z-index: 10;
-    height: 3em;
-    background-color: aquamarine;
-}
-
-.slick-prev,
-.slick-next {
-    width: 5vh;
-    height: 5vh;
-    font-size: 1.5em;
-    background-color: rgba(255, 255, 255, 0.69);
-    border-radius: 5vw;
-    padding: 2vw;
-    cursor: pointer;
-}
-*/
-
 .video-box,
 .thumbnail-box,
 .title-box,
@@ -81,6 +55,15 @@
     width: 100%;
     margin: 0.5em 0;
 }
+
+
+.video-update-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 
 .title-box{
     display: flex;
@@ -119,7 +102,7 @@
     resize: none;
 }
 
-#video-insert-btn{
+.video-insert-btn{
     border: 0.1em solid #79976a;
     border-radius: 0.3em;
     padding: 1.5% 6%;
@@ -133,7 +116,7 @@
     margin-top: 1.5em;
 }
 
-#video-insert-btn::before {
+.video-insert-btn::before {
     content: "";
     position: absolute;
     top: 0;
@@ -145,11 +128,11 @@
     z-index: -1;
 }
 
-#video-insert-btn:hover::before {
+.video-insert-btn:hover::before {
     left: 0;
 }
 
-#video-insert-btn:hover {
+.video-insert-btn:hover {
     color: white;
 }
 
@@ -159,7 +142,8 @@
     form{
         border-top: 0.1em solid #79976a;
     }
-    .community-insert-container{
+    .community-insert-container,
+    .community-video-update-all-wrapper {
         margin: 0 2%;
         padding: 0.5em 0 2em 0;
         border: none;
