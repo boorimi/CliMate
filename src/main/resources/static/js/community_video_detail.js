@@ -44,31 +44,42 @@ $(document).ready(function () {
     // 해쉬태그 만들기 코드 (제목과 본문)
     let htmlContent = $('.video-detail-text').html();
     let htmlContent2 = $('.video-detail-title').html();
+
     function convertHashtagsToLinks(text) {
-        return text.replace(/(#[^\s#]+)/g, function(match) {
+        return text.replace(/(#[^\s#]+)/g, function (match) {
             const encodedHashtag = encodeURIComponent(match);
             return `<a href="/community/hashtag?searchWord=${encodedHashtag}" class="hashtag">${match}</a>`;
         });
     }
+
     htmlContent = convertHashtagsToLinks(htmlContent);
     htmlContent2 = convertHashtagsToLinks(htmlContent2);
     $('.video-detail-text').html(htmlContent);
     $('.video-detail-title').html(htmlContent2);
 
+    // 답글 버튼 토글
+    const searchOpenIcon = $(".comment-toggle");
+
+    // 검색 인풋 오픈
+    searchOpenIcon.click(function () {
+        const searchMenu = $(this).next(".comment-bottom-box-wrapper");
+        searchMenu.slideToggle();
+        searchMenu.css("display", "block");
+    });
 });
 
 
 function deleteCheck(pk) {
     document.getElementById('post-delete-modal-background').style.display = "block";
 
-    document.getElementById('post-delete-confirm-yes').addEventListener('click', function (){
+    document.getElementById('post-delete-confirm-yes').addEventListener('click', function () {
         location.href = '/community/video/delete?b_pk=' + pk;
     });
 
-    document.getElementById('post-delete-confirm-no').addEventListener('click', function (){
+    document.getElementById('post-delete-confirm-no').addEventListener('click', function () {
         document.getElementById('post-delete-modal-background').style.display = "none";
     });
-    document.getElementById('post-delete-modal-background').addEventListener('click', function (){
+    document.getElementById('post-delete-modal-background').addEventListener('click', function () {
         document.getElementById('post-delete-modal-background').style.display = "none";
     });
 }
@@ -77,15 +88,15 @@ function deleteCheck(pk) {
 function deleteCommentsCheck(cm_pk, b_pk) {
     document.getElementById('comment-delete-confirm-background').style.display = "block";
 
-    document.getElementById('comment-confirm-yes').addEventListener('click', function (){
+    document.getElementById('comment-confirm-yes').addEventListener('click', function () {
         location.href = '/community/video/deleteComments?cm_pk=' + cm_pk + '&b_pk=' + b_pk;
     });
 
-    document.getElementById('comment-confirm-no').addEventListener('click', function (){
+    document.getElementById('comment-confirm-no').addEventListener('click', function () {
         document.getElementById('comment-delete-confirm-background').style.display = "none";
     });
 
-    document.getElementById('comment-delete-confirm-background').addEventListener('click', function (){
+    document.getElementById('comment-delete-confirm-background').addEventListener('click', function () {
         document.getElementById('comment-delete-confirm-background').style.display = "none";
     });
 

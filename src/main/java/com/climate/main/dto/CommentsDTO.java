@@ -16,5 +16,6 @@ public class CommentsDTO {
     private Date cm_datetime;
     private String u_nickname;
     private String u_grade;
+    private int re_count;
 
 }

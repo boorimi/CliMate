@@ -23,7 +23,7 @@
         <div class="community-content" th:each="show : ${showoffLists}"
              th:onclick="'location.href=\'/community/video/detail?b_pk=' + ${show.b_pk} + '\''">
             <div class="community-video">
-                <img th:src="@{'/resources/upload/thumbnail/' + ${show.b_thumbnail}}"/>
+                <img th:src="${show.b_thumbnail}"/>
                 <div class="community-nickname-wrapper">
                     <div class="community-nickname" th:text="${show.u_nickname}"></div>
                     <div class="community-grade"><img th:src="@{'/resources/grade_icon/hold_' + ${show.u_grade} + '.png'}">
