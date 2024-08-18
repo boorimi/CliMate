@@ -32,7 +32,7 @@ $(document).ready(function () {
 
     function loginCheck(userId, dataPk) {
         if (userId != null && userId !== '') {
-            location.href = '/simulator/gallery_detail?pk=' + dataPk;
+            location.href = '/simulator/gallery_detail?b_pk=' + dataPk;
         } else {
             showConfirm();
         }

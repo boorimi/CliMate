@@ -37,7 +37,7 @@
             <div th:each="video : ${showoffList.videoList}">
                 <video class="video" controls>
                     <source
-                            th:src="@{/resources/upload/video/{filename}(filename=${video})}"
+                            th:src="${video}"
                             type="video/mp4"
                     />
                     Your browser does not support the video tag.
