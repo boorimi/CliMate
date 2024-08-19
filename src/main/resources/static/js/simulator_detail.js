@@ -102,6 +102,16 @@ $(document).ready(function () {
     $('.comment-delete-modal-background').click(function (){
         $('.comment-delete-modal-background').css("display", "none");
     })
+
+    // 답글 버튼 토글
+    const searchOpenIcon = $(".comment-toggle");
+
+    // 대댓글 버튼 토글
+    searchOpenIcon.click(function () {
+        const searchMenu = $(this).next(".comment-bottom-box-wrapper");
+        searchMenu.slideToggle();
+        searchMenu.css("display", "block");
+    });
 })
 
 function rgbToHex(r, g, b) {
@@ -267,3 +277,10 @@ window.onload = function () {
     app = new App();
     app.initialize();
 };
+
+function deleteReplyCheck(re_pk, b_pk) {
+    let ok = confirm("정말 삭제하시겠습니까?");
+    if (ok) {
+        location.href = '/simulator/replyComments/delete?re_pk=' + re_pk + '&b_pk=' + b_pk ;
+    }
+}

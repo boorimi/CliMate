@@ -130,7 +130,8 @@ public interface CommunityMapper {
     public List<CommentsDTO> selectCommunityComments(int b_pk);
 
     // 댓글 인서트
-    @Insert("insert into cli_comments values (cli_comments_seq.nextval, #{cm_b_pk}, #{cm_u_id}, #{cm_text}, SYSTIMESTAMP AT TIME ZONE 'Asia/Seoul')")
+    @Insert("insert into cli_comments " +
+            "values (cli_comments_seq.nextval, #{cm_b_pk}, #{cm_u_id}, #{cm_text}, SYSTIMESTAMP AT TIME ZONE 'Asia/Seoul', #{cm_secret})")
     public int insertCommunityComments(CommentsDTO commentsDTO);
 
     // 댓글 삭제
@@ -143,10 +144,12 @@ public interface CommunityMapper {
             "where re_u_id = u_id and re_b_pk = #{b_pk}")
     public List<ReplyDTO> selectReplyComments(int b_pk);
 
-
     // 대댓글 인서트
     @Insert("insert into cli_replycomments " +
             "values (cli_replycomments_seq.nextval, #{re_b_pk} ,#{re_cm_pk}, #{re_u_id}, #{re_text}, SYSTIMESTAMP AT TIME ZONE 'Asia/Seoul')")
     public int insertReplyComments(ReplyDTO replyDTO);
 
+    // 대댓글 삭제
+    @Delete("delete from cli_replycomments where re_pk = #{re_pk}")
+    public int deleteReplyComments(int re_pk);
 }

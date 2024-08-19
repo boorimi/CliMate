@@ -5,6 +5,7 @@
     <title>Title</title>
 </head>
 <link rel="stylesheet" href="/resources/css/simulator_detail.css"/>
+<link rel="stylesheet" href="/resources/css/community_detail.css"/>
 <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/exporters/GLTFExporter.js"></script>
 <script type="importmap">
     {
@@ -15,6 +16,7 @@
     }
 </script>
 <script type="module" src="/resources/js/simulator_detail.js" defer></script>
+<!--<script src="/resources/js/simulator_detail.js" defer></script>-->
 <body>
 <div class="content-container">
     <div class="simulator-content" th:each="pj : ${project}" th:attr="data-file=${pj.b_video}">
@@ -60,34 +62,80 @@
     <!--  댓글 작성  -->
     <div class="comment-container">
         <form action="/simulator/comments/insert" method="post">
-            <div class="comment-input">
-                <input type="hidden" name="cm_u_id" th:value="${session.user_id}"/>
-                <input name="cm_text">
-                <button name="cm_b_pk" th:value="${project.b_pk}">
-                    <img src="/resources/icon/send.png">
-                </button>
+            <div class="comment-input-wrapper">
+                <div class="comment-input">
+                    <input type="hidden" name="cm_u_id" th:value="${session.user_id}"/>
+                    <input name="cm_text">
+                    <button name="cm_b_pk" th:value="${project.b_pk}">
+                        <img src="/resources/icon/send.png">
+                    </button>
+                </div>
+                <div>
+                    <label><input type="checkbox" name="cm_secret" value="yes"/>비밀댓글로작성</label>
+                    <input type="hidden" name="cm_secret" value="no"/>
+                </div>
             </div>
         </form>
 
         <!--    댓글 시작    -->
         <div class="comment-list" th:each="scl : ${simulatorCommentsLists}">
-            <div class="comment-top-box">
-                <div class="comment-name-box">
-                    <p th:text="${scl.u_nickname}" class="nickname"></p>
-                    <img th:src="@{'/resources/grade_icon/hold_' + ${scl.u_grade} + '.png'}">
+            <div th:if="${scl.cm_secret == 'yes' and !(session.user_id == scl.cm_u_id) and !(session.user_id == project.u_id) }">
+                비밀댓글입니다.
+            </div>
+            <div th:if="${scl.cm_secret == 'no' or session.user_id == scl.cm_u_id or session.user_id == project.u_id }">
+                <div class="comment-top-box">
+                    <div class="comment-name-box">
+                        <p th:text="${scl.u_nickname}" class="nickname"></p>
+                        <img th:src="@{'/resources/grade_icon/hold_' + ${scl.u_grade} + '.png'}">
+                    </div>
+                    <div class="date-delete-box">
+                        <p class="create-date" th:text="${#dates.format(scl.cm_datetime, 'yyyy.MM.dd HH:mm')}"></p>
+                        <img class="comments-delete" th:data-cm_pk="${scl.cm_pk}" th:data-b_pk="${project.b_pk}"
+                             th:if="${session.user_id == scl.cm_u_id}"
+                             src="/resources/icon/delete.png"/>
+                    </div>
                 </div>
-                <div class="date-delete-box">
-                    <p class="create-date" th:text="${#dates.format(scl.cm_datetime, 'yyyy.MM.dd HH:mm')}"></p>
-                    <img class="comments-delete" th:data-cm_pk="${scl.cm_pk}" th:data-b_pk="${project.b_pk}"
-                         th:if="${session.user_id == scl.cm_u_id}"
-                         src="/resources/icon/delete.png"/>
+                <p class="comment-text" th:text="${scl.cm_text}"></p>
+                <p class="comment-toggle">답글 (<span th:text="${scl.re_count}"></span>)</p>
+                <!-- 대댓글 시작 -->
+                <div class="comment-bottom-box-wrapper" style="display: none">
+                    <div class="comment-bottom-box" th:each="rl : ${replyLists}" th:if="${scl.cm_pk == rl.re_cm_pk}">
+                        <div class="comment-name-box">
+                            <p th:text="${rl.u_nickname}" class="nickname"
+                               th:attr="data-nickname=${rl.u_nickname}, data-id=${rl.re_u_id}"></p>
+                            <img th:src="@{'/resources/grade_icon/hold_' + ${rl.u_grade} + '.png'}">
+                        </div>
+                        <div class="date-more-box">
+                            <p th:text="${#dates.format(rl.re_datetime, 'yyyy.MM.dd HH:mm')}"></p>
+                            <img class="showoff-detail-comments-delete"
+                                 th:onclick="'deleteReplyCheck(\''+${rl.re_pk}+'\',\''+${project.b_pk}+'\')'"
+                                 th:if="${session.user_id == rl.re_u_id}"
+                                 src="/resources/icon/delete.png"/>
+                        </div>
+                        <p class="comment-text" th:text="${rl.re_text}"></p>
+                    </div>
+                    <form action="/simulator/replyComments/insert" method="post">
+                        <div class="showoff-detail-comments-input">
+                            <input name="re_text">
+                            <input type="hidden" name="re_u_id" th:value="${session.user_id}"/>
+                            <input type="hidden" name="re_b_pk" th:value="${project.b_pk}">
+                            <button name="re_cm_pk" th:value="${scl.cm_pk}">
+                                <img src="/resources/icon/send.png">
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
-            <p class="comment-text" th:text="${scl.cm_text}"></p>
         </div>
-
     </div>
 </div>
-
+<script>
+    function deleteReplyCheck(re_pk, b_pk) {
+        let ok = confirm("정말 삭제하시겠습니까?");
+        if (ok) {
+            location.href = '/simulator/replyComments/delete?re_pk=' + re_pk + '&b_pk=' + b_pk ;
+        }
+    }
+</script>
 </body>
 </html>

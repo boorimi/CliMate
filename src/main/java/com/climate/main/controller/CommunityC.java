@@ -247,6 +247,7 @@ public class CommunityC {
     @GetMapping("/community/lfg/detail")
     public String communityLfgDetail(int b_pk, Model model, CommunityDTO communityDTO) {
 //        model.addAttribute("showoffLikeCount", communityDAO.selectLikeCount(b_pk));
+        model.addAttribute("replyLists", communityDAO.selectReplyComments(b_pk));
         model.addAttribute("showoffCommentsLists", communityDAO.selectCommunityComments(b_pk));
         model.addAttribute("lfgList", communityDAO.selectCommunityRecruitment(b_pk));
         model.addAttribute("content", "/community/community_lfg_detail");
@@ -361,9 +362,27 @@ public class CommunityC {
     }
 
     @PostMapping("/community/video/replyComments/insert")
-    public String insertReplyComments(ReplyDTO replyDTO) {
+    public String insertReplyComments(int re_b_pk, ReplyDTO replyDTO) {
         communityDAO.insertReplyComments(replyDTO);
-        return "redirect:/community/video";
+        return "redirect:/community/video/detail?b_pk=" + re_b_pk;
+    }
+
+    @PostMapping("/community/lfg/replyComments/insert")
+    public String insertLfgReplyComments(int re_b_pk, ReplyDTO replyDTO) {
+        communityDAO.insertReplyComments(replyDTO);
+        return "redirect:/community/lfg/detail?b_pk=" + re_b_pk;
+    }
+
+    @GetMapping("/community/replyComments/delete")
+    public String deleteReplyComments(int re_pk, int b_pk) {
+        communityDAO.deleteReplyComments(re_pk);
+        return "redirect:/community/video/detail?b_pk=" + b_pk;
+    }
+
+    @GetMapping("/community/lfg/replyComments/delete")
+    public String deleteLfgReplyComments(int re_pk, int b_pk) {
+        communityDAO.deleteReplyComments(re_pk);
+        return "redirect:/community/lfg/detail?b_pk=" + b_pk;
     }
 
 }
