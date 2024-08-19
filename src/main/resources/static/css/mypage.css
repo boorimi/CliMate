@@ -1,59 +1,125 @@
-.mypage-all-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+body {
+    margin: 0;
 }
 
-.mypage-menu-img {
+.mypage-all-wrapper {
+    display: flex;
+    height: 100%;
+    padding: 0% 30%;
+    background-color: #79976a0a;
+    justify-content: center;
+}
+
+.mypage-profile-container {
+    width: 18rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: end;
+    color: #79976a;
+    font-style: italic;
+    height: 100%;
+    margin: 30% 0;
+}
+
+.mypage-profile {
+    width: 100%;
+    position: relative;
+}
+
+.mypage-profile-img {
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1vw solid #79976a;
-    width: 50vw;
-    height: 50vw;
-    border-radius: 50vw;
+    height: 65%;
+    width: 65%;
+    border-radius: 100%;
+    margin-bottom: 0.7rem;
+    border: 0.15em solid #79976a;
 }
 
-.mypage-menu-img img {
+.mypage-profile-img img {
     width: 100%;
     height: 100%;
     border-radius: 100%;
 }
 
-.mypage-menu-name {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.mypage-menu-name > div {
-    margin: 0vh 2vw;
-}
-
-.mypage-menu-name img {
-    width: 10vw;
-    height: auto;
-}
-
-.mypage-menu-name,
-.mypage-menu-div {
-    background-color: #79976a;
-    text-align: center;
-    color: white;
-    font-size: 2em;
-    width: 80vw;
-    height: auto;
-    margin: 1vh 0vw;
-    padding: 2vh 0vw;
-}
-
-.mypage-info-update {
-    background-color: #79976a;
-    text-align: center;
-    color: white;
+.mypage-title {
+    position: absolute;
+    border-bottom: 2px solid #79976a;
+    width: 33%;
+    bottom: 99.2%;
     font-size: 1.5em;
-    width: 50vw;
-    height: auto;
-    margin: 1vh 0vw;
-    padding: 2vh 0vw;
+    font-weight: 900;
+    font-style: italic;
+}
+
+.mypage-name-box {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    position: absolute;
+    width: 68%;
+    height: 2rem;
+    margin: 0.7em 0;
+    bottom: 0;
+    right: 0;
+    border-bottom: 1px solid #79976a;
+}
+
+#grade {
+    height: 1.5em;
+    margin-left: 0.5em;
+}
+
+#instagram-link {
+    display: flex;
+}
+
+#instagram {
+    height: 1.3em;
+    margin-left: 0.5em;
+}
+
+.homeground,
+.myplace,
+.menu-div,
+.info-update {
+    min-height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    border-bottom: 1px solid #79976a;
+}
+
+.homeground {
+    width: 50%;
+}
+
+.myplace {
+    width: 35%;
+}
+
+.menu-div {
+    width: 20%;
+}
+
+.info-update {
+    width: 8%;
+}
+
+@media (max-width: 768px) {
+    .mypage-all-wrapper {
+        padding: 0;
+    }
+
+    .mypage-profile-container {
+        width: 80%;
+    }
+
+    .homeground,
+    .myplace,
+    .menu-div {
+        font-size: 4vw;
+    }
 }

@@ -59,14 +59,36 @@ $(document).ready(function () {
 
 });
 
+// 게시물, 댓글 삭제
 function deleteCheck(pk) {
-    if (confirm('정말 삭제하시겠습니까?')) {
+    document.getElementById('post-delete-modal-background').style.display = "block";
+
+    document.getElementById('post-delete-confirm-yes').addEventListener('click', function (){
         location.href = '/community/lfg/delete?b_pk=' + pk;
-    }
+    });
+
+    document.getElementById('post-delete-confirm-no').addEventListener('click', function (){
+        document.getElementById('post-delete-modal-background').style.display = "none";
+    });
+
+    document.getElementById('post-delete-modal-background').addEventListener('click', function (){
+        document.getElementById('post-delete-modal-background').style.display = "none";
+    });
 }
 
 function deleteCommentsCheck(cm_pk, b_pk) {
-    if (confirm('정말 삭제하시겠습니까?')) {
+    document.getElementById('comment-delete-confirm-background').style.display = "block";
+
+    document.getElementById('comment-confirm-yes').addEventListener('click', function (){
         location.href = '/community/lfg/deleteComments?cm_pk=' + cm_pk + '&b_pk=' + b_pk;
-    }
+    });
+
+    document.getElementById('comment-confirm-no').addEventListener('click', function (){
+        document.getElementById('comment-delete-confirm-background').style.display = "none";
+    });
+
+    document.getElementById('comment-delete-confirm-background').addEventListener('click', function (){
+        document.getElementById('comment-delete-confirm-background').style.display = "none";
+    });
+
 }

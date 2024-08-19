@@ -74,7 +74,6 @@ $(document).ready(function () {
         location.href = '/community/searchLfg?columnName=u_nickname&searchWord=' + currentNickname;
     });
 
-
 })
 
 

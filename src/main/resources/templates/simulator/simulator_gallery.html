@@ -39,9 +39,9 @@
             </div>
             <div class="like-and-comment">
                 <img src="/resources/icon/love_blank.png">
-                <p>100</p>
+                <p th:text="${pj.l_count}"></p>
                 <img src="/resources/icon/chat-bubble.png">
-                <p>0</p>
+                <p th:text="${pj.c_count}"></p>
             </div>
             <div class="name-box">
                 <p th:text="${pj.u_nickname}"></p>
@@ -51,7 +51,7 @@
     </div>
 
     <!--  모달  -->
-    <div class="s-create-modal-background" id="s-create-modal-background">
+    <div class="loading-modal-background">
         <div class="s-loading-modal" id="s-loading-modal">
             <img src="/resources/img/s_loading.gif">
             <p>Please wait for a moment</p>
