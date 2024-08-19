@@ -10,9 +10,10 @@
     <link rel="stylesheet" href="/resources/css/community_detail.css"/>
 </head>
 <body>
-<div class="comment-list" th:each="mc : ${myComments}">
+<div class="comment-list" th:each="mc : ${myComments}" th:attr="onclick=|checkDetail('${mc.cm_b_pk}', '${mc.b_category}')|">
     <div class="comment-top-box">
-        <div class="comment-name-box" th:attr="onclick=|checkDetail('${mc.cm_b_pk}', '${mc.b_category}')|">
+        <div class="comment-name-box mypage-comment-title">
+            <p>Title. </p>
             <p th:if="${mc.b_title == '-'}" th:text="'simulator#'+${mc.cm_b_pk}" class="title"></p>
             <p th:if="${mc.b_title != '-'}" th:text="${mc.b_title}" class="title"></p>
         </div>
