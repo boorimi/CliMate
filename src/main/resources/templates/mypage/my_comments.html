@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta
+            name="viewport"
+            content="width=device-width,initial-scale=1.0, minimum-scale=1.0,maximum-scale=1.0"
+    />
+    <title>Title</title>
+    <link rel="stylesheet" href="/resources/css/community_detail.css"/>
+</head>
+<body>
+<div class="comment-list" th:each="mc : ${myComments}">
+    <div class="comment-top-box">
+        <div class="comment-name-box" th:attr="onclick=|checkDetail('${mc.cm_b_pk}', '${mc.b_category}')|">
+            <p th:if="${mc.b_title == '-'}" th:text="'simulator#'+${mc.cm_b_pk}" class="title"></p>
+            <p th:if="${mc.b_title != '-'}" th:text="${mc.b_title}" class="title"></p>
+        </div>
+    </div>
+    <div style="display: flex; justify-content: space-between">
+        <p class="comment-text" th:text="${mc.cm_text}"></p>
+        <p class="comment-text" th:text="${#dates.format(mc.cm_datetime, 'yyyy.MM.dd HH:mm')}"></p>
+    </div>
+</div>
+<script th:inline="javascript">
+    function checkDetail(pk, category) {
+        if (category == 'simulator') {
+            location.href='/simulator/gallery_detail?b_pk=' + pk;
+        }
+        else if (category == 'video') {
+            location.href='/community/video/detail?b_pk=' + pk;
+        }
+        else {
+            location.href='/community/lfg/detail?b_pk=' + pk;
+        }
+    }
+</script>
+</body>
+</html>
