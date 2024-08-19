@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="/resources/css/community_detail.css"/>
 </head>
 <body>
+<h2 id="my-comment-h2">My Comments</h2>
 <div class="comment-list" th:each="mc : ${myComments}" th:attr="onclick=|checkDetail('${mc.cm_b_pk}', '${mc.b_category}')|">
     <div class="comment-top-box">
         <div class="comment-name-box mypage-comment-title">
@@ -18,9 +19,9 @@
             <p th:if="${mc.b_title != '-'}" th:text="${mc.b_title}" class="title"></p>
         </div>
     </div>
-    <div style="display: flex; justify-content: space-between">
+    <div class="comment-text-box" style="display: flex; justify-content: space-between">
         <p class="comment-text" th:text="${mc.cm_text}"></p>
-        <p class="comment-text" th:text="${#dates.format(mc.cm_datetime, 'yyyy.MM.dd HH:mm')}"></p>
+        <p class="comment-text date" th:text="${#dates.format(mc.cm_datetime, 'yyyy.MM.dd HH:mm')}"></p>
     </div>
 </div>
 <script th:inline="javascript">
