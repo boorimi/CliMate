@@ -87,6 +87,17 @@ $(function () {
         }
     });
 
+    //all 버튼 클릭 함수
+    $("#type-box-all").click(function () {
+        page = 0;
+        scrollList = 0;
+        totalItems = 0;
+        $(".search-result-box").remove();
+        $("#type-box-all").addClass("active");
+        $("#type-box-wish").removeClass("active");
+        $("#type-box-visited").removeClass("active");
+        getAllById(page);
+    })
     //위시 버튼 클릭 함수
     $("#type-box-wish").click(function () {
         page = 0;

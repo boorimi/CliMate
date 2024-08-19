@@ -11,17 +11,19 @@
 </head>
 <body>
 <div class="mypage-all-wrapper">
-    <div class="mypage-profile">
-        <div class="mypage-title">MY Page</div>
-        <div class="mypage-profile-img">
-            <img th:src="@{${myinfo.u_img}}">
-        </div>
-        <div class="mypage-name-box">
-            <p th:text="${myinfo.u_nickname}"></p>
-            <img id="grade" th:src="@{'resources/grade_icon/hold_' + ${myinfo.u_grade} + '.png'}">
-            <a id="instagram-link" th:href="@{'http://www.instagram.com/' + ${myinfo.u_insta}}" target="_blank">
-                <img id="instagram" src="/resources/icon/insta.png"></a>
-        </div>
+    <div class="mypage-profile-container">
+        <div class="mypage-profile">
+            <div class="mypage-title">MY Page</div>
+            <div class="mypage-profile-img">
+                <img th:src="@{${myinfo.u_img}}">
+            </div>
+            <div class="mypage-name-box">
+                <p th:text="${myinfo.u_nickname}"></p>
+                <img id="grade" th:src="@{'resources/grade_icon/hold_' + ${myinfo.u_grade} + '.png'}">
+                <a id="instagram-link" th:href="@{'http://www.instagram.com/' + ${myinfo.u_insta}}" target="_blank">
+                    <img id="instagram" src="/resources/icon/insta.png"></a>
+            </div>
+      </div>
     </div>
     <div class="mypage homeground" th:utext="'homeground<br>'+${myinfo.u_homeground}"></div>
     <div class="mypage myplace" id="mypage-myplace" onclick="goMyplace()">My Place</div>
