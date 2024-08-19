@@ -1,16 +1,25 @@
 body {
     margin: 0;
 }
+
 .mypage-all-wrapper {
+    display: flex;
+    height: 100%;
+    padding: 0% 30%;
+    background-color: #79976a0a;
+    justify-content: center;
+}
+
+.mypage-profile-container {
+    width: 18rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    min-height: 75vh;
-    padding: 5% 30%;
     align-items: end;
     color: #79976a;
-    background-color: #79976a0a;
     font-style: italic;
+    height: 100%;
+    margin: 30% 0;
 }
 
 .mypage-profile {
@@ -101,12 +110,16 @@ body {
 
 @media (max-width: 768px) {
     .mypage-all-wrapper {
-        padding: 0 8%;
+        padding: 0;
+    }
+
+    .mypage-profile-container {
+        width: 80%;
     }
 
     .homeground,
     .myplace,
     .menu-div {
-        font-size: 5vw;
+        font-size: 4vw;
     }
 }
