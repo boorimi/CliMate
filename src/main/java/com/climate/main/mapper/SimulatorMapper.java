@@ -15,7 +15,7 @@ public interface SimulatorMapper {
     public int uploadFile(SimulatorDTO simulatorDTO);
 
     // 모든 시뮬레이터 문제 셀렉트
-    @Select("SELECT s.*, u.u_nickname, u.u_grade, u.u_category, " +
+    @Select("SELECT s.*, u.u_nickname, u.u_grade, u.u_category, u.u_profile, " +
             "(SELECT COUNT(*) FROM cli_like WHERE l_b_pk = s.b_pk) AS l_count, " +
             "(SELECT COUNT(*) FROM cli_comments WHERE cm_b_pk = s.b_pk) AS c_count " +
             "FROM cli_board s " +
@@ -26,7 +26,7 @@ public interface SimulatorMapper {
     public List<SimulatorDTO> getAllProject();
 
     // 내가 만든 문제 셀렉트
-    @Select("select s.*, u.u_nickname, u.u_grade, u.u_category, " +
+    @Select("select s.*, u.u_nickname, u.u_grade, u.u_category, u.u_profile, " +
             "(SELECT COUNT(*) FROM cli_like WHERE l_b_pk = s.b_pk) AS l_count, " +
             "(SELECT COUNT(*) FROM cli_comments WHERE cm_b_pk = s.b_pk) AS c_count " +
             "from cli_board s " +
@@ -37,7 +37,7 @@ public interface SimulatorMapper {
     public List<SimulatorDTO> getMyProject(String userId);
 
     // 문제 하나만 셀렉트
-    @Select("SELECT s.*, u.u_nickname, u.u_grade, u.u_category, " +
+    @Select("SELECT s.*, u.u_nickname, u.u_grade, u.u_category, u.u_profile, " +
             "(SELECT COUNT(*) FROM cli_like WHERE l_b_pk = s.b_pk) AS l_count, " +
             "(SELECT COUNT(*) FROM cli_comments WHERE cm_b_pk = s.b_pk) AS c_count " +
             "FROM cli_board s " +
@@ -47,7 +47,7 @@ public interface SimulatorMapper {
     public SimulatorDTO getProject(int pk);
 
     // 세터 문제만 셀렉트
-    @Select("SELECT s.*, u.u_nickname, u.u_grade, u.u_category, " +
+    @Select("SELECT s.*, u.u_nickname, u.u_grade, u.u_category, u.u_profile, " +
             "(SELECT COUNT(*) FROM cli_like WHERE l_b_pk = s.b_pk) AS l_count, " +
             "(SELECT COUNT(*) FROM cli_comments WHERE cm_b_pk = s.b_pk) AS c_count " +
             "FROM cli_board s " +
@@ -58,7 +58,7 @@ public interface SimulatorMapper {
     public List<SimulatorDTO> selectSetter();
 
     // 일반유저 문제만 셀렉트
-    @Select("SELECT s.*, u.u_nickname, u.u_grade, u.u_category, " +
+    @Select("SELECT s.*, u.u_nickname, u.u_grade, u.u_category, u.u_profile, " +
             "(SELECT COUNT(*) FROM cli_like WHERE l_b_pk = s.b_pk) AS l_count, " +
             "(SELECT COUNT(*) FROM cli_comments WHERE cm_b_pk = s.b_pk) AS c_count " +
             "FROM cli_board s " +
@@ -69,7 +69,7 @@ public interface SimulatorMapper {
     public List<SimulatorDTO> selectNormal();
 
     // 닉네임 검색
-    @Select("SELECT s.*, u.u_nickname, u.u_grade, u.u_category, " +
+    @Select("SELECT s.*, u.u_nickname, u.u_grade, u.u_category, u.u_profile, " +
             "(SELECT COUNT(*) FROM cli_like WHERE l_b_pk = s.b_pk) AS l_count, " +
             "(SELECT COUNT(*) FROM cli_comments WHERE cm_b_pk = s.b_pk) AS c_count " +
             "FROM cli_board s " +

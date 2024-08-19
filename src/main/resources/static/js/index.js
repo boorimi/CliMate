@@ -31,13 +31,19 @@ $(document).ready(function () {
 // p 태그 클릭 이벤트 연결
     let currentNickname;
     let currentId;
+    let privacy;
+    let userId = $('#userId').text();
     $('.nickname').on('click', function (event) {
         event.stopPropagation(); // 메뉴 외부 감지를 위해 클릭 전파 중지
 
         currentNickname = $(this).data('nickname');
         currentId = $(this).data('id');
+        privacy = $(this).data('privacy');
+
+        // console.log('프로필 공개여부:', privacy);
         // console.log('클릭한 사람의 닉네임:', currentNickname);
-        // console.log('아이디 :'+currentId);
+        // console.log('클릭한 아이디 :'+currentId);
+        // console.log('내 아이디 :'+userId);
 
         profileToggleMenu($(this));
     });
@@ -61,9 +67,18 @@ $(document).ready(function () {
     const linklfg = $("#link-lfg");
     linkProfile.click(function () {
 
-        // console.log('닉네임: '+currentNickname);
-        // console.log('아이디: '+currentId);
+        // console.log('공개여부: '+privacy);
+        // console.log('내 아이디: '+userId);
+        // console.log('클릭한 아이디: '+currentId);
+        if (privacy === 'yes' || userId === currentId){
         location.href = '/mypage/userProfile?u_id=' + currentId;
+        } else {
+            console.log('안됨');
+            $(".privacy-modal-background").css("display", "block");
+            $(".privacy-modal-background").click(function (){
+                $(".privacy-modal-background").css("display", "none");
+            })
+        }
     });
 
     linkVideo.click(function () {
