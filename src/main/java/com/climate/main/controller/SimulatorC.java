@@ -3,6 +3,7 @@ package com.climate.main.controller;
 import com.climate.main.config.FirebaseConfig;
 import com.climate.main.dto.CommentsDTO;
 import com.climate.main.dto.CommunityDTO;
+import com.climate.main.dto.ReplyDTO;
 import com.climate.main.dto.SimulatorDTO;
 import com.climate.main.mapper.SimulatorMapper;
 import com.climate.main.service.CommunityDAO;
@@ -106,6 +107,7 @@ public class SimulatorC {
     @GetMapping("/gallery_detail")
     public String galleryPost(int b_pk, Model model, CommunityDTO communityDTO, HttpSession session) {
         communityDTO.setU_id((String) session.getAttribute("user_id"));
+        model.addAttribute("replyLists", simulatorDAO.selectReplyComments(b_pk));
         model.addAttribute("project", simulatorDAO.getProject(b_pk));
         model.addAttribute("simulatorCommentsLists", simulatorDAO.selectCommunityComments(b_pk));
         model.addAttribute("simulatorLikeCountThisUser", simulatorDAO.selectLikeCountThisUser(communityDTO));
@@ -208,6 +210,18 @@ public class SimulatorC {
     public String commentsInsertCommunityShowoff(int cm_b_pk, CommentsDTO commentsDTO) {
         simulatorDAO.insertSimulatorComments(commentsDTO);
         return "redirect:/simulator/gallery_detail?b_pk=" + cm_b_pk;
+    }
+
+    @PostMapping("/replyComments/insert")
+    public String commentsInsertReplyComment(int re_b_pk, ReplyDTO replyDTO) {
+        simulatorDAO.insertReplyComments(replyDTO);
+        return "redirect:/simulator/gallery_detail?b_pk=" + re_b_pk;
+    }
+
+    @GetMapping("/replyComments/delete")
+    public String replyCommentsDelete(int re_pk, int b_pk) {
+        simulatorDAO.deleteReplyComments(re_pk);
+        return "redirect:/simulator/gallery_detail?b_pk=" + b_pk;
     }
 
 }

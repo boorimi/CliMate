@@ -296,6 +296,11 @@ public class CommunityDAO implements CommunityMapper {
         return communityMapper.insertReplyComments(replyDTO);
     }
 
+    @Override
+    public int deleteReplyComments(int re_pk) {
+        return communityMapper.deleteReplyComments(re_pk);
+    }
+
 
     public void changeFileName(CommunityDTO communityDTO, List<Map<String, String>> fileMapList) {
         // UUID와 Base64코드를 매핑시켜 리스트로 가져왔음

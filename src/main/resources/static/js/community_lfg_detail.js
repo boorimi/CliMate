@@ -55,7 +55,15 @@ $(document).ready(function () {
         }
     });
 
+    // 답글 버튼 토글
+    const searchOpenIcon = $(".comment-toggle");
 
+    // 대댓글 버튼 토글
+    searchOpenIcon.click(function () {
+        const searchMenu = $(this).next(".comment-bottom-box-wrapper");
+        searchMenu.slideToggle();
+        searchMenu.css("display", "block");
+    });
 
 });
 

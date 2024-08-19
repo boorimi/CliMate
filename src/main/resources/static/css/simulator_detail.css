@@ -100,10 +100,13 @@
     position: relative;
 }
 
+.comment-input-wrapper {
+    border-bottom: 0.1em solid #79976a;
+}
+
 .comment-input {
     display: flex;
     height: 3rem;
-    border-bottom: 0.1em solid #79976a;
     align-items: center;
     justify-content: space-between;
     padding: 1em 0;
