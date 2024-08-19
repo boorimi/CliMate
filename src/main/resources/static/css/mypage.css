@@ -11,7 +11,7 @@ body {
 }
 
 .mypage-profile-container {
-    width: 18rem;
+    width: 22rem;
     display: flex;
     flex-direction: column;
     justify-content: center;

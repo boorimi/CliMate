@@ -261,6 +261,10 @@
   display: flex;
 }
 
+.lfg-detail-text{
+  padding: 1em 0 2em 0;
+}
+
 
 @media (max-width: 768px){
   .lfg-detail-title{
