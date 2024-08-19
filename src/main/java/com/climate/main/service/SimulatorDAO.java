@@ -1,9 +1,6 @@
 package com.climate.main.service;
 
-import com.climate.main.dto.CommentsDTO;
-import com.climate.main.dto.CommunityDTO;
-import com.climate.main.dto.HoldDTO;
-import com.climate.main.dto.SimulatorDTO;
+import com.climate.main.dto.*;
 import com.climate.main.mapper.SimulatorMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -78,6 +75,21 @@ public class SimulatorDAO implements SimulatorMapper {
     @Override
     public int selectCommentsCount(int cm_b_pk) {
         return simulatorMapper.selectCommentsCount(cm_b_pk);
+    }
+
+    @Override
+    public List<ReplyDTO> selectReplyComments(int b_pk) {
+        return simulatorMapper.selectReplyComments(b_pk);
+    }
+
+    @Override
+    public int insertReplyComments(ReplyDTO replyDTO) {
+        return simulatorMapper.insertReplyComments(replyDTO);
+    }
+
+    @Override
+    public int deleteReplyComments(int re_pk) {
+        return simulatorMapper.deleteReplyComments(re_pk);
     }
 
 }
