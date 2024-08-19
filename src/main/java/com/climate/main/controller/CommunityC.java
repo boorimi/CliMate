@@ -77,6 +77,9 @@ public class CommunityC {
 
     @PostMapping("/community/lfg/insert")
     public String InsertCommunityLfg(CommunityDTO communityDTO) {
+        System.out.println("===================");
+        System.out.println(communityDTO.getB_text());
+        System.out.println("===================");
         communityDAO.changeFileName(communityDTO, fileMapList);
         communityDAO.moveFile(fileLists);
         communityDAO.insertCommunityLfg(communityDTO);
@@ -215,6 +218,7 @@ public class CommunityC {
 
     @PostMapping("/community/lfg/update")
     public String updateCommunityLfg(CommunityDTO communityDTO) {
+
         communityDAO.changeFileName(communityDTO, fileMapList);
         communityDAO.moveFile(fileLists);
         communityDAO.updateCommunityLfg(communityDTO);
