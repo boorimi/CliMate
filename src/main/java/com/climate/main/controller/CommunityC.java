@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -77,9 +79,6 @@ public class CommunityC {
 
     @PostMapping("/community/lfg/insert")
     public String InsertCommunityLfg(CommunityDTO communityDTO) {
-        System.out.println("===================");
-        System.out.println(communityDTO.getB_text());
-        System.out.println("===================");
         communityDAO.changeFileName(communityDTO, fileMapList);
         communityDAO.moveFile(fileLists);
         communityDAO.insertCommunityLfg(communityDTO);
@@ -118,41 +117,69 @@ public class CommunityC {
                         System.out.println("섬네일 비었음");
                         // 섬네일 파일이 비어있을 경우
                         // 마지막 파일에서만 섬네일 생성
-                        thumbnailFileName = UUID.randomUUID().toString() + "_thumbnail.png";
-                        String thumbnailPath = "src/main/resources/static/upload/thumbnail/" + thumbnailFileName;
-                        System.out.println("thumbnailPath : " + thumbnailPath);
+                        thumbnailFileName = "test_thumbnail.png";
+//                        thumbnailFileName = UUID.randomUUID().toString() + "_thumbnail.png";
+                        File thumbnailFile = new File(System.getProperty("user.dir") + "/src/main/resources/static/upload/thumbnail/" + thumbnailFileName);
+                        System.out.println("thumbnailPath : " + thumbnailFile.getAbsolutePath());
 
                         // 임시 파일로 저장
                         File tempVideoFile = File.createTempFile("temp", ".mp4", new File(System.getProperty("user.dir") + "/src/main/resources/static/upload/thumbnail/"));
                         b_FileName[i].transferTo(tempVideoFile);
-                        System.out.println("tempVideoFile : " + tempVideoFile);
+                        System.out.println("tempVideoFile : " + tempVideoFile.getAbsolutePath());
 
-                        // FFmpeg 명령어 실행
+                        // FFmpeg 명령어를 사용하여 썸네일 생성
                         ProcessBuilder processBuilder = new ProcessBuilder(
                                 "ffmpeg",
-                                "-i", tempVideoFile.getAbsolutePath(),  // 임시 파일의 절대 경로 사용
+                                "-i", tempVideoFile.getAbsolutePath(),  // 입력 비디오 파일의 절대 경로
                                 "-ss", "00:00:01.000",
                                 "-vframes", "1",
-                                thumbnailPath
+//                                thumbnailFile.getAbsolutePath()  // 썸네일 이미지 파일의 절대 경로
+                                "C:\\kds\\Climate\\src\\main\\resources\\static\\upload\\thumbnail\\test_thumbnail.png"  // 썸네일 이미지 파일의 절대 경로
+
                         );
                         processBuilder.redirectErrorStream(true);
                         Process process = processBuilder.start();
 
+                        try {
+                            // 3초 동안 기다리기
+                            Thread.sleep(10000); // 3000 milliseconds = 3 seconds
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                            // 스레드가 인터럽트된 경우의 처리 로직
+                        }
+
                         // Firebase에 업로드할 썸네일 파일 처리
-                        File thumbnailFile = tempVideoFile;
                         System.out.println("thumbnailFile : " + thumbnailFile);
                         if (thumbnailFile.exists()) {
+                            System.out.println("섬네일 생성 진입");
                             String firebaseThumbnailFileName = thumbnailFileName;
                             String thumbnailContentType = Files.probeContentType(thumbnailFile.toPath());
+
+                            // MIME 타입이 이미지인지 확인
+                            if (thumbnailContentType == null || !thumbnailContentType.startsWith("image/")) {
+                                System.out.println("Invalid MIME type for thumbnail: " + thumbnailContentType);
+                                throw new RuntimeException("Invalid MIME type for thumbnail");
+                            }
+
+                            // Firebase Storage에 썸네일 업로드
                             BlobId thumbnailBlobId = BlobId.of("climate-4e4fe.appspot.com", "upload/" + firebaseThumbnailFileName);
                             BlobInfo thumbnailBlobInfo = BlobInfo.newBuilder(thumbnailBlobId).setContentType(thumbnailContentType).build();
                             storage.create(thumbnailBlobInfo, Files.readAllBytes(thumbnailFile.toPath()));
 
-                            // 임시 파일 삭제
-                            tempVideoFile.delete();
+                            System.out.println("Thumbnail uploaded successfully with content type: " + thumbnailContentType);
                         } else {
                             System.out.println("썸네일 파일 생성 실패");
                         }
+
+                        // 임시 파일 삭제
+//                        try {
+//                            if (tempVideoFile.exists() && !tempVideoFile.delete()) {
+//                                System.out.println("Failed to delete temporary video file: " + tempVideoFile.getAbsolutePath());
+//                            }
+//                        } catch (Exception e) {
+//                            System.out.println("Error while deleting temporary video file: " + e.getMessage());
+//                            e.printStackTrace();
+//                        }
                     } else {
                         System.out.println("섬네일있음");
                         // 썸네일 파일이 존재한다면

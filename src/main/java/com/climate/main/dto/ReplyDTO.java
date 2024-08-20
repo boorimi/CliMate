@@ -15,5 +15,6 @@ public class ReplyDTO {
     private Date re_datetime;
     private String u_nickname;
     private String u_grade;
+    private String u_profile;
 
 }
