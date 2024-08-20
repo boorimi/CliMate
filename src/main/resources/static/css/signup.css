@@ -44,7 +44,7 @@ input:focus, select:focus {
     position: absolute;
     width: 30px;
     height: 30px;
-    top: 15vh;
+    top: 8rem;
     right: 1vh;
     border: 1px solid #79976a;
     border-radius: 50%;
@@ -132,8 +132,8 @@ input:focus, select:focus {
 
 .grade-image {
     object-fit: contain;
-    width: 40%;
-    height: 60%;
+    width: 2em;
+    height: 2em;
     padding-left: 25%;
 }
 
@@ -195,12 +195,21 @@ input:focus, select:focus {
     border-radius: 0.7rem;
     font-size: 1.1em;
     padding: 3% 10%;
-    margin: 2% auto 10% auto;
+    margin: 2% auto 5% auto;
     display: flex;
     align-items: center;
     justify-content: center;
     background-color: #79976a;
     color: #fff;
+}
+
+.signup-delete-account{
+    margin: 2% 30% 10% 30%;
+    display: flex;
+    justify-content: center;
+    color: #97ab8c;
+    font-size: 0.8em;
+    cursor: default;
 }
 
 @media (max-width: 768px) {
@@ -215,6 +224,10 @@ input:focus, select:focus {
     .profile-img {
         width: 20vh;
         height: 20vh;
+    }
+
+    .profile-img-upload {
+        top: 15vh;
     }
 
     /* 회원가입 input */

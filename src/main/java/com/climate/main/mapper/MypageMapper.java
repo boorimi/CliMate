@@ -2,6 +2,7 @@ package com.climate.main.mapper;
 
 import com.climate.main.dto.MyCommentsDTO;
 import com.climate.main.dto.UserDTO;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -28,4 +29,7 @@ public interface MypageMapper {
             "order by cm_datetime desc")
     public List<MyCommentsDTO> selectAllMyComments(MyCommentsDTO myCommentsDTO);
 
+    // 회원탈퇴
+    @Delete("delete from cli_user where u_id = #{u_id}")
+    public int deleteUserInfo(UserDTO userDTO);
 }
