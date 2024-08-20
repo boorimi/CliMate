@@ -20,7 +20,11 @@
             </div>
             <div class="mypage-name-box">
                 <p th:text="${myinfo.u_nickname}"></p>
-                <img id="grade" th:src="@{'resources/grade_icon/hold_' + ${myinfo.u_grade} + '.png'}">
+                <img id="grade" th:if="${myinfo.u_grade != 'Setter'}"
+                     th:src="@{'resources/grade_icon/hold_' + ${myinfo.u_grade} + '.png'}">
+                <img id="grade-setter" th:if="${myinfo.u_grade == 'Setter'}"
+                     th:src="@{'resources/grade_icon/hold_Setter.png'}">
+
                 <a id="instagram-link" th:href="@{'http://www.instagram.com/' + ${myinfo.u_insta}}" target="_blank">
                     <img id="instagram" src="/resources/icon/insta.png"></a>
             </div>
@@ -47,8 +51,21 @@
 </div>
 </body>
 <script>
+    window.addEventListener("load", () => {
+        document.querySelector(".mypage").addEventListener("click", () => {
+            const text = document.querySelector(".mypage").children;
+            goMap(text[1].innerText)
+        })
+    })
+
     function goMyplace() {
         location.href = "/mapC?type=mypage";
+    }
+
+    function goMap(name) {
+        const placeUrl = "https://www.google.com/maps/search/?api=1&query=" + name;
+
+        window.open(placeUrl, '_blank');
     }
 </script>
 </html>

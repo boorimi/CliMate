@@ -30,14 +30,18 @@ public class SignUpC {
 
         // userDTO에서 profile 이미지 설정
         userDTO.setU_img(profileImage);
-        System.out.println("check user dto => "+userDTO.getU_homeground());
-        System.out.println("check profile dto => "+profileImage);
+        System.out.println("check user dto => " + userDTO.getU_homeground());
+        System.out.println("check profile dto => " + profileImage);
         //홈그라운드 확인
-        if(userDTO.getU_homeground().isEmpty()) {
+        if (userDTO.getU_homeground().isEmpty()) {
             userDTO.setU_homeground("none");
         }
+        //setter 확인
+        if (userDTO.getU_category().equals("Setter")) {
+            userDTO.setU_grade("Setter");
+        }
         int result = signDAO.insertUser(userDTO);
-        if(result == 1) {
+        if (result == 1) {
             System.out.println("유저 가입 성공");
             return "redirect:/";
         } else {
@@ -60,7 +64,7 @@ public class SignUpC {
             String originalFilename = file.getOriginalFilename();
             String filePath = uploadDirFile.getAbsolutePath() + File.separator + originalFilename;
 
-            System.out.println("check path => "+filePath);
+            System.out.println("check path => " + filePath);
 
             // 파일 저장
             File dest = new File(filePath);
