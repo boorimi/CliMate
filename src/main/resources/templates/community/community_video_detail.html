@@ -28,7 +28,7 @@
     <div class="video-detail top-box">
         <div class="video-detail name-box">
             <p class="nickname" th:text="${showoffList.u_nickname}"
-               th:attr="data-nickname=${showoffList.u_nickname}, data-id=${showoffList.u_id}"></p>
+               th:attr="data-privacy=${showoffList.u_profile}, data-id=${showoffList.b_u_id}"></p>
             <img th:src="@{'/resources/grade_icon/hold_' + ${showoffList.u_grade} + '.png'}">
         </div>
         <div class="detail-date" th:text="${#dates.format(showoffList.b_datetime, 'yyyy.MM.dd')}"></div>
@@ -102,23 +102,25 @@
                     <img src="/resources/icon/send.png">
                 </button>
             </div>
-            <div>
-                <label><input type="checkbox" name="cm_secret" value="yes"/>비밀댓글로작성</label>
-                <input type="hidden" name="cm_secret" value="no"/>
+            <div class="select-secret-comment">
+                <label><input type="checkbox" name="cm_secret" id="cm_secret_checkbox" value="yes"/>Secret comments</label>
+                <input type="hidden" name="cm_secret" id="cm_secret_hidden" value="no"/>
             </div>
         </div>
     </form>
 
     <!--    댓글 시작    -->
     <div class="comment-list" th:each="co : ${showoffCommentsLists}">
-        <div th:if="${co.cm_secret == 'yes' and !(session.user_id == co.cm_u_id) and !(session.user_id == showoffList.u_id) }">
-            비밀댓글입니다.
+        <div class="showoff-detail-comments-comments secret"
+             th:if="${co.cm_secret == 'yes' and !(session.user_id == co.cm_u_id) and !(session.user_id == showoffList.u_id) }">
+            <img src="/resources/icon/secret.png">
+            <p>This is secret comments</p>
         </div>
         <div th:if="${co.cm_secret == 'no' or session.user_id == co.cm_u_id or session.user_id == showoffList.u_id }">
             <div class="comment-top-box">
                 <div class="comment-name-box">
                     <p th:text="${co.u_nickname}" class="nickname"
-                       th:attr="data-nickname=${co.u_nickname}, data-id=${co.cm_u_id}"></p>
+                       th:attr="data-privacy=${co.u_profile}, data-id=${co.cm_u_id}"></p>
                     <img th:src="@{'/resources/grade_icon/hold_' + ${co.u_grade} + '.png'}">
                 </div>
                 <div class="date-more-box">
@@ -129,25 +131,36 @@
                          src="/resources/icon/delete.png"/>
                 </div>
             </div>
+
             <p class="comment-text" th:text="${co.cm_text}"></p>
-            <p class="comment-toggle">답글 (<span th:text="${co.re_count}"></span>)</p>
+            <p class="comment-toggle">
+                <img src="/resources/icon/reply.png">
+                reply (<span th:text="${co.re_count}"></span>)
+            </p>
+
             <!-- 대댓글 시작 -->
             <div class="comment-bottom-box-wrapper" style="display: none">
                 <div class="comment-bottom-box" th:each="rl : ${replyLists}" th:if="${co.cm_pk == rl.re_cm_pk}">
-                    <div class="comment-name-box">
-                        <p th:text="${rl.u_nickname}" class="nickname"
-                           th:attr="data-nickname=${rl.u_nickname}, data-id=${rl.re_u_id}"></p>
-                        <img th:src="@{'/resources/grade_icon/hold_' + ${rl.u_grade} + '.png'}">
+
+                    <div class="comment-bottom-name-date">
+                        <div class="comment-name-box reply">
+                            <p th:text="${rl.u_nickname}" class="nickname"
+                               th:attr="data-privacy=${rl.u_profile}, data-id=${rl.re_u_id}"></p>
+                            <img th:src="@{'/resources/grade_icon/hold_' + ${rl.u_grade} + '.png'}">
+                        </div>
+                        <div class="date-more-box">
+                            <p th:text="${#dates.format(rl.re_datetime, 'yyyy.MM.dd HH:mm')}"></p>
+                            <img class="showoff-detail-comments-delete"
+                                 th:onclick="'deleteReplyCheck(\''+${rl.re_pk}+'\',\''+${showoffList.b_pk}+'\')'"
+                                 th:if="${session.user_id == rl.re_u_id}"
+                                 src="/resources/icon/delete.png"/>
+                        </div>
                     </div>
-                    <div class="date-more-box">
-                        <p th:text="${#dates.format(rl.re_datetime, 'yyyy.MM.dd HH:mm')}"></p>
-                        <img class="showoff-detail-comments-delete"
-                             th:onclick="'deleteCommentsCheck('+${rl.re_pk}+','+${rl.re_pk}+')'"
-                             th:if="${session.user_id == rl.re_u_id}"
-                             src="/resources/icon/delete.png"/>
-                    </div>
+
                     <p class="comment-text" th:text="${rl.re_text}"></p>
                 </div>
+
+                <!-- 대댓글 잇풋 -->
                 <form action="/community/video/replyComments/insert" method="post">
                     <div class="showoff-detail-comments-input">
                         <input name="re_text">
@@ -158,12 +171,29 @@
                         </button>
                     </div>
                 </form>
+
             </div>
         </div>
         <!-- 대댓글 끝 -->
     </div>
 </div>
+<script>
+    function deleteReplyCheck(re_pk, b_pk) {
+        let ok = confirm("정말 삭제하시겠습니까?");
+        if (ok) {
+            location.href = '/community/replyComments/delete?re_pk=' + re_pk + '&b_pk=' + b_pk;
+        }
+    }
 
+    document.getElementById('cm_secret_checkbox').addEventListener('change', function() {
+        var hiddenInput = document.getElementById('cm_secret_hidden');
+        if (this.checked) {
+            hiddenInput.disabled = true; // 체크되면 hidden input을 비활성화
+        } else {
+            hiddenInput.disabled = false; // 체크 해제 시 hidden input을 활성화
+        }
+    });
+</script>
 </body>
 
 </html>

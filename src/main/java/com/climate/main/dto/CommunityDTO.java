@@ -23,6 +23,7 @@ public class CommunityDTO {
     private String u_nickname;
     private String u_grade;
     private String u_id;
+    private String u_profile;
     private int l_count;
     private int c_count;
 

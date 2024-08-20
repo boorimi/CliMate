@@ -1,5 +1,7 @@
 package com.climate.main.controller;
 
+import com.climate.main.dto.CommentsDTO;
+import com.climate.main.dto.MyCommentsDTO;
 import com.climate.main.dto.UserDTO;
 import com.climate.main.service.CommunityDAO;
 import com.climate.main.service.MypageDAO;
@@ -40,6 +42,15 @@ public class MypageC {
         model.addAttribute("mapKey", mapKey);
         model.addAttribute("myinfo", mypageDAO.selectUserInfo(userDTO));
         model.addAttribute("content", "/mypage/mypage_update");
+        return "index";
+    }
+
+    @GetMapping("/mypage/deleteUserInfo")
+    public String deleteUsrInfo(HttpSession session, UserDTO userDTO, Model model){
+        userDTO.setU_id((String) session.getAttribute("user_id"));
+        System.out.println(session.getAttribute("user_id"));
+        model.addAttribute("deleteAccount", mypageDAO.deleteUserInfo(userDTO));
+        model.addAttribute("content", "/sign/delete_account");
         return "index";
     }
 
@@ -98,6 +109,14 @@ public class MypageC {
     public String userProfile(HttpSession session, UserDTO userDTO, Model model) {
         model.addAttribute("myinfo", mypageDAO.selectUserInfo(userDTO));
         model.addAttribute("content", "/mypage/profile");
+        return "index";
+    }
+
+    @GetMapping("/mypage/myComments")
+    public String myComments(HttpSession session, MyCommentsDTO myCommentsDTO, Model model) {
+        myCommentsDTO.setCm_u_id((String) session.getAttribute("user_id"));
+        model.addAttribute("myComments", mypageDAO.selectAllMyComments(myCommentsDTO));
+        model.addAttribute("content", "/mypage/my_comments");
         return "index";
     }
 

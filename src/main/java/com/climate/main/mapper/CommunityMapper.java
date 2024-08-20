@@ -27,7 +27,7 @@ public interface CommunityMapper {
     public  List<CommunityDTO> selectAllCommunityRecruitment();
 
     // 자랑게시판 디테일 조회
-    @Select("SELECT bo.*, u_nickname, u_grade, u_id, " +
+    @Select("SELECT bo.*, u_nickname, u_grade, u_id, u_profile, " +
             "(SELECT COUNT(*) FROM cli_like WHERE l_b_pk = bo.b_pk) AS l_count, " +
             "(SELECT COUNT(*) FROM cli_comments WHERE cm_b_pk = bo.b_pk) AS c_count " +
             "from cli_board bo, cli_user " +
@@ -35,7 +35,7 @@ public interface CommunityMapper {
     public  CommunityDTO selectCommunityShowoff(CommunityDTO communityDTO);
 
     // 모집게시판 디테일조회
-    @Select("select bo.*, u_nickname, u_grade, u_id, " +
+    @Select("select bo.*, u_nickname, u_grade, u_id, u_profile, " +
             "(SELECT COUNT(*) FROM cli_like WHERE l_b_pk = bo.b_pk) AS l_count, " +
             "(SELECT COUNT(*) FROM cli_comments WHERE cm_b_pk = bo.b_pk) AS c_count " +
             "from cli_board bo, cli_user " +
@@ -123,14 +123,15 @@ public interface CommunityMapper {
     public List<CommunityDTO> selectHashtagSearchCommunityLfg(String searchWord);
 
     // 자랑게시판 댓글 조회
-    @Select("select co.*, u_nickname, u_grade, " +
+    @Select("select co.*, u_nickname, u_grade, u_profile, " +
             "(SELECT COUNT(*) FROM cli_replycomments where re_cm_pk = cm_pk) AS re_count " +
             "from cli_comments co, cli_user " +
             "where u_id = cm_u_id and cm_b_pk = #{b_pk} order by cm_datetime desc ")
     public List<CommentsDTO> selectCommunityComments(int b_pk);
 
     // 댓글 인서트
-    @Insert("insert into cli_comments values (cli_comments_seq.nextval, #{cm_b_pk}, #{cm_u_id}, #{cm_text}, SYSTIMESTAMP AT TIME ZONE 'Asia/Seoul')")
+    @Insert("insert into cli_comments " +
+            "values (cli_comments_seq.nextval, #{cm_b_pk}, #{cm_u_id}, #{cm_text}, SYSTIMESTAMP AT TIME ZONE 'Asia/Seoul', #{cm_secret})")
     public int insertCommunityComments(CommentsDTO commentsDTO);
 
     // 댓글 삭제
@@ -138,15 +139,17 @@ public interface CommunityMapper {
     public int deleteCommunityComments(int cm_pk, int b_pk);
 
     // 대댓글 조회
-    @Select("select re.*, u_nickname, u_grade " +
+    @Select("select re.*, u_nickname, u_grade, u_profile " +
             "from cli_replycomments re, cli_user u " +
             "where re_u_id = u_id and re_b_pk = #{b_pk}")
     public List<ReplyDTO> selectReplyComments(int b_pk);
-
 
     // 대댓글 인서트
     @Insert("insert into cli_replycomments " +
             "values (cli_replycomments_seq.nextval, #{re_b_pk} ,#{re_cm_pk}, #{re_u_id}, #{re_text}, SYSTIMESTAMP AT TIME ZONE 'Asia/Seoul')")
     public int insertReplyComments(ReplyDTO replyDTO);
 
+    // 대댓글 삭제
+    @Delete("delete from cli_replycomments where re_pk = #{re_pk}")
+    public int deleteReplyComments(int re_pk);
 }

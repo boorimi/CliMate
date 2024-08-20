@@ -15,11 +15,15 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
 
 @Controller
 public class CommunityC {
@@ -103,7 +107,14 @@ public class CommunityC {
 
             // 동영상 파일을 Firebase Storage에 업로드
             for (int i = 0; i < b_FileName.length; i++) {
-                videoFileName = UUID.randomUUID().toString() + "_" + b_FileName[i].getOriginalFilename();
+                String originalFilename = b_FileName[i].getOriginalFilename(); // 원본 파일명 예: "example.jpg"
+                // 원본 파일의 확장자 추출
+                String extension = "";
+                int dotIndex = originalFilename.lastIndexOf('.');
+                if (dotIndex > 0 && dotIndex < originalFilename.length() - 1) {
+                    extension = originalFilename.substring(dotIndex); // ".jpg"
+                }
+                videoFileName = UUID.randomUUID().toString() + extension;
                 System.out.println("videoFileName: " + videoFileName);
                 String videoContentType = b_FileName[i].getContentType();
                 BlobId videoBlobId = BlobId.of("climate-4e4fe.appspot.com", "upload/" + videoFileName);
@@ -115,40 +126,85 @@ public class CommunityC {
                         System.out.println("섬네일 비었음");
                         // 섬네일 파일이 비어있을 경우
                         // 마지막 파일에서만 섬네일 생성
+//                        thumbnailFileName = "test_thumbnail.png";
                         thumbnailFileName = UUID.randomUUID().toString() + "_thumbnail.png";
-                        String thumbnailPath = "src/main/resources/static/upload/thumbnail/" + thumbnailFileName;
-                        System.out.println("thumbnailPath : " + thumbnailPath);
+                        File thumbnailFile = new File(System.getProperty("user.dir") + "/src/main/resources/static/upload/thumbnail/" + thumbnailFileName);
+                        System.out.println("thumbnailPath : " + thumbnailFile.getAbsolutePath());
 
                         // 임시 파일로 저장
                         File tempVideoFile = File.createTempFile("temp", ".mp4", new File(System.getProperty("user.dir") + "/src/main/resources/static/upload/thumbnail/"));
                         b_FileName[i].transferTo(tempVideoFile);
-                        System.out.println("tempVideoFile : " + tempVideoFile);
+                        System.out.println("tempVideoFile : " + tempVideoFile.getAbsolutePath());
 
-                        // FFmpeg 명령어 실행
+                        // FFmpeg 명령어를 사용하여 썸네일 생성
                         ProcessBuilder processBuilder = new ProcessBuilder(
                                 "ffmpeg",
-                                "-i", tempVideoFile.getAbsolutePath(),  // 임시 파일의 절대 경로 사용
+                                "-i", tempVideoFile.getAbsolutePath(),  // 입력 비디오 파일의 절대 경로
                                 "-ss", "00:00:01.000",
                                 "-vframes", "1",
-                                thumbnailPath
+                                thumbnailFile.getAbsolutePath()  // 썸네일 이미지 파일의 절대 경로
+//                                        "C:\\kds\\Climate\\src\\main\\resources\\static\\upload\\thumbnail\\test_thumbnail.png"  // 썸네일 이미지 파일의 절대 경로
                         );
                         processBuilder.redirectErrorStream(true);
                         Process process = processBuilder.start();
 
+                        // 프로세스 출력 및 오류 스트림을 비동기로 읽어서 버퍼가 차지 않도록 처리
+                        CompletableFuture<Void> streamGobbler = CompletableFuture.runAsync(() -> {
+                            try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
+                                String line;
+                                while ((line = reader.readLine()) != null) {
+                                    System.out.println(line);
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        });
+                        try {
+                            // 프로세스가 완료될 때까지 대기
+                            int exitCode = process.waitFor();
+                            // 스트림을 다 읽을 때까지 대기
+                            streamGobbler.get();
+
+                            if (exitCode != 0) {
+                                throw new RuntimeException("FFmpeg 프로세스가 실패했습니다. 종료 코드: " + exitCode);
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
                         // Firebase에 업로드할 썸네일 파일 처리
-                        File thumbnailFile = tempVideoFile;
                         System.out.println("thumbnailFile : " + thumbnailFile);
+
+                        String ThumbnailFileName = thumbnailFileName;
                         if (thumbnailFile.exists()) {
-                            String firebaseThumbnailFileName = thumbnailFileName;
-                            String thumbnailContentType = Files.probeContentType(thumbnailFile.toPath());
+                            System.out.println("섬네일 생성 진입");
+                            String firebaseThumbnailFileName = ThumbnailFileName;
+                            String thumbnailContentType = null;
+                            thumbnailContentType = Files.probeContentType(thumbnailFile.toPath());
+
+                            // MIME 타입이 이미지인지 확인
+                            if (thumbnailContentType == null || !thumbnailContentType.startsWith("image/")) {
+                                System.out.println("Invalid MIME type for thumbnail: " + thumbnailContentType);
+                                throw new RuntimeException("Invalid MIME type for thumbnail");
+                            }
+
+                            // Firebase Storage에 썸네일 업로드
                             BlobId thumbnailBlobId = BlobId.of("climate-4e4fe.appspot.com", "upload/" + firebaseThumbnailFileName);
                             BlobInfo thumbnailBlobInfo = BlobInfo.newBuilder(thumbnailBlobId).setContentType(thumbnailContentType).build();
                             storage.create(thumbnailBlobInfo, Files.readAllBytes(thumbnailFile.toPath()));
 
-                            // 임시 파일 삭제
-                            tempVideoFile.delete();
+                            System.out.println("Thumbnail uploaded successfully with content type: " + thumbnailContentType);
                         } else {
                             System.out.println("썸네일 파일 생성 실패");
+                        }
+                        // 임시 파일 삭제
+                        try {
+                            if (tempVideoFile.exists() && !tempVideoFile.delete()) {
+                                System.out.println("Failed to delete temporary video file: " + tempVideoFile.getAbsolutePath());
+                            }
+                        } catch (Exception e) {
+                            System.out.println("Error while deleting temporary video file: " + e.getMessage());
+                            e.printStackTrace();
                         }
                     } else {
                         System.out.println("섬네일있음");
@@ -215,6 +271,7 @@ public class CommunityC {
 
     @PostMapping("/community/lfg/update")
     public String updateCommunityLfg(CommunityDTO communityDTO) {
+
         communityDAO.changeFileName(communityDTO, fileMapList);
         communityDAO.moveFile(fileLists);
         communityDAO.updateCommunityLfg(communityDTO);
@@ -247,6 +304,7 @@ public class CommunityC {
     @GetMapping("/community/lfg/detail")
     public String communityLfgDetail(int b_pk, Model model, CommunityDTO communityDTO) {
 //        model.addAttribute("showoffLikeCount", communityDAO.selectLikeCount(b_pk));
+        model.addAttribute("replyLists", communityDAO.selectReplyComments(b_pk));
         model.addAttribute("showoffCommentsLists", communityDAO.selectCommunityComments(b_pk));
         model.addAttribute("lfgList", communityDAO.selectCommunityRecruitment(b_pk));
         model.addAttribute("content", "/community/community_lfg_detail");
@@ -328,9 +386,26 @@ public class CommunityC {
             String[] selectID = randomID.split("-");
             String selectID2 = selectID[0];
 
+            // 로컬 서버에 사진 저장하는 코드
             byte[] bytes = file.getBytes();
             Path path = Paths.get(uploadDir + selectID2 + ".png");
             Files.write(path, bytes);
+
+            // 서버에 저장된 사진을 firebase로 옮기는 코드
+
+            // 원본 파일의 확장자 추출
+            String originalFilename = file.getOriginalFilename(); // 원본 파일명 예: "example.jpg"
+            String extension = "";
+            int dotIndex = originalFilename.lastIndexOf('.');
+            if (dotIndex > 0 && dotIndex < originalFilename.length() - 1) {
+                extension = originalFilename.substring(dotIndex); // ".jpg"
+            }
+            String videoFileName = selectID2 + ".png";
+            System.out.println("videoFileName: " + videoFileName);
+            String videoContentType = file.getContentType();
+            BlobId videoBlobId = BlobId.of("climate-4e4fe.appspot.com", "upload/" + videoFileName);
+            BlobInfo videoBlobInfo = BlobInfo.newBuilder(videoBlobId).setContentType(videoContentType).build();
+            storage.create(videoBlobInfo, file.getBytes());
 
             // MIME 타입 결정
             String mimeType = file.getContentType();
@@ -361,9 +436,27 @@ public class CommunityC {
     }
 
     @PostMapping("/community/video/replyComments/insert")
-    public String insertReplyComments(ReplyDTO replyDTO) {
+    public String insertReplyComments(int re_b_pk, ReplyDTO replyDTO) {
         communityDAO.insertReplyComments(replyDTO);
-        return "redirect:/community/video";
+        return "redirect:/community/video/detail?b_pk=" + re_b_pk;
+    }
+
+    @PostMapping("/community/lfg/replyComments/insert")
+    public String insertLfgReplyComments(int re_b_pk, ReplyDTO replyDTO) {
+        communityDAO.insertReplyComments(replyDTO);
+        return "redirect:/community/lfg/detail?b_pk=" + re_b_pk;
+    }
+
+    @GetMapping("/community/replyComments/delete")
+    public String deleteReplyComments(int re_pk, int b_pk) {
+        communityDAO.deleteReplyComments(re_pk);
+        return "redirect:/community/video/detail?b_pk=" + b_pk;
+    }
+
+    @GetMapping("/community/lfg/replyComments/delete")
+    public String deleteLfgReplyComments(int re_pk, int b_pk) {
+        communityDAO.deleteReplyComments(re_pk);
+        return "redirect:/community/lfg/detail?b_pk=" + b_pk;
     }
 
 }

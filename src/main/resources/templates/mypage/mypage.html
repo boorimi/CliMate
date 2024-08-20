@@ -16,6 +16,7 @@
             <div class="mypage-title">MY Page</div>
             <div class="mypage-profile-img">
                 <img th:src="@{${myinfo.u_img}}">
+                <img id="climbing-img" src="/resources/img/climbing.png">
             </div>
             <div class="mypage-name-box">
                 <p th:text="${myinfo.u_nickname}"></p>
@@ -24,10 +25,24 @@
                     <img id="instagram" src="/resources/icon/insta.png"></a>
             </div>
         </div>
-        <div class="mypage homeground" th:utext="'homeground<br>'+${myinfo.u_homeground}"></div>
-        <div class="mypage myplace" id="mypage-myplace" onclick="goMyplace()">My Place</div>
-        <div class="mypage menu-div">Comment</div>
-        <div class="mypage info-update" onclick="location.href='/mypage/update'">Edit</div>
+        <div class="mypage homeground">
+            <div>
+                <p>Home ground</p>
+                <img src="/resources/icon/right.png"><br>
+            </div>
+            <p th:text="${myinfo.u_homeground}"></p>
+        </div>
+        <div class="mypage comments" onclick="location.href='/mypage/myComments'">
+            <p>Comments</p>
+            <img src="/resources/icon/right.png">
+        </div>
+        <div class="mypage myplace" id="mypage-myplace" onclick="goMyplace()">
+            <p>My Place</p>
+            <img src="/resources/icon/right.png">
+        </div>
+        <div class="mypage info-update" onclick="location.href='/mypage/update'">
+            Edit
+        </div>
     </div>
 </div>
 </body>

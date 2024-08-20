@@ -114,8 +114,41 @@ footer {
     }
 }
 
+/* 회원 탈퇴 page */
+.delete-account-container{
+  height: 80vh;
+}
+
+.delete-account-modal-background {
+  display: block;
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.delete-account-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60%;
+  padding: 1.5em;
+  border-radius: 0.5em;
+  text-align: center;
+  font-style: italic;
+  color: #79976a;
+  font-weight: 900;
+}
+
+.delete-account-modal img {
+  width: 9rem;
+  height: auto;
+}
 
 /* 모달 배경 */
+.delete-confirm-modal-background, /* 회원탈퇴 컨펌 창 */
+.privacy-modal-background, /* 프로필 비공개 */
 .insert-check-modal-background, /* 유효성 체크 */
 .s-create-modal-background,
 .comment-delete-modal-background, /* 댓글 삭제 */
@@ -133,7 +166,9 @@ footer {
   z-index: 9999;
 }
 
+
 /* 모달 창 */
+.private-modal,
 .insert-check-confirm, /* 유효성 체크 */
 .comment-confirm, /* 댓글 삭제 yes or no */
 .s-menu-login-modal, /* 시뮬레이터 메뉴 */
@@ -171,6 +206,12 @@ footer {
   display: none;
 }
 
+.private-modal p {
+  margin: 0 0 0.3em 0;
+  font-weight: 900;
+}
+
+.private-modal img,
 .s-loading-modal img {
   width: 50%;
   height: auto;
@@ -179,6 +220,7 @@ footer {
 .comment-confirm p,
 .post-delete-confirm p,
 .post-delete-modal p,
+.s-create-modal p:first-child, /* 시뮬레이터 저장 yes or no */
 .s-create-modal p:first-child, /* 시뮬레이터 저장 yes or no */
 .insert-check-confirm p:first-child
   {
@@ -304,7 +346,7 @@ footer {
 
     li {
       height: 8vw;
-      font-size: 4vw;
+      font-size: 3vw;
     }
   }
 

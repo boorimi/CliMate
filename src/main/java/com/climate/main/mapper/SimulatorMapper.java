@@ -1,9 +1,6 @@
 package com.climate.main.mapper;
 
-import com.climate.main.dto.CommentsDTO;
-import com.climate.main.dto.CommunityDTO;
-import com.climate.main.dto.HoldDTO;
-import com.climate.main.dto.SimulatorDTO;
+import com.climate.main.dto.*;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -18,7 +15,7 @@ public interface SimulatorMapper {
     public int uploadFile(SimulatorDTO simulatorDTO);
 
     // 모든 시뮬레이터 문제 셀렉트
-    @Select("SELECT s.*, u.u_nickname, u.u_grade, u.u_category, " +
+    @Select("SELECT s.*, u.u_nickname, u.u_grade, u.u_category, u.u_profile, " +
             "(SELECT COUNT(*) FROM cli_like WHERE l_b_pk = s.b_pk) AS l_count, " +
             "(SELECT COUNT(*) FROM cli_comments WHERE cm_b_pk = s.b_pk) AS c_count " +
             "FROM cli_board s " +
@@ -29,7 +26,7 @@ public interface SimulatorMapper {
     public List<SimulatorDTO> getAllProject();
 
     // 내가 만든 문제 셀렉트
-    @Select("select s.*, u.u_nickname, u.u_grade, u.u_category, " +
+    @Select("select s.*, u.u_nickname, u.u_grade, u.u_category, u.u_profile, " +
             "(SELECT COUNT(*) FROM cli_like WHERE l_b_pk = s.b_pk) AS l_count, " +
             "(SELECT COUNT(*) FROM cli_comments WHERE cm_b_pk = s.b_pk) AS c_count " +
             "from cli_board s " +
@@ -40,7 +37,7 @@ public interface SimulatorMapper {
     public List<SimulatorDTO> getMyProject(String userId);
 
     // 문제 하나만 셀렉트
-    @Select("SELECT s.*, u.u_nickname, u.u_grade, u.u_category, " +
+    @Select("SELECT s.*, u.u_nickname, u.u_grade, u.u_category, u.u_profile, " +
             "(SELECT COUNT(*) FROM cli_like WHERE l_b_pk = s.b_pk) AS l_count, " +
             "(SELECT COUNT(*) FROM cli_comments WHERE cm_b_pk = s.b_pk) AS c_count " +
             "FROM cli_board s " +
@@ -50,7 +47,7 @@ public interface SimulatorMapper {
     public SimulatorDTO getProject(int pk);
 
     // 세터 문제만 셀렉트
-    @Select("SELECT s.*, u.u_nickname, u.u_grade, u.u_category, " +
+    @Select("SELECT s.*, u.u_nickname, u.u_grade, u.u_category, u.u_profile, " +
             "(SELECT COUNT(*) FROM cli_like WHERE l_b_pk = s.b_pk) AS l_count, " +
             "(SELECT COUNT(*) FROM cli_comments WHERE cm_b_pk = s.b_pk) AS c_count " +
             "FROM cli_board s " +
@@ -61,7 +58,7 @@ public interface SimulatorMapper {
     public List<SimulatorDTO> selectSetter();
 
     // 일반유저 문제만 셀렉트
-    @Select("SELECT s.*, u.u_nickname, u.u_grade, u.u_category, " +
+    @Select("SELECT s.*, u.u_nickname, u.u_grade, u.u_category, u.u_profile, " +
             "(SELECT COUNT(*) FROM cli_like WHERE l_b_pk = s.b_pk) AS l_count, " +
             "(SELECT COUNT(*) FROM cli_comments WHERE cm_b_pk = s.b_pk) AS c_count " +
             "FROM cli_board s " +
@@ -72,7 +69,7 @@ public interface SimulatorMapper {
     public List<SimulatorDTO> selectNormal();
 
     // 닉네임 검색
-    @Select("SELECT s.*, u.u_nickname, u.u_grade, u.u_category, " +
+    @Select("SELECT s.*, u.u_nickname, u.u_grade, u.u_category, u.u_profile, " +
             "(SELECT COUNT(*) FROM cli_like WHERE l_b_pk = s.b_pk) AS l_count, " +
             "(SELECT COUNT(*) FROM cli_comments WHERE cm_b_pk = s.b_pk) AS c_count " +
             "FROM cli_board s " +
@@ -87,7 +84,8 @@ public interface SimulatorMapper {
     public int deleteProject(int pk);
 
     // 댓글 인서트
-    @Insert("insert into cli_comments values (cli_comments_seq.nextval, #{cm_b_pk}, #{cm_u_id}, #{cm_text}, SYSTIMESTAMP AT TIME ZONE 'Asia/Seoul')")
+    @Insert("insert into cli_comments " +
+            "values (cli_comments_seq.nextval, #{cm_b_pk}, #{cm_u_id}, #{cm_text}, SYSTIMESTAMP AT TIME ZONE 'Asia/Seoul', #{cm_secret})")
     public int insertSimulatorComments(CommentsDTO commentsDTO);
 
     // 댓글 삭제
@@ -95,7 +93,9 @@ public interface SimulatorMapper {
     public int deleteSimulatorComment(int cm_pk, int b_pk);
 
     // 댓글 조회
-    @Select("select co.*, u_nickname, u_grade from cli_comments co, cli_user " +
+    @Select("select co.*, u_nickname, u_grade, u_profile, " +
+            "(SELECT COUNT(*) FROM cli_replycomments where re_cm_pk = cm_pk) AS re_count " +
+            "from cli_comments co, cli_user " +
             "where u_id = cm_u_id and cm_b_pk = #{b_pk} order by cm_datetime desc ")
     public List<CommentsDTO> selectCommunityComments(int b_pk);
 
@@ -106,5 +106,20 @@ public interface SimulatorMapper {
     // 댓글 총 갯수
     @Select("select count(*) from cli_comments where cm_b_pk = #{cm_b_pk} ")
     public int selectCommentsCount(int cm_b_pk);
+
+    // 대댓글 조회
+    @Select("select re.*, u_nickname, u_grade " +
+            "from cli_replycomments re, cli_user u " +
+            "where re_u_id = u_id and re_b_pk = #{b_pk}")
+    public List<ReplyDTO> selectReplyComments(int b_pk);
+
+    // 대댓글 인서트
+    @Insert("insert into cli_replycomments " +
+            "values (cli_replycomments_seq.nextval, #{re_b_pk} ,#{re_cm_pk}, #{re_u_id}, #{re_text}, SYSTIMESTAMP AT TIME ZONE 'Asia/Seoul')")
+    public int insertReplyComments(ReplyDTO replyDTO);
+
+    // 대댓글 삭제
+    @Delete("delete from cli_replycomments where re_pk = #{re_pk}")
+    public int deleteReplyComments(int re_pk);
 
 }

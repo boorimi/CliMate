@@ -296,6 +296,11 @@ public class CommunityDAO implements CommunityMapper {
         return communityMapper.insertReplyComments(replyDTO);
     }
 
+    @Override
+    public int deleteReplyComments(int re_pk) {
+        return communityMapper.deleteReplyComments(re_pk);
+    }
+
 
     public void changeFileName(CommunityDTO communityDTO, List<Map<String, String>> fileMapList) {
         // UUID와 Base64코드를 매핑시켜 리스트로 가져왔음
@@ -326,6 +331,8 @@ public class CommunityDAO implements CommunityMapper {
             }
         }
 
+
+
         // 배열로 변환
         String[] filenameArray = filenames.toArray(new String[0]);
         for (int i = 0; i < filenameArray.length; i++) {
@@ -337,7 +344,7 @@ public class CommunityDAO implements CommunityMapper {
             String newUUIDName = fileMap.get(originBase64Key);
             // b_text 내부 내욜을 replace한다
             if (b_text != null && b_text.contains(originBase64Key)) {
-                communityDTO.setB_text(b_text.replace(originBase64Key, "/resources/upload/lfgimg/" + newUUIDName + ".png"));
+                communityDTO.setB_text(b_text.replace(originBase64Key, "https://firebasestorage.googleapis.com/v0/b/climate-4e4fe.appspot.com/o/upload%2F" + newUUIDName + ".png?alt=media"));
             }
         }
 
