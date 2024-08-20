@@ -30,4 +30,6 @@ public class MypageDAO implements MypageMapper {
         return mypageMapper.selectAllMyComments(myCommentsDTO);
     }
 
+    @Override
+    public int deleteUserInfo(UserDTO userDTO){return  mypageMapper.deleteUserInfo(userDTO);}
 }

@@ -3,7 +3,7 @@ let markers = [];
 let service;
 let infowindow;
 $(function() {
-    
+
     // 페이지 로드될때 등급 아이콘 체인지
     changeGradeIcon();
 
@@ -75,6 +75,34 @@ function changeGradeIcon() {
 
     $("#grade-img").attr("src", imgSrc);
 }
+
+//  회원탈퇴
+
+function deleteUserInfo(){
+    let userId = document.getElementById('userId').innerText;
+    const background = document.getElementById('delete-confirm-modal-background');
+    console.log(userId);
+
+    background.style.display = "block";
+    const yes = document.getElementById('delete-account-confirm-yes');
+    const no = document.getElementById('delete-account-confirm-no');
+
+    yes.addEventListener('click', function (){
+        location.href = '/mypage/deleteUserInfo';
+    })
+
+    no.addEventListener('click', function (){
+        background.style.display = "none";
+    })
+
+    background.addEventListener('click', function (){
+        background.style.display = "none";
+    })
+
+}
+
+
+
 
 /* google map */
 function initMap() {

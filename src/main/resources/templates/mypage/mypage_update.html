@@ -46,6 +46,22 @@
                 th:value="${myinfo.u_insta}"
         />
     </div>
+    <div class="signup-input">
+        <div class="usertype-text-box">
+            <p>User Type</p>
+            <div class="usertype-grade-preview">
+                <img class="grade-image usertype"
+                     src="/resources/grade_icon/drill.png"
+                />
+            </div>
+        </div>
+        <select class="category-select" name="u_category">
+            <option class="category-value" value="Setter" th:selected="${myinfo.u_category == 'Setter'}">Setter</option>
+            <option class="category-value" value="Normal" th:selected="${myinfo.u_category == 'Normal'}">
+                Normal
+            </option>
+        </select>
+    </div>
     <div class="grade-container">
         <p>Grade</p>
         <div class="grade-box">
@@ -82,15 +98,6 @@
         </div>
     </div>
     <div class="signup-input">
-        <p>User Type</p>
-        <select class="category-select" name="u_category">
-            <option class="category-value" value="Setter" th:selected="${myinfo.u_category == 'Setter'}">Setter</option>
-            <option class="category-value" value="Normal" th:selected="${myinfo.u_category == 'Normal'}">
-                Normal
-            </option>
-        </select>
-    </div>
-    <div class="signup-input">
         <label for="homeground" class="u_label">Homegroud</label>
         <input
                 readonly
@@ -109,7 +116,7 @@
         </select>
     </div>
     <button class="signup-btn" type="submit">Update</button>
-    <p class="signup-delete-account">Delete Account</p>
+    <p class="signup-delete-account" th:onclick="deleteUserInfo()">Delete Account</p>
     <div class="map-box" id="map-box">
         <div class="map-input-box">
             <input id="map-input" class="map-input" placeholder="Search"/>
@@ -119,6 +126,16 @@
         </div>
     </div>
 </form>
+
+<!--  탈퇴 모달  -->
+<div class="delete-confirm-modal-background" id="delete-confirm-modal-background" >
+    <div class="post-delete-confirm">
+        <p>Are you sure you want to delete your account?</p>
+        <button id="delete-account-confirm-yes">Delete</button>
+        <button id="delete-account-confirm-no">Cancel</button>
+    </div>
+</div>
+
 <script src="/resources/js/mypage_update.js" />
 </body>
 </html>
