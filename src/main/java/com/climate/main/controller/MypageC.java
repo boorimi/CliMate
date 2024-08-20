@@ -45,6 +45,15 @@ public class MypageC {
         return "index";
     }
 
+    @GetMapping("/mypage/deleteUserInfo")
+    public String deleteUsrInfo(HttpSession session, UserDTO userDTO, Model model){
+        userDTO.setU_id((String) session.getAttribute("user_id"));
+        System.out.println(session.getAttribute("user_id"));
+        model.addAttribute("deleteAccount", mypageDAO.deleteUserInfo(userDTO));
+        model.addAttribute("content", "/sign/delete_account");
+        return "index";
+    }
+
     @PostMapping("/mypage/update")
     public String updateMypage(HttpSession session, UserDTO userDTO, @RequestParam("file_upload") MultipartFile file) {
         userDTO.setU_id((String) session.getAttribute("user_id"));
