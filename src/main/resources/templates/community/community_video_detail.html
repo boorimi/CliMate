@@ -103,8 +103,8 @@
                 </button>
             </div>
             <div class="select-secret-comment">
-                <label><input type="checkbox" name="cm_secret" value="yes"/>Secret comments</label>
-                <input type="hidden" name="cm_secret" value="no"/>
+                <label><input type="checkbox" name="cm_secret" id="cm_secret_checkbox" value="yes"/>Secret comments</label>
+                <input type="hidden" name="cm_secret" id="cm_secret_hidden" value="no"/>
             </div>
         </div>
     </form>
@@ -184,6 +184,15 @@
             location.href = '/community/replyComments/delete?re_pk=' + re_pk + '&b_pk=' + b_pk;
         }
     }
+
+    document.getElementById('cm_secret_checkbox').addEventListener('change', function() {
+        var hiddenInput = document.getElementById('cm_secret_hidden');
+        if (this.checked) {
+            hiddenInput.disabled = true; // 체크되면 hidden input을 비활성화
+        } else {
+            hiddenInput.disabled = false; // 체크 해제 시 hidden input을 활성화
+        }
+    });
 </script>
 </body>
 
