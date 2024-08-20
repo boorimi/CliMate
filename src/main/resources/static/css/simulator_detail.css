@@ -194,15 +194,6 @@
         }
     }
 
-    .profile-menu {
-        width: 35%;
-
-        li {
-            height: 8vw;
-            font-size: 4vw;
-        }
-    }
-
     #comment-text {
         padding: 0 0.5em;
         margin: 0 0 1em 0;

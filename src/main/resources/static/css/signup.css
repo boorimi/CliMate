@@ -195,12 +195,20 @@ input:focus, select:focus {
     border-radius: 0.7rem;
     font-size: 1.1em;
     padding: 3% 10%;
-    margin: 2% auto 10% auto;
+    margin: 2% auto 5% auto;
     display: flex;
     align-items: center;
     justify-content: center;
     background-color: #79976a;
     color: #fff;
+}
+
+.signup-delete-account{
+    margin: 2% 30% 10% 30%;
+    display: flex;
+    justify-content: center;
+    color: #97ab8c;
+    font-size: 0.8em;
 }
 
 @media (max-width: 768px) {
