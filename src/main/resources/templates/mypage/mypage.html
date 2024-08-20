@@ -51,8 +51,21 @@
 </div>
 </body>
 <script>
+    window.addEventListener("load", () => {
+        document.querySelector(".mypage").addEventListener("click", () => {
+            const text = document.querySelector(".mypage").children;
+            goMap(text[1].innerText)
+        })
+    })
+
     function goMyplace() {
         location.href = "/mapC?type=mypage";
+    }
+
+    function goMap(name) {
+        const placeUrl = "https://www.google.com/maps/search/?api=1&query=" + name;
+
+        window.open(placeUrl, '_blank');
     }
 </script>
 </html>
