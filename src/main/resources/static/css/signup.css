@@ -236,11 +236,7 @@ input:focus, select:focus {
         height: 5%;
         margin: 10% auto;
     }
-
-    .usertype-text-box {
-        height: auto;
-    }
-
+    
     .grade-box {
         height: 5%;
     }
@@ -253,7 +249,7 @@ input:focus, select:focus {
         img {
             object-fit: contain;
             width: 40%;
-            height: 60%;
+            height: 100%;
             padding: 0 2vw;
         }
     }
