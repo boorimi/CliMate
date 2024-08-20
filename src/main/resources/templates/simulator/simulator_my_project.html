@@ -15,12 +15,12 @@
             </div>
             <div class="like-and-comment">
                 <img src="/resources/icon/love_blank.png">
-                <p>100</p>
+                <p th:text="${myPj.l_count}"></p>
                 <img src="/resources/icon/chat-bubble.png">
-                <p>0</p>
+                <p th:text="${myPj.c_count}"></p>
             </div>
             <div class="name-box">
-                <p th:text="${#dates.format(myPj.b_datetime, 'yyyy-MM-dd')}" style="font-size: 0.9em"></p>
+                <p th:text="${#dates.format(myPj.b_datetime, 'yyyy.MM.dd')}" style="font-size: 0.9em"></p>
             </div>
         </div>
     </div>

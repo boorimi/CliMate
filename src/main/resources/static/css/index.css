@@ -116,6 +116,7 @@ footer {
 
 
 /* 모달 배경 */
+.privacy-modal-background, /* 프로필 비공개 */
 .insert-check-modal-background, /* 유효성 체크 */
 .s-create-modal-background,
 .comment-delete-modal-background, /* 댓글 삭제 */
@@ -134,6 +135,7 @@ footer {
 }
 
 /* 모달 창 */
+.private-modal,
 .insert-check-confirm, /* 유효성 체크 */
 .comment-confirm, /* 댓글 삭제 yes or no */
 .s-menu-login-modal, /* 시뮬레이터 메뉴 */
@@ -171,6 +173,12 @@ footer {
   display: none;
 }
 
+.private-modal p {
+  margin: 0 0 0.3em 0;
+  font-weight: 900;
+}
+
+.private-modal img,
 .s-loading-modal img {
   width: 50%;
   height: auto;
