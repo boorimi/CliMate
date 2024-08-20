@@ -22,7 +22,8 @@
     <div class="simulator-content" th:each="pj : ${project}" th:attr="data-file=${pj.b_video}">
         <div class="top-box">
             <div class="name-box">
-                <p th:text="${pj.u_nickname}" class="nickname"></p>
+                <p th:text="${pj.u_nickname}" class="nickname"
+                   th:attr="data-nickname=${pj.u_nickname}, data-id=${pj.b_u_id}"></p>
                 <img th:src="@{'/resources/grade_icon/hold_' + ${pj.u_grade} + '.png'}">
             </div>
             <div class="detail-date" th:text="${#dates.format(pj.b_datetime, 'yyyy.MM.dd')}"></div>
@@ -87,7 +88,7 @@
             <div th:if="${scl.cm_secret == 'no' or session.user_id == scl.cm_u_id or session.user_id == project.u_id }">
                 <div class="comment-top-box">
                     <div class="comment-name-box">
-                        <p th:text="${scl.u_nickname}" class="nickname"></p>
+                        <p th:text="${scl.u_nickname}" class="nickname" th:attr="data-nickname=${scl.u_nickname}, data-id=${scl.cm_u_id}"/>
                         <img th:src="@{'/resources/grade_icon/hold_' + ${scl.u_grade} + '.png'}">
                     </div>
                     <div class="date-delete-box">

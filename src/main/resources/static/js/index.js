@@ -60,7 +60,6 @@ $(document).ready(function () {
     const linkVideo = $("#link-video");
     const linklfg = $("#link-lfg");
     linkProfile.click(function () {
-
         // console.log('닉네임: '+currentNickname);
         // console.log('아이디: '+currentId);
         location.href = '/mypage/userProfile?u_id=' + currentId;
