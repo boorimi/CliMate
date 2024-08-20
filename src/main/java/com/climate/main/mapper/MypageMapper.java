@@ -28,7 +28,7 @@ public interface MypageMapper {
     // 내 댓글 전체조회
     @Select("select co.*, b_title, b_category from cli_comments co, cli_board " +
             "where cm_b_pk = b_pk and cm_u_id = #{cm_u_id} " +
-            "order by cm_datetime")
+            "order by cm_datetime desc")
     public List<MyCommentsDTO> selectAllMyComments(MyCommentsDTO myCommentsDTO);
 
 }
