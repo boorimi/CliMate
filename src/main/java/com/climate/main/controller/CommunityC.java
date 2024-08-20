@@ -386,9 +386,26 @@ public class CommunityC {
             String[] selectID = randomID.split("-");
             String selectID2 = selectID[0];
 
+            // 로컬 서버에 사진 저장하는 코드
             byte[] bytes = file.getBytes();
             Path path = Paths.get(uploadDir + selectID2 + ".png");
             Files.write(path, bytes);
+
+            // 서버에 저장된 사진을 firebase로 옮기는 코드
+
+            // 원본 파일의 확장자 추출
+            String originalFilename = file.getOriginalFilename(); // 원본 파일명 예: "example.jpg"
+            String extension = "";
+            int dotIndex = originalFilename.lastIndexOf('.');
+            if (dotIndex > 0 && dotIndex < originalFilename.length() - 1) {
+                extension = originalFilename.substring(dotIndex); // ".jpg"
+            }
+            String videoFileName = selectID2 + ".png";
+            System.out.println("videoFileName: " + videoFileName);
+            String videoContentType = file.getContentType();
+            BlobId videoBlobId = BlobId.of("climate-4e4fe.appspot.com", "upload/" + videoFileName);
+            BlobInfo videoBlobInfo = BlobInfo.newBuilder(videoBlobId).setContentType(videoContentType).build();
+            storage.create(videoBlobInfo, file.getBytes());
 
             // MIME 타입 결정
             String mimeType = file.getContentType();
