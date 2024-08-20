@@ -121,6 +121,13 @@
     min-height: 10em;
 }
 
+.video-detail-text a{
+    color: #79976a;
+}
+.video-detail-text a:visited {
+    color: #79976a;
+}
+
 /* 댓글 아이콘 */
 .showoff-detail-comments-comments {
     display: flex;
