@@ -209,6 +209,7 @@ input:focus, select:focus {
     justify-content: center;
     color: #97ab8c;
     font-size: 0.8em;
+    cursor: default;
 }
 
 @media (max-width: 768px) {

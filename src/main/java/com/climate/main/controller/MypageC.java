@@ -49,15 +49,7 @@ public class MypageC {
     public String deleteUsrInfo(HttpSession session, UserDTO userDTO, Model model){
         userDTO.setU_id((String) session.getAttribute("user_id"));
         System.out.println(session.getAttribute("user_id"));
-
-        int deleteResult = mypageDAO.deleteUserInfo(userDTO);
-        model.addAttribute("deleteAccount", deleteResult);
-
-        // 회원 탈퇴가 성공적으로 처리된 경우 세션을 무효화
-        if (deleteResult > 0) {
-            System.out.println("탈퇴 성공!");// 삭제가 성공하면
-            session.invalidate();
-        }
+        model.addAttribute("deleteAccount", mypageDAO.deleteUserInfo(userDTO));
         model.addAttribute("content", "/sign/delete_account");
         return "index";
     }

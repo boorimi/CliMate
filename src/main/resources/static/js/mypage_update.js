@@ -49,6 +49,15 @@ $(function() {
         $("#map-box").css("top", "0");
         $("body").css("overflow","scroll");
     });
+
+
+
+
+
+
+
+
+
 })
 
 // 등급 설정 함수
