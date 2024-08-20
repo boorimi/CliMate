@@ -17,6 +17,7 @@ public class CommentsDTO {
     private String cm_secret;
     private String u_nickname;
     private String u_grade;
+    private String u_profile;
     private int re_count;
 
 }

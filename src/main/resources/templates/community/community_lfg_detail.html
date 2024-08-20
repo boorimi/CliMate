@@ -31,7 +31,7 @@
     <div class="lfg-detail top-box name-date-more">
         <div class="lfg-detail name-box">
             <p class="lfg-detail nickname" th:text="${lfgList.u_nickname}"
-               th:attr="data-nickname=${lfgList.u_nickname}, data-id=${lfgList.u_id}"></p>
+               th:attr="data-privacy=${lfgList.u_profile}, data-id=${lfgList.b_u_id}"></p>
             <img th:src="@{'/resources/grade_icon/hold_' + ${lfgList.u_grade} + '.png'}">
         </div>
 
@@ -86,7 +86,7 @@
             <div class="comment-top-box">
                 <div class="comment-name-box">
                     <p th:text="${co.u_nickname}" class="nickname"
-                       th:attr="data-nickname=${co.u_nickname}, data-id=${co.cm_u_id}"></p>
+                       th:attr="data-privacy=${co.u_profile}, data-id=${co.cm_u_id}"></p>
                     <img th:src="@{'/resources/grade_icon/hold_' + ${co.u_grade} + '.png'}">
                 </div>
                 <div class="date-more-box">
@@ -106,11 +106,10 @@
             <!-- 대댓글 시작 -->
             <div class="comment-bottom-box-wrapper" style="display: none">
                 <div class="comment-bottom-box" th:each="rl : ${replyLists}" th:if="${co.cm_pk == rl.re_cm_pk}">
-
                     <div class="comment-bottom-name-date">
                         <div class="comment-name-box reply">
                             <p th:text="${rl.u_nickname}" class="nickname"
-                               th:attr="data-nickname=${rl.u_nickname}, data-id=${rl.re_u_id}"></p>
+                               th:attr="data-privacy=${rl.u_profile}, data-id=${rl.re_u_id}"></p>
                             <img th:src="@{'/resources/grade_icon/hold_' + ${rl.u_grade} + '.png'}">
                         </div>
                         <div class="date-more-box">
@@ -121,7 +120,6 @@
                                  src="/resources/icon/delete.png"/>
                         </div>
                     </div>
-
                     <p class="comment-text" th:text="${rl.re_text}"></p>
                 </div>
 

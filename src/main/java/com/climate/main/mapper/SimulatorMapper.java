@@ -93,7 +93,7 @@ public interface SimulatorMapper {
     public int deleteSimulatorComment(int cm_pk, int b_pk);
 
     // 댓글 조회
-    @Select("select co.*, u_nickname, u_grade, " +
+    @Select("select co.*, u_nickname, u_grade, u_profile, " +
             "(SELECT COUNT(*) FROM cli_replycomments where re_cm_pk = cm_pk) AS re_count " +
             "from cli_comments co, cli_user " +
             "where u_id = cm_u_id and cm_b_pk = #{b_pk} order by cm_datetime desc ")
