@@ -2,10 +2,14 @@ let map;
 let markers = [];
 let service;
 let infowindow;
+let userType;
 $(function() {
 
     // 페이지 로드될때 등급 아이콘 체인지
     changeGradeIcon();
+
+    // 페이지 로드 시 유저타입체크
+    typeCheck();
 
     initMap();
     //프로필 이미지 업로드 및 미리보기
@@ -50,15 +54,31 @@ $(function() {
         $("body").css("overflow","scroll");
     });
 
+    function typeCheck(){
+        userType = $('.category-select').val();
+        console.log(userType);
 
+        if (userType == 'Normal'){
+            $(".grade-container").css("display", "block");
+            $("#usertype-grade-preview").css("display", "none");
+        } else {
+            $(".grade-container").css("display", "none");
+            $("#usertype-grade-preview").css("display", "block");
+        }
+    }
 
-
-
-
-
-
-
+    $(".category-select").change(function () {
+        if ($(this).val() === "Normal") {
+            $(".grade-container").css("display", "block");
+            $("#usertype-grade-preview").css("display", "none");
+        } else {
+            $(".grade-container").css("display", "none");
+            $("#usertype-grade-preview").css("display", "block");
+        }
+    })
 })
+
+
 
 // 등급 설정 함수
 function changeGradeIcon() {
