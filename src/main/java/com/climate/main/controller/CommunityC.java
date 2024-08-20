@@ -17,11 +17,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
 
 @Controller
 public class CommunityC {
@@ -105,7 +107,14 @@ public class CommunityC {
 
             // 동영상 파일을 Firebase Storage에 업로드
             for (int i = 0; i < b_FileName.length; i++) {
-                videoFileName = UUID.randomUUID().toString() + "_" + b_FileName[i].getOriginalFilename();
+                String originalFilename = b_FileName[i].getOriginalFilename(); // 원본 파일명 예: "example.jpg"
+                // 원본 파일의 확장자 추출
+                String extension = "";
+                int dotIndex = originalFilename.lastIndexOf('.');
+                if (dotIndex > 0 && dotIndex < originalFilename.length() - 1) {
+                    extension = originalFilename.substring(dotIndex); // ".jpg"
+                }
+                videoFileName = UUID.randomUUID().toString() + extension;
                 System.out.println("videoFileName: " + videoFileName);
                 String videoContentType = b_FileName[i].getContentType();
                 BlobId videoBlobId = BlobId.of("climate-4e4fe.appspot.com", "upload/" + videoFileName);
@@ -117,8 +126,8 @@ public class CommunityC {
                         System.out.println("섬네일 비었음");
                         // 섬네일 파일이 비어있을 경우
                         // 마지막 파일에서만 섬네일 생성
-                        thumbnailFileName = "test_thumbnail.png";
-//                        thumbnailFileName = UUID.randomUUID().toString() + "_thumbnail.png";
+//                        thumbnailFileName = "test_thumbnail.png";
+                        thumbnailFileName = UUID.randomUUID().toString() + "_thumbnail.png";
                         File thumbnailFile = new File(System.getProperty("user.dir") + "/src/main/resources/static/upload/thumbnail/" + thumbnailFileName);
                         System.out.println("thumbnailPath : " + thumbnailFile.getAbsolutePath());
 
@@ -133,27 +142,45 @@ public class CommunityC {
                                 "-i", tempVideoFile.getAbsolutePath(),  // 입력 비디오 파일의 절대 경로
                                 "-ss", "00:00:01.000",
                                 "-vframes", "1",
-//                                thumbnailFile.getAbsolutePath()  // 썸네일 이미지 파일의 절대 경로
-                                "C:\\kds\\Climate\\src\\main\\resources\\static\\upload\\thumbnail\\test_thumbnail.png"  // 썸네일 이미지 파일의 절대 경로
-
+                                thumbnailFile.getAbsolutePath()  // 썸네일 이미지 파일의 절대 경로
+//                                        "C:\\kds\\Climate\\src\\main\\resources\\static\\upload\\thumbnail\\test_thumbnail.png"  // 썸네일 이미지 파일의 절대 경로
                         );
                         processBuilder.redirectErrorStream(true);
                         Process process = processBuilder.start();
 
+                        // 프로세스 출력 및 오류 스트림을 비동기로 읽어서 버퍼가 차지 않도록 처리
+                        CompletableFuture<Void> streamGobbler = CompletableFuture.runAsync(() -> {
+                            try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
+                                String line;
+                                while ((line = reader.readLine()) != null) {
+                                    System.out.println(line);
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        });
                         try {
-                            // 3초 동안 기다리기
-                            Thread.sleep(10000); // 3000 milliseconds = 3 seconds
-                        } catch (InterruptedException e) {
+                            // 프로세스가 완료될 때까지 대기
+                            int exitCode = process.waitFor();
+                            // 스트림을 다 읽을 때까지 대기
+                            streamGobbler.get();
+
+                            if (exitCode != 0) {
+                                throw new RuntimeException("FFmpeg 프로세스가 실패했습니다. 종료 코드: " + exitCode);
+                            }
+                        } catch (Exception e) {
                             e.printStackTrace();
-                            // 스레드가 인터럽트된 경우의 처리 로직
                         }
 
                         // Firebase에 업로드할 썸네일 파일 처리
                         System.out.println("thumbnailFile : " + thumbnailFile);
+
+                        String ThumbnailFileName = thumbnailFileName;
                         if (thumbnailFile.exists()) {
                             System.out.println("섬네일 생성 진입");
-                            String firebaseThumbnailFileName = thumbnailFileName;
-                            String thumbnailContentType = Files.probeContentType(thumbnailFile.toPath());
+                            String firebaseThumbnailFileName = ThumbnailFileName;
+                            String thumbnailContentType = null;
+                            thumbnailContentType = Files.probeContentType(thumbnailFile.toPath());
 
                             // MIME 타입이 이미지인지 확인
                             if (thumbnailContentType == null || !thumbnailContentType.startsWith("image/")) {
@@ -170,16 +197,15 @@ public class CommunityC {
                         } else {
                             System.out.println("썸네일 파일 생성 실패");
                         }
-
                         // 임시 파일 삭제
-//                        try {
-//                            if (tempVideoFile.exists() && !tempVideoFile.delete()) {
-//                                System.out.println("Failed to delete temporary video file: " + tempVideoFile.getAbsolutePath());
-//                            }
-//                        } catch (Exception e) {
-//                            System.out.println("Error while deleting temporary video file: " + e.getMessage());
-//                            e.printStackTrace();
-//                        }
+                        try {
+                            if (tempVideoFile.exists() && !tempVideoFile.delete()) {
+                                System.out.println("Failed to delete temporary video file: " + tempVideoFile.getAbsolutePath());
+                            }
+                        } catch (Exception e) {
+                            System.out.println("Error while deleting temporary video file: " + e.getMessage());
+                            e.printStackTrace();
+                        }
                     } else {
                         System.out.println("섬네일있음");
                         // 썸네일 파일이 존재한다면
@@ -360,9 +386,26 @@ public class CommunityC {
             String[] selectID = randomID.split("-");
             String selectID2 = selectID[0];
 
+            // 로컬 서버에 사진 저장하는 코드
             byte[] bytes = file.getBytes();
             Path path = Paths.get(uploadDir + selectID2 + ".png");
             Files.write(path, bytes);
+
+            // 서버에 저장된 사진을 firebase로 옮기는 코드
+
+            // 원본 파일의 확장자 추출
+            String originalFilename = file.getOriginalFilename(); // 원본 파일명 예: "example.jpg"
+            String extension = "";
+            int dotIndex = originalFilename.lastIndexOf('.');
+            if (dotIndex > 0 && dotIndex < originalFilename.length() - 1) {
+                extension = originalFilename.substring(dotIndex); // ".jpg"
+            }
+            String videoFileName = selectID2 + ".png";
+            System.out.println("videoFileName: " + videoFileName);
+            String videoContentType = file.getContentType();
+            BlobId videoBlobId = BlobId.of("climate-4e4fe.appspot.com", "upload/" + videoFileName);
+            BlobInfo videoBlobInfo = BlobInfo.newBuilder(videoBlobId).setContentType(videoContentType).build();
+            storage.create(videoBlobInfo, file.getBytes());
 
             // MIME 타입 결정
             String mimeType = file.getContentType();
