@@ -69,7 +69,7 @@ body {
     width: 68%;
     height: 2rem;
     margin: 0.7em 0;
-    bottom: 0.2em;
+    bottom: 0.15em;
     right: 0;
     border-bottom: 2px solid #79976a;
     font-size: 0.8em;
@@ -89,6 +89,9 @@ body {
     margin-left: 0.5em;
 }
 
+.together,
+.video,
+.places,
 .homeground,
 .myplace,
 .comments,
@@ -100,6 +103,9 @@ body {
     border-bottom: 1px solid #79976a;
 }
 
+.together img,
+.video img,
+.places img,
 .homeground img,
 .myplace img,
 .comments img,
@@ -127,12 +133,21 @@ body {
     font-weight: normal;
 }
 
+.together{
+    width: 47%;
+}
 .comments {
     width: 45%;
 }
 
+.video{
+    width: 36%;
+}
 .myplace {
     width: 31%;
+}
+.places{
+    width: 25%;
 }
 
 .info-update {
@@ -149,6 +164,9 @@ body {
         width: 80%;
     }
 
+    .together,
+    .video,
+    .places,
     .homeground,
     .myplace,
     .comments {

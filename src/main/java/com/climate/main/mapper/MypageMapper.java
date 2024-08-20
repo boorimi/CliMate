@@ -1,13 +1,10 @@
 package com.climate.main.mapper;
 
 import com.climate.main.dto.MyCommentsDTO;
-import com.climate.main.dto.TestVO;
 import com.climate.main.dto.UserDTO;
-import org.apache.catalina.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
-import org.yaml.snakeyaml.error.MarkedYAMLException;
 
 import java.util.List;
 

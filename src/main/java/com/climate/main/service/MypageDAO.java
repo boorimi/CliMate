@@ -1,9 +1,7 @@
 package com.climate.main.service;
 
 import com.climate.main.dto.MyCommentsDTO;
-import com.climate.main.dto.TestVO;
 import com.climate.main.dto.UserDTO;
-import com.climate.main.mapper.CommunityMapper;
 import com.climate.main.mapper.MypageMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
