@@ -282,7 +282,7 @@
     z-index: 900;
     top: 2.5em;
     right: 0;
-    width: 15%;
+    width: 8em;
     border-radius: 0.5em;
     border: 0.1em solid #79976a;
     background-color: #f6f9f4;
@@ -330,4 +330,5 @@
     .all-wrapper {
         padding: 0;
     }
+
 }
