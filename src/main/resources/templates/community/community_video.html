@@ -20,8 +20,7 @@
 <body>
 <div class="community-contents-container">
     <div class="community-contents-wrapper">
-        <div class="community-content" th:each="show : ${showoffLists}"
-             th:onclick="'location.href=\'/community/video/detail?b_pk=' + ${show.b_pk} + '\''">
+        <div class="community-content" th:each="show : ${showoffLists}" th:attr="data-b_pk=${show.b_pk}">
             <div class="community-video">
                 <img th:src="${show.b_thumbnail}"/>
                 <div class="community-nickname-wrapper">
@@ -37,11 +36,10 @@
                 <div class="community-comments-count" th:text="${show.c_count}"></div>
             </div>
             <div class="community-climbing-name" th:text="${show.b_title}"></div>
-
         </div>
     </div>
 </div>
-<button class="community-video-insert" onclick="location.href='/community/video/insert'">+</button>
+<button class="community-video-insert">+</button>
 
 
 </body>

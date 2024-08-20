@@ -114,6 +114,44 @@ $(document).ready(function () {
     }
   })
 
+  let b_pk;
+  $(".community-content").click(function (){
+    b_pk = $(this).data('b_pk');
+
+    if (userId != null && userId != ""){
+      location.href='/community/video/detail?b_pk=' + b_pk;
+    } else {
+      showConfirm();
+    }
+  })
+
+  $(".community-lfg-wrapper").click(function (){
+    b_pk = $(this).data('b_pk');
+
+    if (userId != null && userId != ""){
+      location.href='/community/lfg/detail?b_pk=' + b_pk;
+    } else {
+      showConfirm();
+    }
+  })
+
+  $(".community-video-insert").click(function (){
+    if (userId != null && userId != ""){
+      location.href="/community/video/insert";
+    } else {
+      showConfirm();
+    }
+  })
+
+  $(".community-lfg-insert").click(function (){
+    if (userId != null && userId != ""){
+      location.href="/community/lfg/insert?b_pk=0";
+    } else {
+      showConfirm();
+    }
+  })
+
+
   $(".s-menu-gallery").click(function (){
     location.href="/simulator/gallery?category=All";
   })

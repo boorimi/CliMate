@@ -13,8 +13,7 @@
 <body>
 <div class="community-lfg-all-wrapper">
     <div class="community-lfg-container">
-        <div class="community-lfg-wrapper" th:each="re : ${recruitment}"
-             th:onclick="'location.href=\'/community/lfg/detail?b_pk=' + ${re.b_pk} + '\''">
+        <div class="community-lfg-wrapper" th:each="re : ${recruitment}" th:attr="data-b_pk=${re.b_pk}">
             <div class="community-lfg-above">
                 <div class="community-lfg-category" th:text="${re.b_category}"></div>
                 <div class="community-lfg-nickname-wrapper">
@@ -29,7 +28,7 @@
         </div>
     </div>
 </div>
-<button class="community-lfg-insert" onclick="location.href='/community/lfg/insert?b_pk=0'">+</button>
+<button class="community-lfg-insert">+</button>
 
 </body>
 
