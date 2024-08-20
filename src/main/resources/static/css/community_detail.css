@@ -321,6 +321,13 @@
     padding: 1em 0 2em 0;
 }
 
+
+/* 내가 쓴 댓글 페이지 */
+.my-comment-list-container{
+    margin: 1%;
+    min-height: 80vh;
+}
+
 #my-comment-h2{
     color: #79976a;
     font-style: italic;
