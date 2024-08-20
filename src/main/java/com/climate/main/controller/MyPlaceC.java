@@ -92,8 +92,13 @@ public class MyPlaceC {
     }
 
     @GetMapping("/searchMyplace")
-    public List<MyPlaceDTO> searchMyplace(String mp_u_id, String mp_name) {
-        return myPlaceDAO.getSearchById(mp_u_id, mp_name);
+    public List<MyPlaceDTO> searchMyplace(String mp_u_id, String mp_name, int page, int size) {
+        return myPlaceDAO.getSearchById(mp_u_id, mp_name, page, size);
+    }
+
+    @GetMapping("/searchMyPlaceCnt")
+    public int searchMyPlaceCnt(String mp_u_id, String mp_name) {
+        return myPlaceDAO.getSearchCntById(mp_u_id, mp_name);
     }
 
     @GetMapping("/getWishCnt")

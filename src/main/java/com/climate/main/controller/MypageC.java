@@ -26,7 +26,7 @@ public class MypageC {
     @Value("${google.map_key}")
     private String mapKey;
 
-    @GetMapping("/mypageC")
+    @GetMapping("/mypage")
     public String moveMypage(HttpSession session, Model model, UserDTO userDTO) {
         userDTO.setU_id((String) session.getAttribute("user_id"));
         model.addAttribute("myinfo", mypageDAO.selectUserInfo(userDTO));
