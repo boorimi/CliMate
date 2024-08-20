@@ -28,14 +28,17 @@ public interface MyPlaceMapper {
     @Select("select * from CLI_MYPLACE where mp_u_id = #{mp_u_id}")
     public List<MyPlaceDTO> getAll(String mp_u_id);
 
-    @Select("select * from (select mp_u_id, mp_name, mp_addr, mp_type, ROW_NUMBER() over (order by mp_u_id) as row_num from CLI_MYPLACE where mp_u_id = #{mp_u_id}) where row_num Between #{startRow} and #{endRow}")
+    @Select("select * from (select mp_u_id, mp_name, mp_addr, mp_type, ROW_NUMBER() over (order by mp_pk desc) as row_num from CLI_MYPLACE where mp_u_id = #{mp_u_id}) where row_num Between #{startRow} and #{endRow}")
     public List<MyPlaceDTO> getAllById(String mp_u_id, int startRow, int endRow);
 
     @Select("select COUNT(*) from CLI_MYPLACE where mp_u_id = #{mp_u_id}")
     public int getAllByIdCnt(String mp_u_id);
 
-    @Select("select mp_name, mp_addr, mp_type from CLI_MYPLACE where mp_u_id = #{mp_u_id} and mp_name like '%' || #{mp_name} || '%'")
-    public List<MyPlaceDTO> getSearchById(String mp_u_id, String mp_name);
+    @Select("select * from (select mp_u_id, mp_name, mp_addr, mp_type, ROW_NUMBER() over (order by mp_pk desc) as row_num from CLI_MYPLACE where mp_u_id = #{mp_u_id} and mp_name like '%' || #{mp_name} || '%') where row_num between #{startRow} and #{endRow}")
+    public List<MyPlaceDTO> getSearchById(String mp_u_id, String mp_name, int startRow, int endRow);
+
+    @Select("select COUNT(*) from CLI_MYPLACE where mp_u_id = #{mp_u_id} and mp_name like '%' || #{mp_name} || '%'")
+    public int getSearchCntById(String mp_u_id, String mp_name);
 
     @Select("select COUNT(*) from CLI_MYPLACE where mp_u_id = #{mp_u_id} and mp_type = 'Wish'")
     public int getWishCntById(String mp_u_id);
@@ -43,9 +46,9 @@ public interface MyPlaceMapper {
     @Select("select COUNT(*) from CLI_MYPLACE where mp_u_id = #{mp_u_id} and mp_type = 'Check'")
     public int getCheckCntById(String mp_u_id);
 
-    @Select("select * from (select mp_u_id, mp_name, mp_addr, mp_type, ROW_NUMBER() over (order by mp_u_id) as row_num from CLI_MYPLACE where mp_u_id = #{mp_u_id} and mp_type = 'Wish') where row_num Between #{startRow} and #{endRow}")
+    @Select("select * from (select mp_u_id, mp_name, mp_addr, mp_type, ROW_NUMBER() over (order by mp_pk desc) as row_num from CLI_MYPLACE where mp_u_id = #{mp_u_id} and mp_type = 'Wish') where row_num Between #{startRow} and #{endRow}")
     public List<MyPlaceDTO> getWishDataById(String mp_u_id, int startRow, int endRow);
 
-    @Select("select * from (select mp_u_id, mp_name, mp_addr, mp_type, ROW_NUMBER() over (order by mp_u_id) as row_num from CLI_MYPLACE where mp_u_id = #{mp_u_id} and mp_type = 'Check') where row_num Between #{startRow} and #{endRow}")
+    @Select("select * from (select mp_u_id, mp_name, mp_addr, mp_type, ROW_NUMBER() over (order by mp_pk desc) as row_num from CLI_MYPLACE where mp_u_id = #{mp_u_id} and mp_type = 'Check') where row_num Between #{startRow} and #{endRow}")
     public List<MyPlaceDTO> getCheckDataById(String mp_u_id, int startRow, int endRow);
 }

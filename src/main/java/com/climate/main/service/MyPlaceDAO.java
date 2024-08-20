@@ -57,8 +57,15 @@ public class MyPlaceDAO implements MyPlaceMapper {
     }
 
     @Override
-    public List<MyPlaceDTO> getSearchById(String mp_u_id, String mp_name) {
-        return myPlaceMapper.getSearchById(mp_u_id, mp_name);
+    public List<MyPlaceDTO> getSearchById(String mp_u_id, String mp_name, int page, int size) {
+        int startRow = page * size + 1;
+        int endRow = (page + 1) * size;
+        return myPlaceMapper.getSearchById(mp_u_id, mp_name, startRow, endRow);
+    }
+
+    @Override
+    public int getSearchCntById(String mp_u_id, String mp_name) {
+        return myPlaceMapper.getSearchCntById(mp_u_id, mp_name);
     }
 
     @Override
