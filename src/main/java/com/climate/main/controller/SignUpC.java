@@ -2,6 +2,7 @@ package com.climate.main.controller;
 
 import com.climate.main.dto.UserDTO;
 import com.climate.main.service.SignDAO;
+import jakarta.servlet.ServletContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,8 @@ import java.io.File;
 public class SignUpC {
     @Autowired
     private SignDAO signDAO;
+    @Autowired
+    private ServletContext servletContext;
 
     @PostMapping("/signup")
     public String signUp(@ModelAttribute UserDTO userDTO, @RequestParam("file_upload") MultipartFile file) {
@@ -52,26 +55,30 @@ public class SignUpC {
 
     private String saveFile(MultipartFile file) {
         try {
+            /* 파일 저장 폴더 경로 & 저장된 사진 업로드 할 경로 분리 */
+            // 상대 경로 설정
+            String relativeDir = "resources/upload/img/";
+
             // 절대 경로로 디렉토리 설정
-//            File uploadDirFile = new File("/Users/master/Documents/java_practice/final_project/src/main/resources/static/upload/img");
-            File uploadDirFile = new File(System.getProperty("user.dir") + "/src/main/resources/static/upload/img");
+            //File uploadDirFile = new File("/Users/master/Documents/java_practice/final_project/src/main/resources/static/upload/img");
+            String absoluteDir = new File(relativeDir).getAbsolutePath();
+            File uploadDirFile = new File(absoluteDir);
 
-            // 디렉토리가 존재하지 않으면 생성
-//            if (!uploadDirFile.exists()) {
-//                uploadDirFile.mkdirs();
-//            }
+            //디렉토리가 존재하지 않으면 생성
+            if (!uploadDirFile.exists()) {
+                uploadDirFile.mkdirs();
+            }
 
+            // 파일 저장
             String originalFilename = file.getOriginalFilename();
             String filePath = uploadDirFile.getAbsolutePath() + File.separator + originalFilename;
 
             System.out.println("check path => " + filePath);
-
-            // 파일 저장
-            File dest = new File(filePath);
+            File dest = new File(uploadDirFile, originalFilename);
             file.transferTo(dest);
 
             // 저장된 파일 경로 또는 URL 반환
-            return filePath; // 실제로는 파일 접근 가능한 URL 반환이 더 적절함
+            return "/" + relativeDir + originalFilename; // 실제로는 파일 접근 가능한 URL 반환이 더 적절함
         } catch (Exception e) {
             e.printStackTrace();
             return null;
