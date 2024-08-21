@@ -5,6 +5,9 @@ import com.climate.main.dto.MyCommentsDTO;
 import com.climate.main.dto.UserDTO;
 import com.climate.main.service.CommunityDAO;
 import com.climate.main.service.MypageDAO;
+import com.google.cloud.storage.BlobId;
+import com.google.cloud.storage.BlobInfo;
+import com.google.cloud.storage.Storage;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.nio.file.Files;
 import java.util.UUID;
 
 
@@ -27,6 +31,13 @@ public class MypageC {
 
     @Value("${google.map_key}")
     private String mapKey;
+
+    private final Storage storage;
+
+    @Autowired
+    public MypageC(Storage storage) {
+        this.storage = storage;
+    }
 
     @GetMapping("/mypage")
     public String moveMypage(HttpSession session, Model model, UserDTO userDTO) {
@@ -64,7 +75,7 @@ public class MypageC {
             profileImage = userDTO.getU_img();
         } else {
             // 파일이 업로드된 경우 파일 저장 로직
-            profileImage = "/resources/upload/img/" + saveFile(file);
+            profileImage = saveFile(file);
         }
 
         // userDTO에서 profile 이미지 설정
@@ -81,7 +92,7 @@ public class MypageC {
     private String saveFile(MultipartFile file) {
         try {
             // 절대 경로로 디렉토리 설정
-            File uploadDirFile = new File(System.getProperty("user.dir") + "/src/main/resources/static/upload/img");
+            File uploadDirFile = new File(System.getProperty("user.dir") + "/src/main/resources/static/upload/img/");
 
             UUID uuid = UUID.randomUUID();
             String randomID = uuid.toString();
@@ -97,8 +108,14 @@ public class MypageC {
             File dest = new File(filePath);
             file.transferTo(dest);
 
+            // firebase 스토리지에 저장
+            String thumbnailContentType = file.getContentType();
+            BlobId thumbnailBlobId = BlobId.of("climate-4e4fe.appspot.com", "upload/" + originalFilename);
+            BlobInfo thumbnailBlobInfo = BlobInfo.newBuilder(thumbnailBlobId).setContentType(thumbnailContentType).build();
+            storage.create(thumbnailBlobInfo, Files.readAllBytes(dest.toPath()));
+
             // 저장된 파일 경로 또는 URL 반환
-            return originalFilename; // 실제로는 파일 접근 가능한 URL 반환이 더 적절함
+            return "https://firebasestorage.googleapis.com/v0/b/climate-4e4fe.appspot.com/o/upload%2F"+originalFilename+"?alt=media"; // 실제로는 파일 접근 가능한 URL 반환이 더 적절함
         } catch (Exception e) {
             e.printStackTrace();
             return null;
