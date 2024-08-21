@@ -46,9 +46,8 @@ input:focus, select:focus {
     height: 30px;
     top: 8rem;
     right: 1vh;
-    border: 1px solid #79976a;
     border-radius: 50%;
-    background-color: #79976a;
+    background-color: #79976a8f;
     display: flex;
     justify-content: center;
     align-items: center;
