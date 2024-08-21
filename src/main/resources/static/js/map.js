@@ -49,9 +49,9 @@ $(function () {
         $(".search-overlay").css("display", "none");
         $(".search-popup-box").css("display", "none");
         $(".search-result-box").remove();
-        $("#type-box-all").addClass("active");
-        $("#type-box-wish").removeClass("active");
-        $("#type-box-visited").removeClass("active");
+        $("#type-box-all").addClass("active-btn");
+        $("#type-box-wish").removeClass("active-btn");
+        $("#type-box-visited").removeClass("active-btn");
         $("#search-input").val("");
         page = 0;
         scrollList = 0;
@@ -108,18 +108,18 @@ $(function () {
                 scrollList = 0;
                 totalItems = 0;
                 $(".search-result-box").remove();
-                $("#type-box-all").removeClass("active");
-                $("#type-box-wish").removeClass("active");
-                $("#type-box-visited").removeClass("active");
+                $("#type-box-all").removeClass("active-btn");
+                $("#type-box-wish").removeClass("active-btn");
+                $("#type-box-visited").removeClass("active-btn");
                 getAllByIdCnt(page);
             } else {
                 page = 0;
                 scrollList = 0;
                 totalItems = 0;
                 $(".search-result-box").remove();
-                $("#type-box-all").removeClass("active");
-                $("#type-box-wish").removeClass("active");
-                $("#type-box-visited").removeClass("active");
+                $("#type-box-all").removeClass("active-btn");
+                $("#type-box-wish").removeClass("active-btn");
+                $("#type-box-visited").removeClass("active-btn");
                 getSearchCntById(page);
             }
         }
@@ -131,9 +131,9 @@ $(function () {
             scrollList = 0;
             totalItems = 0;
             $(".search-result-box").remove();
-            $("#type-box-all").addClass("active");
-            $("#type-box-wish").removeClass("active");
-            $("#type-box-visited").removeClass("active");
+            $("#type-box-all").addClass("active-btn");
+            $("#type-box-wish").removeClass("active-btn");
+            $("#type-box-visited").removeClass("active-btn");
             getAllByIdCnt(page);
         } else {
             checkType = "Search";
@@ -141,9 +141,9 @@ $(function () {
             scrollList = 0;
             totalItems = 0;
             $(".search-result-box").remove();
-            $("#type-box-all").removeClass("active");
-            $("#type-box-wish").removeClass("active");
-            $("#type-box-visited").removeClass("active");
+            $("#type-box-all").removeClass("active-btn");
+            $("#type-box-wish").removeClass("active-btn");
+            $("#type-box-visited").removeClass("active-btn");
             getSearchCntById(page);
         }
     });
@@ -155,9 +155,9 @@ $(function () {
         scrollList = 0;
         totalItems = 0;
         $(".search-result-box").remove();
-        $("#type-box-all").addClass("active");
-        $("#type-box-wish").removeClass("active");
-        $("#type-box-visited").removeClass("active");
+        $("#type-box-all").addClass("active-btn");
+        $("#type-box-wish").removeClass("active-btn");
+        $("#type-box-visited").removeClass("active-btn");
         getAllByIdCnt(page);
     })
     //위시 버튼 클릭 함수
@@ -167,9 +167,9 @@ $(function () {
         scrollList = 0;
         totalItems = 0;
         $(".search-result-box").remove();
-        $("#type-box-all").removeClass("active");
-        $("#type-box-wish").addClass("active");
-        $("#type-box-visited").removeClass("active");
+        $("#type-box-all").removeClass("active-btn");
+        $("#type-box-wish").addClass("active-btn");
+        $("#type-box-visited").removeClass("active-btn");
         getWishCnt(page);
     })
     //visited 버튼 클릭 함수
@@ -179,9 +179,9 @@ $(function () {
         scrollList = 0;
         totalItems = 0;
         $(".search-result-box").remove();
-        $("#type-box-all").removeClass("active");
-        $("#type-box-wish").removeClass("active");
-        $("#type-box-visited").addClass("active");
+        $("#type-box-all").removeClass("active-btn");
+        $("#type-box-wish").removeClass("active-btn");
+        $("#type-box-visited").addClass("active-btn");
         getCheckCnt(page);
     })
 })
@@ -480,9 +480,9 @@ async function getAll() {
         },
         success   : function (resData) {
             myplaceList.length = 0; // 배열 초기화
-            $("#type-box-all").addClass("active");
-            $("#type-box-wish").removeClass("active");
-            $("#type-box-visited").removeClass("active");
+            $("#type-box-all").addClass("active-btn");
+            $("#type-box-wish").removeClass("active-btn");
+            $("#type-box-visited").removeClass("active-btn");
 
             resData.forEach(item => {
                 const obj = { //객체 초기화
