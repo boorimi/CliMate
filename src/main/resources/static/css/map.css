@@ -205,8 +205,18 @@
     .status-box {
         display: flex;
         justify-content: center;
-        height: 10vw;
+        height: 15vw;
         width: 100%;
+
+        div {
+            width: 50%;
+            height: 3em;
+        }
+
+        p {
+            margin: 0.5em 0;
+            text-align: center;
+        }
 
         img {
             width: 100%;
@@ -220,11 +230,12 @@
     display: none;
 }
 
-@media (max-width: 768px){
+@media (max-width: 768px) {
     body {
         margin: 0;
     }
-    .map-search-box{
+
+    .map-search-box {
         top: 2vw;
         height: 8vw;
     }
