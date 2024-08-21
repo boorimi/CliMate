@@ -36,9 +36,7 @@ $(function () {
 
     //등급 설정
     $("#grade-select").on("change", function (event) {
-        console.log("check color value => " + event.target.value);
         const color = event.target.value;
-        console.log("check color value => " + color);
         if (color === "red") {
             $("#grade-img").attr("src", "");
             $("#grade-img").attr("src", "/resources/grade_icon/hold_red.png");
@@ -144,7 +142,6 @@ function createMarker(place) {
 
     google.maps.event.addListener(marker, "click", () => {
         const placeUrl = `https://www.google.com/maps/search/?api=1&query=${place.name}}`;
-        console.log("check place => " + JSON.stringify(place));
         const content = `<div　style="{width:5vw;}">
 <p onclick="handlePlaceClick('${place.name}')">${place.name}</p>
 <p onclick="handlePlaceClick('${place.name}')">${place.formatted_address}</p>

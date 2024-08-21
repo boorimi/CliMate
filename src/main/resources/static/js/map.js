@@ -49,9 +49,9 @@ $(function () {
         $(".search-overlay").css("display", "none");
         $(".search-popup-box").css("display", "none");
         $(".search-result-box").remove();
-        $("#type-box-all").addClass("active");
-        $("#type-box-wish").removeClass("active");
-        $("#type-box-visited").removeClass("active");
+        $("#type-box-all").addClass("active-btn");
+        $("#type-box-wish").removeClass("active-btn");
+        $("#type-box-visited").removeClass("active-btn");
         $("#search-input").val("");
         page = 0;
         scrollList = 0;
@@ -108,18 +108,18 @@ $(function () {
                 scrollList = 0;
                 totalItems = 0;
                 $(".search-result-box").remove();
-                $("#type-box-all").removeClass("active");
-                $("#type-box-wish").removeClass("active");
-                $("#type-box-visited").removeClass("active");
+                $("#type-box-all").removeClass("active-btn");
+                $("#type-box-wish").removeClass("active-btn");
+                $("#type-box-visited").removeClass("active-btn");
                 getAllByIdCnt(page);
             } else {
                 page = 0;
                 scrollList = 0;
                 totalItems = 0;
                 $(".search-result-box").remove();
-                $("#type-box-all").removeClass("active");
-                $("#type-box-wish").removeClass("active");
-                $("#type-box-visited").removeClass("active");
+                $("#type-box-all").removeClass("active-btn");
+                $("#type-box-wish").removeClass("active-btn");
+                $("#type-box-visited").removeClass("active-btn");
                 getSearchCntById(page);
             }
         }
@@ -131,9 +131,9 @@ $(function () {
             scrollList = 0;
             totalItems = 0;
             $(".search-result-box").remove();
-            $("#type-box-all").addClass("active");
-            $("#type-box-wish").removeClass("active");
-            $("#type-box-visited").removeClass("active");
+            $("#type-box-all").addClass("active-btn");
+            $("#type-box-wish").removeClass("active-btn");
+            $("#type-box-visited").removeClass("active-btn");
             getAllByIdCnt(page);
         } else {
             checkType = "Search";
@@ -141,9 +141,9 @@ $(function () {
             scrollList = 0;
             totalItems = 0;
             $(".search-result-box").remove();
-            $("#type-box-all").removeClass("active");
-            $("#type-box-wish").removeClass("active");
-            $("#type-box-visited").removeClass("active");
+            $("#type-box-all").removeClass("active-btn");
+            $("#type-box-wish").removeClass("active-btn");
+            $("#type-box-visited").removeClass("active-btn");
             getSearchCntById(page);
         }
     });
@@ -155,9 +155,9 @@ $(function () {
         scrollList = 0;
         totalItems = 0;
         $(".search-result-box").remove();
-        $("#type-box-all").addClass("active");
-        $("#type-box-wish").removeClass("active");
-        $("#type-box-visited").removeClass("active");
+        $("#type-box-all").addClass("active-btn");
+        $("#type-box-wish").removeClass("active-btn");
+        $("#type-box-visited").removeClass("active-btn");
         getAllByIdCnt(page);
     })
     //위시 버튼 클릭 함수
@@ -167,9 +167,9 @@ $(function () {
         scrollList = 0;
         totalItems = 0;
         $(".search-result-box").remove();
-        $("#type-box-all").removeClass("active");
-        $("#type-box-wish").addClass("active");
-        $("#type-box-visited").removeClass("active");
+        $("#type-box-all").removeClass("active-btn");
+        $("#type-box-wish").addClass("active-btn");
+        $("#type-box-visited").removeClass("active-btn");
         getWishCnt(page);
     })
     //visited 버튼 클릭 함수
@@ -179,9 +179,9 @@ $(function () {
         scrollList = 0;
         totalItems = 0;
         $(".search-result-box").remove();
-        $("#type-box-all").removeClass("active");
-        $("#type-box-wish").removeClass("active");
-        $("#type-box-visited").addClass("active");
+        $("#type-box-all").removeClass("active-btn");
+        $("#type-box-wish").removeClass("active-btn");
+        $("#type-box-visited").addClass("active-btn");
         getCheckCnt(page);
     })
 })
@@ -248,10 +248,10 @@ function createMarker(place) {
 
         const placeUrl = `https://www.google.com/maps/search/?api=1&query=${place.name}}`;
 
-        const content = `<div　style="{width:5vw;}">` +
+        const content = `<div　style="{width:8vw;}">` +
             `<div class="status-box">` +
-            `<img id="wish-img" onclick="wishClick('${place.name}', '${place.formatted_address}', '${place.place_id}', this)" src="${iconUrl}">` +
-            `<img id="check-img" onclick="checkClick('${place.name}', '${place.formatted_address}', '${place.place_id}', this)" src="${iconUrl2}">` +
+            `<div class="wish-icon-box"><img id="wish-img" onclick="wishClick('${place.name}', '${place.formatted_address}', '${place.place_id}', this)" src="${iconUrl}"><p>Wish</p></div>` +
+            `<div class="check-icon-box"><img id="check-img" onclick="checkClick('${place.name}', '${place.formatted_address}', '${place.place_id}', this)" src="${iconUrl2}"><p>Check</p></div>` +
             `</div>` +
             `<p id="place-name" onclick="handlePlaceClick('${place.name}')">${place.name}</p>` +
             `<p id="place-addr" onclick="handlePlaceClick('${place.name}')">${place.formatted_address}</p>` +
@@ -480,9 +480,9 @@ async function getAll() {
         },
         success   : function (resData) {
             myplaceList.length = 0; // 배열 초기화
-            $("#type-box-all").addClass("active");
-            $("#type-box-wish").removeClass("active");
-            $("#type-box-visited").removeClass("active");
+            $("#type-box-all").addClass("active-btn");
+            $("#type-box-wish").removeClass("active-btn");
+            $("#type-box-visited").removeClass("active-btn");
 
             resData.forEach(item => {
                 const obj = { //객체 초기화
