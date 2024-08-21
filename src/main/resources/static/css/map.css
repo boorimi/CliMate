@@ -86,7 +86,7 @@
 
 .popup-cancel {
     margin: 1% 2%;
-    font-size: 1.5em;
+    font-size: 1em;
     display: flex;
     justify-content: end;
 }
@@ -212,13 +212,17 @@
 .status-box {
     display: flex;
     justify-content: center;
-    height: 10vw;
+    height: 15vw;
     width: 100%;
 
-    img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
+    div {
+        width: 50%;
+        height: 3em;
+    }
+
+    p {
+        margin: 0.5em 0;
+        text-align: center;
     }
 }
 
@@ -266,16 +270,17 @@
     }
 
     .popup-cancel {
-        margin: 1.5vw 3vw;
+        margin: 2.5vw 4vw;
     }
 
     .search-box {
-        width: 79vw;
-        margin: 0 10vw;
+        width: 80%;
+        margin: 0 10%;
     }
 
     .search-type {
-        margin: 5vw 0;
+        width: 80%;
+        margin: 5vw 10%;
     }
 
     .type-box {
