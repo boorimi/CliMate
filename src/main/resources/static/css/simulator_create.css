@@ -1,9 +1,7 @@
 .content-container {
-    width: 100%;
     height: 100%;
     display: flex;
-    font-family: "Mochiy Pop P One", sans-serif;
-    margin-bottom: 1em;
+    margin: 1em;
 }
 
 .webgl-content {

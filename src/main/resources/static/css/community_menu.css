@@ -4,9 +4,8 @@
 }
 
 .community-all-wrapper {
-    width: 100%;
     height: auto;
-    margin: 1em 0;
+    margin: 1%;
 }
 
 .community-category-wrapper {
@@ -14,7 +13,7 @@
     justify-content: space-between;
     align-items: center;
     height: 3rem;
-    margin: 3em 0 1em 0;
+    margin: 2em 0 1em 0;
 }
 
 #category-video,

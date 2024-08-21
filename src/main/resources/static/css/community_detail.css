@@ -2,7 +2,7 @@
     display: flex;
     padding: 0 15%;
     flex-direction: column;
-    margin: 1em 0 2em 0;
+    margin: 0 2%;
     min-height: 145vh;
     overflow: hidden;
 }
@@ -119,6 +119,13 @@
 /* 본문 */
 .video-detail-text {
     min-height: 10em;
+}
+
+.video-detail-text a{
+    color: #79976a;
+}
+.video-detail-text a:visited {
+    color: #79976a;
 }
 
 /* 댓글 아이콘 */
@@ -282,7 +289,7 @@
     z-index: 900;
     top: 2.5em;
     right: 0;
-    width: 15%;
+    width: 8em;
     border-radius: 0.5em;
     border: 0.1em solid #79976a;
     background-color: #f6f9f4;
@@ -314,6 +321,13 @@
     padding: 1em 0 2em 0;
 }
 
+
+/* 내가 쓴 댓글 페이지 */
+.my-comment-list-container{
+    margin: 1%;
+    min-height: 80vh;
+}
+
 #my-comment-h2{
     color: #79976a;
     font-style: italic;
@@ -330,4 +344,5 @@
     .all-wrapper {
         padding: 0;
     }
+
 }

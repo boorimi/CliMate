@@ -23,7 +23,7 @@
                 <img id="grade" th:if="${myinfo.u_grade != 'Setter'}"
                      th:src="@{'resources/grade_icon/hold_' + ${myinfo.u_grade} + '.png'}">
                 <img id="grade-setter" th:if="${myinfo.u_grade == 'Setter'}"
-                     th:src="@{'resources/grade_icon/drill.png'}">
+                     th:src="@{'resources/grade_icon/hold_Setter.png'}">
 
                 <a id="instagram-link" th:href="@{'http://www.instagram.com/' + ${myinfo.u_insta}}" target="_blank">
                     <img id="instagram" src="/resources/icon/insta.png"></a>

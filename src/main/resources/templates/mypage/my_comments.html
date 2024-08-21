@@ -10,30 +10,31 @@
     <link rel="stylesheet" href="/resources/css/community_detail.css"/>
 </head>
 <body>
-<h2 id="my-comment-h2">My Comments</h2>
-<div class="comment-list" th:each="mc : ${myComments}" th:attr="onclick=|checkDetail('${mc.cm_b_pk}', '${mc.b_category}')|">
-    <div class="comment-top-box">
-        <div class="comment-name-box mypage-comment-title">
-            <p>Title. </p>
-            <p th:if="${mc.b_title == '-'}" th:text="'simulator#'+${mc.cm_b_pk}" class="title"></p>
-            <p th:if="${mc.b_title != '-'}" th:text="${mc.b_title}" class="title"></p>
+<div class="my-comment-list-container">
+    <h2 id="my-comment-h2">My Comments</h2>
+    <div class="comment-list" th:each="mc : ${myComments}"
+         th:attr="onclick=|checkDetail('${mc.cm_b_pk}', '${mc.b_category}')|">
+        <div class="comment-top-box">
+            <div class="comment-name-box mypage-comment-title">
+                <p>Title. </p>
+                <p th:if="${mc.b_title == '-'}" th:text="'simulator#'+${mc.cm_b_pk}" class="title"></p>
+                <p th:if="${mc.b_title != '-'}" th:text="${mc.b_title}" class="title"></p>
+            </div>
         </div>
-    </div>
-    <div class="comment-text-box" style="display: flex; justify-content: space-between">
-        <p class="comment-text" th:text="${mc.cm_text}"></p>
-        <p class="comment-text date" th:text="${#dates.format(mc.cm_datetime, 'yyyy.MM.dd HH:mm')}"></p>
+        <div class="comment-text-box" style="display: flex; justify-content: space-between">
+            <p class="comment-text" th:text="${mc.cm_text}"></p>
+            <p class="comment-text date" th:text="${#dates.format(mc.cm_datetime, 'yyyy.MM.dd HH:mm')}"></p>
+        </div>
     </div>
 </div>
 <script th:inline="javascript">
     function checkDetail(pk, category) {
         if (category == 'simulator') {
-            location.href='/simulator/gallery_detail?b_pk=' + pk;
-        }
-        else if (category == 'video') {
-            location.href='/community/video/detail?b_pk=' + pk;
-        }
-        else {
-            location.href='/community/lfg/detail?b_pk=' + pk;
+            location.href = '/simulator/gallery_detail?b_pk=' + pk;
+        } else if (category == 'video') {
+            location.href = '/community/video/detail?b_pk=' + pk;
+        } else {
+            location.href = '/community/lfg/detail?b_pk=' + pk;
         }
     }
 </script>

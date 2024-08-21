@@ -95,7 +95,100 @@ $(document).ready(function () {
       "/community/searchLfg?columnName=u_nickname&searchWord=" +
       currentNickname;
   });
+
+
+  // 로그인 필요 모달
+  $(".s-menu-create").click(function (){
+    if (userId != null && userId != ""){
+      location.href="/simulator/create";
+    } else {
+      showConfirm();
+    }
+  })
+
+  $(".s-menu-my-project").click(function (){
+    if (userId != null && userId != ""){
+      location.href="/simulator/my_project";
+    } else {
+      showConfirm();
+    }
+  })
+
+  let b_pk;
+  $(".community-content").click(function (){
+    b_pk = $(this).data('b_pk');
+
+    if (userId != null && userId != ""){
+      location.href='/community/video/detail?b_pk=' + b_pk;
+    } else {
+      showConfirm();
+    }
+  })
+
+  $(".community-lfg-wrapper").click(function (){
+    b_pk = $(this).data('b_pk');
+
+    if (userId != null && userId != ""){
+      location.href='/community/lfg/detail?b_pk=' + b_pk;
+    } else {
+      showConfirm();
+    }
+  })
+
+  $(".community-video-insert").click(function (){
+    if (userId != null && userId != ""){
+      location.href="/community/video/insert";
+    } else {
+      showConfirm();
+    }
+  })
+
+  $(".community-lfg-insert").click(function (){
+    if (userId != null && userId != ""){
+      location.href="/community/lfg/insert?b_pk=0";
+    } else {
+      showConfirm();
+    }
+  })
+
+
+  $(".s-menu-gallery").click(function (){
+    location.href="/simulator/gallery?category=All";
+  })
+
+  function loginCheck(userId, dataPk) {
+    if (userId != null && userId !== '') {
+      location.href = '/simulator/gallery_detail?b_pk=' + dataPk;
+    } else {
+      showConfirm();
+    }
+  }
+
 });
+
+// 로그인 필요 모달
+function showConfirm() {
+  document.getElementById('s-menu-modal-background').style.display = 'block';
+}
+
+// 로그인 버튼 클릭
+document.getElementById('s-menu-confirm-yes').addEventListener('click', function() {
+  document.getElementById('s-menu-modal-background').style.display = 'none';
+  location.href = '/loginC';
+});
+
+// 취소 버튼 클릭
+document.getElementById('s-menu-confirm-no').addEventListener('click', function() {
+  document.getElementById('s-menu-modal-background').style.display = 'none';
+});
+
+// 배경을 클릭했을 때 모달 닫기
+document.getElementById('s-menu-modal-background').addEventListener('click', function(event) {
+  if (event.target === this) {
+    this.style.display = 'none';
+  }
+});
+
 
 function toggleMenu() {
   document.querySelector(".hamburger-menu").classList.toggle("active");
