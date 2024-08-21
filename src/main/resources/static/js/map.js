@@ -248,10 +248,10 @@ function createMarker(place) {
 
         const placeUrl = `https://www.google.com/maps/search/?api=1&query=${place.name}}`;
 
-        const content = `<div　style="{width:5vw;}">` +
+        const content = `<div　style="{width:8vw;}">` +
             `<div class="status-box">` +
-            `<img id="wish-img" onclick="wishClick('${place.name}', '${place.formatted_address}', '${place.place_id}', this)" src="${iconUrl}">` +
-            `<img id="check-img" onclick="checkClick('${place.name}', '${place.formatted_address}', '${place.place_id}', this)" src="${iconUrl2}">` +
+            `<div class="wish-icon-box"><img id="wish-img" onclick="wishClick('${place.name}', '${place.formatted_address}', '${place.place_id}', this)" src="${iconUrl}"><p>Wish</p></div>` +
+            `<div class="check-icon-box"><img id="check-img" onclick="checkClick('${place.name}', '${place.formatted_address}', '${place.place_id}', this)" src="${iconUrl2}"><p>Check</p></div>` +
             `</div>` +
             `<p id="place-name" onclick="handlePlaceClick('${place.name}')">${place.name}</p>` +
             `<p id="place-addr" onclick="handlePlaceClick('${place.name}')">${place.formatted_address}</p>` +
