@@ -1,228 +1,228 @@
-
 .map-box {
     width: 100%;
     height: 80%;
     position: relative;
+}
 
-    .search-overlay {
-        position: absolute;
-        z-index: 2;
-        background-color: #000;
-        opacity: 0.5;
+.search-overlay {
+    position: absolute;
+    z-index: 2;
+    background-color: #000;
+    opacity: 0.5;
+    height: 100%;
+    width: 100%;
+    display: none;
+}
+
+#map {
+    height: 80vh;
+    width: 100%;
+    position: relative;
+}
+
+.map-search-box {
+    position: absolute;
+    top: 1rem;
+    left: 15vw;
+    height: 3rem;
+    width: 65vw;
+    border-radius: 5vw;
+    display: flex;
+    justify-content: center;
+    background-color: #fff;
+}
+
+.category-box {
+    width: 10%;
+    height: 100%;
+    position: absolute;
+    left: 1vw;
+}
+
+.search-list {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+
+.map-input {
+    width: 72%;
+    border: none;
+}
+
+.map-input:focus {
+    outline: none;
+}
+
+.btn-box {
+    width: 13%;
+    height: 100%;
+    position: absolute;
+    left: 58vw;
+}
+
+.search-btn {
+    width: 70%;
+    height: 100%;
+    object-fit: contain;
+}
+
+
+.search-popup-box {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    width: 40%;
+    height: 90%;
+    margin: 0 30%;
+    bottom: 5%;
+    border-radius: 10px;
+    z-index: 3;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    scrollbar-width: none;
+}
+
+.popup-cancel {
+    margin: 1% 2%;
+    font-size: 1em;
+    display: flex;
+    justify-content: end;
+}
+
+.search-box {
+    background-color: #fff;
+    border: 1px solid #79976a;
+    width: 80%;
+    height: 2em;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin: 0 10%;
+    border-radius: 5vw;
+}
+
+.search-input {
+    width: 84%;
+    height: 85%;
+    border: none;
+    background: #ffffff00;
+}
+
+.search-input:focus {
+    outline: none;
+}
+
+.search-img {
+    object-fit: contain;
+}
+
+
+.search-type {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2% 0;
+    height: 3.5em;
+}
+
+.type-box {
+    border: 0.1rem solid #79976a;
+    border-radius: 0.7rem;
+    padding: 1% 2%;
+    color: #79976a;
+    background: white;
+    margin: 1% 2% 0% 2%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    p {
+        margin: 0;
+    }
+}
+
+.active-btn {
+    background: #79976a;
+    color: #fff;
+}
+
+
+.search-result-list {
+    height: auto;
+    width: 80%;
+}
+
+.search-result {
+    list-style: none;
+}
+
+.search-result-box {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid #79976a;
+    height: auto;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.search-icon {
+    width: 30%;
+    height: auto;
+
+    img {
+        width: 100%;
         height: 100%;
+        object-fit: contain;
+    }
+}
+
+.search-text {
+    width: 60vw;
+    height: auto;
+    font-size: 1.1em;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px;
+
+    p {
+        margin: 0.3em 0;
+        font-size: 0.7em;
+    }
+    p:first-child{
+        font-weight: 900;
+        font-size: 1em;
+    }
+}
+
+.search-map {
+    width: 30%;
+    height: auto;
+
+    img {
         width: 100%;
-        display: none;
+        height: 100%;
+        object-fit: contain;
+    }
+}
+
+.status-box {
+    display: flex;
+    justify-content: center;
+    height: 15vw;
+    width: 100%;
+
+    div {
+        width: 50%;
+        height: 3em;
     }
 
-    #map {
-        height: 80vh;
-        width: 100%;
-        position: relative;
-    }
-
-    .map-search-box {
-        position: absolute;
-        top: 1rem;
-        left: 15vw;
-        height: 3rem;
-        width: 65vw;
-        border-radius: 5vw;
-        display: flex;
-        justify-content: center;
-        background-color: #fff;
-
-        .category-box {
-            width: 10%;
-            height: 100%;
-            position: absolute;
-            left: 1vw;
-
-            .search-list {
-                width: 100%;
-                height: 100%;
-                object-fit: contain;
-            }
-        }
-
-        .map-input {
-            width: 72%;
-            border: none;
-        }
-
-        .map-input:focus {
-            outline: none;
-        }
-
-        .btn-box {
-            width: 13%;
-            height: 100%;
-            position: absolute;
-            left: 58vw;
-
-            .search-btn {
-                width: 70%;
-                height: 100%;
-                object-fit: contain;
-            }
-        }
-    }
-
-    .search-popup-box {
-        display: none;
-        position: absolute;
-        background-color: #fff;
-        width: 100%;
-        height: 85%;
-        bottom: 0;
-        border-top-left-radius: 5vw;
-        border-top-right-radius: 5vw;
-        z-index: 3;
-        overflow: scroll;
-        overflow-x: hidden;
-
-        .popup-cancel {
-            margin: 1.5vw 3vw;
-            font-size: 1.5em;
-            display: flex;
-            justify-content: end;
-        }
-
-        .search-box {
-            background-color: #fff;
-            border: 1px solid #79976a;
-            width: 79vw;
-            height: 2em;
-            position: relative;
-            display: flex;
-            justify-content: center;
-            margin: 0 10vw;
-            border-radius: 5vw;
-
-            .search-input {
-                width: 84%;
-                height: 85%;
-                border: none;
-            }
-
-            .search-input:focus {
-                outline: none;
-            }
-
-            .search-img {
-                object-fit: contain;
-            }
-        }
-
-        .search-type {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 5vw 0;
-            height: 3.5em;
-
-            .type-box {
-                border: 0.1rem solid #79976a;
-                border-radius: 0.7rem;
-                font-size: 1.1em;
-                padding: 2.5%;
-                color: #79976a;
-                background: white;
-                margin: 2%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-
-                p {
-                    margin: 0 1vw;
-                    font-size: 4.5vw;
-                    height: 90%;
-                }
-            }
-
-            .active {
-                background: #79976a;
-                color: #fff;
-            }
-        }
-
-        .search-result-list {
-            height: auto;
-            width: 80%;
-
-            .search-result {
-                list-style: none;
-
-                .search-result-box {
-                    list-style: none;
-                    margin: 0;
-                    padding: 0;
-                    border-top: 1px solid #79976a;
-                    height: auto;
-                    width: 100%;
-                    display: flex;
-                    justify-content: center;
-                }
-
-                .search-icon {
-                    width: 15vw;
-                    height: auto;
-
-                    img {
-                        width: 100%;
-                        height: 100%;
-                        object-fit: contain;
-                    }
-                }
-
-                .search-text {
-                    width: 60vw;
-                    height: auto;
-                    font-size: 1.1em;
-                    display: flex;
-                    flex-wrap: wrap;
-                    padding: 10px;
-
-                    p {
-                        margin: 1vw 0;
-                    }
-                }
-
-                .search-map {
-                    width: 15vw;
-                    height: auto;
-
-                    img {
-                        width: 100%;
-                        height: 100%;
-                        object-fit: contain;
-                    }
-                }
-            }
-        }
-    }
-
-    .status-box {
-        display: flex;
-        justify-content: center;
-        height: 15vw;
-        width: 100%;
-
-        div {
-            width: 50%;
-            height: 3em;
-        }
-
-        p {
-            margin: 0.5em 0;
-            text-align: center;
-        }
-
-        img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
+    p {
+        margin: 0.5em 0;
+        text-align: center;
     }
 }
 
@@ -235,13 +235,112 @@
         margin: 0;
     }
 
+    .search-overlay {
+        position: absolute;
+        z-index: 2;
+        background-color: #000;
+        opacity: 0.5;
+        height: 100%;
+        width: 100%;
+        display: none;
+    }
+
+    .map-search-box {
+        position: absolute;
+        top: 1rem;
+        left: 15vw;
+        height: 3rem;
+        width: 65vw;
+        border-radius: 5vw;
+        display: flex;
+        justify-content: center;
+        background-color: #fff;
+    }
+
+    .search-popup-box {
+        width: 100%;
+        height: 85%;
+        bottom: 0;
+        border-top-left-radius: 5vw;
+        border-top-right-radius: 5vw;
+        z-index: 3;
+        margin: 0;
+        border-bottom-left-radius: 0px;
+        border-bottom-left-radius: 0px;
+    }
+
+    .popup-cancel {
+        margin: 2.5vw 4vw;
+    }
+
+    .search-box {
+        width: 80%;
+        margin: 0 10%;
+    }
+
+    .search-type {
+        width: 80%;
+        margin: 5vw 10%;
+    }
+
+    .type-box {
+        padding: 2.5%;
+        margin: 2%;
+
+        p {
+            margin: 0 1vw;
+            font-size: 4.5vw;
+            height: 90%;
+        }
+    }
+
+    .search-result-box {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        border-top: 1px solid #79976a;
+        height: auto;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+
+    }
+
+    .search-icon {
+        width: 15vw;
+    }
+
+    .search-text {
+        max-width: 50vw;
+        height: auto;
+        font-size: 1.1em;
+        display: flex;
+        flex-wrap: wrap;
+        padding: 10px;
+
+        p {
+            margin: 1vw 0;
+            font-size: 3vw;
+        }
+        p:first-child{
+            font-weight: 900;
+            font-size: 3.5vw;
+        }
+    }
+
+    .search-map {
+        width: 15vw;
+        height: auto;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+    }
+
     .map-search-box {
         top: 2vw;
         height: 8vw;
     }
 }
-
-.session-value {
-    display: none;
-}
-
