@@ -32,25 +32,25 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 65%;
-    width: 65%;
+    height: 13rem;
+    width: 13rem;
     border-radius: 100%;
     margin-bottom: 0.7rem;
     border: 0.15em solid #79976a;
+    overflow: hidden;
 }
 
 #climbing-img {
     position: absolute;
     left: 0;
     bottom: -120%;
-    height: 90%;
-    width: 80%;
+    height: 15em;
 }
 
 .mypage-profile-img img {
     width: 100%;
     height: 100%;
-    border-radius: 100%;
+    object-fit: cover;
 }
 
 .mypage-title {

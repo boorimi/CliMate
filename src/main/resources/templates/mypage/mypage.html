@@ -16,8 +16,8 @@
             <div class="mypage-title">MY Page</div>
             <div class="mypage-profile-img">
                 <img th:src="@{${myinfo.u_img}}">
-                <img id="climbing-img" src="/resources/img/climbing.png">
             </div>
+            <img id="climbing-img" src="/resources/img/climbing.png">
             <div class="mypage-name-box">
                 <p th:text="${myinfo.u_nickname}"></p>
                 <img id="grade" th:if="${myinfo.u_grade != 'Setter'}"
