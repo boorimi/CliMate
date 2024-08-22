@@ -20,7 +20,7 @@ $(function () {
 
         $("#profile").attr("src", "");
 
-    })
+    });
 
     //유저타입
     $(".category-select").change(function () {
@@ -32,7 +32,7 @@ $(function () {
             $("#usertype-grade-preview").css("display", "block");
 
         }
-    })
+    });
 
     //등급 설정
     $("#grade-select").on("change", function (event) {
@@ -59,7 +59,7 @@ $(function () {
             $("#grade-img").attr("src", "");
             $("#grade-img").attr("src", "/resources/grade_icon/hold_purple.png");
         }
-    })
+    });
 
     //google map
     $("#homeground").on("click", function (event) {
@@ -72,7 +72,7 @@ $(function () {
         $("body").css("overflow", "hidden");
         window.scrollTo({top: map_height - header_height, behavior: 'smooth'});
         //window.open("/miniMapC", "_blank","width=820,height=820,left=1,top=200, right:10");
-    })
+    });
 
     $(".map-cancel").on("click", function (event) {
         $("#map-box").css("display", "none");
@@ -80,7 +80,31 @@ $(function () {
         $("#map-box").css("top", "0");
         $("body").css("overflow", "scroll");
     });
+
+    $("#comment-confirm-yes").on("click", function () {
+        location.href = "/";
+    })
 })
+
+function handleFormSubmit(event) {
+    event.preventDefault();
+    const form = event.target;
+    const formData = new FormData(form);
+
+    $.ajax({
+        url        : "/signup",
+        method     : "post",
+        data       : formData,
+        contentType: false,
+        processData: false,
+        success    : function (resData) {
+            $(".privacy-modal-background").css("display", "block");
+        },
+        error      : function (error) {
+            console.error(error);
+        }
+    })
+}
 
 /* google map */
 function initMap() {
