@@ -57,7 +57,7 @@ public class MypageC {
     }
 
     @GetMapping("/mypage/deleteUserInfo")
-    public String deleteUsrInfo(HttpSession session, UserDTO userDTO, Model model){
+    public String deleteUsrInfo(HttpSession session, UserDTO userDTO, Model model) {
         userDTO.setU_id((String) session.getAttribute("user_id"));
         System.out.println(session.getAttribute("user_id"));
         model.addAttribute("deleteAccount", mypageDAO.deleteUserInfo(userDTO));
@@ -76,6 +76,12 @@ public class MypageC {
         } else {
             // 파일이 업로드된 경우 파일 저장 로직
             profileImage = saveFile(file);
+        }
+
+        //setter 확인
+        if (userDTO.getU_category().equals("Setter")) {
+            System.out.println("check 1");
+            userDTO.setU_grade("Setter");
         }
 
         // userDTO에서 profile 이미지 설정
@@ -115,7 +121,7 @@ public class MypageC {
             storage.create(thumbnailBlobInfo, Files.readAllBytes(dest.toPath()));
 
             // 저장된 파일 경로 또는 URL 반환
-            return "https://firebasestorage.googleapis.com/v0/b/climate-4e4fe.appspot.com/o/upload%2F"+originalFilename+"?alt=media"; // 실제로는 파일 접근 가능한 URL 반환이 더 적절함
+            return "https://firebasestorage.googleapis.com/v0/b/climate-4e4fe.appspot.com/o/upload%2F" + originalFilename + "?alt=media"; // 실제로는 파일 접근 가능한 URL 반환이 더 적절함
         } catch (Exception e) {
             e.printStackTrace();
             return null;
