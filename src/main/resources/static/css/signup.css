@@ -76,7 +76,7 @@ input:focus, select:focus {
 }
 
 /* 회원가입 각 항목 */
-.signup-input{
+.signup-input {
     display: flex;
     flex-direction: column;
 }
@@ -202,7 +202,7 @@ input:focus, select:focus {
     color: #fff;
 }
 
-.signup-delete-account{
+.signup-delete-account {
     margin: 2% 30% 10% 30%;
     display: flex;
     justify-content: center;
@@ -210,6 +210,23 @@ input:focus, select:focus {
     font-size: 0.8em;
     cursor: default;
 }
+
+.privacy-modal-background {
+    display: none;
+}
+
+#comment-confirm-yes {
+    padding: 0.5em 1em;
+    border: none;
+    background-color: #79976a;
+    color: white;
+    border-radius: 0.3em;
+}
+
+#comment-confirm-yes:hover {
+    background-color: #516746;
+}
+
 
 @media (max-width: 768px) {
     /* 회원가입 */
@@ -235,7 +252,7 @@ input:focus, select:focus {
         height: 5%;
         margin: 10% auto;
     }
-    
+
     .grade-box {
         height: 5%;
     }
