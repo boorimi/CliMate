@@ -236,6 +236,7 @@ footer {
 }
 
 /* 모달 버튼 스타일 */
+.private-modal button,
 .comment-confirm button,
 .s-menu-login-modal button,
 .s-create-modal button,
@@ -249,6 +250,7 @@ footer {
   border-radius: 0.3em;
 }
 
+.private-modal button:hover,
 .comment-confirm button:hover,
 .s-menu-login-modal button:hover,
 .s-create-modal button:hover,
