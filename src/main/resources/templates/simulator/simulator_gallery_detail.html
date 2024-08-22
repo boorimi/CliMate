@@ -22,7 +22,7 @@
         <div class="top-box">
             <div class="name-box">
                 <p th:text="${pj.u_nickname}" class="nickname"
-                   th:attr="data-privacy=${project.u_profile}, data-id=${pj.b_u_id}"></p>
+                   th:attr="data-privacy=${project.u_profile}, data-id=${pj.b_u_id}, data-nickname=${pj.u_nickname}"></p>
                 <img th:src="@{'/resources/grade_icon/hold_' + ${pj.u_grade} + '.png'}">
             </div>
             <div class="detail-date" th:text="${#dates.format(pj.b_datetime, 'yyyy.MM.dd')}"></div>
@@ -87,7 +87,7 @@
                 <div class="comment-top-box">
                     <div class="comment-name-box">
                         <p th:text="${scl.u_nickname}" class="nickname"
-                           th:attr="data-privacy=${scl.u_profile}, data-id=${scl.cm_u_id}"></p>
+                           th:attr="data-privacy=${scl.u_profile}, data-id=${scl.cm_u_id}, data-nickname=${scl.u_nickname}"></p>
                         <img th:src="@{'/resources/grade_icon/hold_' + ${scl.u_grade} + '.png'}">
                     </div>
                     <div class="date-delete-box">
@@ -110,7 +110,7 @@
                         <div class="comment-bottom-name-date">
                             <div class="comment-name-box">
                                 <p th:text="${rl.u_nickname}" class="nickname"
-                                   th:attr="data-privacy=${rl.u_profile}, data-id=${rl.re_u_id}"></p>
+                                   th:attr="data-privacy=${rl.u_profile}, data-id=${rl.re_u_id}, data-nickname=${rl.u_nickname}"></p>
                                 <img th:src="@{'/resources/grade_icon/hold_' + ${rl.u_grade} + '.png'}">
                             </div>
                             <div class="date-more-box">

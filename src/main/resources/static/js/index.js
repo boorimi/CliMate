@@ -70,18 +70,25 @@ $(document).ready(function () {
   const linkProfile = $("#link-profile");
   const linkVideo = $("#link-video");
   const linklfg = $("#link-lfg");
-  linkProfile.click(function () {
+  linkProfile.click(function (event) {
+
     // console.log('공개여부: '+privacy);
     // console.log('내 아이디: '+userId);
     // console.log('클릭한 아이디: '+currentId);
+
     if (privacy === "yes" || userId === currentId) {
       location.href = "/mypage/userProfile?u_id=" + currentId;
     } else {
-      console.log("안됨");
       $(".privacy-modal-background").css("display", "block");
       $(".privacy-modal-background").click(function () {
         $(".privacy-modal-background").css("display", "none");
       });
+      $("#private-modal-close").click(function (){
+        $(".privacy-modal-background").css("display", "none");
+      });
+      $(".private-modal").click(function (event){
+        event.stopPropagation();
+      })
     }
   });
 
@@ -151,11 +158,6 @@ $(document).ready(function () {
     }
   })
 
-
-  $(".s-menu-gallery").click(function (){
-    location.href="/simulator/gallery?category=All";
-  })
-
   function loginCheck(userId, dataPk) {
     if (userId != null && userId !== '') {
       location.href = '/simulator/gallery_detail?b_pk=' + dataPk;
@@ -163,6 +165,10 @@ $(document).ready(function () {
       showConfirm();
     }
   }
+
+  $(".s-menu-gallery").click(function (){
+    location.href="/simulator/gallery?category=All";
+  })
 
 });
 
