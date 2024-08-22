@@ -114,9 +114,8 @@
     input {
         height: 80%;
         width: 90%;
-        border: 0.05em solid #79976a;
+        border: 0.1em solid #79976a;
         border-radius: 0.3em;
-        font-size: 1.5em;
         margin-right: 0.5em;
     }
 
