@@ -70,6 +70,7 @@ $(document).ready(function () {
   const linkProfile = $("#link-profile");
   const linkVideo = $("#link-video");
   const linklfg = $("#link-lfg");
+  const linkGallery = $("#link-gallery");
   linkProfile.click(function (event) {
 
     // console.log('공개여부: '+privacy);
@@ -102,6 +103,10 @@ $(document).ready(function () {
       "/community/searchLfg?columnName=u_nickname&searchWord=" +
       currentNickname;
   });
+
+  linkGallery.click(function (){
+    location.href="/simulator/searchNickname?nickname="+currentNickname;
+  })
 
 
   // 로그인 필요 모달
