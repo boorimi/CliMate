@@ -43,7 +43,7 @@ body {
 #climbing-img {
     position: absolute;
     left: 0;
-    bottom: -120%;
+    bottom: -140%;
     height: 15em;
 }
 
@@ -92,9 +92,10 @@ body {
 
 .together,
 .video,
-.places,
+.place,
 .homeground,
 .myplace,
+.gallery,
 .comments,
 .info-update {
     min-height: 3rem;
@@ -106,9 +107,10 @@ body {
 
 .together img,
 .video img,
-.places img,
+.place img,
 .homeground img,
 .myplace img,
+.gallery img,
 .comments img,
 .info-update img {
     height: 1em;
@@ -145,15 +147,22 @@ body {
 }
 
 .video {
-    width: 36%;
+    width: 37%;
 }
 
 .myplace {
     width: 31%;
 }
 
-.places {
-    width: 25%;
+.mypage.gallery{
+    width: 20%;
+}
+.profile.gallery{
+    width: 26%;
+}
+
+.place {
+    width: 15%;
 }
 
 .info-update {
@@ -168,15 +177,6 @@ body {
 
     .mypage-profile-container {
         width: 80%;
-    }
-
-    .together,
-    .video,
-    .places,
-    .homeground,
-    .myplace,
-    .comments {
-        font-size: 4vw;
     }
 
 }

@@ -54,7 +54,8 @@ public interface SimulatorMapper {
             "JOIN cli_user u " +
             "ON s.b_u_id = u.u_id " +
             "WHERE u.u_category = 'Setter' " +
-            "and s.b_category = 'simulator'")
+            "and s.b_category = 'simulator' " +
+            "order by s.b_datetime desc")
     public List<SimulatorDTO> selectSetter();
 
     // 일반유저 문제만 셀렉트
@@ -65,7 +66,8 @@ public interface SimulatorMapper {
             "JOIN cli_user u " +
             "ON s.b_u_id = u.u_id " +
             "WHERE u.u_category = 'Normal' " +
-            "and s.b_category = 'simulator'")
+            "and s.b_category = 'simulator' " +
+            "order by s.b_datetime desc")
     public List<SimulatorDTO> selectNormal();
 
     // 닉네임 검색
@@ -76,7 +78,8 @@ public interface SimulatorMapper {
             "JOIN cli_user u " +
             "ON s.b_u_id = u.u_id " +
             "WHERE u.u_nickname LIKE  '%' || #{nickname} || '%'" +
-            "and b_category = 'simulator'")
+            "and b_category = 'simulator'" +
+            "order by s.b_datetime desc")
     public List<SimulatorDTO> searchNickname(String nickname);
 
     // 게시물 삭제

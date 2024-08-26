@@ -17,8 +17,8 @@
             <div class="mypage-title">Profile</div>
             <div class="mypage-profile-img">
                 <img th:src="@{${myinfo.u_img}}">
-                <img id="climbing-img" src="/resources/img/climbing.png">
             </div>
+            <img id="climbing-img" src="/resources/img/climbing.png">
             <div class="mypage-name-box">
                 <p id="nickname" th:text="${myinfo.u_nickname}"></p>
                 <img id="grade" th:src="@{'/resources/grade_icon/hold_' + ${myinfo.u_grade} + '.png'}">
@@ -26,23 +26,27 @@
                     <img id="instagram" src="/resources/icon/insta.png"></a>
             </div>
         </div>
-        <div class="mypage homeground">
+        <div class="profile homeground">
             <div>
                 <p>Home ground</p>
                 <img src="/resources/icon/right.png"><br>
             </div>
             <p th:text="${myinfo.u_homeground}"></p>
         </div>
-        <div class="mypage together" onclick="goTogetherPost()">
+        <div class="profile together" onclick="goTogetherPost()">
             <p>Together posts</p>
             <img src="/resources/icon/right.png">
         </div>
-        <div class="mypage video" onclick="goVideoPost()">
+        <div class="profile video" onclick="goVideoPost()">
             <p>Video posts</p>
             <img src="/resources/icon/right.png">
         </div>
-        <div class="mypage places" id="mypage-myplace" onclick="goMyplace()">
-            <p>Places</p>
+        <div class="profile gallery" id="mypage-gallery" onclick="goGallery()">
+            <p>Gallery</p>
+            <img src="/resources/icon/right.png">
+        </div>
+        <div class="profile place" id="mypage-myplace" onclick="goMyplace()">
+            <p>Place</p>
             <img src="/resources/icon/right.png">
         </div>
     </div>
@@ -50,17 +54,21 @@
 <script>
     const nickname = document.getElementById('nickname').innerText;
 
-    function goTogetherPost(){
-    console.log(nickname);
+    function goTogetherPost() {
+        console.log(nickname);
         location.href = '/community/searchLfg?columnName=u_nickname&searchWord=' + nickname;
     }
 
-    function goVideoPost(){
+    function goVideoPost() {
         location.href = '/community/search?columnName=u_nickname&searchWord=' + nickname;
     }
 
     function goMyplace() {
         location.href = "/mapC?type=mypage";
+    }
+
+    function goGallery() {
+        location.href = "/simulator/searchNickname?nickname=" + nickname;
     }
 </script>
 </body>
