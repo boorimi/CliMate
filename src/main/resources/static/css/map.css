@@ -273,7 +273,7 @@
         z-index: 3;
         margin: 0;
         border-bottom-left-radius: 0px;
-        border-bottom-left-radius: 0px;
+        border-bottom-right-radius: 0px;
     }
 
     .popup-cancel {
