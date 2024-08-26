@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
     <meta
@@ -28,15 +28,14 @@
 <body>
 <div class="community-video-update-all-wrapper">
 
-    <div class="community-showoff-video">
-        <div th:each="video : ${showoffList.videoList}">
-            <video class="video" controls>
-                <source
-                        th:src="@{/resources/upload/video/{filename}(filename=${video})}"
-                        type="video/mp4"
-                />
-                Your browser does not support the video tag.
-            </video>
+    <div style="position: relative;">
+        <div class="community-showoff-video">
+            <div th:each="video : ${showoffList.videoList}">
+                <video class="video" controls>
+                    <source th:src="${video}" type="video/mp4"/>
+                    Your browser does not support the video tag.
+                </video>
+            </div>
         </div>
     </div>
 
@@ -47,7 +46,7 @@
             <input type="text" name="b_title" th:value="${showoffList.b_title}"/>
         </div>
         <div class="text-box">
-            <textarea name="b_text" cols="30" rows="10" maxlength="200" th:value="${showoffList.b_text}"/></textarea>
+            <textarea name="b_text" cols="30" rows="10" maxlength="200">[[${showoffList.b_text}]]</textarea>
         </div>
         <button class="video-insert-btn" type="submit">Post</button>
     </form>
@@ -55,15 +54,15 @@
 
 <script>
     // 인풋 포커스 div background-color 변경
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         var inputElement = document.querySelector('input[name="b_title"]');
         var titleBox = document.querySelector('.title-box');
 
-        inputElement.addEventListener('focus', function() {
+        inputElement.addEventListener('focus', function () {
             titleBox.style.backgroundColor = '#f3f6ee';
         });
 
-        inputElement.addEventListener('blur', function() {
+        inputElement.addEventListener('blur', function () {
             titleBox.style.backgroundColor = '';
         });
     });
