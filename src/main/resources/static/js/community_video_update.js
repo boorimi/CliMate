@@ -3,6 +3,10 @@ $(document).ready(function () {
     $(".community-showoff-video").slick({
         prevArrow: $(".slick-prev"),
         nextArrow: $(".slick-next"),
+        centerMode: true, // 가운데 정렬 모드 활성화
+        centerPadding: '0', // 중앙 정렬 시 좌우 패딩 제거
+        variableWidth: true, // 슬라이드 너비 조절 가능
+        infinite: false
     });
 
     $('.video').on('click', function () {
