@@ -28,7 +28,8 @@
     <div class="video-detail top-box">
         <div class="video-detail name-box">
             <p class="nickname" th:text="${showoffList.u_nickname}"
-               th:attr="data-privacy=${showoffList.u_profile}, data-id=${showoffList.b_u_id}, data-nickname=${showoffList.u_nickname}"></p>
+               th:attr="data-privacy=${showoffList.u_profile},
+               data-id=${showoffList.b_u_id}, data-nickname=${showoffList.u_nickname}"></p>
             <img th:src="@{'/resources/grade_icon/hold_' + ${showoffList.u_grade} + '.png'}">
         </div>
         <div class="detail-date" th:text="${#dates.format(showoffList.b_datetime, 'yyyy.MM.dd')}"></div>
