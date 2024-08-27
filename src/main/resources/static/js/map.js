@@ -347,8 +347,10 @@ function wishClick(placeName, placeAddr, placeId, imgElement) {
     const newIconUrl = isCurrentlyLiked ? '/resources/icon/wish_gray.png' : '/resources/icon/wish_red.png';
 
     if (userId == "") {
-        alert("do login");
-        location.href = "/";
+        // alert("do login");
+        // location.href = "/";
+        document.getElementById('s-menu-modal-background').style.display = 'block';
+
     }
 
     if (!isCurrentlyLiked) {
@@ -413,8 +415,9 @@ function checkClick(placeName, placeAddr, placeId, imgElement) {
     const newIconUrl = isCurrentlyCheck ? '/resources/icon/check_gray.png' : '/resources/icon/check_red.png';
 
     if (userId == "") {
-        alert("do login");
-        location.href = "/";
+        // alert("do login");
+        // location.href = "/";
+        document.getElementById('s-menu-modal-background').style.display = 'block';
     }
 
     if (!isCurrentlyCheck) {
