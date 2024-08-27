@@ -66,33 +66,42 @@ $(document).ready(function () {
 
 // 저장버튼 클릭 모달
 function showSaveConfirm() {
-const modalBackground = document.getElementById('s-create-modal-background');
-const confirmSave = document.getElementById('s-confirm-save');
-const confirmCancel = document.getElementById('s-confirm-cancel');
+    const modalBackground = document.getElementById('s-create-modal-background');
+    const confirmSave = document.getElementById('s-confirm-save');
+    const confirmCancel = document.getElementById('s-confirm-cancel');
 
     modalBackground.style.display = 'block';
 
-    confirmSave.addEventListener('click', () => {
-        console.log("세이브 클릭");
+    // 기존 이벤트 리스너 제거
+    confirmSave.removeEventListener('click', saveHandler);
+    confirmCancel.removeEventListener('click', cancelHandler);
 
-        document.getElementById('s-create-modal').style.display = "none";
-        app.exportScene();
-        document.getElementById('s-loading-modal').style.display = "block";
-    });
+    // 새로운 이벤트 리스너 등록
+    confirmSave.addEventListener('click', saveHandler);
+    confirmCancel.addEventListener('click', cancelHandler);
+}
 
-    confirmCancel.addEventListener('click', function () {
-        modalBackground.style.display = 'none';
+// 저장 버튼 클릭 시 함수
+function saveHandler() {
+    console.log("세이브 클릭");
 
+    document.getElementById('s-create-modal').style.display = "none";
+    app.exportScene();
+    document.getElementById('s-loading-modal').style.display = "block";
+}
 
-    })
+// 취소 버튼 클릭 시 함수
+function cancelHandler() {
+    console.log('취소 클릭');
+    document.getElementById('s-create-modal-background').style.display = 'none';
 }
 
 // 저장 완료 모달
 function saveComplete() {
     document.getElementById('s-loading-modal').style.display = 'none';
     document.getElementById('s-save-complete-modal').style.display = 'block';
-    document.getElementById('s-confirm-close').addEventListener('click', function (){
-        location.href="/simulator/main";
+    document.getElementById('s-confirm-close').addEventListener('click', function () {
+        location.href = "/simulator/main";
     })
 }
 
@@ -157,6 +166,8 @@ class App {
     exportScene() {
         const exporter = new GLTFExporter();
 
+        console.log("3D 저장 함수 실행");
+
         // 씬 > glb 변환
         exporter.parse(
             this._scene,
@@ -180,6 +191,7 @@ class App {
 
     // 랜덤 문자열 생성
     generateRandomString(length) {
+        console.log("랜덤문자 생성 함수 실행");
         const characters = '123456789';
         let result = '';
         const charactersLength = characters.length;
@@ -194,6 +206,7 @@ class App {
 
         // 캔버스를 캡처하여 이미지 데이터 URL로 변환
         this._renderer.domElement.toBlob((imageBlob) => {
+            console.log("이미지 생성 함수 실행");
             const formData = new FormData();
             formData.append('gltfFile', gltfBlob, gltfFile);
             formData.append('imgFile', imageBlob, imgFile);
