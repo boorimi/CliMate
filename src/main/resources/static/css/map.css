@@ -1,7 +1,12 @@
 .map-box {
     width: 100%;
-    height: 80%;
+    /*height: 80%;*/
+    height: 50em;
     position: relative;
+/*  add  */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .search-overlay {
@@ -15,7 +20,8 @@
 }
 
 #map {
-    height: 90vh;
+    /*height: 90vh;*/
+    height: 100%;
     width: 100%;
     position: relative;
 }
@@ -73,10 +79,12 @@
     display: none;
     position: absolute;
     background-color: #fff;
-    width: 40%;
-    height: 90%;
-    margin: 0 30%;
-    bottom: 5%;
+    /*width: 40%;*/
+    /*height: 90%;*/
+    /*margin: 0 30%;*/
+    /*bottom: 5%;*/
+    width: 25em;
+    height: 30em;
     border-radius: 10px;
     z-index: 3;
     overflow-x: hidden;
@@ -170,7 +178,8 @@
 }
 
 .search-icon {
-    width: 30%;
+    /*width: 30%;*/
+    width: 20%;
     height: auto;
 
     img {
@@ -199,7 +208,8 @@
 }
 
 .search-map {
-    width: 30%;
+    /*width: 30%;*/
+    width: 20%;
     height: auto;
 
     img {
@@ -240,6 +250,10 @@
 @media (max-width: 768px) {
     body {
         margin: 0;
+    }
+    /* add */
+    .map-box {
+        height: 90vh;
     }
 
     .search-overlay {
@@ -314,7 +328,7 @@
     }
 
     .search-icon {
-        width: 15vw;
+        width: 10%;
     }
 
     .search-text {
@@ -336,14 +350,8 @@
     }
 
     .search-map {
-        width: 15vw;
-        height: auto;
+        width: 10%;
 
-        img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
     }
 
     .map-search-box {
