@@ -48,6 +48,16 @@ $(document).ready(function () {
         });
     }
 
+    $('button[data-original-title="Picture"]').on('click', function() {
+        $(".lfg-img-upload-background").css("display", "block");
+    });
 
+    $(".lfg-img-upload-background").click(function (){
+        $(".lfg-img-upload-background").css("display", "none");
+    });
+
+    $("#lfg-img-upload-close").click(function (){
+        $(".lfg-img-upload-background").css("display", "none");
+    });
 
 });

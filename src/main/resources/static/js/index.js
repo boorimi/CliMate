@@ -173,7 +173,7 @@ $(document).ready(function () {
 
   $(".s-menu-gallery").click(function (){
     location.href="/simulator/gallery?category=All";
-  })
+  });
 
 });
 

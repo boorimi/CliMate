@@ -151,6 +151,7 @@ footer {
 }
 
 /* 모달 배경 */
+.lfg-img-upload-background,
 .delete-confirm-modal-background, /* 회원탈퇴 컨펌 창 */
 .privacy-modal-background, /* 프로필 비공개 */
 .insert-check-modal-background, /* 유효성 체크 */
@@ -172,6 +173,7 @@ footer {
 
 
 /* 모달 창 */
+.lfg-img-upload-modal,
 .private-modal,
 .insert-check-confirm, /* 유효성 체크 */
 .comment-confirm, /* 댓글 삭제 yes or no */
@@ -196,6 +198,9 @@ footer {
 }
 .insert-check-confirm {
   width: 15rem;
+}
+.lfg-img-upload-modal{
+  width: 17em;
 }
 
 .s-menu-login-modal {
@@ -230,7 +235,10 @@ footer {
   {
   font-weight: 900;
 }
-
+.lfg-img-upload-modal p:last-child{
+  font-size: 0.7em;
+  margin-bottom: 0;
+}
 .s-create-modal p:nth-child(2){
   font-size: 0.7em;
 }
