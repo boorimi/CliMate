@@ -1,5 +1,13 @@
 $(document).ready(function () {
 
+    // 뒤로가기 감지 시 모달 닫기
+    window.onpageshow = function(event) {
+        if (event.persisted) {
+            $('.loading-modal-background').css("display", "none");
+            $('.s-loading-modal').css("display", "none");
+        }
+    };
+
     let projectList = $("#myProjectList");
     let userId = $('#userId').text();
     // console.log(userId);
@@ -73,6 +81,8 @@ $(document).ready(function () {
     $('.create-project').click(function (){
         $('.loading-modal-background').css("display", "block");
         $('.s-loading-modal').css("display", "block");
+
+        location.href = '/simulator/create';
     });
 
 });
