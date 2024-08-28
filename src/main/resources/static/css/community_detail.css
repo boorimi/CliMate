@@ -118,7 +118,7 @@
 
 /* 본문 */
 .video-detail-text {
-    min-height: 10em;
+    margin-bottom: 2em;
 }
 
 .video-detail-text a{
