@@ -1,27 +1,29 @@
 * {
-  cursor: url("../icon/brush.png"), auto;
+    cursor: url("../icon/brush.png"), auto;
 }
-body{
-  margin: 0;
+
+body {
+    margin: 0;
 }
 
 @font-face {
-  font-family: "jpFont01";
-  src: url("font/jp_font01.ttf") format("truetype");
+    font-family: "jpFont01";
+    src: url("font/jp_font01.ttf") format("truetype");
 }
 
 .menu {
-  position: relative;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  margin-bottom: 0.5rem;
-  height: 5em;
-  color: #302e23;
-  font-family: "jpFont01";
-  box-shadow: 1px 1px 10px gray;
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    height: 5em;
+    color: #302e23;
+    font-family: "jpFont01";
+    box-shadow: 1px 1px 10px gray;
+}
 
-  .logo {
+.logo {
     height: 95%;
     position: absolute;
     top: 0;
@@ -30,68 +32,72 @@ body{
     transform: translate(-50%);
 
     img {
-      height: 100%;
+        height: 100%;
     }
-  }
+}
+
+#hamburger-img{
+  width: 3em;
+  margin-top: 1em;
 }
 
 .hamburger {
-  display: inline-block;
-  padding: 1rem;
+    display: inline-block;
+    padding: 1rem;
 
-  .hamburger-bar {
-    display: block;
-    width: 2em;
-    height: 0.2em;
-    margin: 0.5em auto;
-    background-color: #333;
-    transition: 0.3s;
-  }
+    .hamburger-bar {
+        display: block;
+        width: 2em;
+        height: 0.2em;
+        margin: 0.5em auto;
+        background-color: #333;
+        transition: 0.3s;
+    }
 }
 
 .hamburger-menu {
-  list-style: none;
-  padding: 0;
-  margin: 0 1%;
-  display: none;
-  position: absolute;
-  z-index: 900;
-  top: 5rem;
-  right: 0;
-  background-color: #fff;
-  box-shadow: 0em 0em 0.2em #79976a;
-  width: 30%;
-  border-radius: 1em;
-  border: 0.1em solid #79976a;
+    list-style: none;
+    padding: 0;
+    margin: 0 1%;
+    display: none;
+    position: absolute;
+    z-index: 900;
+    top: 5rem;
+    right: 0;
+    background-color: #fff;
+    box-shadow: 0em 0em 0.2em #79976a;
+    width: 30%;
+    border-radius: 1em;
+    border: 0.1em solid #79976a;
 
-  li {
-    border-bottom: 1px solid #ddd;
-    display: flex;
-    align-items: center;
-    height: 6vw;
-    font-size: 2.2vw;
+    li {
+        border-bottom: 1px solid #ddd;
+        display: flex;
+        align-items: center;
+        height: 6vw;
+        font-size: 2.2vw;
 
-    img {
-      width: 4vw;
-      height: auto;
-      padding: 1em;
+        img {
+            width: 4vw;
+            height: auto;
+            padding: 1em;
+        }
     }
-  }
 
-  li:nth-child(4){
-    img{
-      width: 3.5vw;
+    li:nth-child(4) {
+        img {
+            width: 3.5vw;
+        }
     }
-  }
 
-  li:last-child {
-    border-bottom: none;
-  }
+    li:last-child {
+        border-bottom: none;
+    }
 }
 
 .hamburger-menu.active {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
 footer {
@@ -104,7 +110,7 @@ footer {
 
     a {
         text-align: center;
-        text-decoration:none;
+        text-decoration: none;
 
         img {
             width: 2em;
@@ -119,38 +125,40 @@ footer {
 }
 
 /* 회원 탈퇴 page */
-.delete-account-container{
-  height: 80vh;
+.delete-account-container {
+    height: 80vh;
 }
 
 .delete-account-modal-background {
-  display: block;
-  position: relative;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+    display: block;
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }
+
 .delete-account-modal {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 60%;
-  padding: 1.5em;
-  border-radius: 0.5em;
-  text-align: center;
-  font-style: italic;
-  color: #79976a;
-  font-weight: 900;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60%;
+    padding: 1.5em;
+    border-radius: 0.5em;
+    text-align: center;
+    font-style: italic;
+    color: #79976a;
+    font-weight: 900;
 }
 
 .delete-account-modal img {
-  width: 9rem;
-  height: auto;
+    width: 9rem;
+    height: auto;
 }
 
 /* 모달 배경 */
+.lfg-img-upload-background,
 .delete-confirm-modal-background, /* 회원탈퇴 컨펌 창 */
 .privacy-modal-background, /* 프로필 비공개 */
 .insert-check-modal-background, /* 유효성 체크 */
@@ -159,66 +167,72 @@ footer {
 .post-delete-modal-background, /* 게시글 삭제 */
 .loading-modal-background,
 .s-menu-modal-background /* 시뮬레이터 메뉴 */
-  {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 9999;
+{
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
 }
 
 
 /* 모달 창 */
+.lfg-img-upload-modal,
 .private-modal,
 .insert-check-confirm, /* 유효성 체크 */
 .comment-confirm, /* 댓글 삭제 yes or no */
 .s-menu-login-modal, /* 시뮬레이터 메뉴 */
 .s-create-modal, /* 시뮬레이터 저장 yes or no */
-.s-save-complete-modal,  /* 시뮬레이터 저장 완료 */
+.s-save-complete-modal, /* 시뮬레이터 저장 완료 */
 .s-loading-modal, /* 시뮬레이터 로딩 */
 .post-delete-confirm /* 게시물 삭제 yes ot no */
-  {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 12rem;
-  background-color: white;
-  padding: 1.5em;
-  border-radius: 0.5em;
-  text-align: center;
-  z-index: 10000;
-  font-style: italic;
-  color: #79976a;
+{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 12rem;
+    background-color: white;
+    padding: 1.5em;
+    border-radius: 0.5em;
+    text-align: center;
+    z-index: 10000;
+    font-style: italic;
+    color: #79976a;
 }
+
 .insert-check-confirm {
-  width: 15rem;
+    width: 15rem;
+}
+
+.lfg-img-upload-modal {
+    width: 17em;
 }
 
 .s-menu-login-modal {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .s-loading-modal,
 .s-save-complete-modal,
 .post-delete-complete {
-  display: none;
+    display: none;
 }
 
 .private-modal p {
-  margin: 0 0 0.3em 0;
-  font-weight: 900;
+    margin: 0 0 0.3em 0;
+    font-weight: 900;
 }
 
 .private-modal img,
 .s-loading-modal img {
-  width: 50%;
-  height: auto;
+    width: 50%;
+    height: auto;
 }
 
 .comment-confirm p,
@@ -226,13 +240,17 @@ footer {
 .post-delete-modal p,
 .s-create-modal p:first-child, /* 시뮬레이터 저장 yes or no */
 .s-create-modal p:first-child, /* 시뮬레이터 저장 yes or no */
-.insert-check-confirm p:first-child
-  {
-  font-weight: 900;
+.insert-check-confirm p:first-child {
+    font-weight: 900;
 }
 
-.s-create-modal p:nth-child(2){
-  font-size: 0.7em;
+.lfg-img-upload-modal p:last-child {
+    font-size: 0.7em;
+    margin-bottom: 0;
+}
+
+.s-create-modal p:nth-child(2) {
+    font-size: 0.7em;
 }
 
 /* 모달 버튼 스타일 */
@@ -242,12 +260,12 @@ footer {
 .s-create-modal button,
 .s-save-complete-modal button,
 .post-delete-confirm button,
-.post-delete-complete button{
-  padding: 0.5em 1em;
-  border: none;
-  background-color: #79976a;
-  color: white;
-  border-radius: 0.3em;
+.post-delete-complete button {
+    padding: 0.5em 1em;
+    border: none;
+    background-color: #79976a;
+    color: white;
+    border-radius: 0.3em;
 }
 
 .private-modal button:hover,
@@ -256,104 +274,104 @@ footer {
 .s-create-modal button:hover,
 .s-save-complete-modal button:hover,
 .post-delete-confirm button:hover,
-.post-delete-complete-modal button:hover{
-  background-color: #516746;
+.post-delete-complete-modal button:hover {
+    background-color: #516746;
 }
 
 #insert-confirm-ok, /* 커뮤니티 유효성 체크 close btn */
 #s-menu-confirm-no /* 로그인 체크 close btn */
-  {
-  font-size: 0.7em;
-  margin-bottom: 0;
-  color: #a7b39f;;
+{
+    font-size: 0.7em;
+    margin-bottom: 0;
+    color: #a7b39f;;
 }
 
-#s-menu-confirm-no:hover{
-  font-weight: 900;
+#s-menu-confirm-no:hover {
+    font-weight: 900;
 }
 
 
 /* 시뮬레이터, 커뮤니티 프로필 토글 메뉴 */
 .profile-menu {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: none;
-  position: absolute;
-  z-index: 900;
-  top: 0;
-  left: 0;
-  background-color: #f6f9f4;
-  width: 12%;
-  border-radius: 0.5em;
-  border: 0.1em solid #79976a;
-  font-weight: 900;
-  color: #79976a;
-  font-size: 0.8em;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: none;
+    position: absolute;
+    z-index: 900;
+    top: 0;
+    left: 0;
+    background-color: #f6f9f4;
+    width: 12%;
+    border-radius: 0.5em;
+    border: 0.1em solid #79976a;
+    font-weight: 900;
+    color: #79976a;
+    font-size: 0.8em;
 
-  li {
-    border-bottom: 1px solid #ddd;
-    display: flex;
-    align-items: center;
-    height: 2.5em;
-    padding: 0 1em;
-  }
+    li {
+        border-bottom: 1px solid #ddd;
+        display: flex;
+        align-items: center;
+        height: 2.5em;
+        padding: 0 1em;
+    }
 
-  li:last-child {
-    border-bottom: none;
-  }
+    li:last-child {
+        border-bottom: none;
+    }
 }
 
 .profile-menu.active {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
 
 @media (max-width: 768px) {
-  .menu {
-    .logo {
-      height: 100%;
-      top: 0.3vh;
+    .menu {
+        .logo {
+            height: 100%;
+            top: 0.3vh;
 
-      img {
-        height: 90%;
-      }
-    }
-  }
-
-  .hamburger-menu {
-    top: 5rem;
-    width: 45%;
-
-    li {
-      border-bottom: 1px solid #ddd;
-      display: flex;
-      align-items: center;
-      height: 10vw;
-      font-size: 3.5vw;
-
-      img {
-        width: 7vw;
-        height: auto;
-        padding: 1em;
-      }
+            img {
+                height: 90%;
+            }
+        }
     }
 
-    li:nth-child(4) {
-      img {
-        width: 6vw;
-      }
-    }
-  }
+    .hamburger-menu {
+        top: 5rem;
+        width: 45%;
 
-  .profile-menu {
-    width: 35%;
+        li {
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            height: 10vw;
+            font-size: 3.5vw;
 
-    li {
-      height: 8vw;
-      font-size: 3vw;
+            img {
+                width: 7vw;
+                height: auto;
+                padding: 1em;
+            }
+        }
+
+        li:nth-child(4) {
+            img {
+                width: 6vw;
+            }
+        }
     }
-  }
+
+    .profile-menu {
+        width: 35%;
+
+        li {
+            height: 8vw;
+            font-size: 3vw;
+        }
+    }
 
 }

@@ -1613,7 +1613,6 @@ a.note-dropdown-item, a.note-dropdown-item:hover {
     display: inline-block
 }
 
-
 @media (max-width: 768px) {
     .note-btn {
         font-size: 17px;
@@ -1625,7 +1624,7 @@ a.note-dropdown-item, a.note-dropdown-item:hover {
         font-size: 13px;
     }
     .note-btn > span.note-icon-caret:first-child{
-        top: -4px;
+        top: -14px;
     }
 
     .modal-dialog {

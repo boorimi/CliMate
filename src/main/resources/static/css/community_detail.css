@@ -318,6 +318,7 @@
 
 .lfg-detail-text {
     padding: 1em 0 2em 0;
+    overflow: hidden;
 }
 
 
@@ -330,8 +331,8 @@
 #my-comment-h2{
     color: #79976a;
     font-style: italic;
-    text-decoration: underline;
     margin-bottom: 0.1em;
+    border-bottom: 0.1em solid;
 }
 
 

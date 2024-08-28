@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="/resources/css/community_detail.css"/>
 </head>
 <body>
-<div class="my-comment-list-container">
+<div class="my-comment-list-container" id="my-comment-list-container">
     <h2 id="my-comment-h2">My Comments</h2>
     <div class="comment-list" th:each="mc : ${myComments}"
          th:attr="onclick=|checkDetail('${mc.cm_b_pk}', '${mc.b_category}')|">
@@ -28,6 +28,22 @@
     </div>
 </div>
 <script th:inline="javascript">
+
+    // 댓글이 0이면 Empty 어펜드
+    commentSizeCheck();
+    function commentSizeCheck() {
+        let myCommentsSize = /*[[${myComments.size()}]]*/;
+        console.log("myComments size: " + myCommentsSize);
+        if (myCommentsSize == 0){
+            let container = document.getElementById('my-comment-list-container');
+            let emptyMessage = document.createElement('p');
+            emptyMessage.textContent = 'Empty';
+            emptyMessage.style.color = '#79976a';
+
+            container.appendChild(emptyMessage);
+        }
+    }
+
     function checkDetail(pk, category) {
         if (category == 'simulator') {
             location.href = '/simulator/gallery_detail?b_pk=' + pk;
@@ -37,6 +53,7 @@
             location.href = '/community/lfg/detail?b_pk=' + pk;
         }
     }
+
 </script>
 </body>
 </html>

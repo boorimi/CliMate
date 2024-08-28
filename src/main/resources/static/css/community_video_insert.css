@@ -10,6 +10,8 @@
     border: 0.1em solid #79976a;
     border-radius: 0.3em;
     position: relative;
+    /*add*/
+    overflow: hidden;
 
     p{
         margin: 0;

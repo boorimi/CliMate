@@ -347,8 +347,10 @@ function wishClick(placeName, placeAddr, placeId, imgElement) {
     const newIconUrl = isCurrentlyLiked ? '/resources/icon/wish_gray.png' : '/resources/icon/wish_red.png';
 
     if (userId == "") {
-        alert("do login");
-        location.href = "/";
+        // alert("do login");
+        // location.href = "/";
+        document.getElementById('s-menu-modal-background').style.display = 'block';
+
     }
 
     if (!isCurrentlyLiked) {
@@ -413,8 +415,9 @@ function checkClick(placeName, placeAddr, placeId, imgElement) {
     const newIconUrl = isCurrentlyCheck ? '/resources/icon/check_gray.png' : '/resources/icon/check_red.png';
 
     if (userId == "") {
-        alert("do login");
-        location.href = "/";
+        // alert("do login");
+        // location.href = "/";
+        document.getElementById('s-menu-modal-background').style.display = 'block';
     }
 
     if (!isCurrentlyCheck) {
@@ -535,7 +538,7 @@ function getAllById(pageNo) {
                                 <p id="place_addr">${item.mp_addr}</p>
                             </div>
                             <div class="search-map">
-                                <img onclick="goMap('${item.mp_name}')" src="/resources/icon/map.png">
+                                <img onclick="goMap('${item.mp_name}')" src="/resources/icon/right.png">
                             </div>
                         </div>`;
                     $(".search-result").append(content);
