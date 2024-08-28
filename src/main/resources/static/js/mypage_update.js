@@ -4,7 +4,6 @@ let service;
 let infowindow;
 let userType;
 $(function() {
-
     // 페이지 로드될때 등급 아이콘 체인지
     changeGradeIcon();
 
