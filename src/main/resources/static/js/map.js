@@ -605,7 +605,7 @@ function getSearchById(pageNum) {
                                 <p id="place_addr">${item.mp_addr}</p>
                             </div>
                             <div class="search-map">
-                                <img onclick="goMap('${item.mp_name}')" src="/resources/icon/map.png">
+                                <img onclick="goMap('${item.mp_name}')" src="/resources/icon/right.png">
                             </div>
                         </div>`;
                 $(".search-result").append(content);
@@ -722,7 +722,7 @@ function getWishData(pageNum) {
                                 <p id="place_addr">${item.mp_addr}</p>
                             </div>
                             <div class="search-map">
-                                <img onclick="goMap('${item.mp_name}')" src="/resources/icon/map.png">
+                                <img onclick="goMap('${item.mp_name}')" src="/resources/icon/right.png">
                             </div>
                         </div>`;
                 $(".search-result").append(content);
@@ -760,7 +760,7 @@ function getCheckData(pageNum) {
                                 <p id="place_addr">${item.mp_addr}</p>
                             </div>
                             <div class="search-map">
-                                <img onclick="goMap('${item.mp_name}')" src="/resources/icon/map.png">
+                                <img onclick="goMap('${item.mp_name}')" src="/resources/icon/right.png">
                             </div>
                         </div>`;
                 $(".search-result").append(content);
