@@ -118,7 +118,7 @@
 
 /* 본문 */
 .video-detail-text {
-    min-height: 10em;
+    margin-bottom: 2em;
 }
 
 .video-detail-text a{
@@ -192,6 +192,10 @@
 .comment-list {
     border-bottom: 0.1em solid #79976a;
     padding: 0.5em 0;
+}
+
+.comment-list:last-child{
+    border-bottom: none;
 }
 
 .showoff-detail-comments-delete img {

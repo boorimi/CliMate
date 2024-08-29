@@ -12,8 +12,7 @@
 
     <div class="simulator-create-project">
         <p class="title-text">Create new project</p>
-        <div class="create-project" th:if="${session.user_id != null}" onclick="location.href='/simulator/create'">+
-        </div>
+        <div class="create-project" th:if="${session.user_id != null}">+</div>
         <div class="project-login" th:if="${session.user_id == null}">
             <p>Available after login</p>
             <a href="/loginC">Google Login</a>
